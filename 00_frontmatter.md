@@ -2,6 +2,8 @@
 
 **For the Engineer Who Builds Systems and Wants to Understand the Science Behind Them**
 
+**Technical Illustrations by Antigravity**
+
 ---
 
 ## Preface
@@ -28,31 +30,62 @@ The goal: after reading this book, you should be able to pick up any current AI 
 
 Not all chapters depend on each other equally. The diagram below shows which chapters are prerequisites for which:
 
-```
-Ch1 (Foundations) ──→ Required for all chapters
-        │
-        ├──→ Ch2 (VAE) ──→ Ch8 (Diffusion)
-        │                      ↑
-        ├──→ Ch3 (GAN) ────────┘
-        │
-        ├──→ Ch4 (Transformer) ──→ Ch5 (GPT/BERT) ──→ Ch7 (RAG)
-        │         │                      │
-        │         ├──→ Ch6 (ViT) ────────┤──→ Ch10 (RL & VLM)
-        │         │                      │
-        │         └──→ Ch8 (Diffusion)   └──→ Ch9 (LoRA/PEFT)
-        │
-        └──→ Ch10 (RL & VLM) — can be read after Ch4+Ch5+Ch6
+```mermaid
+graph LR
+    %% Nodes
+    Ch1("<b>Ch 1: Foundations</b>")
+    Ch2("Ch 2: VAE")
+    Ch3("Ch 3: GAN")
+    Ch4("<b>Ch 4: Transformer</b>")
+    Ch5("<b>Ch 5: GPT / BERT</b>")
+    Ch6("Ch 6: ViT")
+    Ch7("Ch 7: RAG")
+    Ch8("Ch 8: Diffusion")
+    Ch9("Ch 9: LoRA / PEFT")
+    Ch10("Ch 10: RL & VLM")
+
+    %% Edges
+    Ch1 --> Ch2
+    Ch1 --> Ch3
+    Ch1 ==> Ch4
+    Ch1 -.-> Ch10
+
+    Ch2 --> Ch8
+    Ch3 --> Ch8
+    
+    Ch4 ==> Ch5
+    Ch4 --> Ch6
+    Ch4 --> Ch8
+    
+    Ch5 --> Ch7
+    Ch5 --> Ch9
+    Ch5 --> Ch10
+    
+    Ch6 --> Ch10
+
+    %% Domain Styling for Reading Paths
+    classDef core fill:#f1f5f9,stroke:#475569,stroke-width:2px,color:#0f172a
+    classDef llm fill:#f3e8ff,stroke:#9333ea,stroke-width:2px,color:#3b0764
+    classDef img fill:#e0f2fe,stroke:#0284c7,stroke-width:2px,color:#0c4a6e
+    classDef vit fill:#fce7f3,stroke:#db2777,stroke-width:2px,color:#831843
+    classDef rl fill:#dcfce7,stroke:#16a34a,stroke-width:2px,color:#14532d
+
+    class Ch1,Ch4,Ch5 core
+    class Ch7,Ch9 llm
+    class Ch2,Ch3,Ch8 img
+    class Ch6 vit
+    class Ch10 rl
 ```
 
 ### Reading Paths by Goal
 
-Depending on what you want to understand, you can follow one of these curated paths through the book:
+Depending on what you want to understand, you can follow one of these curated paths (nodes are color-coded by their target domain):
 
-- **"I want to understand LLMs"**: Ch1 → Ch4 → Ch5 → Ch9 → Ch7
-- **"I want to understand image generation"**: Ch1 → Ch2 → Ch3 → Ch4 → Ch8
-- **"I want to understand VLMs"**: Ch1 → Ch4 → Ch5 → Ch6 → Ch10
-- **"I want to understand RL for AI"**: Ch1 → Ch4 → Ch5 → Ch10
-- **"I want the minimum viable path"**: Ch1 → Ch4 → Ch5 (then branch)
+- **"I want to understand LLMs"** (Purple): Ch1 → Ch4 → Ch5 → Ch9 → Ch7
+- **"I want to understand image generation"** (Blue): Ch1 → Ch2, Ch3 → Ch4 → Ch8
+- **"I want to understand VLMs"** (Pink): Ch1 → Ch4 → Ch5 → Ch6 → Ch10
+- **"I want to understand RL for AI"** (Green): Ch1 → Ch4 → Ch5 → Ch10
+- **"I want the minimum viable path"** (Gray): Ch1 → Ch4 → Ch5 (then branch)
 
 ---
 

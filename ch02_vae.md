@@ -335,7 +335,7 @@ graph TD
     end
     
     linkStyle 4,5,6 stroke:#ef4444,stroke-width:2px,stroke-dasharray: 4 4
-    linkStyle 13,14,15,16,17,18,19 stroke:#22c55e,stroke-width:2px,stroke-dasharray: 4 4
+    linkStyle 13,14,15,16,17,18 stroke:#22c55e,stroke-width:2px,stroke-dasharray: 4 4
 ```
 
 This is the key technical innovation that makes VAEs trainable end-to-end. The expectation becomes:
@@ -366,9 +366,9 @@ The decoder takes $z \in \mathbb{R}^k$ and produces parameters of $p_\theta(x|z)
 
 ### 2.5.3 The KL Term in Closed Form
 
-With $q_\phi(z|x) = \mathcal{N}(\mu, \operatorname{diag}(\sigma^2))$ and $p(z) = \mathcal{N}(0, I)$, the KL divergence has a closed form. For a $k$-dimensional diagonal Gaussian:
+With $q_\phi(z|x) = \mathcal{N}(\mu, \text{diag}(\sigma^2))$ and $p(z) = \mathcal{N}(0, I)$, the KL divergence has a closed form. For a $k$-dimensional diagonal Gaussian:
 
-$$\text{KL}\!\left( \mathcal{N}(\mu, \operatorname{diag}(\sigma^2)) \| \mathcal{N}(0, I) \right) = -\frac{1}{2} \sum_{i=1}^{k} \left(1 + \log \sigma_i^2 - \mu_i^2 - \sigma_i^2\right)$$
+$$\text{KL}\!\left( \mathcal{N}(\mu, \text{diag}(\sigma^2)) \| \mathcal{N}(0, I) \right) = -\frac{1}{2} \sum_{i=1}^{k} \left(1 + \log \sigma_i^2 - \mu_i^2 - \sigma_i^2\right)$$
 
 This sum runs over all $k$ latent dimensions. Each term penalizes:
 - $\mu_i^2$ : mean deviating from zero

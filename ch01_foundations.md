@@ -368,9 +368,9 @@ graph RL
     %% Backward Pass (Red Dashed)
     L -.->|"∂L/∂L=1"| L_op
     L_op -.->|"∂L/∂h"| H
-    H -.->|""| Sig
+    H -.-> Sig
     Sig -.->|"∂L/∂z = (∂L/∂h)·σ'(z)"| Z
-    Z -.->|""| Mul
+    Z -.-> Mul
     Mul -.->|"∂L/∂W = ∂L/∂z · xᵀ"| W
     Mul -.->|"∂L/∂x = Wᵀ · ∂L/∂z"| X
 

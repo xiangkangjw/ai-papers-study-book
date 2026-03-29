@@ -30,6 +30,35 @@ This is the **denoising diffusion probabilistic model** (DDPM) framework, formal
 
 ## 8.2 The Diffusion Framework (DDPM)
 
+```mermaid
+graph LR
+    classDef img fill:#f1f5f9,stroke:#475569,stroke-width:2px,color:#0f172a,font-family:monospace
+    classDef noise fill:#fef3c7,stroke:#d97706,stroke-width:2px,color:#78350f
+    classDef process fill:#ffffff,stroke:#9ca3af,stroke-width:1px,stroke-dasharray: 4 4
+
+    subgraph Forward ["Forward Process: q(x_t | x_{t-1}) — Adding Noise"]
+        direction LR
+        x0["x_0<br/>(Clean)"]:::img
+        x1["x_1"]:::img
+        xt["x_t"]:::img
+        xT["x_T<br/>(Noise)"]:::noise
+        x0 -->|"q(x_1|x_0)"| x1
+        x1 -.-> xt
+        xt -.-> xT
+    end
+
+    subgraph Reverse ["Reverse Process: p_θ(x_{t-1} | x_t) — Denoising"]
+        direction RL
+        yT["x_T<br/>(Noise)"]:::noise
+        yt["x_t"]:::img
+        y1["x_1"]:::img
+        y0["x_0<br/>(Clean)"]:::img
+        yT -.->|"p_θ"| yt
+        yt -.-> y1
+        y1 -->|"p_θ(x_0|x_1)"| y0
+    end
+```
+
 ### 8.2.1 The Forward Process: Destroying Information Systematically
 
 The forward process takes a clean image $x_0$ and gradually corrupts it by adding Gaussian noise over $T$ timesteps (typically $T = 1000$). Each step is a small perturbation:
@@ -117,24 +146,44 @@ The denoising network $\boldsymbol{\varepsilon}_\theta(\mathbf{x}_t, t)$ must ta
 
 The U-Net (Ronneberger et al., 2015, originally for medical image segmentation) uses an encoder that progressively downsamples the spatial resolution and a decoder that progressively upsamples, with **skip connections** passing feature maps from each encoder level to the corresponding decoder level.
 
-```
-Input x_t
-    │
-[Conv 64] ──────────────────────── skip ──┐
-    │ (downsample)                          │
-[Conv 128] ──────────────────── skip ──┐  │
-    │ (downsample)                      │  │
-[Conv 256] ────────────── skip ──┐    │  │
-    │ (downsample)                │    │  │
-[Bottleneck 512]                 │    │  │
-    │ (upsample)                  │    │  │
-[Conv 256] ← concat ─────────────┘    │  │
-    │ (upsample)                       │  │
-[Conv 128] ← concat ──────────────────┘  │
-    │ (upsample)                          │
-[Conv 64]  ← concat ─────────────────────┘
-    │
-Output ε_predicted
+```mermaid
+graph TD
+    classDef io fill:#f1f5f9,stroke:#475569,stroke-width:2px,color:#0f172a,font-family:monospace
+    classDef conv fill:#e0f2fe,stroke:#0284c7,stroke-width:2px,color:#0c4a6e
+    classDef bn fill:#fef3c7,stroke:#d97706,stroke-width:2px,stroke-dasharray: 4 4
+
+    Input["Input: Noisy Image<br/>x_t"]:::io
+    
+    %% Encoder Path
+    E1["Conv Block<br/>[64]"]:::conv
+    E2["Conv Block<br/>[128]"]:::conv
+    E3["Conv Block<br/>[256]"]:::conv
+    
+    %% Bottleneck
+    BN["Bottleneck Block<br/>[512]"]:::bn
+    
+    %% Decoder Path
+    D3["Conv Block<br/>[256]"]:::conv
+    D2["Conv Block<br/>[128]"]:::conv
+    D1["Conv Block<br/>[64]"]:::conv
+    
+    Output["Output: Predicted Noise<br/>ε_predicted"]:::io
+    
+    %% Connections
+    Input --> E1
+    E1 -->|"Downsample"| E2
+    E2 -->|"Downsample"| E3
+    E3 -->|"Downsample"| BN
+    
+    BN -->|"Upsample"| D3
+    D3 -->|"Upsample"| D2
+    D2 -->|"Upsample"| D1
+    D1 --> Output
+    
+    %% Skip Connections
+    E1 -.->|"Skip Connection<br/>(Concat)"| D1
+    E2 -.->|"Skip Connection<br/>(Concat)"| D2
+    E3 -.->|"Skip Connection<br/>(Concat)"| D3
 ```
 
 Why does this work for denoising? The encoder captures context at multiple scales — local textures at high resolution, global structure at low resolution. The decoder must reconstruct fine detail at full resolution, but instead of doing so from a compressed bottleneck alone, it can directly access the encoder's high-resolution features via skip connections. This is critical: fine-grained detail (where noise estimation matters most) is preserved through the skip connections rather than having to be regenerated from scratch.
@@ -351,32 +400,51 @@ This is a direct connection to the VLM content in Chapter 6: CLIP is the "vision
 
 The full Stable Diffusion architecture:
 
-```
-Text Prompt
-    │
-[CLIP Text Encoder] (frozen)
-    │
-Token Embeddings τ(y) [77 × 768]
-    │
-    ├──────────────────── cross-attention ──────────────────────┐
-    │                                                            │
-[Input: noisy latent z_t]                                       │
-    │                                                            │
-[U-Net with ResNet + Transformer blocks]                        │
-    │  ┌─ ResBlock (time embedding added via AdaIN) ─┐          │
-    │  │  MultiHead Self-Attention (spatial)          │ ←── cross-attention from τ(y)
-    │  │  FeedForward                                 │
-    │  └─────────────────────────────────────────────┘
-    │
-Output: ε_θ(z_t, t, τ(y)) [noise prediction in latent space]
-    │
-[Denoising loop: T→1]
-    │
-Clean latent z_0
-    │
-[VAE Decoder D] (frozen)
-    │
-Final image x̂ [512×512×3]
+```mermaid
+graph TD
+    classDef io fill:#f1f5f9,stroke:#475569,stroke-width:2px,color:#0f172a,font-family:monospace
+    classDef frozen fill:#e0f2fe,stroke:#0284c7,stroke-width:2px,color:#0c4a6e,stroke-dasharray: 4 4
+    classDef unet fill:#fce7f3,stroke:#db2777,stroke-width:2px,color:#831843
+    classDef process fill:#ffffff,stroke:#9ca3af,stroke-width:2px
+
+    Prompt["Text Prompt"]:::io
+    CLIP["CLIP Text Encoder<br/>(Frozen)"]:::frozen
+    Tokens["Token Embeddings τ(y)<br/>[77 × 768]"]:::io
+    
+    Prompt --> CLIP
+    CLIP --> Tokens
+
+    Noisy["Input: Noisy Latent z_t<br/>[64 × 64 × 4]"]:::io
+    
+    subgraph UNet ["U-Net Denoising Network (Trainable)"]
+        direction TB
+        ResBlock["ResBlock<br/>(Time embedding via AdaIN)"]:::unet
+        CrossAttn["MultiHead Cross-Attention<br/>(Attends to text tokens)"]:::unet
+        SelfAttn["MultiHead Self-Attention<br/>(Spatial)"]:::unet
+        FFN["FeedForward"]:::unet
+        
+        ResBlock --> SelfAttn
+        SelfAttn --> CrossAttn
+        CrossAttn --> FFN
+    end
+    
+    Noisy --> UNet
+    Tokens -.->|"Cross-Attention<br/>(K, V)"| CrossAttn
+    
+    PredNoise["Output: Predicted Noise<br/>ε_θ(z_t, t, τ(y))"]:::io
+    UNet --> PredNoise
+    
+    DenoisingLoop{"Denoising Loop<br/>T → 1"}:::process
+    PredNoise --> DenoisingLoop
+    
+    CleanLatent["Clean Latent z_0<br/>[64 × 64 × 4]"]:::io
+    DenoisingLoop --> CleanLatent
+    
+    VAE["VAE Decoder D<br/>(Frozen)"]:::frozen
+    CleanLatent --> VAE
+    
+    OutImage["Final Image x̂<br/>[512 × 512 × 3]"]:::io
+    VAE --> OutImage
 ```
 
 The transformer blocks in the U-Net each have three sub-layers: spatial self-attention (positions attend to each other), cross-attention to text (positions attend to tokens), and a feedforward network. This is the standard Transformer block structure, adapted for 2D spatial feature maps.

@@ -48,41 +48,49 @@ The model does not pick a single document and condition on it. It treats retriev
 
 ### Architecture Overview
 
-```
-          INPUT QUERY (x)
-               │
-    ┌──────────┴──────────┐
-    │                     │
-    ▼                     ▼
-┌─────────┐         ┌──────────┐
-│  Query  │         │  Query   │
-│ Encoder │         │ Encoder  │  (same encoder, different role)
-│  (BERT) │         │  (BERT)  │
-└────┬────┘         └────┬─────┘
-     │                   │
-     │ q(x)              │ (used at index build time)
-     │                   ▼
-     │           ┌───────────────┐
-     │           │  Document     │
-     │           │  Embeddings   │
-     │           │  (FAISS index)│
-     │           └───────┬───────┘
-     │                   │
-     └──── MIPS ─────────┘
-               │
-          top-k docs z₁...zₖ
-               │
-    ┌──────────┴──────────┐
-    │   For each zᵢ:      │
-    │  concat(x, zᵢ) ──► │
-    │   BART Generator    │
-    │   P(y | x, zᵢ)      │
-    └──────────┬──────────┘
-               │
-    marginalize: Σᵢ P(zᵢ|x) · P(y|x,zᵢ)
-               │
-               ▼
-          OUTPUT (y)
+```mermaid
+graph TD
+    classDef io fill:#f1f5f9,stroke:#475569,stroke-width:2px,color:#0f172a,font-family:monospace
+    classDef enc fill:#e0f2fe,stroke:#0284c7,stroke-width:2px,color:#0c4a6e
+    classDef db fill:#fef3c7,stroke:#d97706,stroke-width:2px,color:#78350f
+    classDef gen fill:#fce7f3,stroke:#db2777,stroke-width:2px,color:#831843
+    classDef op fill:#ffffff,stroke:#9ca3af,stroke-width:2px,stroke-dasharray: 4 4
+
+    Input["INPUT QUERY (x)"]:::io
+    
+    Q_Enc["Query Encoder<br/>(BERT)"]:::enc
+    D_Enc["Document Encoder<br/>(BERT)"]:::enc
+
+    Input --> Q_Enc
+    
+    %% Offline Indexing is context
+    Docs["Document Corpus"]:::io -.-> D_Enc
+    FAISS[("Document Embeddings<br/>(FAISS Index)")]:::db
+    D_Enc -.->|"Offline Build"| FAISS
+    
+    MIPS{"Maximum Inner<br/>Product Search"}:::op
+    
+    Q_Enc -->|"q(x)"| MIPS
+    FAISS --> MIPS
+    
+    DocsRetrieved["top-k docs<br/>z₁ ... zₖ"]:::io
+    MIPS --> DocsRetrieved
+    
+    subgraph GenSub ["Generation Phase (for each z_i)"]
+        direction TB
+        Concat["concat(x, z_i)"]:::op
+        BART["BART Generator<br/>P(y | x, z_i)"]:::gen
+        Concat --> BART
+    end
+    
+    Input -->|x| Concat
+    DocsRetrieved -->|z_i| Concat
+    
+    Marginalize["Marginalize:<br/>Σ P(z_i|x) · P(y|x,z_i)"]:::op
+    BART --> Marginalize
+    
+    Output["OUTPUT (y)"]:::io
+    Marginalize --> Output
 ```
 
 ### The Retriever: Dense Passage Retrieval (DPR)

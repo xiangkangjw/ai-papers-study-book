@@ -45,26 +45,32 @@ $$\text{Attention}(\mathbf{Q}, \mathbf{K}, \mathbf{V}) = \text{softmax}\!\left(\
 
 Step by step, with tensor shapes annotated:
 
-```
-# Inputs
-Q: [batch, n_q, d_k]
-K: [batch, n_kv, d_k]
-V: [batch, n_kv, d_v]
+```mermaid
+graph TD
+    classDef io fill:#f1f5f9,stroke:#475569,stroke-width:2px,color:#0f172a,font-family:monospace
+    classDef op fill:#e0f2fe,stroke:#0284c7,stroke-width:2px,color:#0c4a6e
+    classDef opt fill:#fff7ed,stroke:#c2410c,stroke-width:2px,color:#9a3412,stroke-dasharray: 4 4
 
-# Step 1: Compute raw attention scores
-scores = Q @ K.transpose(-2, -1)     # [batch, n_q, n_kv]
+    Q["Q<br/>[batch, n_q, d_k]"]:::io
+    K["K<br/>[batch, n_kv, d_k]"]:::io
+    V["V<br/>[batch, n_kv, d_v]"]:::io
 
-# Step 2: Scale
-scores = scores / sqrt(d_k)          # [batch, n_q, n_kv]
+    MatMul1("MatMul<br/>(Q @ Kᵀ)"):::op
+    Scale("Scale<br/>( / √d_k)"):::op
+    Mask("Mask<br/>(Optional)"):::opt
+    Softmax("Softmax<br/>(dim=-1)"):::op
+    MatMul2("MatMul<br/>(weights @ V)"):::op
+    
+    Out["Output<br/>[batch, n_q, d_v]"]:::io
 
-# Step 3: (Optional) Apply mask for causal / padding
-scores = scores.masked_fill(mask == 0, -1e9)
-
-# Step 4: Normalize to probabilities
-weights = softmax(scores, dim=-1)    # [batch, n_q, n_kv]
-
-# Step 5: Weighted sum of values
-output = weights @ V                  # [batch, n_q, d_v]
+    Q --> MatMul1
+    K --> MatMul1
+    MatMul1 -->|"[batch, n_q, n_kv]"| Scale
+    Scale --> Mask
+    Mask --> Softmax
+    Softmax -->|"weights<br/>[batch, n_q, n_kv]"| MatMul2
+    V --> MatMul2
+    MatMul2 --> Out
 ```
 
 Each query position produces a weighted combination of all value positions, where the weights are determined by the query-key similarity. In self-attention, $\mathbf{Q}$, $\mathbf{K}$, and $\mathbf{V}$ all derive from the same input sequence, so every token attends to every other token (including itself).
@@ -147,6 +153,75 @@ Each head learns to project queries, keys, and values into a different $d_k$-dim
 ---
 
 ## 4.4 The Full Transformer Architecture
+
+```mermaid
+graph BT
+    classDef io fill:#f1f5f9,stroke:#475569,stroke-width:2px,color:#0f172a
+    classDef attn fill:#fce7f3,stroke:#db2777,stroke-width:2px,color:#831843
+    classDef norm fill:#f3e8ff,stroke:#9333ea,stroke-width:2px,color:#3b0764
+    classDef ffn fill:#e0f2fe,stroke:#0284c7,stroke-width:2px,color:#0c4a6e
+
+    %% Inputs
+    In1("Inputs<br/>(Source sequence)"):::io
+    InEmb["Input Embedding"]
+    Pos1("Positional<br/>Encoding"):::io
+    
+    Out1("Outputs<br/>(Shifted Right)"):::io
+    OutEmb["Output Embedding"]
+    Pos2("Positional<br/>Encoding"):::io
+
+    In1 --> InEmb
+    InEmb --> Add1((+))
+    Pos1 --> Add1
+
+    Out1 --> OutEmb
+    OutEmb --> Add2((+))
+    Pos2 --> Add2
+
+    %% Encoder
+    subgraph Encoder ["Encoder Stack (N=6)"]
+        direction BT
+        E_MHA["Multi-Head<br/>Self-Attention"]:::attn
+        E_AddNorm1["Add & Norm"]:::norm
+        E_FFN["Feed Forward"]:::ffn
+        E_AddNorm2["Add & Norm"]:::norm
+        
+        E_MHA --> E_AddNorm1
+        E_AddNorm1 --> E_FFN
+        E_FFN --> E_AddNorm2
+    end
+    
+    Add1 --> E_MHA
+
+    %% Decoder
+    subgraph Decoder ["Decoder Stack (N=6)"]
+        direction BT
+        D_MHA1["Masked Multi-Head<br/>Self-Attention"]:::attn
+        D_AddNorm1["Add & Norm"]:::norm
+        D_MHA2["Multi-Head<br/>Cross-Attention"]:::attn
+        D_AddNorm2["Add & Norm"]:::norm
+        D_FFN["Feed Forward"]:::ffn
+        D_AddNorm3["Add & Norm"]:::norm
+        
+        D_MHA1 --> D_AddNorm1
+        D_AddNorm1 --> D_MHA2
+        D_MHA2 --> D_AddNorm2
+        D_AddNorm2 --> D_FFN
+        D_FFN --> D_AddNorm3
+    end
+    
+    Add2 --> D_MHA1
+    E_AddNorm2 -.->|K, V| D_MHA2
+
+    %% Output Output
+    Linear["Linear"]:::ffn
+    Softmax["Softmax"]:::norm
+    OutputProbs("Output Probabilities"):::io
+    
+    D_AddNorm3 --> Linear
+    Linear --> Softmax
+    Softmax --> OutputProbs
+```
 
 The Transformer follows the encoder-decoder structure standard in sequence-to-sequence models. Both encoder and decoder are stacks of identical layers, but with different attention patterns.
 
@@ -351,6 +426,39 @@ Comparison with RNNs: a recurrent layer has $O(n \cdot d^2)$ computation and $O(
 **Sparse Attention (Child et al., 2019).** Instead of attending to all $n$ positions, each token attends to a sparse subset: a combination of local neighbors (a sliding window) and strided positions. This reduces the effective attention from $O(n^2)$ to $O(n\sqrt{n})$. The key insight is that full dense attention is often unnecessary — attention weights are typically concentrated on a small fraction of positions.
 
 **FlashAttention (Dao et al., 2022).** The $O(n^2)$ memory bottleneck is not inherent to the algorithm — it comes from materializing the full $n \times n$ attention matrix. FlashAttention computes attention in a *tiled* fashion, processing blocks of the attention matrix that fit in GPU SRAM (fast on-chip memory) rather than reading/writing the full matrix to HBM (slow off-chip memory).
+
+```mermaid
+graph TD
+    classDef hbm fill:#f1f5f9,stroke:#475569,stroke-width:2px,color:#0f172a
+    classDef sram fill:#e0f2fe,stroke:#0284c7,stroke-width:2px,color:#0c4a6e
+    classDef compute fill:#fef3c7,stroke:#d97706,stroke-width:2px,color:#78350f
+
+    subgraph HBM ["High Bandwidth Memory (HBM) — Slow, Large"]
+        Q["Q matrix"]:::hbm
+        K["K matrix"]:::hbm
+        V["V matrix"]:::hbm
+        O["Output matrix (O)"]:::hbm
+    end
+
+    subgraph SRAM ["GPU SRAM — Fast, Small (~20MB)"]
+        direction LR
+        Q_block["Q_block<br/>(Tiled)"]:::sram
+        K_block["K_block<br/>(Tiled)"]:::sram
+        V_block["V_block<br/>(Tiled)"]:::sram
+        
+        Compute["Online Softmax &<br/>Block MatMul"]:::compute
+        
+        Q_block --> Compute
+        K_block --> Compute
+        V_block --> Compute
+    end
+
+    Q -.->|"Load blocks"| Q_block
+    K -.->|"Load blocks"| K_block
+    V -.->|"Load blocks"| V_block
+    
+    Compute -.->|"Write O_block"| O
+```
 
 The core technique: for each block of queries, iterate over blocks of keys/values, computing partial softmax results and accumulating them using the *online softmax* trick (which avoids needing the full row of scores to compute the normalization constant). This reduces HBM reads/writes from $O(n^2)$ to $O(n^2 d / M)$ where $M$ is the SRAM size and $d$ is the head dimension. Although $O(n^2 d / M)$ appears to be *larger* than $O(n^2)$ at first glance, the key is that $d/M \ll 1$: typical head dimensions are $d = 64$ or $128$, while SRAM is tens of megabytes, so the factor $d/M$ can be on the order of $10^{-5}$. This achieves 2-4x wall-clock speedup for typical sequence lengths with *exact* attention (no approximation).
 

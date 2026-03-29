@@ -37,19 +37,46 @@ Parameter-Efficient Fine-Tuning (PEFT) attacks all three. The core idea: freeze 
 
 Xu et al. (2023) survey over 40 PEFT methods and organize them into three families:
 
-```
-PEFT Methods
-├── Additive Methods
-│   ├── Adapters (Houlsby et al., 2019)
-│   ├── Prefix Tuning (Li & Liang, 2021)
-│   └── Prompt Tuning (Lester et al., 2021)
-├── Selective Methods
-│   ├── BitFit (Ben Zaken et al., 2022)
-│   └── Diff Pruning (Guo et al., 2021)
-└── Reparameterization Methods
-    ├── LoRA (Hu et al., 2021)
-    ├── AdaLoRA (Zhang et al., 2023)
-    └── KronA (Edalati et al., 2022)
+```mermaid
+graph TD
+    classDef root fill:#f1f5f9,stroke:#475569,stroke-width:2px,color:#0f172a,font-weight:bold
+    classDef category fill:#e0f2fe,stroke:#0284c7,stroke-width:2px,color:#0c4a6e,font-weight:bold
+    classDef method fill:#ffffff,stroke:#9ca3af,stroke-width:1px,color:#374151
+
+    Root["PEFT Methods"]:::root
+    
+    Add["Additive Methods"]:::category
+    Sel["Selective Methods"]:::category
+    Rep["Reparameterization Methods"]:::category
+    
+    Root --> Add
+    Root --> Sel
+    Root --> Rep
+    
+    %% Additive Methods
+    A1["Adapters<br/>(Houlsby et al., 2019)"]:::method
+    A2["Prefix Tuning<br/>(Li & Liang, 2021)"]:::method
+    A3["Prompt Tuning<br/>(Lester et al., 2021)"]:::method
+    
+    Add --> A1
+    Add --> A2
+    Add --> A3
+    
+    %% Selective Methods
+    S1["BitFit<br/>(Ben Zaken et al., 2022)"]:::method
+    S2["Diff Pruning<br/>(Guo et al., 2021)"]:::method
+    
+    Sel --> S1
+    Sel --> S2
+    
+    %% Reparameterization Methods
+    R1["LoRA<br/>(Hu et al., 2021)"]:::method
+    R2["AdaLoRA<br/>(Zhang et al., 2023)"]:::method
+    R3["KronA<br/>(Edalati et al., 2022)"]:::method
+    
+    Rep --> R1
+    Rep --> R2
+    Rep --> R3
 ```
 
 **Additive methods** insert new parameters into the model architecture or prepend learnable tokens to the input. The original weights remain frozen; only the new components are trained.

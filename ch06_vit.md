@@ -172,15 +172,28 @@ where $K$ is the number of classes. During pre-training, the MLP head is a two-l
 
 The full forward pass, summarized with shapes (ViT-Base/16, $224 \times 224$ input, 1000-class ImageNet):
 
-```
-Input:              [B, 3, 224, 224]
-Patch extraction:   [B, 196, 768]     (16×16 patches, D=768)
-+ CLS token:        [B, 197, 768]
-+ pos embedding:    [B, 197, 768]     (elementwise add)
-Encoder × 12:       [B, 197, 768]     (shape preserved through all layers)
-CLS output:         [B, 768]          (index 0 of sequence dim)
-LN:                 [B, 768]
-MLP head:           [B, 1000]         (logits)
+```mermaid
+graph TD
+    classDef io fill:#f1f5f9,stroke:#475569,stroke-width:2px,color:#0f172a,font-family:monospace
+    classDef op fill:#e0f2fe,stroke:#0284c7,stroke-width:2px,color:#0c4a6e
+    classDef opt fill:#fef3c7,stroke:#d97706,stroke-width:2px,color:#78350f
+
+    Input["Input Image<br/>[B, 3, 224, 224]"]:::io
+    Extract["Patch Extraction & Linear Projection<br/>[B, 196, 768]"]:::op
+    AddCLS["Prepend [CLS] Token<br/>[B, 197, 768]"]:::op
+    AddPos["+ Learnable Positional Embeddings<br/>[B, 197, 768]"]:::op
+    Encoder["Transformer Encoder (×12)<br/>[B, 197, 768]"]:::opt
+    ExtractCLS["Extract [CLS] Output<br/>[B, 768]"]:::op
+    LN["Layer Normalization<br/>[B, 768]"]:::op
+    Head["MLP Classification Head<br/>[B, 1000]"]:::io
+
+    Input --> Extract
+    Extract --> AddCLS
+    AddCLS --> AddPos
+    AddPos --> Encoder
+    Encoder --> ExtractCLS
+    ExtractCLS --> LN
+    LN --> Head
 ```
 
 ---
@@ -464,6 +477,38 @@ Once vision and language share the same architecture, combining them is not a re
 ### 6.8.2 CLIP: Contrastive Language-Image Pre-training (Radford et al., 2021)
 
 CLIP (Radford et al., 2021, OpenAI) is the first large-scale demonstration of this unification. CLIP pre-trains a ViT image encoder and a Transformer text encoder jointly on 400 million (image, text) pairs scraped from the web.
+
+```mermaid
+graph LR
+    classDef io fill:#f1f5f9,stroke:#475569,stroke-width:2px,color:#0f172a,font-family:monospace
+    classDef encT fill:#e0f2fe,stroke:#0284c7,stroke-width:2px,color:#0c4a6e
+    classDef encI fill:#fce7f3,stroke:#db2777,stroke-width:2px,color:#831843
+    classDef embed fill:#f8fafc,stroke:#94a3b8,stroke-width:2px,stroke-dasharray: 4 4
+    classDef loss fill:#fef3c7,stroke:#d97706,stroke-width:2px,color:#78350f
+
+    Text["Text Batch<br/>[N]"]:::io
+    Image["Image Batch<br/>[N]"]:::io
+
+    TextEnc["Text Encoder<br/>(Transformer)"]:::encT
+    ImageEnc["Image Encoder<br/>(ViT)"]:::encI
+
+    Text --> TextEnc
+    Image --> ImageEnc
+
+    T_Embed["Text Embeddings<br/>T [N, D_e]"]:::embed
+    I_Embed["Image Embeddings<br/>I [N, D_e]"]:::embed
+
+    TextEnc --> T_Embed
+    ImageEnc --> I_Embed
+
+    Dot["Dot Product matrix<br/>S = (I · Tᵀ) / τ"]:::loss
+    
+    T_Embed --> Dot
+    I_Embed --> Dot
+
+    Loss["Contrastive Loss<br/>maximize diagonal,<br/>minimize off-diagonal"]:::loss
+    Dot --> Loss
+```
 
 The training objective is contrastive: for a batch of $N$ image-text pairs, the model is trained to maximize the cosine similarity of the $N$ correct pairs and minimize the similarity of the $N^2 - N$ incorrect pairs. Concretely, given image embeddings $\mathbf{I} = [\mathbf{i}_1, \ldots, \mathbf{i}_N]$ and text embeddings $\mathbf{T} = [\mathbf{t}_1, \ldots, \mathbf{t}_N]$ (each of dimension $D_e$), the similarity matrix and InfoNCE loss are:
 

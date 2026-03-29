@@ -126,27 +126,31 @@ Radford et al. (2018) introduced GPT with a clean hypothesis: a single large lan
 
 GPT uses a **decoder-only Transformer** — the right half (decoder side) of the architecture from Vaswani et al. (2017), stripped of cross-attention. It consists of stacked Transformer blocks with causal (masked) self-attention:
 
-```
-Input tokens: [t_1, t_2, t_3, t_4, t_5]
-                |    |    |    |    |
-             Embed + Positional Encoding
-                         |
-              ┌──────────────────────┐
-              │   Transformer Block  │  x N layers
-              │  ┌────────────────┐  │
-              │  │ Masked Multi-  │  │
-              │  │ Head Attention │  │
-              │  │ (causal mask)  │  │
-              │  └───────┬────────┘  │
-              │          │           │
-              │  ┌───────▼────────┐  │
-              │  │  Feed-Forward  │  │
-              │  │    Network     │  │
-              │  └───────┬────────┘  │
-              └──────────┼───────────┘
-                         |
-                    Output logits
-                    (vocabulary size)
+```mermaid
+graph BT
+    classDef io fill:#f1f5f9,stroke:#475569,stroke-width:2px,color:#0f172a,font-family:monospace
+    classDef embed fill:#f8fafc,stroke:#94a3b8,stroke-width:2px,color:#334155
+    classDef attn fill:#fce7f3,stroke:#db2777,stroke-width:2px,color:#831843
+    classDef ffn fill:#e0f2fe,stroke:#0284c7,stroke-width:2px,color:#0c4a6e
+
+    Tokens["Input tokens:<br/>[t_1, t_2, t_3, t_4, t_5]"]:::io
+    Embed["Embed + Positional Encoding"]:::embed
+    
+    Tokens --> Embed
+
+    subgraph Transformer["Transformer Block (x N layers)"]
+        direction BT
+        MHA["Masked Multi-Head<br/>Attention<br/>(causal mask)"]:::attn
+        FFN["Feed-Forward<br/>Network"]:::ffn
+        
+        MHA --> FFN
+    end
+
+    Embed --> MHA
+    
+    Logits["Output logits<br/>(vocabulary size)"]:::io
+    
+    FFN --> Logits
 ```
 
 The **causal mask** is the critical structural choice. When processing token t_i, the attention mechanism can only attend to t_1 through t_i — never to future tokens. This is enforced by masking the attention score matrix:
@@ -235,26 +239,31 @@ BERT's central contribution is a pre-training strategy that enables bidirectiona
 
 BERT uses an **encoder-only Transformer** with full bidirectional attention — every token attends to every other token, no causal mask:
 
-```
-Input: [CLS] The bank can [MASK] deposits [SEP]
-         |    |    |    |    |       |       |
-      Embed + Positional + Segment Embeddings
-                         |
-              ┌──────────────────────┐
-              │   Transformer Block  │  x N layers
-              │  ┌────────────────┐  │
-              │  │  Full (Bidirec-│  │
-              │  │  tional) Multi-│  │
-              │  │  Head Attention│  │
-              │  └───────┬────────┘  │
-              │          │           │
-              │  ┌───────▼────────┐  │
-              │  │  Feed-Forward  │  │
-              │  │    Network     │  │
-              │  └───────┬────────┘  │
-              └──────────┼───────────┘
-                         |
-              Hidden states H_1...H_n
+```mermaid
+graph BT
+    classDef io fill:#f1f5f9,stroke:#475569,stroke-width:2px,color:#0f172a,font-family:monospace
+    classDef embed fill:#f8fafc,stroke:#94a3b8,stroke-width:2px,color:#334155
+    classDef attn fill:#fce7f3,stroke:#db2777,stroke-width:2px,color:#831843
+    classDef ffn fill:#e0f2fe,stroke:#0284c7,stroke-width:2px,color:#0c4a6e
+    
+    Tokens["Input tokens:<br/>[CLS] The bank can [MASK] deposits [SEP]"]:::io
+    Embed["Embed + Positional + Segment Embeddings"]:::embed
+    
+    Tokens --> Embed
+
+    subgraph Transformer["Transformer Block (x N layers)"]
+        direction BT
+        MHA["Full (Bidirectional)<br/>Multi-Head Attention"]:::attn
+        FFN["Feed-Forward<br/>Network"]:::ffn
+        
+        MHA --> FFN
+    end
+
+    Embed --> MHA
+    
+    Hidden["Hidden states<br/>H_1 ... H_n"]:::io
+    
+    FFN --> Hidden
 ```
 
 BERT-Base: 12 layers, 768 hidden, 12 heads — 110M parameters.
@@ -583,6 +592,52 @@ Pre-trained language models are capable but misaligned — they generate the mos
 ### 5.8.1 RLHF: Reinforcement Learning from Human Feedback
 
 Ouyang et al. (2022) introduced the InstructGPT training procedure, which connects directly to classical RL (the connection worth emphasizing for RL-interested readers):
+
+```mermaid
+graph TD
+    classDef init fill:#f1f5f9,stroke:#475569,stroke-width:2px,color:#0f172a
+    classDef s1 fill:#e0f2fe,stroke:#0284c7,stroke-width:2px,color:#0c4a6e
+    classDef s2 fill:#fffbeb,stroke:#fbbf24,stroke-width:2px,color:#92400e
+    classDef s3 fill:#fce7f3,stroke:#db2777,stroke-width:2px,color:#831843
+    classDef data fill:#ffffff,stroke:#9ca3af,stroke-width:1px,stroke-dasharray: 4 4
+
+    GPT3[Pretrained<br/>Language Model]:::init
+
+    subgraph Phase1 ["Stage 1: Supervised Fine-Tuning (SFT)"]
+        direction LR
+        D1[(Prompt +<br/>Demonstration)]:::data
+        SFT[SFT Model]:::s1
+        D1 -->|"Cross Entropy"| SFT
+    end
+
+    subgraph Phase2 ["Stage 2: Reward Model (RM) Training"]
+        direction LR
+        D2[(Prompt +<br/>Multiple Responses)]:::data
+        Rank[Human Ranking<br/>y_w > y_l]:::data
+        RM[Reward Model]:::s2
+        
+        D2 --> Rank
+        Rank -->|"Pairwise Ranking Loss"| RM
+    end
+
+    subgraph Phase3 ["Stage 3: PPO Fine-Tuning"]
+        direction TB
+        D3[(Prompts only)]:::data
+        PPO[RL Policy<br/>(Initialized from SFT)]:::s3
+        Response[Response y]:::data
+        RM_E[Frozen<br/>Reward Model]:::s2
+        
+        D3 --> PPO
+        PPO -.->|"Generate"| Response
+        Response --> RM_E
+        RM_E -.->|"Scalar Reward"| PPO
+    end
+
+    GPT3 --> SFT
+    SFT --> RM
+    SFT --> PPO
+    SFT -.->|"KL Divergence<br/>Penalty Baseline"| PPO
+```
 
 **Stage 1: Supervised Fine-Tuning (SFT)**
 Collect a dataset of (prompt, ideal response) pairs from human labelers. Fine-tune GPT-3 on this data with standard cross-entropy. This adapts the model's distribution toward instruction-following but is limited by the cost of collecting examples.

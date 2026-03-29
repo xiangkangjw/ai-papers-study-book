@@ -40,7 +40,7 @@ Training minimizes reconstruction loss:
 
 $$\mathcal{L}(\theta, \phi) = \mathbb{E}_{x \sim p_\text{data}} \left[ \|x - g_\theta(f_\phi(x))\|^2 \right]$$
 
-The bottleneck — the fact that $z$ has lower dimensionality than $x$ — forces the encoder to discard noise and preserve structure. This is analogous to principal component analysis (PCA), which finds a linear subspace that maximizes reconstructed variance. The autoencoder finds a *nonlinear* manifold.
+The bottleneck — the fact that $z$ has lower dimensionality than $x$ — forces the encoder to discard noise and preserve structure. This is analogous to principal component analysis (PCA), which finds the linear subspace that minimizes reconstruction error (equivalently, maximizes the variance of the projected data). The autoencoder finds a *nonlinear* manifold.
 
 ### 2.2.2 What the Latent Space Represents
 
@@ -91,7 +91,21 @@ This integral is the fundamental quantity we want to maximize. If $p_\theta(x)$ 
 
 The problem: **this integral is intractable**. The latent space is high-dimensional, and $p_\theta(x|z)$ is a complex neural network. There is no closed form, and naive Monte Carlo estimation has too high a variance to be useful.
 
-### 2.4.2 The Inference Problem
+### 2.4.2 Why Is Inference Hard?
+
+Before diving into the solution, it is worth building intuition for *why* the integral $p_\theta(x) = \int p_\theta(x|z)\, p(z)\, dz$ is so difficult. This is the central obstacle that motivates the entire VAE framework.
+
+Consider a concrete example. Suppose $x$ is a $64 \times 64$ grayscale image of a handwritten digit, and $z$ is a 32-dimensional latent code. The integral asks: for *every possible* 32-dimensional vector $z$, compute the probability that the decoder would produce image $x$ from that code, weight it by the prior probability of $z$, and sum all of these contributions.
+
+Imagine trying to enumerate all possible latent codes that could have generated this image. Most of the 32-dimensional space is "dead" — random points in $\mathbb{R}^{32}$ will produce garbled outputs with near-zero probability of matching $x$. Only a tiny region of latent space produces outputs resembling $x$. But you do not know *where* that region is without searching the entire space.
+
+In low dimensions (say, $z$ is 1D or 2D), you could lay down a dense grid and numerically evaluate the integral. But the volume of space grows exponentially with dimension. A grid with 100 points per dimension in 32 dimensions would require $100^{32} = 10^{64}$ evaluations — more than the number of atoms in the observable universe. This is the **curse of dimensionality** applied to integration.
+
+Monte Carlo estimation (sample random $z$ values, average $p_\theta(x|z)$) does not help much either. Because the relevant region of $z$-space is so small, almost all random samples contribute essentially zero to the estimate. You would need an astronomically large number of samples to get a useful estimate.
+
+What we really want is the **posterior** $p_\theta(z|x)$ — the distribution over latent codes that *could have* generated this specific $x$. If we had it, we could sample $z$ only from the relevant region, making everything tractable. But computing the posterior requires Bayes' theorem, which requires $p_\theta(x)$ in the denominator — the very integral we cannot compute. This is the circular dependency that variational inference breaks.
+
+### 2.4.3 The Inference Problem
 
 To maximize $\log p_\theta(x)$, we would ideally use the EM algorithm: alternate between computing the posterior $p_\theta(z|x)$ (E-step) and maximizing the expected log-likelihood (M-step).
 
@@ -101,9 +115,11 @@ $$p_\theta(z|x) = \frac{p_\theta(x|z)\, p(z)}{p_\theta(x)}$$
 
 But computing this requires $p_\theta(x)$, which is the intractable integral we started with. We are stuck.
 
-### 2.4.3 Variational Inference: Approximate the Posterior
+### 2.4.4 Variational Inference: Approximate the Posterior
 
 **Variational inference** breaks this circularity by replacing the true posterior with a tractable approximation. We introduce a family of distributions $q_\phi(z|x)$ — the **inference model** or **encoder** — and find the member of this family closest to the true posterior.
+
+> **Variational inference in plain English.** Instead of computing the true posterior $p_\theta(z|x)$ — which would require solving an intractable integral — we train a neural network $q_\phi(z|x)$ to *approximate* it. Given an input $x$, the encoder network directly outputs the parameters (mean and variance) of an approximate posterior distribution over $z$. The ELBO objective (derived below) measures how good this approximation is: it simultaneously rewards the approximation for (a) enabling accurate reconstruction and (b) staying close to the prior. Maximizing the ELBO is guaranteed to both improve the generative model and tighten the approximation. This "replace an intractable computation with a learned approximation" strategy is the core idea of amortized variational inference, and it recurs throughout modern deep learning.
 
 "Closest" means minimizing the KL divergence:
 
@@ -118,29 +134,35 @@ The full model now has:
 - An **inference model** $q_\phi(z|x)$: the encoder / approximate posterior
 - Parameters $\theta$ (decoder) and $\phi$ (encoder) to learn jointly
 
-### 2.4.4 Deriving the ELBO
+### 2.4.5 Deriving the ELBO
 
 We want to maximize $\log p_\theta(x)$. Let us derive a tractable lower bound.
 
-Start with any distribution $q_\phi(z|x)$ and write:
+**Step 1: Write the log-evidence as an integral.** Start with any distribution $q_\phi(z|x)$ and write:
 
 $$\log p_\theta(x) = \log \int p_\theta(x|z)\, p(z)\, dz$$
 
-Multiply and divide by $q_\phi(z|x)$ inside the integral:
+This is just the definition of the marginal likelihood — the quantity we want to maximize but cannot compute directly.
+
+**Step 2: Introduce the approximate posterior.** Multiply and divide by $q_\phi(z|x)$ inside the integral. This is a mathematical identity — it changes nothing, but it lets us rewrite the integral as an expectation under $q$:
 
 $$= \log \int \frac{p_\theta(x|z)\, p(z)}{q_\phi(z|x)} \cdot q_\phi(z|x)\, dz$$
 
 $$= \log\, \mathbb{E}_{z \sim q_\phi(z|x)} \!\left[ \frac{p_\theta(x|z)\, p(z)}{q_\phi(z|x)} \right]$$
 
-Apply Jensen's inequality ($\log$ is concave, so $\log \mathbb{E}[\cdot] \geq \mathbb{E}[\log \cdot]$):
+Why do this? Because now the integral is an expectation over $q_\phi(z|x)$, which we *can* sample from (it is our encoder network). The fraction inside measures how much the generative model $p_\theta(x|z)\,p(z)$ and the approximate posterior $q_\phi(z|x)$ agree on the importance of each $z$.
+
+**Step 3: Apply Jensen's inequality.** The $\log$ function is concave, so by Jensen's inequality, $\log \mathbb{E}[\cdot] \geq \mathbb{E}[\log \cdot]$. Moving the $\log$ inside the expectation gives us a lower bound:
 
 $$\geq \mathbb{E}_{z \sim q_\phi(z|x)} \!\left[ \log p_\theta(x|z) + \log p(z) - \log q_\phi(z|x) \right]$$
 
-This is the **Evidence Lower Bound (ELBO)**, often denoted $\mathcal{L}(\theta, \phi; x)$:
+This step is where the "lower bound" comes from. We have traded an exact but intractable quantity ($\log p_\theta(x)$) for a bound that we *can* estimate and optimize. The bound is tight when $q_\phi(z|x) = p_\theta(z|x)$, i.e., when our approximation is exact.
 
-$$\mathcal{L}(\theta, \phi; x) = \mathbb{E}_{z \sim q_\phi(z|x)} \!\left[ \log p_\theta(x|z) \right] - \text{KL}\!\left( q_\phi(z|x) \| p(z) \right)$$
+**Step 4: Rearrange into interpretable terms.** Group the terms to reveal the structure:
 
-We **maximize** the ELBO with respect to $\theta$ and $\phi$. In practice, this means minimizing $-\mathcal{L}$ as a loss function. This is the central object of VAE training. Let us understand each term.
+$$\mathcal{L}(\theta, \phi; x) = \underbrace{\mathbb{E}_{z \sim q_\phi(z|x)} \!\left[ \log p_\theta(x|z) \right]}_{\text{reconstruction term}} - \underbrace{\text{KL}\!\left( q_\phi(z|x) \| p(z) \right)}_{\text{regularization term}}$$
+
+This is the **Evidence Lower Bound (ELBO)**, often denoted $\mathcal{L}(\theta, \phi; x)$. We **maximize** the ELBO with respect to $\theta$ and $\phi$. In practice, this means minimizing $-\mathcal{L}$ as a loss function. This is the central object of VAE training. Let us understand each term.
 
 **Reconstruction term:** $\mathbb{E}[\log p_\theta(x|z)]$ is the expected log-likelihood of $x$ under the decoder, with $z$ sampled from the encoder. This measures how well the decoder can reconstruct $x$ from compressed codes. Maximizing this term pushes the encoder to produce codes from which $x$ is recoverable.
 
@@ -150,17 +172,9 @@ The gap between $\log p_\theta(x)$ and the ELBO is exactly $\text{KL}(q_\phi(z|x
 1. Maximizes $\log p_\theta(x)$ (tightens the bound from below)
 2. Minimizes $\text{KL}(q_\phi(z|x) \| p_\theta(z|x))$ (improves the approximation quality)
 
-**Alternative decomposition.** The ELBO can also be written as:
+**Rate-distortion perspective.** The ELBO reveals a fundamental tradeoff from information theory. The reconstruction term $\mathbb{E}[\log p_\theta(x|z)]$ measures *distortion* — how much information is lost in the encoding. The KL term $\text{KL}(q_\phi(z|x) \| p(z))$ measures *rate* — how many bits the latent code uses beyond the prior. These two objectives pull in opposite directions: the encoder wants to produce informative codes (low distortion, good reconstruction) but also codes that are close to $\mathcal{N}(0, I)$ (low rate, low KL). The optimal encoder balances both. This is exactly the rate-distortion tradeoff from lossy compression — the VAE is learning a compression scheme where the "codebook" is the prior distribution. The $\beta$-VAE variant (Higgins et al., 2017) makes this tradeoff explicit by weighting the KL term with a coefficient $\beta$: higher $\beta$ compresses more aggressively, often producing more disentangled but blurrier representations.
 
-$$\mathcal{L} = \mathbb{E}_{z \sim q_\phi(z|x)} \!\left[ \log p_\theta(x|z) + \log p(z) - \log q_\phi(z|x) \right]$$
-
-$$= \mathbb{E}_{z \sim q_\phi(z|x)} \!\left[ \log p_\theta(x|z) \right] + \mathbb{E}_{z \sim q_\phi(z|x)} \!\left[ \log p(z) - \log q_\phi(z|x) \right]$$
-
-$$= \mathbb{E}_{z \sim q_\phi(z|x)} \!\left[ \log p_\theta(x|z) \right] - \text{KL}\!\left( q_\phi(z|x) \| p(z) \right)$$
-
-This makes the tension explicit: **reconstruction quality vs. adherence to the prior**. These two objectives pull in opposite directions. The encoder wants to produce informative codes (good reconstruction) but also codes that look like samples from $\mathcal{N}(0, I)$ (low KL). The optimal encoder balances both.
-
-### 2.4.5 The Reparameterization Trick
+### 2.4.6 The Reparameterization Trick
 
 We need to compute gradients of the ELBO with respect to $\phi$ (encoder parameters). The reconstruction term involves an expectation over $z \sim q_\phi(z|x)$:
 
@@ -492,6 +506,33 @@ with torch.no_grad():
 
 ---
 
+## Summary
+
+- Generative models learn the data distribution $p(x)$ rather than a conditional $p(y|x)$, enabling sampling, density estimation, data augmentation, and compressed representation learning.
+- Vanilla autoencoders learn compressed representations but have discontinuous latent spaces with no probabilistic structure, making them unsuitable for generation.
+- The VAE framework grounds the autoencoder in a latent variable generative model $p(z)\,p_\theta(x|z)$ and approximates the intractable posterior $p_\theta(z|x)$ with a learned encoder $q_\phi(z|x)$ via variational inference.
+- The Evidence Lower Bound (ELBO) decomposes into a reconstruction term (how well the decoder recovers $x$ from $z$) and a KL regularization term (how close the approximate posterior stays to the prior), providing a tractable training objective.
+- The reparameterization trick ($z = \mu + \sigma \odot \varepsilon$, $\varepsilon \sim \mathcal{N}(0,I)$) enables backpropagation through the stochastic sampling operation by separating randomness from learnable parameters.
+- The KL term enforces a smooth, continuous latent space that supports sampling from the prior, interpolation between data points, and (with $\beta$-VAE) disentangled representations.
+- Posterior collapse occurs when a powerful decoder ignores the latent code entirely, collapsing $q_\phi(z|x)$ to the prior. Mitigations include KL annealing, decoder weakening, and free-bits thresholds.
+- The VAE is not merely a standalone generative model but a foundational component: its latent space serves as the compressed operating space for latent diffusion models (Stable Diffusion), and its extensions (CVAE, VQ-VAE) underpin modern image generation pipelines.
+
+---
+
+## Key Equations Reference
+
+| Name | Equation | Section |
+|---|---|---|
+| Marginal likelihood | $p_\theta(x) = \int p_\theta(x|z)\, p(z)\, dz$ | 2.4.1 |
+| ELBO | $\mathcal{L}(\theta, \phi; x) = \mathbb{E}_{q_\phi(z|x)}[\log p_\theta(x|z)] - \mathrm{KL}(q_\phi(z|x) \| p(z))$ | 2.4.5 |
+| Reparameterization trick | $z = \mu_\phi(x) + \sigma_\phi(x) \odot \varepsilon, \quad \varepsilon \sim \mathcal{N}(0, I)$ | 2.4.6 |
+| KL divergence (closed form) | $\mathrm{KL} = -\frac{1}{2}\sum_{i=1}^{k}(1 + \log \sigma_i^2 - \mu_i^2 - \sigma_i^2)$ | 2.5.3 |
+| $\beta$-VAE objective | $\mathcal{L}_\beta = \mathbb{E}[\log p_\theta(x|z)] - \beta \cdot \mathrm{KL}(q_\phi(z|x) \| p(z))$ | 2.5.5 |
+| Autoencoder reconstruction loss | $\mathcal{L} = \mathbb{E}_{x}[\|x - g_\theta(f_\phi(x))\|^2]$ | 2.2.1 |
+| ELBO gap | $\log p_\theta(x) - \mathcal{L} = \mathrm{KL}(q_\phi(z|x) \| p_\theta(z|x))$ | 2.4.5 |
+
+---
+
 ## Exercises
 
 **1. Deriving the ELBO from first principles.**
@@ -532,78 +573,6 @@ Extend the MNIST VAE from the chapter to use convolutional layers. Your encoder 
 (b) Perform a *latent space interpolation*: encode two held-out images $x_a$ and $x_b$, then decode $z(\alpha) = (1-\alpha)\mu_a + \alpha\mu_b$ for $\alpha \in \{0, 0.1, 0.2, \ldots, 1.0\}$. Does the interpolation pass through plausible-looking images? What does this tell you about the geometry of the learned latent space?
 
 (c) Compare the convolutional VAE's reconstruction quality (visually and by loss) to the MLP VAE from the chapter. What does the improvement suggest about the role of inductive bias?
-
----
-
-## Additional Exercises
-
-**Exercise 2.1** *(Computation)*
-
-Compute the ELBO for a 2-dimensional VAE with the following concrete values. Suppose $x \in \mathbb{R}^2$, the encoder outputs $\mu_\phi(x) = [1.0, -0.5]^\top$ and $\sigma_\phi(x) = [0.8, 1.2]^\top$ (standard deviations, not variances), and the reparameterization trick draws $\varepsilon = [0.5, -1.0]^\top$.
-
-(a) Compute the sampled latent $z = \mu + \sigma \odot \varepsilon$.
-
-(b) Compute the closed-form KL term using:
-$$\text{KL} = -\frac{1}{2} \sum_{i=1}^{k} \left(1 + \log \sigma_i^2 - \mu_i^2 - \sigma_i^2\right)$$
-for $k = 2$ dimensions. (Remember the formula uses $\sigma_i^2$, the variance.)
-
-(c) Suppose the decoder outputs a reconstruction $\hat{x} = [0.9, 0.2]^\top$ and the true input is $x = [1.0, 0.0]^\top$, with the likelihood modeled as $p_\theta(x|z) = \mathcal{N}(x; \hat{x}, I)$. Compute $\log p_\theta(x|z)$ up to a constant (ignore the $-\frac{k}{2}\log(2\pi)$ term).
-
-(d) Write the full ELBO $= \log p_\theta(x|z) - \text{KL}$ and state whether we maximize or minimize this quantity during training.
-
----
-
-**Exercise 2.2** *(Implementation)*
-
-Implement the reparameterization trick in PyTorch pseudocode and reason about gradient flow.
-
-```python
-# Given encoder outputs:
-mu = encoder_mu(x)        # shape: [B, k]
-log_var = encoder_logvar(x)  # shape: [B, k]
-```
-
-(a) Write the three lines of code that sample $z$ using the reparameterization trick. Use `torch.randn_like` to draw $\varepsilon$.
-
-(b) Now consider the naive alternative — sampling directly with `torch.normal(mu, std)` without reparameterization. Explain why `loss.backward()` would fail to produce meaningful gradients for `mu` and `log_var` in this case. What does PyTorch's autograd engine "see" when it tries to differentiate through the sampling step?
-
-(c) The reparameterization trick requires that we can write $z = g(\mu, \sigma, \varepsilon)$ where $\varepsilon$ is independent of the parameters. For which of the following distributions can you straightforwardly apply a reparameterization: (i) Gaussian $\mathcal{N}(\mu, \sigma^2)$, (ii) Uniform $\text{Uniform}(a, b)$, (iii) Categorical (discrete)? Explain each case briefly.
-
----
-
-**Exercise 2.3** *(Conceptual)*
-
-Analyze the behavior of the KL term $\text{KL}(\mathcal{N}(\mu, \sigma^2) \| \mathcal{N}(0, 1))$ for a single latent dimension.
-
-(a) The KL contribution for one dimension is $-\frac{1}{2}(1 + \log \sigma^2 - \mu^2 - \sigma^2)$. At what values of $\mu$ and $\sigma$ is this term minimized? What is the minimum value?
-
-(b) Reason about the KL term as a function of $\sigma$ alone (fixing $\mu = 0$). As $\sigma \to 0$, what happens to the KL? As $\sigma \to \infty$? What is the interpretation: what is the encoder being incentivized to do?
-
-(c) In $\beta$-VAE with $\beta = 10$, the KL term is scaled up by 10. Suppose during training you observe that 8 out of 16 latent dimensions have KL $\approx 0$ (and $\mu \approx 0$, $\sigma \approx 1$). What does this mean? Is this a sign of success or failure? How would you diagnose whether the model is still using information?
-
----
-
-**Exercise 2.4** *(Conceptual)*
-
-Posterior collapse diagnosis and prevention.
-
-(a) You train a VAE with an LSTM decoder on text data. After training, you plot the KL for each of 32 latent dimensions and find that 30 of them have KL $\approx 0$. The reconstruction loss is low and BLEU scores are competitive with a language-model baseline. Explain mechanistically why this happened: what objective does the LSTM decoder optimize, and why does it make using the latent code unnecessary?
-
-(b) A colleague suggests a fix: "just add a large constant to the reconstruction loss weight so the model is forced to encode information." Will this prevent posterior collapse? Why or why not?
-
-(c) The KL free-bits technique sets a minimum threshold $\lambda$: the KL penalty for dimension $i$ is $\max(\text{KL}_i, \lambda)$ rather than $\text{KL}_i$. How does this change the gradient signal to the encoder for dimensions where $\text{KL}_i < \lambda$? Specifically, does the encoder still receive a gradient pushing $q_\phi(z_i|x)$ toward the prior?
-
----
-
-**Exercise 2.5** *(Implementation)*
-
-Latent space interpolation and what it reveals about the model.
-
-(a) You have a trained VAE for MNIST digits. You encode two images: a "3" gives $\mu_1 = [2.1, -0.8]$ and a "8" gives $\mu_2 = [-1.5, 1.2]$ (in a 2D latent space). Write the formula for the linear interpolation $z(t)$ at $t \in \{0, 0.25, 0.5, 0.75, 1.0\}$ and compute the five $z(t)$ values.
-
-(b) If you decode $z(0.5)$ from a well-trained VAE, you expect a plausible intermediate image. If you do the same with a vanilla autoencoder trained with MSE loss only, you may get a blurry or corrupted image. Explain the structural reason for this difference in terms of what each model has learned about the latent space.
-
-(c) Spherical interpolation (SLERP) is sometimes preferred over linear interpolation for latent spaces: $z(t) = \frac{\sin((1-t)\Omega)}{\sin\Omega} z_1 + \frac{\sin(t\Omega)}{\sin\Omega} z_2$ where $\Omega = \arccos\!\left(\frac{z_1 \cdot z_2}{\|z_1\|\|z_2\|}\right)$. When would SLERP produce qualitatively different results from linear interpolation? (Hint: consider what happens to $\|z(t)\|$ under linear interpolation when $z_1$ and $z_2$ are nearly orthogonal.)
 
 ---
 

@@ -7,7 +7,7 @@
 
 ## 6.1 The CNN Dominance Era: Inductive Biases as a Feature
 
-Before 2020, the history of computer vision was effectively the history of convolutional neural networks. The progression was linear and relentless: LeNet-5 (LeCun et al., 1998) proved that learned spatial filters could recognize handwritten digits. AlexNet (Krizhevsky, Sutskever & Hinton, 2012) scaled this up with GPUs and won ImageNet by a margin that shocked the field — top-5 error dropped from 26.2% to 15.3%. VGGNet (Simonyan & Zisserman, 2014) showed that depth and small $3 \times 3$ kernels were the key variable, pushing to 16 and 19 layers. ResNet (He et al., 2016) solved the vanishing gradient problem with skip connections and scaled to 152 layers, achieving superhuman performance on ImageNet classification.
+Before 2020, the history of computer vision was effectively the history of convolutional neural networks. The progression was linear and relentless: LeNet-5 (LeCun et al., 1998) proved that learned spatial filters could recognize handwritten digits. AlexNet (Krizhevsky, Sutskever & Hinton, 2012) scaled this up with GPUs and won ImageNet by a margin that shocked the field — top-5 error dropped from 26.2% to 15.3%. VGGNet (Simonyan & Zisserman, 2014) showed that depth and small $3 \times 3$ kernels were the key variable, pushing to 16 and 19 layers. ResNet (He et al., 2016) solved the vanishing gradient problem with skip connections and scaled to 152 layers, surpassing reported human accuracy on ImageNet classification (though human performance varies considerably depending on the evaluation protocol and labeling conditions).
 
 Each of these architectures shared two structural assumptions about images that nobody seriously questioned:
 
@@ -197,7 +197,7 @@ The paper presents a clear scaling experiment across three datasets:
 - **ImageNet-21k** (~14M training images, 21,843 classes): A larger, noisier version of ImageNet.
 - **JFT-300M** (~300M training images, 18,291 classes): Google's internal dataset, an order of magnitude larger.
 
-Results: ViT-Base/16 trained only on ImageNet achieves ~77.9% top-1 accuracy on ImageNet (after fine-tuning), underperforming a BiT-L ResNet (a heavily augmented ResNet-152×4) which achieves ~79.1%. Pre-train on ImageNet-21k, and ViT-Base reaches 81.8%, roughly matching. Pre-train on JFT-300M, and ViT-Large reaches 87.76% — surpassing ResNet baselines while using significantly less TPU-time at inference. The largest model, ViT-H/14, achieves 88.55% top-1 on ImageNet when pre-trained on JFT-300M.
+Results: ViT-Base/16 trained only on ImageNet achieves ~77.9% top-1 accuracy on ImageNet (after fine-tuning), underperforming a BiT-L ResNet (a heavily augmented ResNet-152×4) which achieves ~79.1%. Pre-train on ImageNet-21k, and ViT-Base reaches 81.8%, roughly matching. Pre-train on JFT-300M, and ViT-L/16 reaches 87.12%, matching ResNet baselines while using significantly less TPU-time at inference. The largest model, ViT-H/14, achieves 88.55% top-1 on ImageNet when pre-trained on JFT-300M — surpassing all CNN baselines.
 
 The interpretation is mechanistic: CNNs embed locality and translation equivariance as hard constraints. These constraints act as a strong prior that regularizes the model when data is limited. Transformers impose no such prior — every position can attend to every other position from layer 1. With 1.3M examples, there is not enough signal to learn spatial structure from scratch. With 300M examples, the model learns more flexible representations that CNNs cannot express.
 
@@ -284,7 +284,7 @@ BEiT achieves 83.2% on ImageNet without labeled pre-training data. The BERT anal
 
 ### 6.6.4 MAE: Masked Autoencoders (He et al., 2022)
 
-MAE (Masked Autoencoders, He et al., 2022 — the ResNet team at Facebook AI) took the BEiT idea and pushed it to an extreme. Key differences from BEiT:
+MAE (Masked Autoencoders, He et al., 2022) took the BEiT idea and pushed it to an extreme. Key differences from BEiT:
 
 1. **Masking ratio: 75%.** BEiT masked 40%. MAE masks three-quarters of all patches. This is a much harder task.
 2. **Pixel reconstruction.** No discrete tokenizer — the model directly reconstructs normalized pixel values of masked patches.
@@ -322,13 +322,133 @@ DINOv2 (Oquab et al., 2023) scales DINO with a larger curated dataset (142M imag
 
 DINO's semantic segmentation emergence is not fully understood theoretically, but practically it confirms that ViT's global attention mechanism, when trained with the right objective, learns to associate [CLS] with semantically relevant regions — something CNNs with their local receptive fields struggle to do without supervision.
 
+### 6.6.6 JEPA: Joint-Embedding Predictive Architectures (LeCun, 2022; Assran et al., 2023)
+
+MAE reconstructs pixels. DINO uses self-distillation to match output distributions across augmented views. A third paradigm, proposed by LeCun (2022) in a position paper titled *A Path Towards Autonomous Machine Intelligence*, asks a different question entirely: what if the model predicted neither pixels nor distributions, but abstract representations?
+
+This is the core idea behind **Joint-Embedding Predictive Architectures (JEPA)**. The argument is that pixel-level prediction forces the model to commit to low-level details — the exact color of a pixel, the precise texture of a surface — that are irrelevant to semantic understanding. Predicting in representation space allows the model to abstract away irrelevant details and focus on the information that matters for downstream reasoning.
+
+**I-JEPA (Assran et al., 2023)** instantiates this idea for images. The architecture operates as follows:
+
+1. An image is divided into patches, as in standard ViT.
+2. A subset of patches (the "context") is encoded by a context encoder into latent representations.
+3. A separate set of patches (the "target") is encoded by a target encoder (momentum-updated, as in DINO and MoCo) into target representations.
+4. A predictor network takes the context representations and positional information about the target patches, and predicts the target representations in latent space.
+
+The loss function is straightforward — mean squared error between predicted and actual target representations:
+
+$$
+\mathcal{L}_{\text{I-JEPA}} = \frac{1}{|\mathcal{T}|} \sum_{i \in \mathcal{T}} \left\| \hat{\mathbf{z}}_i - \text{sg}(\mathbf{z}_i^{\text{target}}) \right\|^2
+$$
+
+where $\mathcal{T}$ is the set of target patch indices, $\hat{\mathbf{z}}_i$ is the predicted representation, $\mathbf{z}_i^{\text{target}}$ is the target encoder output, and $\text{sg}(\cdot)$ denotes stop-gradient (the target encoder is updated via exponential moving average, not gradient descent). The target regions are sampled as contiguous blocks rather than random patches — this encourages the model to predict spatially coherent semantic content rather than isolated patch features.
+
+The critical difference from MAE is what is being predicted. MAE's decoder outputs pixel values $\hat{\mathbf{x}}_i \in \mathbb{R}^{P^2 \cdot C}$. I-JEPA's predictor outputs latent vectors $\hat{\mathbf{z}}_i \in \mathbb{R}^{D}$. This distinction has practical consequences: I-JEPA does not need a pixel-level decoder, and the model is not penalized for failing to predict perceptually irrelevant details (exact textures, lighting variations) that pixel reconstruction losses necessarily enforce.
+
+**V-JEPA (Bardes et al., 2024)** extends the same principle to video. Instead of predicting representations of masked image patches, V-JEPA predicts representations of masked spatiotemporal regions in video. The masking strategy targets space-time tubes — contiguous blocks across multiple frames — and the model must predict the latent representations of the masked tubes from the visible context. V-JEPA demonstrates that the representation-space prediction paradigm scales to temporal data, where pixel-level prediction is even more wasteful (predicting exact pixel values across frames is dominated by motion estimation, not semantic understanding).
+
+The following comparison clarifies the distinctions among the self-supervised approaches covered in this chapter:
+
+| Method | What is predicted | Prediction space | Collapse prevention |
+|---|---|---|---|
+| MAE | Masked patch content | Pixel space ($P^2 \cdot C$ dims) | Reconstruction objective (no collapse risk) |
+| DINO | Teacher output distribution | Probability distribution | Centering + momentum teacher |
+| I-JEPA | Masked patch representations | Latent space ($D$ dims) | Momentum target encoder + stop-gradient |
+| V-JEPA | Masked spatiotemporal tube representations | Latent space ($D$ dims) | Momentum target encoder + stop-gradient |
+
+JEPA remains an active area of research rather than a settled paradigm. The position paper (LeCun, 2022) frames JEPA as a step toward world models that predict the consequences of actions in an abstract representation space — a goal well beyond current image and video understanding. I-JEPA and V-JEPA are early empirical validations of this direction. Their results are competitive with MAE and DINO on standard benchmarks (I-JEPA matches or exceeds MAE on ImageNet linear probing), but the deeper claim — that predicting in representation space is fundamentally more aligned with intelligence than predicting in observation space — remains an open hypothesis.
+
 ---
 
-## 6.7 Why ViT Matters for Vision-Language Models
+## 6.7 Contrastive Learning: Learning by Comparing
+
+Before proceeding to CLIP and the vision-language models that depend on it, it is necessary to understand the paradigm that makes CLIP's training objective possible: **contrastive learning**. The core idea is deceptively simple. Rather than training a model to reconstruct its input (as in MAE) or to predict labels (as in supervised classification), contrastive learning trains a model to distinguish similar examples from dissimilar ones. The model learns representations by comparison — pulling together representations of semantically related inputs ("positives") and pushing apart representations of unrelated inputs ("negatives").
+
+This paradigm predates its application to vision-language models. The two foundational methods — SimCLR and MoCo, both published in 2020 — established the principles that CLIP later scaled to 400 million image-text pairs.
+
+### 6.7.1 InfoNCE: The Core Loss Function
+
+All contrastive learning methods share a common loss function, or a close variant of it: the **InfoNCE loss** (Oord et al., 2018). Understanding this loss is prerequisite for understanding both SimCLR and CLIP.
+
+Given a query representation $\mathbf{q}$, one positive key $\mathbf{k}^+$ (semantically related to the query), and $K$ negative keys $\{\mathbf{k}_1^-, \ldots, \mathbf{k}_K^-\}$ (unrelated to the query), the InfoNCE loss is:
+
+$$
+\mathcal{L}_{\text{InfoNCE}} = -\log \frac{\exp(\text{sim}(\mathbf{q}, \mathbf{k}^+) / \tau)}{\exp(\text{sim}(\mathbf{q}, \mathbf{k}^+) / \tau) + \sum_{j=1}^{K} \exp(\text{sim}(\mathbf{q}, \mathbf{k}_j^-) / \tau)}
+$$
+
+where $\text{sim}(\cdot, \cdot)$ is typically cosine similarity and $\tau$ is a temperature parameter that controls the sharpness of the distribution. This loss has a direct interpretation: it is the negative log-likelihood of a $(K+1)$-way softmax classifier that should assign the highest probability to the positive key.
+
+The temperature $\tau$ plays a critical role. When $\tau$ is small (e.g., 0.07, as used in CLIP), the softmax becomes sharply peaked — the model must place nearly all probability mass on the correct positive. When $\tau$ is large, the distribution becomes more uniform and the loss is less sensitive to fine-grained similarity distinctions. In practice, $\tau$ is either a fixed hyperparameter or, as in CLIP, a learned parameter that the model optimizes during training.
+
+The connection to mutual information gives InfoNCE its theoretical grounding. Oord et al. (2018) showed that minimizing InfoNCE maximizes a lower bound on the mutual information $I(\mathbf{q}; \mathbf{k}^+)$ between the query and positive key representations. Intuitively, high mutual information means that knowing the query representation tells you a great deal about the positive key representation — exactly what a good shared representation should achieve. The bound becomes tighter as the number of negative samples $K$ increases, which provides a theoretical justification for the empirical finding that more negatives improve contrastive learning.
+
+### 6.7.2 SimCLR: Data Augmentation as Positive Pair Generator (Chen et al., 2020)
+
+SimCLR (A Simple Framework for Contrastive Learning of Visual Representations, Chen et al., 2020, Google Brain) demonstrated that contrastive learning could match supervised pre-training on ImageNet — without any labels — given sufficient compute and a careful choice of data augmentations.
+
+The method is elegant in its simplicity:
+
+1. **Augmentation.** For each image $\mathbf{x}$ in a mini-batch of $N$ images, apply two random augmentations (from a composition of random crop, color jitter, Gaussian blur, and horizontal flip) to produce two "views": $\tilde{\mathbf{x}}_i$ and $\tilde{\mathbf{x}}_j$. These two views of the same image form a **positive pair**.
+2. **Encoding.** Both views pass through a shared encoder $f$ (a ResNet or ViT) followed by a small projection MLP $g$, producing embeddings $\mathbf{z}_i = g(f(\tilde{\mathbf{x}}_i))$.
+3. **Contrastive loss.** For each positive pair $(\mathbf{z}_i, \mathbf{z}_j)$, all other $2(N-1)$ augmented images in the batch serve as negatives. The loss is InfoNCE applied symmetrically over all positive pairs in the batch.
+
+For a batch of $N$ images yielding $2N$ augmented views, the loss for one positive pair $(i, j)$ is:
+
+$$
+\ell_{i,j} = -\log \frac{\exp(\text{sim}(\mathbf{z}_i, \mathbf{z}_j) / \tau)}{\sum_{k=1}^{2N} \mathbb{1}_{[k \neq i]} \exp(\text{sim}(\mathbf{z}_i, \mathbf{z}_k) / \tau)}
+$$
+
+The total loss averages over all $2N$ positive pairs (each image contributes two, one from each view's perspective).
+
+Two findings from SimCLR shaped subsequent work. First, **the composition of augmentations matters more than any single augmentation.** Random crop combined with color distortion is essential; either alone is insufficient. The intuition is that the model must learn representations invariant to these transformations, and harder invariances (large crop differences, strong color shifts) force more abstract representations. Second, **larger batch sizes dramatically improve performance.** SimCLR used batch sizes of 4,096 to 8,192, giving 8,192 to 16,384 negative examples per positive pair. This is a direct consequence of the InfoNCE bound: more negatives yield a tighter mutual information estimate and a harder discrimination task.
+
+The batch size requirement was SimCLR's practical limitation. Training with batch size 8,192 requires significant GPU memory and multi-node distributed training. This motivated the next major method.
+
+### 6.7.3 MoCo: Momentum Contrast (He et al., 2020)
+
+MoCo (Momentum Contrast for Unsupervised Visual Representation Learning, He et al., 2020, Facebook AI — the same team behind ResNet and MAE) solved the batch size problem with two innovations: a **momentum encoder** and a **queue of negatives**.
+
+The architecture consists of two encoders:
+- A **query encoder** $f_q$ that processes the query view. This encoder is updated by gradient descent as usual.
+- A **key encoder** $f_k$ that processes the positive and negative views. This encoder is not updated by gradients. Instead, its parameters $\theta_k$ are an exponential moving average (EMA) of the query encoder parameters $\theta_q$:
+
+$$
+\theta_k \leftarrow m \cdot \theta_k + (1 - m) \cdot \theta_q, \qquad m = 0.999
+$$
+
+The momentum coefficient $m = 0.999$ means the key encoder changes very slowly — it is a smoothed, temporally consistent version of the query encoder. This consistency is critical: the negative keys in the queue were produced by past versions of the key encoder, and if the encoder changed rapidly between steps, the negatives would be stale and inconsistent.
+
+The second innovation is the **queue**. Instead of using the current mini-batch as the negative pool (as in SimCLR), MoCo maintains a first-in-first-out (FIFO) queue of $K$ key representations from recent mini-batches. Each training step, the current batch's key representations are enqueued, and the oldest representations are dequeued. The queue size $K$ (typically 65,536) is independent of the mini-batch size.
+
+This decoupling is the key insight. SimCLR needs a batch size of 8,192 to get 16,384 negatives. MoCo needs a batch size of only 256 but maintains 65,536 negatives in its queue — a 4$\times$ larger negative pool at a 32$\times$ smaller batch size. The momentum encoder ensures that these queued negatives are approximately consistent despite being computed at different training steps.
+
+MoCo v2 (Chen et al., 2020) incorporated SimCLR's projection MLP and augmentation strategy into MoCo's framework, combining the strengths of both approaches. The result matched or exceeded SimCLR's accuracy with standard batch sizes on standard hardware.
+
+### 6.7.4 The Contrastive Learning Paradigm
+
+SimCLR and MoCo established a general paradigm: **learn representations by training a model to distinguish positive pairs from negative pairs, where positive pairs are defined by some known semantic relationship.** The paradigm is agnostic to what defines a "positive pair":
+
+- **SimCLR/MoCo:** Two augmented views of the same image.
+- **CLIP (Section 6.8.2):** An image and its paired text caption.
+- **DPR (Chapter 7):** A question and its relevant passage.
+
+The loss function is always InfoNCE or a close variant. The engineering challenge is always the same: how to obtain a large and diverse set of negatives. SimCLR uses large batches. MoCo uses a momentum queue. CLIP uses large batches (32,768 pairs) with in-batch negatives. The underlying mathematics is identical.
+
+This paradigm has a complementary relationship with the reconstruction-based methods (MAE, BEiT) and the self-distillation methods (DINO) covered earlier in this chapter. Reconstruction methods learn representations by predicting missing content. Contrastive methods learn representations by comparing related and unrelated examples. Self-distillation methods learn representations by matching output distributions across views. In practice, these approaches are often complementary — DINOv2, for instance, combines self-distillation with a contrastive component.
+
+The forward connection to CLIP is immediate. CLIP applies the contrastive paradigm at scale, using (image, text) pairs as positives and all non-matching pairs in the batch as negatives. The mathematical formulation in Section 6.8.2 is a direct instance of InfoNCE with images as queries and text as keys (and vice versa). Understanding SimCLR and MoCo makes CLIP's training objective a natural extension rather than a novel invention.
+
+---
+
+## 6.8 Why ViT Matters for Vision-Language Models
+
+> **Cross-reference note.** This section introduces CLIP, LLaVA, and Flamingo from the *architectural* perspective — how ViT enables vision-language integration. Chapter 10 covers the same models from the *training and alignment* perspective, including RLHF for VLMs, advanced topics (video understanding, grounding, compositionality), and the convergence with reinforcement learning toward embodied AI.
+
+> *Note: The contrastive learning paradigm introduced in Section 6.7 — particularly the InfoNCE loss — is the foundation for the CLIP training objective described below.*
 
 This section is the convergence point. Everything above — ViT's architecture, its scale behavior, the rich pre-training ecosystem — is prerequisite for understanding modern VLMs (Vision-Language Models). The connection is not incidental.
 
-### 6.7.1 The Modality Alignment Problem
+### 6.8.1 The Modality Alignment Problem
 
 Before ViT, combining vision and language required bridging two fundamentally different architectures: CNNs for images, Transformers for text. The bridge was always awkward — you could pool CNN features and feed them to a Transformer, but the representations lived in different computational spaces, trained with different objectives, at different temporal scales.
 
@@ -341,7 +461,7 @@ ViT eliminates this gap. If images are processed by a Transformer encoder and te
 
 Once vision and language share the same architecture, combining them is not a research problem in architecture design. It is an engineering problem in pre-training objective and data curation.
 
-### 6.7.2 CLIP: Contrastive Language-Image Pre-training (Radford et al., 2021)
+### 6.8.2 CLIP: Contrastive Language-Image Pre-training (Radford et al., 2021)
 
 CLIP (Radford et al., 2021, OpenAI) is the first large-scale demonstration of this unification. CLIP pre-trains a ViT image encoder and a Transformer text encoder jointly on 400 million (image, text) pairs scraped from the web.
 
@@ -406,7 +526,7 @@ print(f"\nPredicted class: {predicted}")
 
 **What to observe:** The model was never fine-tuned for this task — it ranks labels by cosine similarity between the image embedding and each text embedding in CLIP's joint space. COCO image 39769 contains cats; `"a photo of a cat"` should score highest. Try replacing `labels` with arbitrary descriptions of your own — CLIP generalizes to whatever visual vocabulary appeared in its 400M-pair training corpus.
 
-### 6.7.3 LLaVA and the VLM Blueprint (Liu et al., 2023)
+### 6.8.3 LLaVA and the VLM Blueprint (Liu et al., 2023)
 
 LLaVA (Large Language and Vision Assistant) represents the blueprint of most current VLMs:
 
@@ -421,7 +541,7 @@ The vision encoder is frozen CLIP ViT-L/14. Its patch embeddings (not just the [
 The shape flow through LLaVA:
 
 ```
-Input image:          [B, 3, 336, 336]    (LLaVA uses 336×336)
+Input image:          [B, 3, 336, 336]    (LLaVA 1.5 uses 336×336; the original LLaVA 1.0 used 224×224)
 CLIP ViT patches:     [B, 576, 1024]      (576 patches of P=14, D=1024)
 Projected to LLM dim: [B, 576, 4096]      (LLaMA-2 7B has D=4096)
 Text tokens:          [B, T_text, 4096]
@@ -431,7 +551,7 @@ LLM output:           [B, T_text, 4096]   (autoregressive, predicts next text to
 
 Every visual token is a Transformer hidden state. It attends to other visual tokens and to text tokens via standard causal attention (with a modification: visual tokens can attend to each other and text can attend to visual tokens, but visual tokens do not attend to future text). The LLM "reads" the image the same way it reads text — by attending over a sequence of embeddings.
 
-### 6.7.4 Flamingo and Cross-Modal Attention (Alayrac et al., 2022)
+### 6.8.4 Flamingo and Cross-Modal Attention (Alayrac et al., 2022)
 
 Flamingo (Alayrac et al., 2022, DeepMind) takes a different approach. Rather than concatenating visual and text tokens, Flamingo freezes a large language model and inserts cross-attention layers that allow the LLM to attend to visual features:
 
@@ -445,15 +565,15 @@ The Perceiver Resampler in Flamingo reduces the variable-length ViT feature sequ
 
 Flamingo demonstrates few-shot visual question answering (VQA) — given a few image-question-answer examples in the context window, the model answers new questions. The few-shot capability comes entirely from the frozen LLM; the cross-attention layers add visual grounding.
 
-### 6.7.5 The Unification Principle
+### 6.8.5 The Unification Principle
 
-The thread connecting CLIP, LLaVA, and Flamingo is the same: **ViT turns images into token sequences, and LLMs operate on token sequences.** The composability is architectural. This would not work if images were processed by CNNs — CNN feature maps are spatial tensors, not sequences, and mapping them into a sequence for an LLM requires design choices that break the natural Transformer alignment.
+The thread connecting CLIP, LLaVA, and Flamingo is the same: **ViT turns images into token sequences, and LLMs operate on token sequences.** The composability is architectural. This would be less natural if images were processed by CNNs — CNN feature maps are spatial tensors, not sequences, and while they can be reshaped into sequences, doing so requires design choices that break the natural Transformer alignment.
 
 The unified architecture matters for another reason: **pre-training transfer.** ViT pre-trained on images with masked autoencoding or contrastive learning produces general-purpose visual features. These features, when projected into an LLM's embedding space, give the LLM access to visual semantics that it cannot learn from text alone. The entire pre-training ecosystem (CLIP, DINOv2, MAE) feeds directly into VLM quality.
 
 ---
 
-## 6.8 Connections Forward
+## 6.9 Connections Forward
 
 **Chapter 8 — Stable Diffusion and Text-to-Image Generation.** Stable Diffusion uses CLIP's text encoder to produce conditioning embeddings for diffusion. But CLIP's image encoder (ViT) is also used in CLIP guidance — steering the diffusion process toward images that score high on CLIP image-text similarity. The CLIP ViT features serve as a semantic objective function during generation.
 
@@ -461,13 +581,41 @@ The unified architecture matters for another reason: **pre-training transfer.** 
 
 ---
 
-## 6.9 Summary
+## 6.10 Summary
 
 ViT's contribution is not primarily a novel mechanism — self-attention was already well understood. The contribution is the demonstration that a known mechanism, applied naively to images (patches as tokens), works — given sufficient data. And the argument for why it works: inductive biases are a prior, and priors become less important as data increases.
 
 The architectural simplicity of ViT is a feature, not a limitation. A standard Transformer encoder, unchanged from the NLP literature, processes images by treating them as sequences of patch embeddings. The same pre-training recipes that work for language — masked prediction, contrastive learning, self-distillation — work for vision. The same fine-tuning procedures transfer to downstream tasks.
 
 For VLMs specifically, ViT's significance is decisive. It is the component that makes vision and language architecturally equivalent, which makes their combination natural rather than engineered. Every major VLM as of 2024 uses a ViT-based vision encoder. Understanding ViT's design choices — why [CLS] rather than pooling, why 1D rather than 2D positional embeddings, why $N+1$ tokens through the full depth — is prerequisite for understanding the design choices in every modern multimodal system.
+
+---
+
+## Summary
+
+- The Vision Transformer (ViT) applies a standard Transformer encoder, unchanged from the NLP literature, to images by dividing them into fixed-size patches and treating each patch as a token. This patches-as-tokens approach eliminates the need for convolutional architectures entirely.
+- ViT's performance is governed by a data-scale tradeoff: CNNs' inductive biases (locality, translation equivariance) dominate when data is scarce, but ViT surpasses CNNs when pre-trained on sufficiently large datasets (approximately 10--100 million images), because a model with fewer architectural priors can learn richer representations given enough signal.
+- DeiT broke the data barrier through knowledge distillation from a CNN teacher, achieving competitive ImageNet accuracy without large-scale proprietary datasets. Swin Transformer reintroduced hierarchical feature maps and shifted window attention, making ViT practical for dense prediction tasks such as detection and segmentation.
+- Self-supervised pre-training methods --- MAE (masked patch reconstruction in pixel space), DINO (self-distillation with emergent segmentation), and BEiT (masked visual token prediction) --- demonstrated that ViT features trained without labels can match or exceed supervised pre-training quality.
+- The contrastive learning paradigm, formalized through the InfoNCE loss and instantiated in SimCLR and MoCo, trains models to distinguish positive pairs from negative pairs. This paradigm is agnostic to what defines a positive pair and provides the mathematical foundation for CLIP.
+- JEPA (Joint-Embedding Predictive Architectures) proposes predicting in abstract representation space rather than pixel space, arguing that this avoids committing to perceptually irrelevant details. I-JEPA and V-JEPA are early empirical validations of this direction.
+- CLIP applies contrastive learning at scale to 400 million image-text pairs, aligning ViT image embeddings with Transformer text embeddings in a shared space. This alignment enables zero-shot classification and, critically, provides the vision encoder that underpins nearly every modern vision-language model, including LLaVA, Flamingo, and Stable Diffusion.
+
+---
+
+## Key Equations Reference
+
+| Name | Equation | Section |
+|---|---|---|
+| Number of patch tokens | $N = \frac{H \times W}{P^2}$ | 6.3.1 |
+| Patch embedding projection | $\mathbf{x} = \text{Linear}(P^2 \cdot C,\, D)(\text{patches})$ | 6.3.2 |
+| Positional embedding addition | $\mathbf{x} \leftarrow \mathbf{x} + \mathbf{E}_{\text{pos}}$ | 6.3.4 |
+| ViT encoder layer (attention) | $\mathbf{z}'_l = \text{MSA}(\text{LN}(\mathbf{z}_{l-1})) + \mathbf{z}_{l-1}$ | 6.3.5 |
+| ViT encoder layer (MLP) | $\mathbf{z}_l = \text{MLP}(\text{LN}(\mathbf{z}'_l)) + \mathbf{z}'_l$ | 6.3.5 |
+| MAE reconstruction loss | $\mathcal{L}_{\text{MAE}} = \frac{1}{|\mathcal{M}|}\sum_{i \in \mathcal{M}}\|\hat{\mathbf{x}}_i - \mathbf{x}_i\|^2$ | 6.6.4 |
+| InfoNCE loss | $\mathcal{L}_{\text{InfoNCE}} = -\log \frac{\exp(\text{sim}(\mathbf{q}, \mathbf{k}^+)/\tau)}{\sum_j \exp(\text{sim}(\mathbf{q}, \mathbf{k}_j)/\tau)}$ | 6.7.1 |
+| CLIP contrastive loss | $\mathcal{L} = \frac{1}{2}(\text{CE}(S, \text{targets}) + \text{CE}(S^\top, \text{targets}))$ | 6.8.2 |
+| I-JEPA prediction loss | $\mathcal{L}_{\text{I-JEPA}} = \frac{1}{|\mathcal{T}|}\sum_{i \in \mathcal{T}}\|\hat{\mathbf{z}}_i - \text{sg}(\mathbf{z}_i^{\text{target}})\|^2$ | 6.6.6 |
 
 ---
 
@@ -522,6 +670,87 @@ Then write a `ViTEncoder` stub that prepends a learned [CLS] token, adds learned
 
 ---
 
+## Additional Exercises
+
+**Exercise 6.1** *(Computation)*
+
+Patch tokenization dimensions.
+
+A ViT-Large/16 model processes $384 \times 384$ RGB images (fine-tuning resolution) with patch size $P = 16$ and embedding dimension $D = 1024$.
+
+(a) Compute the number of patch tokens $N$. What is the total sequence length fed to the Transformer encoder (including [CLS])?
+
+(b) The patch embedding layer is a linear map from $\mathbb{R}^{P^2 \cdot C}$ to $\mathbb{R}^D$. Compute its parameter count (no bias). Now compare this to the parameters in a single ViT-Large encoder block: multi-head self-attention ($4D^2$ parameters with $h = 16$ heads) plus FFN ($2 \times D \times 4D = 8D^2$ parameters). Which component — patch embedding or one encoder block — has more parameters?
+
+(c) When fine-tuning at $384 \times 384$ after pre-training at $224 \times 224$ (both with $P=16$), the sequence length changes from 197 to $N_{\text{new}} + 1$. The pre-trained 1D positional embeddings no longer align with the new token count. Describe how ViT handles this mismatch in practice, and explain why this approach works despite the position embeddings never having seen sequences of this length during pre-training.
+
+---
+
+**Exercise 6.2** *(Computation)*
+
+ViT parameter counting.
+
+Use the ViT-Base/16 configuration: 12 layers, $D = 768$, $h = 12$ heads, MLP hidden dim $= 3072$, $P = 16$, $C = 3$, input $224 \times 224$.
+
+(a) Count parameters in one encoder block: (i) QKV projections + output projection for multi-head attention ($4D^2$, ignoring biases), (ii) FFN ($D \times 3072 + 3072 + 3072 \times D + D$, including biases), (iii) two LayerNorm layers ($2 \times 2D$ for $\gamma$ and $\beta$). What is the total per block?
+
+(b) Count non-block parameters: (i) patch embedding linear layer, (ii) [CLS] token vector, (iii) positional embedding table for $N+1 = 197$ positions, (iv) final LayerNorm. Sum everything for the full ViT-Base/16 parameter count (excluding the classification head). How does this compare to the 86M figure in the chapter?
+
+(c) ViT-Huge/14 uses $P = 14$, giving $N = (224/14)^2 = 256$ patches. Compared to ViT-Base/16 ($N = 196$), how does the sequence length change, and by what factor do the self-attention FLOPs ($\propto N^2 D$) scale between the two models (using $D = 1280$ for ViT-Huge vs. $D = 768$ for ViT-Base)?
+
+---
+
+**Exercise 6.3** *(Computation)*
+
+Comparing ViT vs. ResNet compute.
+
+From Section 6.5.3: ResNet-50 costs 4.1 GFLOPs and ViT-Base/16 costs 17.6 GFLOPs for a single $224 \times 224$ image inference.
+
+(a) If you are running a real-time inference service that needs to process 1,000 images per second, and your hardware delivers 100 TFLOPS, how many ResNet-50 instances vs. ViT-Base/16 instances can you run simultaneously? What is the practical implication for deployment?
+
+(b) The chapter states that at large scale, ViT achieves better performance per TPU-core-day of *training* cost than ResNets. Yet ViT is more expensive per image at *inference* time. Explain this apparent contradiction: why can higher per-image inference cost coexist with better training efficiency?
+
+(c) Swin-B achieves 83.5% ImageNet top-1 using approximately 15.4 GFLOPs (similar to ViT-Base). Swin achieves this without the large-scale pre-training requirement of ViT. Using the inductive bias argument from Section 6.2, explain why Swin can match ViT's accuracy on ImageNet-scale data even though it has similar compute cost.
+
+---
+
+**Exercise 6.4** *(Computation)*
+
+CLIP similarity computation and zero-shot classification.
+
+CLIP embeds images and text into a shared $D_e = 512$-dimensional space and computes cosine similarity. Suppose after L2 normalization, an image of a golden retriever has embedding $\mathbf{i}$ and four text prompts have embeddings $\mathbf{t}_1, \ldots, \mathbf{t}_4$ (all unit vectors).
+
+The dot products (= cosine similarities, since all vectors are normalized) are:
+
+| Prompt | $\mathbf{i} \cdot \mathbf{t}_k$ |
+|---|---|
+| "a photo of a golden retriever" | 0.31 |
+| "a photo of a labrador" | 0.28 |
+| "a photo of a cat" | 0.11 |
+| "a photo of a car" | 0.04 |
+
+(a) CLIP uses a learned temperature $\tau$ (typically $\tau \approx 0.07$ in logit space, meaning scores are divided by $\tau$ before softmax). Compute $S_k = (\mathbf{i} \cdot \mathbf{t}_k) / \tau$ for $\tau = 0.07$. Then compute $p_k = \text{softmax}(S)_k$ for all four classes.
+
+(b) Without temperature scaling ($\tau = 1$), compute the softmax probabilities. Compare the two distributions: what role does the low temperature play in CLIP's zero-shot classification?
+
+(c) CLIP's contrastive training objective operates on batches of $N$ image-text pairs and pushes the $N$ diagonal entries of the similarity matrix $S = \mathbf{I} \cdot \mathbf{T}^\top / \tau$ to be large while pushing the $N^2 - N$ off-diagonal entries to be small. For a batch of $N = 4$ pairs, write out the $4 \times 4$ similarity matrix (just variable names $s_{ij}$) and describe which entries the loss maximizes and which it minimizes. What happens to training as $N$ increases?
+
+---
+
+**Exercise 6.5** *(Conceptual)*
+
+MAE masking strategy and its information-theoretic justification.
+
+MAE masks 75% of patches and trains the encoder on only the visible 25%.
+
+(a) The chapter claims that masking 15% of image patches (BERT's rate) is "trivially recoverable from neighbors." Construct a concrete argument: for a $16 \times 16$ patch in the middle of an image, if only 15% of all patches are masked, roughly how many neighboring patches are visible? Why does having many visible neighbors make the task easy?
+
+(b) At 75% masking, on average only 1 in 4 neighboring patches is visible. Explain why this forces the encoder to learn semantic understanding rather than just local texture interpolation. Connect this to the claim that MAE learns better transferable representations than supervised pre-training.
+
+(c) MAE uses a random masking strategy (uniformly random patch selection) rather than structured masking (e.g., always masking the center, or masking contiguous regions). What failure mode would structured masking enable that random masking prevents? (Hint: think about what the model could learn to exploit if the masked region were always predictable.)
+
+---
+
 ## References
 
 - Dosovitskiy, A., et al. (2020). *An Image is Worth 16x16 Words: Transformers for Image Recognition at Scale.* arXiv:2010.11929.
@@ -540,3 +769,9 @@ Then write a `ViTEncoder` stub that prepends a learned [CLS] token, adds learned
 - Liu, H., et al. (2023). Visual Instruction Tuning (LLaVA). arXiv:2304.08485.
 - Alayrac, J-B., et al. (2022). Flamingo: a Visual Language Model for Few-Shot Learning. *NeurIPS*.
 - Wang, X., et al. (2018). Non-local Neural Networks. *CVPR*.
+- Chen, T., et al. (2020). A Simple Framework for Contrastive Learning of Visual Representations (SimCLR). *ICML*.
+- He, K., et al. (2020). Momentum Contrast for Unsupervised Visual Representation Learning (MoCo). *CVPR*.
+- Oord, A. van den, Li, Y., & Vinyals, O. (2018). Representation Learning with Contrastive Predictive Coding. arXiv:1807.03748.
+- LeCun, Y. (2022). A Path Towards Autonomous Machine Intelligence. openreview.net.
+- Assran, M., et al. (2023). Self-Supervised Learning from Images with a Joint-Embedding Predictive Architecture (I-JEPA). *CVPR*.
+- Bardes, A., et al. (2024). V-JEPA: Revisiting Feature Prediction for Learning Visual Representations from Video. arXiv:2404.16930.

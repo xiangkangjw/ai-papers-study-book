@@ -62,7 +62,7 @@ Depending on what you want to understand, you can follow one of these curated pa
    Mathematical prerequisites, neural networks as function approximators, training as optimization, key architectural patterns (CNN, RNN/LSTM, encoder-decoder).
 
 2. **[Variational Autoencoders — Learning to Generate by Learning to Compress](ch02_vae.md)**
-   Kingma & Welling (2013). Latent variable models, the ELBO derivation, the reparameterization trick, posterior collapse, and connections to Stable Diffusion.
+   Kingma & Welling (2013). Latent variable models, the evidence lower bound (ELBO) derivation, the reparameterization trick, posterior collapse, and connections to Stable Diffusion.
 
 3. **[Generative Adversarial Networks — Learning Through Competition](ch03_gan.md)**
    Goodfellow et al. (2014). The minimax game, optimal discriminator derivation, training dynamics and mode collapse, WGAN, StyleGAN, and the GAN vs VAE trade-off.
@@ -71,13 +71,13 @@ Depending on what you want to understand, you can follow one of these curated pa
    Vaswani et al. (2017). Scaled dot-product attention, multi-head attention, the full encoder-decoder architecture, positional encoding, complexity analysis, and FlashAttention.
 
 5. **[Pre-trained Language Models — GPT and BERT](ch05_gpt_bert.md)**
-   Radford et al. (2018), Devlin et al. (2018). Autoregressive vs autoencoding pre-training, the scaling trajectory from GPT to GPT-3, in-context learning, and RLHF.
+   Radford et al. (2018), Devlin et al. (2018). Autoregressive vs autoencoding pre-training, the scaling trajectory from GPT to GPT-3, in-context learning, and reinforcement learning from human feedback (RLHF).
 
 6. **[Vision Transformer — When Transformers Replaced Convolutions](ch06_vit.md)**
    Dosovitskiy et al. (2020). Patch tokenization, the data-scale trade-off with CNNs, DeiT, Swin, MAE, and the critical connection to Vision-Language Models.
 
 7. **[Retrieval-Augmented Generation — Grounding Language Models in Knowledge](ch07_rag.md)**
-   Lewis et al. (2020). Dense passage retrieval, the RAG architecture, modern RAG ecosystem (vector databases, reranking), and advanced patterns (Self-RAG, RETRO).
+   Lewis et al. (2020). Dense passage retrieval, the retrieval-augmented generation (RAG) architecture, modern RAG ecosystem (vector databases, reranking), and advanced patterns (Self-RAG, Retrieval-Enhanced Transformer — RETRO).
 
 8. **[Diffusion Models and Stable Diffusion — The New Paradigm of Generation](ch08_diffusion.md)**
    Rombach et al. (2022). The DDPM framework, noise prediction, latent diffusion, classifier-free guidance, the U-Net architecture, and the Stable Diffusion ecosystem.
@@ -86,7 +86,7 @@ Depending on what you want to understand, you can follow one of these curated pa
    Hu et al. (2021), Xu et al. (2023). LoRA's low-rank decomposition, QLoRA, adapters, prefix tuning, and practical deployment strategies.
 
 10. **[Frontiers — Reinforcement Learning and Vision-Language Models](ch10_frontiers_rl_vlm.md)**
-    RL fundamentals (MDP, PPO), RLHF and DPO, Decision Transformer, CLIP, Flamingo, LLaVA, and the convergence toward embodied AI. Research roadmap and open problems.
+    Reinforcement learning fundamentals (Markov decision process, proximal policy optimization), RLHF and direct preference optimization (DPO), Decision Transformer, CLIP, Flamingo, LLaVA, and the convergence toward embodied AI. Research roadmap and open problems.
 
 ---
 
@@ -105,10 +105,14 @@ Depending on what you want to understand, you can follow one of these curated pa
 | 9 | Retrieval-Augmented Generation (RAG) | Lewis et al. | 2020 |
 | 10 | Improving Language Understanding by Generative Pre-Training (GPT) | Radford et al. | 2018 |
 
+## Appendix
+
+- **[Notation Reference](appendix_notation.md)** — Summary of all mathematical symbols used throughout the book, grouped by category.
+
 ## Additional Papers Referenced
 
 Over 80 papers, including peer-reviewed publications and established arXiv preprints, are cited throughout the chapters, including foundational work by Rumelhart et al. (1986), LeCun et al. (1998), Hochreiter & Schmidhuber (1997), Bahdanau et al. (2015), He et al. (2016), and recent advances by Rafailov et al. (2023, DPO), Dao et al. (2022, FlashAttention), Dettmers et al. (2023, QLoRA), and Liu et al. (2023, LLaVA).
 
 ---
 
-*Generated March 2026. All references are to peer-reviewed publications or established arXiv preprints.*
+*Last updated March 2026. All references are to peer-reviewed publications or established arXiv preprints.*

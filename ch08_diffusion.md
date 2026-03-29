@@ -36,7 +36,7 @@ The forward process takes a clean image $x_0$ and gradually corrupts it by addin
 
 $$q(\mathbf{x}_t \mid \mathbf{x}_{t-1}) = \mathcal{N}\!\left(\mathbf{x}_t;\, \sqrt{1 - \beta_t}\, \mathbf{x}_{t-1},\; \beta_t \mathbf{I}\right)$$
 
-Here $\beta_t \in (0, 1)$ is a **noise schedule** — a small, carefully chosen value that controls how much noise is added at step $t$. The factor $\sqrt{1 - \beta_t}$ slightly shrinks the signal before adding noise, which keeps the variance bounded (otherwise the signal would grow without bound). At each step, you're taking the previous image, scaling it down slightly, and injecting fresh Gaussian noise.
+Here $\beta_t \in (0, 1)$ is a **noise schedule** — a small, carefully chosen value that controls how much noise is added at step $t$. The factor $\sqrt{1 - \beta_t}$ slightly shrinks the signal before adding noise, which keeps the variance bounded (otherwise the variance would grow without bound). At each step, you're taking the previous image, scaling it down slightly, and injecting fresh Gaussian noise.
 
 The noise schedule $\beta_t$ is typically small at early timesteps (gentle corruption) and larger at later timesteps (aggressive corruption). By $t = T$, $x_T$ is approximately pure Gaussian noise regardless of what $x_0$ was — all information about the original image has been destroyed.
 
@@ -179,7 +179,7 @@ $$\mathbf{x}_{t-1} = \sqrt{\bar{\alpha}_{t-1}}\underbrace{\left(\frac{\mathbf{x}
 
 The key insight: use the model's noise prediction to compute an estimate of $\mathbf{x}_0$, then re-noise it to level $t-1$ deterministically. No stochastic term. This is **DDIM** (Denoising Diffusion Implicit Models).
 
-Because the process is deterministic, you can **skip timesteps**: instead of going $t = 1000, 999, 998, \ldots$, use a subsequence like $t = 1000, 980, 960, \ldots, 20, 1$ — only 50 steps instead of 1000, a 20x speedup. The stochastic DDPM requires every intermediate step to maintain the Markov property; DDIM's determinism allows arbitrary striding.
+Because the process is deterministic, you can **skip timesteps**: instead of going $t = 1000, 999, 998, \ldots$, use a subsequence like $t = 1000, 980, 960, \ldots, 20, 1$ — only 50 steps instead of 1000, a 20x speedup. The stochastic DDPM was originally formulated to use every intermediate step to maintain the Markov property (though skipping is possible with degraded quality due to variance accumulation); DDIM's determinism allows arbitrary striding without this penalty.
 
 Quality degrades somewhat with aggressive step reduction, but 50-100 DDIM steps typically match 1000-step DDPM quality for most applications.
 
@@ -225,13 +225,73 @@ Why does this work? The difference $(\boldsymbol{\varepsilon}_\text{cond} - \bol
 
 ---
 
+## Code: Stable Diffusion Inference
+
+> **Dependencies:** `pip install diffusers torch transformers accelerate`
+
+This example loads SDXL-Turbo — a distilled variant of Stable Diffusion XL that generates images in 1–4 steps — and generates an image from a text prompt. It shows the `guidance_scale` parameter that controls classifier-free guidance strength, the key inference knob introduced in Section 8.4.4.
+
+```python
+# pip install diffusers torch transformers accelerate
+
+import torch
+from diffusers import AutoPipelineForText2Image
+
+# sdxl-turbo is fast (1-4 steps) and small enough for CPU/MPS demo.
+# AutoPipelineForText2Image picks the right pipeline class automatically.
+pipe = AutoPipelineForText2Image.from_pretrained(
+    "stabilityai/sdxl-turbo",
+    torch_dtype=torch.float16,
+    variant="fp16",
+)
+pipe = pipe.to("cuda" if torch.cuda.is_available() else "cpu")
+
+prompt = "A photorealistic astronaut riding a horse on the moon, dramatic lighting"
+
+# guidance_scale controls classifier-free guidance strength (Section 8.4.4):
+#   w = 0.0 : ignore prompt (unconditional) — pure diversity
+#   w = 7.5 : standard SD default — balanced prompt adherence
+#   w > 10  : strong prompt lock-in — less diversity, possible over-saturation
+# sdxl-turbo is a distilled model; it was trained with guidance_scale=0.0,
+# so CFG is not needed and 1-4 steps suffice.
+image = pipe(
+    prompt=prompt,
+    num_inference_steps=4,   # sdxl-turbo needs only 1-4 steps
+    guidance_scale=0.0,      # distilled model: CFG not needed
+).images[0]
+
+image.save("generated.png")
+print(f"Image saved to generated.png ({image.size[0]}x{image.size[1]} px)")
+print(f"Prompt: {prompt}")
+
+# To see the effect of guidance_scale on a standard (non-distilled) model,
+# swap the model and try different values:
+#
+#   pipe = AutoPipelineForText2Image.from_pretrained(
+#       "runwayml/stable-diffusion-v1-5", torch_dtype=torch.float16
+#   )
+#   for w in [1.0, 3.0, 7.5, 12.0]:
+#       img = pipe(prompt, num_inference_steps=30, guidance_scale=w).images[0]
+#       img.save(f"generated_w{w}.png")
+#       print(f"guidance_scale={w} -> generated_w{w}.png")
+```
+
+**What to observe:**
+
+- `AutoPipelineForText2Image.from_pretrained` handles model and scheduler selection automatically. For SDXL-Turbo it sets up the LCM (Latent Consistency Model) scheduler optimized for few-step generation.
+- `guidance_scale=0.0` with 4 steps is the correct operating point for distilled models. Setting `guidance_scale=7.5` here would degrade quality because the model was not trained with CFG.
+- The commented-out block at the bottom shows how to sweep `guidance_scale` on the standard SD v1.5 model to observe the precision-diversity tradeoff empirically: lower values produce varied but loosely-prompted images; higher values produce images that tightly match the prompt but look oversaturated.
+- The pipeline runs the full LDM inference stack under the hood: CLIP text encoding → latent diffusion loop → VAE decode → PIL image.
+
+---
+
 ## 8.5 Latent Diffusion Models (Stable Diffusion)
 
 The central contribution of Rombach et al. (2022) is not a new type of diffusion model — it's a pragmatic observation about where to run diffusion.
 
 ### 8.5.1 The Computational Problem with Pixel-Space Diffusion
 
-Running 1000-step DDPM on 512×512 RGB images means each forward pass processes a 512×512×3 tensor. At every denoising step, the U-Net processes the full-resolution feature maps through many layers. The computational cost scales quadratically with resolution (due to attention layers) and linearly with the number of steps.
+Running 1000-step DDPM on 512×512 RGB images means each forward pass processes a 512×512×3 tensor. At every denoising step, the U-Net processes the full-resolution feature maps through many layers. The computational cost of the attention layers scales quadratically with spatial resolution, though convolutions scale only linearly. In practice, the U-Net applies attention only at lower spatial resolutions (typically 32×32 and 16×16, not the full image resolution), so the quadratic cost is contained — but it still dominates at higher resolutions. The total cost also scales linearly with the number of denoising steps.
 
 Training on large datasets at high resolution in pixel space requires enormous compute — prohibitive for most researchers. And the U-Net must simultaneously solve two distinct problems: **perceptual compression** (removing imperceptible high-frequency noise) and **semantic compression** (learning the structure and semantics of images). These are different problems that benefit from different inductive biases.
 
@@ -387,7 +447,7 @@ Diffusion models are not a self-contained island — they are built from compone
 
 **Chapter 6 (CLIP/VLMs)**: CLIP is the conditioning backbone of Stable Diffusion. Understanding contrastive pretraining and the structure of CLIP's text encoder explains why text prompts work as they do — and why prompts that reference visual concepts CLIP has seen behave more reliably than abstract or rare concepts. The "CLIP text embedding space" is the medium through which language controls image generation.
 
-**Chapter 9 (LoRA/PEFT)**: Fine-tuning Stable Diffusion for specific styles, characters, or concepts uses the same parameter-efficient methods developed for LLMs. LoRA on the U-Net's attention weight matrices is the standard approach for fine-tuning. DreamBooth (Ruiz et al., 2023) and Textual Inversion are diffusion-specific personalization methods. The architectural modularity of LDMs (frozen VAE + trainable U-Net + frozen CLIP) makes parameter-efficient fine-tuning particularly natural.
+**Chapter 9 (LoRA/PEFT)**: Fine-tuning Stable Diffusion for specific styles, characters, or concepts uses the same parameter-efficient methods developed for LLMs. LoRA on the U-Net's attention weight matrices is the standard approach for fine-tuning. DreamBooth (Ruiz et al., 2023) fine-tunes the entire diffusion model on a small set of images (typically 3-5) of a specific subject, associating it with a rare token identifier so the model can generate that subject in novel contexts. Textual Inversion takes a lighter approach, learning only a new embedding vector for the concept while keeping model weights frozen. Both are diffusion-specific personalization methods. The architectural modularity of LDMs (frozen VAE + trainable U-Net + frozen CLIP) makes parameter-efficient fine-tuning particularly natural.
 
 ---
 
@@ -542,6 +602,33 @@ print(f"Value range: [{sample.min():.3f}, {sample.max():.3f}]")
 - The training loss is pure MSE between the actual noise $\varepsilon$ and the model's prediction $\varepsilon_\theta(x_t, t)$. This is `L_simple` from the DDPM paper — no adversarial components.
 - In `p_sample_loop`, each reverse step uses the model's noise prediction to compute the posterior mean, then adds fresh noise (except at $t=0$). This is the DDPM ancestral sampling formula.
 - After 10 epochs on MNIST the samples will be blurry but recognizably digit-shaped. For sharper results, replace `DenoiseMLP` with a convolutional U-Net and train for more epochs.
+
+---
+
+## Summary
+
+- The forward diffusion process systematically destroys information by adding Gaussian noise over $T$ timesteps, with a closed-form expression $q(\mathbf{x}_t \mid \mathbf{x}_0) = \mathcal{N}(\sqrt{\bar{\alpha}_t}\,\mathbf{x}_0,\, (1-\bar{\alpha}_t)\mathbf{I})$ that enables jumping to any noise level in a single operation --- the key to efficient training.
+- The reverse process learns to denoise iteratively. The training objective reduces to predicting the noise $\boldsymbol{\varepsilon}$ added to the clean image, yielding a simple MSE loss $\|\boldsymbol{\varepsilon} - \boldsymbol{\varepsilon}_\theta(\mathbf{x}_t, t)\|^2$ with no adversarial components. This noise prediction is equivalent to learning the score function of the data distribution.
+- DDIM (Denoising Diffusion Implicit Models) reformulates the reverse process as deterministic, enabling step-skipping from 1000 steps down to 50 with minimal quality loss. DPM-Solver applies high-order ODE solvers to achieve high-quality samples in 10--20 steps.
+- Classifier-free guidance is the essential technique for conditional generation: the model is trained on both conditional and unconditional objectives, and at inference the conditioning direction is extrapolated by a guidance weight $w$, controlling the precision-diversity tradeoff. Values of $w \approx 7.5$ are standard for text-to-image generation.
+- Latent Diffusion Models (Stable Diffusion) separate perceptual compression from semantic compression by running diffusion in a VAE latent space (e.g., 64x64x4 instead of 512x512x3), reducing the area processed by the U-Net by approximately 64x and making large-scale training feasible.
+- Text conditioning in Stable Diffusion is injected via cross-attention layers in the U-Net, where spatial feature positions attend to CLIP text encoder token embeddings. CLIP's pre-trained visual-semantic knowledge enables rich prompt following without learning these correspondences from scratch.
+- ControlNet extends the frozen Stable Diffusion U-Net with a trainable copy of the encoder that processes spatial conditioning signals (edges, depth, pose), connected via zero-initialized convolutions. This surgical intervention pattern --- adding trainable modules to frozen base models via clean boundaries --- exemplifies the modularity that defines the LDM ecosystem.
+
+---
+
+## Key Equations Reference
+
+| Name | Equation | Section |
+|---|---|---|
+| Forward process (single step) | $q(\mathbf{x}_t \mid \mathbf{x}_{t-1}) = \mathcal{N}(\mathbf{x}_t;\, \sqrt{1-\beta_t}\,\mathbf{x}_{t-1},\, \beta_t \mathbf{I})$ | 8.2.1 |
+| Forward process (closed form) | $q(\mathbf{x}_t \mid \mathbf{x}_0) = \mathcal{N}(\mathbf{x}_t;\, \sqrt{\bar{\alpha}_t}\,\mathbf{x}_0,\, (1-\bar{\alpha}_t)\mathbf{I})$ | 8.2.1 |
+| DDPM training loss | $\mathcal{L}_{\text{simple}} = \mathbb{E}_{t, \mathbf{x}_0, \boldsymbol{\varepsilon}}[\|\boldsymbol{\varepsilon} - \boldsymbol{\varepsilon}_\theta(\mathbf{x}_t, t)\|^2]$ | 8.2.3 |
+| Reverse process mean | $\boldsymbol{\mu}_\theta(\mathbf{x}_t, t) = \frac{1}{\sqrt{\alpha_t}}\left(\mathbf{x}_t - \frac{\beta_t}{\sqrt{1-\bar{\alpha}_t}}\boldsymbol{\varepsilon}_\theta(\mathbf{x}_t, t)\right)$ | 8.2.3 |
+| Score function connection | $\boldsymbol{\varepsilon}_\theta \approx -\sqrt{1-\bar{\alpha}_t}\,\nabla_{\mathbf{x}_t}\log p(\mathbf{x}_t)$ | 8.2.4 |
+| Classifier-free guidance | $\boldsymbol{\varepsilon}_{\text{guided}} = \boldsymbol{\varepsilon}_\theta(\mathbf{x}_t, t, \emptyset) + w(\boldsymbol{\varepsilon}_\theta(\mathbf{x}_t, t, c) - \boldsymbol{\varepsilon}_\theta(\mathbf{x}_t, t, \emptyset))$ | 8.4.4 |
+| LDM training loss | $\mathcal{L}_{\text{LDM}} = \mathbb{E}_{\mathcal{E}(x), \varepsilon, t}[\|\varepsilon - \varepsilon_\theta(z_t, t)\|^2]$ | 8.5.2 |
+| Cross-attention conditioning | $Q = W_Q \cdot \phi_i(z_t),\; K = W_K \cdot \tau_\theta(y),\; V = W_V \cdot \tau_\theta(y)$ | 8.5.3 |
 
 ---
 

@@ -52,7 +52,7 @@ The operations you need:
 
 **Tensor contractions.** Einstein summation notation (`einsum`) generalizes all these operations. The expression `torch.einsum('bij,bjk->bik', A, B)` performs batched matrix multiplication. If you have used NumPy's broadcasting rules, you already understand the mechanics. The `einsum` notation just makes the index contractions explicit.
 
-**Norms.** The L2 norm $\|\mathbf{x}\|_2 = \sqrt{\sum_i x_i^2}$ measures vector magnitude. The Frobenius norm does the same for matrices. These appear everywhere: in regularization, in normalization layers, in distance metrics.
+**Norms.** The L2 norm $\|\mathbf{x}\|_2 = \sqrt{\sum_i x_i^2}$ measures vector magnitude. The Frobenius norm $\|\mathbf{W}\|_F = \sqrt{\sum_{ij} W_{ij}^2}$ extends this to matrices — it is the L2 norm of the matrix treated as a flattened vector. These appear everywhere: in regularization, in normalization layers, in distance metrics. The Frobenius norm reappears in the LoRA analysis (Chapter 9).
 
 **Eigendecomposition and SVD.** A square matrix $\mathbf{A}$ can be decomposed as $\mathbf{A} = \mathbf{Q}\mathbf{\Lambda}\mathbf{Q}^{-1}$, where the columns of $\mathbf{Q}$ are eigenvectors and $\mathbf{\Lambda}$ is a diagonal matrix of eigenvalues. For non-square matrices, the more general **singular value decomposition (SVD)** applies: $\mathbf{A} = \mathbf{U}\mathbf{\Sigma}\mathbf{V}^\top$, where $\mathbf{U}$ and $\mathbf{V}$ are orthogonal matrices and $\mathbf{\Sigma}$ is diagonal with non-negative singular values. The singular values quantify how much "information" each dimension carries — truncating to the top-$r$ singular values gives the best rank-$r$ approximation of $\mathbf{A}$ (Eckart–Young theorem). This low-rank structure is the mathematical foundation for parameter-efficient fine-tuning methods like LoRA (Chapter 9), which approximate weight updates as low-rank matrix products.
 
@@ -87,7 +87,7 @@ Neural network training has millions of parameters (inputs to the loss function)
 
 $$P(\theta \mid D) = \frac{P(D \mid \theta) \, P(\theta)}{P(D)}$$
 
-where $P(D \mid \theta)$ is the likelihood, $P(\theta)$ is the prior, and $P(\theta \mid D)$ is the posterior. Maximum likelihood estimation (MLE) finds the $\theta$ that maximizes $P(D \mid \theta)$, ignoring the prior. Maximum a posteriori (MAP) estimation maximizes $P(D \mid \theta) \cdot P(\theta)$. L2 regularization is equivalent to MAP estimation with a Gaussian prior on the parameters — a fact worth internalizing.
+where $P(D \mid \theta)$ is the likelihood, $P(\theta)$ is the prior, and $P(\theta \mid D)$ is the posterior. Maximum likelihood estimation (MLE) finds the $\theta$ that maximizes $P(D \mid \theta)$, ignoring the prior. Maximum a posteriori (MAP) estimation maximizes $P(D \mid \theta) \cdot P(\theta)$. L2 regularization is equivalent to MAP estimation with a Gaussian prior on the parameters — a relationship that reappears throughout the book, from VAE priors (Chapter 2) to weight decay in Transformer training (Chapter 4).
 
 **Bayesian inference primer.** Bayes' theorem tells us how to update beliefs given evidence, but in practice, computing the posterior $P(\theta \mid D)$ requires evaluating the denominator $P(D) = \int P(D \mid \theta) P(\theta) \, d\theta$ — the marginal likelihood. This integral sums the likelihood over *every possible* parameter setting, weighted by the prior. For a model with a handful of parameters, this is tractable (you can use conjugate priors or numerical quadrature). But neural networks have millions of parameters, and the integral is over a million-dimensional space. There is no closed-form solution, and grid-based numerical methods are hopeless — the number of grid points grows exponentially with dimension (the "curse of dimensionality"). This is why exact Bayesian inference over neural network parameters is intractable in practice. The field has developed two main workarounds: **sampling methods** (MCMC) that are asymptotically exact but slow, and **variational inference** that trades exactness for speed by approximating the posterior with a simpler distribution. Variational inference is the approach that makes VAEs (Chapter 2) and many other modern generative models possible. If you take one thing from this paragraph: the reason we need approximate inference is not mathematical laziness — it is that exact inference requires solving integrals that are computationally impossible in high dimensions.
 
@@ -209,7 +209,7 @@ A 100-layer linear network is equivalent to a single-layer linear network. Non-l
 Common choices:
 
 - **ReLU**: $\max(0, x)$. Simple, cheap to compute, no vanishing gradient for positive inputs. The default choice for hidden layers. Downside: "dead neurons" — units stuck at zero if they enter the negative regime permanently.
-- **GELU**: $x \cdot \Phi(x)$ where $\Phi$ is the Gaussian CDF. A smooth approximation to ReLU. Used in Transformers (BERT, GPT).
+- **GELU**: $x \cdot \Phi(x)$ where $\Phi$ is the CDF of the standard normal distribution $\mathcal{N}(0,1)$. A smooth approximation to ReLU. Used in Transformers (BERT, GPT).
 - **Sigmoid**: $\frac{1}{1 + e^{-x}}$. Outputs in $(0, 1)$. Used for binary classification outputs. Suffers from vanishing gradients at extremes.
 - **Softmax**: $\text{softmax}(\mathbf{z})_i = \frac{e^{z_i}}{\sum_j e^{z_j}}$. Converts logits to a probability distribution. Used as the final layer for multi-class classification.
 
@@ -278,7 +278,7 @@ $$\frac{\partial \mathcal{L}}{\partial \mathbf{W}} = \frac{\partial \mathcal{L}}
 
 where $\delta$ is the gradient flowing back from subsequent layers. Each layer receives the gradient from above, multiplies by the local Jacobian, and passes it further back.
 
-The computational cost of the backward pass is roughly 2x the forward pass. You store intermediate activations during the forward pass to reuse them during the backward pass. This memory cost is why training requires more GPU memory than inference — a practical constraint that shapes many architectural decisions.
+The computational cost of the backward pass is roughly 2–3× the forward pass (and can be higher for attention layers, where the backward pass involves additional matrix operations over the full sequence length). You store intermediate activations during the forward pass to reuse them during the backward pass. This memory cost is why training requires more GPU memory than inference — a practical constraint that shapes many architectural decisions.
 
 ### 1.4.3 Regularization *(Review)*
 
@@ -334,7 +334,7 @@ The learning rate is arguably the most important hyperparameter. Too high and tr
 
 CNNs (LeCun et al., 1998) exploit a structural prior: **translation equivariance**. A cat in the top-left corner should be detected the same way as a cat in the bottom-right. Rather than learning separate parameters for each spatial position, a convolutional layer applies the same small kernel across all positions:
 
-$$\text{output}[i, j] = \sum_{\delta i,\, \delta j} \text{kernel}[\delta i, \delta j] \cdot \text{input}[i + \delta i,\, j + \delta j]$$
+$$\text{output}[i, j] = \sum_{m,\, n} \text{kernel}[m, n] \cdot \text{input}[i + m,\, j + n]$$
 
 This has three consequences:
 
@@ -416,7 +416,36 @@ Every concept in this chapter is a building block for what follows. The Transfor
 
 The foundations here are not prerequisites to be memorized and forgotten. They are active tools. When you read about KL divergence in PPO's clipped objective, about cross-entropy in next-token prediction, about Jacobians in diffusion model score functions, or about batch normalization choices in vision encoders — you will reach back to this chapter. The mathematics does not change. The architectures compose. The optimization principles scale.
 
-Turn the page. We start with the architecture that changed everything.
+Turn the page. We begin with the generative models that opened a new frontier — starting with variational autoencoders.
+
+---
+
+## Summary
+
+- Neural networks are parameterized programs: the architecture defines the space of possible programs, the loss function defines which programs are good, and the optimizer navigates that space via gradient-based search.
+- Linear algebra (tensors, matrix multiplication, SVD), calculus (gradients, the chain rule), and probability (Bayes' theorem, KL divergence) form the mathematical substrate for all subsequent chapters.
+- Backpropagation is reverse-mode automatic differentiation applied to a computational graph. Its cost is roughly 2-3x the forward pass, and the need to cache intermediate activations is the primary reason training requires more memory than inference.
+- KL divergence is asymmetric, non-negative, and zero if and only if two distributions are identical. Its two directions (mode-seeking vs. mode-covering) have distinct practical consequences that recur throughout generative modeling and policy optimization.
+- Minimizing cross-entropy loss is equivalent to minimizing KL divergence from the true distribution, which is equivalent to maximum likelihood estimation. Loss functions encode distributional assumptions, not arbitrary design choices.
+- CNNs exploit translation equivariance and locality for parameter-efficient image processing; RNNs and LSTMs process sequences with hidden states but suffer from vanishing gradients and sequential bottlenecks that the Transformer architecture later resolves.
+- The encoder-decoder pattern with attention is a foundational design template that recurs in Transformers, diffusion models, and vision-language models.
+- Training infrastructure (GPU parallelism, mixed precision, gradient checkpointing) is not an implementation detail but a constraint that shapes architectural decisions, including the Transformer's dominance due to its parallelizability.
+
+---
+
+## Key Equations Reference
+
+| Name | Equation | Section |
+|---|---|---|
+| Gradient descent update | $\theta \leftarrow \theta - \alpha \nabla_\theta \mathcal{L}$ | 1.2.2 |
+| KL divergence | $\mathrm{KL}(P \| Q) = \sum_x P(x) \log \frac{P(x)}{Q(x)}$ | 1.2.3 |
+| Cross-entropy | $H(P, Q) = -\sum_x P(x) \log Q(x)$ | 1.2.4 |
+| Cross-entropy and KL relationship | $H(P, Q) = H(P) + \mathrm{KL}(P \| Q)$ | 1.2.4 |
+| Dense layer forward pass | $\mathbf{h} = \sigma(\mathbf{W}\mathbf{x} + \mathbf{b})$ | 1.3.2 |
+| Adam parameter update | $\theta \leftarrow \theta - \alpha \cdot \frac{\hat{m}}{\sqrt{\hat{v}} + \epsilon}$ | 1.4.1 |
+| Backpropagation (single layer) | $\frac{\partial \mathcal{L}}{\partial \mathbf{W}} = \delta \cdot \sigma'(\mathbf{W}\mathbf{x} + \mathbf{b}) \cdot \mathbf{x}^\top$ | 1.4.2 |
+| LSTM cell state update | $\mathbf{c}_t = \mathbf{f}_t \odot \mathbf{c}_{t-1} + \mathbf{i}_t \odot \tilde{\mathbf{c}}_t$ | 1.5.2 |
+| Batch normalization | $\hat{\mathbf{h}} = \frac{\mathbf{h} - \mu_B}{\sqrt{\sigma_B^2 + \epsilon}}$ | 1.4.4 |
 
 ---
 

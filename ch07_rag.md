@@ -6,7 +6,7 @@
 
 ## 7.1 The Knowledge Problem in Language Models
 
-A transformer trained on a large corpus does not store facts in a lookup table. It stores them in billions of floating-point weights — compressed, distributed, and entangled with everything else the model learned. When you ask GPT-4 "Who was the first person to synthesize aspirin?", the answer is not retrieved from a database. It is reconstructed from gradients that adjusted weights during training whenever related text appeared in the corpus.
+A Transformer trained on a large corpus does not store facts in a lookup table. It stores them in billions of floating-point weights — compressed, distributed, and entangled with everything else the model learned. When you ask GPT-4 "Who was the first person to synthesize aspirin?", the answer is not retrieved from a database. It is reconstructed from gradients that adjusted weights during training whenever related text appeared in the corpus.
 
 This distinction — **parametric memory** versus **non-parametric memory** — is the central tension that RAG addresses.
 
@@ -186,6 +186,62 @@ One solution: refresh the entire index every $m$ steps. The Lewis et al. paper u
 
 This is the RAG training analogue of the **target network** in DQN — you maintain a slowly-updated copy of the network to stabilize optimization.
 
+### Code: Minimal RAG Pipeline
+
+```python
+# pip install sentence-transformers faiss-cpu
+
+import faiss
+import numpy as np
+from sentence_transformers import SentenceTransformer
+
+# Small document corpus — swap in your own documents to experiment
+corpus = [
+    "The Eiffel Tower is located in Paris, France, and was built in 1889.",
+    "Python is a high-level programming language known for its readable syntax.",
+    "The mitochondria is often called the powerhouse of the cell.",
+    "Photosynthesis converts sunlight, water, and CO2 into glucose and oxygen.",
+    "The Great Wall of China stretches over 13,000 miles across northern China.",
+    "Newton's first law states that an object in motion stays in motion.",
+    "The Amazon rainforest produces about 20% of the world's oxygen.",
+    "Shakespeare wrote 37 plays and 154 sonnets during his lifetime.",
+]
+
+# Lightweight bi-encoder (~90MB on first run; no GPU needed)
+model = SentenceTransformer("all-MiniLM-L6-v2")
+
+# --- Indexing phase (done once offline) ---
+print("Encoding corpus...")
+doc_embeddings = model.encode(corpus, convert_to_numpy=True, normalize_embeddings=True)
+# Shape: [num_docs, embedding_dim], e.g. [8, 384]
+
+embedding_dim = doc_embeddings.shape[1]
+# IndexFlatIP = exact inner-product search; cosine sim after L2 normalization
+index = faiss.IndexFlatIP(embedding_dim)
+index.add(doc_embeddings)
+print(f"Index built: {index.ntotal} documents, {embedding_dim}-dim embeddings\n")
+
+# --- Query phase ---
+def retrieve(query: str, top_k: int = 3) -> list:
+    q_emb = model.encode([query], convert_to_numpy=True, normalize_embeddings=True)
+    scores, indices = index.search(q_emb, top_k)
+    return [(float(scores[0][i]), corpus[indices[0][i]]) for i in range(top_k)]
+
+queries = [
+    "Where is the Eiffel Tower?",
+    "How do plants produce energy?",
+    "What did Shakespeare write?",
+]
+
+for query in queries:
+    print(f"Query: {query}")
+    for rank, (score, doc) in enumerate(retrieve(query, top_k=2), 1):
+        print(f"  [{rank}] score={score:.4f}  {doc}")
+    print()
+```
+
+**What to observe:** The retriever finds semantically relevant documents without any keyword overlap — "How do plants produce energy?" retrieves the photosynthesis document because sentence embeddings capture meaning, not surface form. `all-MiniLM-L6-v2` produces 384-dimensional embeddings; production systems use larger models (e.g. `bge-large-en-v1.5`, 1024-dim) for higher recall. In a full RAG pipeline you would pass the top retrieved documents as context to an LLM generator alongside the original query.
+
 ---
 
 ## 7.4 Training RAG End-to-End
@@ -212,7 +268,7 @@ Gradients flow through both $P_\eta$ (retriever softmax over top-$k$ scores) and
 
 The implicit supervision is worth examining carefully. Suppose the correct answer to query $x$ is $y$. Documents that, when provided to the generator, increase $P_\theta(y \mid x, z)$ will receive higher gradient signal from the marginalization. Over training, the retriever learns to surface documents that are causally helpful for generation, not just documents that mention related terms.
 
-This is **knowledge distillation** in the broad sense: the generator's feedback teaches the retriever what "useful" means. The retriever does not need answer-span annotations; it only needs (query, target output) pairs.
+This is an **indirect supervision signal**: the generator's feedback teaches the retriever what "useful" means through the end-to-end gradient, without explicit retrieval labels. The retriever does not need answer-span annotations; it only needs (query, target output) pairs.
 
 ### The REALM Connection
 
@@ -365,9 +421,9 @@ Self-RAG outperforms RAG on ASQA (long-form QA), PopQA, and other benchmarks, wh
 
 RAG as described in Lewis et al. is a **post-training** addition — retrieval is bolted onto a pre-trained language model. RETRO (Retrieval-Enhanced Transformer) integrates retrieval into **pre-training** itself.
 
-RETRO uses a chunked cross-attention mechanism: during pre-training, every chunk of the sequence retrieves its nearest neighbors from a 2 trillion-token datastore and attends to them. The architecture adds a frozen BERT retriever and a trainable chunked cross-attention layer to a standard transformer decoder.
+RETRO uses a chunked cross-attention mechanism: during pre-training, every chunk of the sequence retrieves its nearest neighbors from a 2 trillion-token datastore and attends to them. The architecture adds a frozen BERT retriever and a trainable chunked cross-attention layer to a standard Transformer decoder.
 
-Key result: RETRO-3.5B (3.5B parameters + 2T-token retrieval) matches GPT-3 (175B parameters) on language modeling perplexity on the Pile benchmark specifically. Retrieval is a more parameter-efficient way to store knowledge than increasing model size.
+Key result: RETRO-3.5B (3.5B parameters + 2T-token retrieval) matches GPT-3 (175B parameters) on language modeling perplexity on the Pile benchmark. However, this comparison comes with caveats: the result holds specifically on the Pile, and the 2T-token retrieval datastore has significant overlap with the evaluation data. On tasks requiring generalization beyond the datastore, the gap narrows. Nonetheless, it demonstrates that retrieval can be a more parameter-efficient way to store knowledge than increasing model size.
 
 This has profound implications: retrieval is not just an inference-time patch — it can replace parametric memory at scale.
 
@@ -473,6 +529,33 @@ RAG decomposes the knowledge problem into two orthogonal concerns: *what to know
 The architecture has proven remarkably durable. Four years after the paper, the core structure — bi-encoder retrieval, vector index, LLM generator — is the dominant pattern for enterprise AI systems. The variations (Self-RAG, RETRO, HyDE) refine specific weaknesses: adaptive retrieval, pre-training integration, query-document distribution mismatch.
 
 For the systems-oriented reader: RAG is not just an NLP technique. It is a **system design pattern** — retrieval as infrastructure, LLM as query processor. The engineering challenges are database engineering challenges: index freshness, retrieval latency, chunk boundary effects, recall-precision tradeoff. Understanding those engineering dimensions is as important as understanding the training dynamics.
+
+---
+
+## Summary
+
+- RAG (Retrieval-Augmented Generation) addresses the fundamental limitations of parametric memory --- hallucination, knowledge staleness, lack of provenance, and capacity constraints --- by separating *what to know* (an external retrieval corpus) from *how to reason* (the language model generator).
+- The RAG architecture treats retrieved documents as latent variables and marginalizes over them: $P(y \mid x) = \sum_z P_\eta(z \mid x) \cdot P_\theta(y \mid x, z)$. End-to-end training propagates gradients through both the retriever and the generator, with the retriever learning to surface documents that are causally helpful for correct generation.
+- Dense Passage Retrieval (DPR) uses a bi-encoder architecture with separate query and document encoders trained via contrastive loss. The bi-encoder design decouples indexing (run once per document) from querying (run once per query), enabling efficient retrieval over millions of passages using FAISS approximate nearest neighbor search.
+- The practical RAG pipeline follows a two-stage retrieval pattern: a fast bi-encoder recall stage retrieves top-100 candidates, followed by a cross-encoder reranking stage that selects top-5 with full query-document cross-attention, improving faithfulness by 15--25% over single-stage retrieval.
+- Self-RAG introduces metacognitive control through learned reflection tokens, enabling the model to decide when retrieval is needed and to evaluate the relevance and supportedness of retrieved passages, reducing unnecessary retrieval calls by 30--40%.
+- RETRO integrates retrieval into pre-training itself via chunked cross-attention over a 2-trillion-token datastore, demonstrating that retrieval can substitute for parametric memory at scale: RETRO-3.5B matches GPT-3 175B on language modeling perplexity.
+- RAG is best understood as a system design pattern --- retrieval as infrastructure, LLM as query processor --- where the engineering challenges (index freshness, chunking strategy, embedding model selection, recall-precision tradeoff) are as important as the training dynamics.
+
+---
+
+## Key Equations Reference
+
+| Name | Equation | Section |
+|---|---|---|
+| RAG marginal probability | $P(y \mid x) = \sum_{z} P_\eta(z \mid x) \cdot P_\theta(y \mid x, z)$ | 7.2 |
+| DPR similarity score | $s(x, z) = E_Q(x)^\top \cdot E_D(z)$ | 7.2 |
+| DPR contrastive loss | $\mathcal{L} = -\log \frac{e^{s(x, z^+)}}{e^{s(x, z^+)} + \sum_i e^{s(x, z_i^-)}}$ | 7.2 |
+| RAG-Sequence | $P_{\text{RAG-Seq}}(y \mid x) = \sum_z P_\eta(z \mid x) \cdot P_\theta(y \mid x, z)$ | 7.2 |
+| RAG-Token | $P_{\text{RAG-Token}}(y \mid x) = \prod_t \sum_z P_\eta(z \mid x) \cdot P_\theta(y_t \mid x, z, y_{<t})$ | 7.2 |
+| BM25 scoring | $\text{BM25}(d, q) = \sum_{t \in q} \text{IDF}(t) \cdot \frac{f(t,d)(k_1+1)}{f(t,d) + k_1(1 - b + b\frac{|d|}{\text{avgdl}})}$ | 7.3 |
+| RAG training loss | $\mathcal{L} = -\sum_{(x,y)} \log \sum_z P_\eta(z \mid x) \cdot P_\theta(y \mid x, z)$ | 7.4 |
+| MoCo momentum update | $\theta_k \leftarrow m \cdot \theta_k + (1-m) \cdot \theta_q$ | 7.3 |
 
 ---
 

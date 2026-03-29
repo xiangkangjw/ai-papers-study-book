@@ -69,7 +69,7 @@ This result is intuitive: $D^*$ outputs the Bayesian posterior probability that 
 
 ### 3.2.3 The Generator Minimizes Jensen-Shannon Divergence
 
-Substituting $D^*$ back into $V(D^*, G)$ reveals what G is actually minimizing. Let's carry out the algebra.
+Substituting $D^*$ back into $V(D^*, G)$ reveals what G is actually minimizing. Let us carry out the algebra.
 
 $$V(D^*, G) = \mathbb{E}_{x \sim p_{\text{data}}}\left[\log \frac{p_{\text{data}}(x)}{p_{\text{data}}(x) + p_g(x)}\right] + \mathbb{E}_{x \sim p_g}\left[\log \frac{p_g(x)}{p_{\text{data}}(x) + p_g(x)}\right]$$
 
@@ -134,7 +134,7 @@ The original paper recommends $k=1$ for simplicity (one D step per G step), thou
 
 ### 3.3.2 The Vanishing Gradient Problem
 
-There's a fundamental problem with the generator's loss $\log(1 - D(G(z)))$.
+There is a fundamental problem with the generator's loss $\log(1 - D(G(z)))$.
 
 Early in training, the generator is poor. D easily distinguishes fakes from reals, so $D(G(z)) \approx 0$. The generator's loss becomes:
 
@@ -170,7 +170,7 @@ Why doesn't this happen with maximum likelihood? Because MLE directly minimizes 
 - **Minibatch discrimination**: Feed D statistics about a batch of samples, not just individual ones. D can then penalize G for producing a batch with low diversity.
 - **Feature matching**: Train G to match statistics of intermediate D activations, rather than optimizing the output directly. This reduces the incentive to exploit D's output layer.
 - **Spectral normalization**: Constrain D's Lipschitz constant to stabilize training.
-- **Unrolled GANs**: Train G against a D that has been "unrolled" several steps forward, so G can't exploit D's current state without considering D's response.
+- **Unrolled GANs**: Train G against a D that has been "unrolled" several steps forward, so G cannot exploit D's current state without considering D's response.
 
 ### 3.3.4 Training Instability
 
@@ -215,7 +215,7 @@ So the theory establishes that the objective has a good fixed point but says not
 
 The issue is deeper than just capacity and finite optimization. Even with linear models and convex objectives, **simultaneous gradient descent on two-player zero-sum games does not converge in general** — it orbits the Nash equilibrium.
 
-Consider the simplest possible case: $\min_x \max_y xy$. The Nash equilibrium is $(0,0)$. Gradient descent update: $x \leftarrow x - \alpha y$, $y \leftarrow y + \alpha x$. This system orbits the origin with period $2\pi/\alpha$ — it never converges.
+Consider the simplest possible case: $\min_x \max_y xy$. The Nash equilibrium is $(0,0)$. Gradient descent update: $x \leftarrow x - \alpha y$, $y \leftarrow y + \alpha x$. With discrete step sizes, this system actually *diverges* — it spirals outward from the origin with increasing radius. (In the continuous-time limit the orbits are stable circles, but the discrete updates overshoot on each step.) This is even worse than mere non-convergence: the iterates actively move away from the equilibrium.
 
 For GANs, which are highly non-convex non-concave, the situation is even worse. The landscape is full of local equilibria, saddle points, and limit cycles. This is why GAN training requires so many stabilization techniques.
 
@@ -262,7 +262,7 @@ DCGAN also showed that the GAN latent space has meaningful structure: interpolat
 
 **WGAN** (Arjovsky, Chintala, and Bottou, 2017) is one of the most theoretically important GAN variants, motivated by a precise diagnosis of what goes wrong.
 
-The problem: when $p_{\text{data}}$ and $p_g$ have non-overlapping or near-non-overlapping support (which happens early in training when G produces garbage), the JSD equals $\log 2$ regardless of how different the distributions are. The gradient of JSD with respect to G's parameters is zero. G can't learn.
+The problem: when $p_{\text{data}}$ and $p_g$ have non-overlapping or near-non-overlapping support (which happens early in training when G produces garbage), the JSD equals $\log 2$ regardless of how different the distributions are. The gradient of JSD with respect to G's parameters is zero. G cannot learn.
 
 The solution: use **Wasserstein-1 distance** (also called Earth Mover's distance) instead of JSD.
 
@@ -296,11 +296,11 @@ $$\mathcal{L}_C = \mathbb{E}_{x \sim p_g}[C(x)] - \mathbb{E}_{x \sim p_{\text{da
 
 where $\hat{x}$ is sampled uniformly along straight lines between pairs of real and generated samples. This is much more stable than weight clipping and doesn't require tuning the clipping threshold.
 
-WGAN-GP became a go-to baseline because of its training stability and meaningful loss curve — unlike original GAN loss, WGAN loss actually correlates with sample quality.
+WGAN-GP became a widely adopted baseline because of its training stability and meaningful loss curve — unlike original GAN loss, WGAN loss actually correlates with sample quality.
 
 ### 3.5.3 Conditional GAN: Controlling What Gets Generated
 
-Standard GAN maps noise to data with no control over what's generated. **Conditional GAN** (cGAN, Mirza and Osindero, 2014) conditions both G and D on auxiliary information $y$ (class labels, text descriptions, segmentation maps):
+Standard GAN maps noise to data with no control over what is generated. **Conditional GAN** (cGAN, Mirza and Osindero, 2014) conditions both G and D on auxiliary information $y$ (class labels, text descriptions, segmentation maps):
 
 $$\min_G \max_D V(D, G) = \mathbb{E}_{x \sim p_{\text{data}}}[\log D(x|y)] + \mathbb{E}_{z \sim p_z}[\log(1 - D(G(z|y)|y))]$$
 
@@ -310,7 +310,7 @@ cGANs enable controlled generation: given class label $y = \text{"cat"}$, G gene
 
 ### 3.5.4 Pix2Pix: Image-to-Image Translation
 
-**Pix2Pix** (Isola et al., 2017) extends cGAN to image-to-image translation tasks: maps to satellite photos, sketches to photos, day to night. The conditioning signal $y$ is the input image.
+**Pix2Pix** (Isola et al., 2017) extends cGAN to image-to-image translation tasks: maps to satellite photos, sketches to photos, day to night. Here we use different notation from the cGAN section above to avoid ambiguity: let $x_A$ denote the input image (e.g., a sketch) and $x_B$ the target image (e.g., the corresponding photo).
 
 The key architectural choice is a U-Net generator (encoder-decoder with skip connections) and a PatchGAN discriminator that classifies whether each $N \times N$ patch of an image is real or fake (rather than classifying the whole image). The patch discriminator enforces local texture realism; the U-Net skip connections preserve global structure.
 
@@ -318,9 +318,9 @@ The loss combines adversarial loss with L1 reconstruction:
 
 $$\mathcal{L}_{\text{Pix2Pix}} = \mathcal{L}_{cGAN}(G, D) + \lambda \mathcal{L}_{L1}(G)$$
 
-where $\mathcal{L}_{L1}(G) = \mathbb{E}[\|y - G(x, z)\|_1]$.
+where $\mathcal{L}_{L1}(G) = \mathbb{E}[\|x_B - G(x_A, z)\|_1]$.
 
-The L1 term prevents the generator from ignoring the input image entirely to fool the discriminator — it anchors G to produce an output that's close to the target.
+The L1 term prevents the generator from ignoring the input image entirely to fool the discriminator — it anchors G to produce an output that is close to the target.
 
 ### 3.5.5 StyleGAN: State of the Art in High-Fidelity Synthesis
 
@@ -346,7 +346,7 @@ StyleGAN2 (Karras et al., 2020) later replaced progressive growing with feature 
 
 Variational Autoencoders (Chapter 2) and GANs are both deep generative models, but they have fundamentally different failure modes. Understanding the trade-off requires examining the divergence each one minimizes.
 
-**VAEs minimize $\text{KL}(p_{\text{data}} \| p_g)$ (approximately)**. This divergence is infinite when $p_{\text{data}}(x) > 0$ but $p_g(x) = 0$. To avoid this, the model must cover all modes of $p_{\text{data}}$ — even regions where the model is uncertain. The result: **mode covering**. VAEs assign probability mass everywhere $p_{\text{data}}$ has mass, even between modes. This produces blurry samples — the model averages over its uncertainty rather than committing to a specific output.
+**VAEs maximize the evidence lower bound (ELBO)**, which can be shown to correspond to approximately minimizing $\text{KL}(p_{\text{data}} \| p_g)$ — the forward KL divergence. This divergence is infinite when $p_{\text{data}}(x) > 0$ but $p_g(x) = 0$. To avoid this, the model must cover all modes of $p_{\text{data}}$ — even regions where the model is uncertain. The result: **mode covering**. VAEs assign probability mass everywhere $p_{\text{data}}$ has mass, even between modes. This produces blurry samples — the model averages over its uncertainty rather than committing to a specific output.
 
 **GANs minimize JSD (or Wasserstein distance)**. JSD penalizes the generator for placing probability mass in regions where $p_g(x) > p_{\text{data}}(x)$, but not asymmetrically for missing mass. The result: **mode dropping**. G can ignore entire modes of $p_{\text{data}}$ without being severely penalized, as long as what it does generate is indistinguishable from real data.
 
@@ -362,7 +362,7 @@ The trade-off:
 | Inference (encode real x) | Yes (encoder $q(z|x)$) | No (no encoder) |
 | Theoretical grounding | Strong (variational inference) | Moderate (game theory) |
 
-This isn't just practical observation — it reflects the underlying mathematics of the divergences. There's no free lunch: you're choosing between a model that covers the full distribution (but is blurry) and one that captures the texture of specific regions (but may miss large parts of the distribution).
+This is not just practical observation — it reflects the underlying mathematics of the divergences. There is no free lunch: you're choosing between a model that covers the full distribution (but is blurry) and one that captures the texture of specific regions (but may miss large parts of the distribution).
 
 **Hybrid approaches** attempt to get both. VAE-GAN (Larsen et al., 2016) uses a VAE encoder-decoder as the generator in a GAN framework. The VAE provides the latent structure and mode coverage; the GAN discriminator sharpens the output. In practice, hybrid models often inherit problems from both parents.
 
@@ -639,6 +639,82 @@ $$\text{FID} = \|\mu_r - \mu_g\|^2 + \text{Tr}\!\left(\Sigma_r + \Sigma_g - 2(\S
 (b) Generate 1000 samples from your trained WGAN-GP (from the chapter implementation or your own). Compute FID against 1000 held-out MNIST test images. What FID score do you obtain, and how does it change across training epochs?
 
 (c) FID is sensitive to the number of samples used for estimation. Run your FID computation with $N \in \{100, 500, 1000, 5000\}$ real/fake samples. Plot the FID estimate vs. $N$. At what sample size does the estimate stabilize? What does this imply for comparing models fairly?
+
+---
+
+## Additional Exercises
+
+**Exercise 3.1** *(Computation)*
+
+Derive the optimal discriminator from first principles.
+
+(a) Given fixed generator $G$, the discriminator maximizes:
+$$\int_x \left[ p_{\text{data}}(x) \log D(x) + p_g(x) \log(1 - D(x)) \right] dx$$
+Treating this as a pointwise optimization problem (each $x$ independently), define $a = p_{\text{data}}(x)$, $b = p_g(x)$, and find the $y \in (0,1)$ that maximizes $f(y) = a \log y + b \log(1-y)$. Show all steps including the derivative and setting it to zero.
+
+(b) Verify that your answer matches $D^*(x) = \frac{p_{\text{data}}(x)}{p_{\text{data}}(x) + p_g(x)}$.
+
+(c) Evaluate $D^*(x)$ in three cases: (i) $p_{\text{data}}(x) = 0.8$, $p_g(x) = 0.2$; (ii) $p_{\text{data}}(x) = p_g(x)$; (iii) $p_g(x) \to 0$. Interpret each case: what is the discriminator signaling about this region of data space?
+
+---
+
+**Exercise 3.2** *(Conceptual)*
+
+Identify mode collapse in a concrete scenario.
+
+You train a GAN on MNIST (10 digit classes). After training, you generate 1,000 samples and run a classifier on them. The class distribution you observe is: class 1 appears 820 times, classes 0 and 7 appear about 90 times each, and all other classes appear 0 times.
+
+(a) Is this mode collapse? What distinguishes partial mode collapse from full mode collapse?
+
+(b) Explain the mechanism: why would the generator concentrate on digit "1"? Frame your answer in terms of the discriminator's behavior at a specific point in training and the exploit the generator found.
+
+(c) You compute FID using 1,000 generated samples vs. the full MNIST test set. Would you expect FID to be higher or lower compared to a generator with uniform coverage of all 10 classes but slightly blurrier samples? Explain which component of the FID formula ($\|\mu_r - \mu_g\|^2$ or the trace term) is most affected by mode collapse.
+
+---
+
+**Exercise 3.3** *(Computation)*
+
+WGAN gradient penalty.
+
+The WGAN-GP critic loss adds a gradient penalty term:
+$$\mathcal{L}_C = \mathbb{E}_{x \sim p_g}[C(x)] - \mathbb{E}_{x \sim p_{\text{data}}}[C(x)] + \lambda \mathbb{E}_{\hat{x}}\left[(\|\nabla_{\hat{x}} C(\hat{x})\|_2 - 1)^2\right]$$
+
+(a) The interpolated point $\hat{x}$ is constructed as $\hat{x} = \epsilon x_{\text{real}} + (1-\epsilon) x_{\text{fake}}$ where $\epsilon \sim \text{Uniform}(0,1)$. Why sample along the line between real and fake points specifically, rather than sampling $\hat{x}$ uniformly from the data distribution?
+
+(b) The penalty enforces $\|\nabla_{\hat{x}} C(\hat{x})\|_2 \approx 1$, not $\leq 1$. Explain why the 1-Lipschitz constraint for Wasserstein distance requires the gradient norm to be at most 1 everywhere, but the practical penalty pushes it toward exactly 1. What does a critic with gradient norm exactly 1 everywhere mean geometrically?
+
+(c) Weight clipping (the original WGAN) clips all critic weights to $[-c, c]$. Describe one failure mode of weight clipping that the gradient penalty avoids. (Hint: think about what a network with all weights at the clipping boundary looks like.)
+
+---
+
+**Exercise 3.4** *(Computation)*
+
+FID computation walkthrough.
+
+Suppose you extract Inception features for 500 real images and 500 generated images, and obtain the following 2D summary statistics (pretend the feature space is 2D for tractability):
+
+$$\mu_r = [1.0, 0.5], \quad \Sigma_r = \begin{bmatrix} 2.0 & 0.5 \\ 0.5 & 1.0 \end{bmatrix}$$
+$$\mu_g = [1.2, 0.3], \quad \Sigma_g = \begin{bmatrix} 1.5 & 0.3 \\ 0.3 & 0.8 \end{bmatrix}$$
+
+(a) Compute the first term $\|\mu_r - \mu_g\|^2$.
+
+(b) The full FID formula is $\|\mu_r - \mu_g\|^2 + \text{Tr}(\Sigma_r + \Sigma_g - 2(\Sigma_r \Sigma_g)^{1/2})$. Without computing the matrix square root, evaluate $\text{Tr}(\Sigma_r + \Sigma_g)$ as a partial bound on the covariance term.
+
+(c) A mode-collapsed generator produces samples from only one mode of a bimodal distribution, so $\Sigma_g \approx \mathbf{0}$ (near-zero covariance). How does this affect FID? Which term dominates, and in which direction does FID change relative to a generator with full coverage?
+
+---
+
+**Exercise 3.5** *(Connection)*
+
+GAN vs. VAE trade-offs in a practical setting.
+
+You are building a system to generate synthetic medical images for augmenting a training dataset for a tumor detection classifier. The real dataset has 10,000 images: 8,000 healthy tissue and 2,000 tumor-positive (a class-imbalanced problem).
+
+(a) You train a GAN and a VAE, both unconditional. The GAN produces sharper images but you suspect mode collapse. Describe a concrete test — using only generated samples and a pre-trained classifier — that would let you detect whether the GAN has dropped the tumor-positive mode.
+
+(b) For this application, is mode dropping or mode blurring the more dangerous failure? Justify your answer in terms of what a downstream tumor detection model would learn from the augmented data.
+
+(c) You consider training a conditional GAN (cGAN) conditioned on class label $y \in \{0, 1\}$. Explain how conditioning structurally addresses mode collapse for the minority class, and write the modified generator and discriminator inputs that enable this conditioning.
 
 ---
 

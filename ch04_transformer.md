@@ -10,7 +10,7 @@ $$\mathbf{h}_t = f(\mathbf{h}_{t-1}, \mathbf{x}_t) \quad \text{for } t = 1, 2, \
 
 This creates three problems:
 
-**Sequential dependency.** The computation of $\mathbf{h}_t$ depends on $\mathbf{h}_{t-1}$. You cannot compute $\mathbf{h}_{100}$ until you have computed $\mathbf{h}_{99}$. This means $O(n)$ sequential steps that cannot be parallelized. On modern GPUs — massively parallel processors with thousands of cores — this is a catastrophic underutilization of hardware. Training time is dominated by the length of the longest sequence in the batch.
+**Sequential dependency.** The computation of $\mathbf{h}_t$ depends on $\mathbf{h}_{t-1}$. You cannot compute $\mathbf{h}_{100}$ until you have computed $\mathbf{h}_{99}$. This means $O(n)$ sequential steps that cannot be parallelized. On modern GPUs — massively parallel processors with thousands of cores — this is a severe underutilization of hardware. Training time is dominated by the length of the longest sequence in the batch.
 
 **Vanishing gradients.** To propagate gradient information from token $t$ back to token $1$, the gradient must flow through $t-1$ multiplicative steps. Even with LSTM's gating mechanisms, empirical gradient flow degrades over long distances. The effective receptive field is bounded. A token at position 500 has a weak gradient connection to position 1, regardless of what the theory says about LSTMs "solving" vanishing gradients. They mitigate it; they do not eliminate it.
 
@@ -276,7 +276,7 @@ $$PE_{(pos, 2i)} = \sin\!\left(\frac{pos}{10000^{2i/d_{\text{model}}}}\right)$$
 
 $$PE_{(pos, 2i+1)} = \cos\!\left(\frac{pos}{10000^{2i/d_{\text{model}}}}\right)$$
 
-where $pos$ is the position index and $i$ is the dimension index. Each dimension oscillates at a different frequency. Lower dimensions (small $i$) have high frequency and short wavelength; higher dimensions (large $i$) have low frequency and long wavelength. Concretely, the wavelengths range from $2\pi$ (for $i=0$, highest frequency) to $10000 \cdot 2\pi$ (for $i = d_{\text{model}}/2 - 1$, lowest frequency).
+where $pos$ is the position index and $i$ is the dimension index. Each dimension oscillates at a different frequency. Lower dimensions (small $i$) have high frequency and short wavelength; higher dimensions (large $i$) have low frequency and long wavelength. Concretely, the wavelengths range from $2\pi$ (for $i=0$, shortest wavelength / highest frequency) to $10000 \cdot 2\pi$ (for $i = d_{\text{model}}/2 - 1$, longest wavelength / lowest frequency). Note that $10000$ controls the longest wavelength, not a frequency — higher dimensions oscillate more slowly, allowing the model to encode coarse positional differences.
 
 The key property: for any fixed offset $k$, the mapping $PE_{pos} \mapsto PE_{pos+k}$ can be represented as a linear transformation. This means the model can learn to attend to relative positions through linear operations on these encodings. The sinusoidal choice also generalizes to sequence lengths longer than those seen during training, since the functions are defined for any $pos$.
 
@@ -352,7 +352,7 @@ Comparison with RNNs: a recurrent layer has $O(n \cdot d^2)$ computation and $O(
 
 **FlashAttention (Dao et al., 2022).** The $O(n^2)$ memory bottleneck is not inherent to the algorithm — it comes from materializing the full $n \times n$ attention matrix. FlashAttention computes attention in a *tiled* fashion, processing blocks of the attention matrix that fit in GPU SRAM (fast on-chip memory) rather than reading/writing the full matrix to HBM (slow off-chip memory).
 
-The core technique: for each block of queries, iterate over blocks of keys/values, computing partial softmax results and accumulating them using the *online softmax* trick (which avoids needing the full row of scores to compute the normalization constant). This reduces HBM reads/writes from $O(n^2)$ to $O(n^2 d / M)$ where $M$ is the SRAM size, achieving 2-4x wall-clock speedup for typical sequence lengths with *exact* attention (no approximation).
+The core technique: for each block of queries, iterate over blocks of keys/values, computing partial softmax results and accumulating them using the *online softmax* trick (which avoids needing the full row of scores to compute the normalization constant). This reduces HBM reads/writes from $O(n^2)$ to $O(n^2 d / M)$ where $M$ is the SRAM size and $d$ is the head dimension. Although $O(n^2 d / M)$ appears to be *larger* than $O(n^2)$ at first glance, the key is that $d/M \ll 1$: typical head dimensions are $d = 64$ or $128$, while SRAM is tens of megabytes, so the factor $d/M$ can be on the order of $10^{-5}$. This achieves 2-4x wall-clock speedup for typical sequence lengths with *exact* attention (no approximation).
 
 FlashAttention is now the default attention implementation in most production Transformer training. It is a pure systems optimization — the mathematical computation is identical, but the memory access pattern is fundamentally different.
 
@@ -364,7 +364,7 @@ FlashAttention is now the default attention implementation in most production Tr
 
 The Transformer's success was not just about attention. Several properties combined to make it the dominant architecture:
 
-**Parallelism.** Self-attention processes all positions simultaneously. Training on GPUs went from being bottlenecked by sequence length to being bottlenecked by total compute. This meant that doubling GPUs approximately halved training time — a property RNNs fundamentally lacked.
+**Parallelism.** Self-attention processes all positions simultaneously. Training on GPUs went from being bottlenecked by sequence length to being bottlenecked by total compute. This meant that, in the ideal case, doubling GPUs approximately halved training time — a property RNNs fundamentally lacked.
 
 **Direct long-range connections.** In an RNN, information from token 1 must traverse $n-1$ sequential steps to reach token $n$. In a Transformer, every token is one attention step away from every other token. The maximum path length between any two positions is $O(1)$ per layer. This is not just a theoretical property — it manifests as empirically better performance on tasks requiring long-range dependencies (coreference, document-level reasoning, code understanding with distant variable definitions).
 
@@ -384,7 +384,7 @@ The Transformer is the foundation for nearly everything that follows in this boo
 
 **Vision Transformers (Chapter 6).** ViT (Dosovitskiy et al., 2020) splits images into 16x16 patches, treats each patch as a "token," and feeds them into a standard Transformer encoder. This collapses the distinction between vision and language architectures, enabling VLMs like CLIP and LLaVA that process both modalities with shared or parallel Transformer stacks.
 
-**Diffusion models (Chapter 8).** The U-Net architecture commonly used in diffusion models (Stable Diffusion, DALL-E 2) incorporates Transformer attention blocks for conditioning on text. DiT (Peebles and Xie, 2023) replaces the U-Net entirely with a Transformer, applying it directly to image latent patches.
+**Diffusion models (Chapter 8).** The U-Net architecture commonly used in latent diffusion models (notably Stable Diffusion) incorporates Transformer cross-attention blocks for conditioning on text. DALL-E 2 uses a different architecture — a CLIP text encoder, a diffusion prior that maps CLIP text embeddings to image embeddings, and an unCLIP decoder. DiT (Peebles and Xie, 2023) replaces the U-Net entirely with a Transformer, applying it directly to image latent patches.
 
 **Reinforcement learning.** The Decision Transformer (Chen et al., 2021) reframes RL as sequence modeling: given a trajectory of (return-to-go, state, action) tokens, predict the next action autoregressively. This eliminates the need for value functions and Bellman backups entirely, replacing them with the Transformer's general-purpose sequence modeling capability. This is a direct bridge between the Transformer architecture and the RL topics in later chapters.
 
@@ -404,6 +404,164 @@ The Transformer is not the final architecture — state-space models (Mamba), mi
 | Positional encoding | Inject sequence order into a permutation-equivariant architecture | Varies by method |
 
 The Transformer replaced recurrence with attention, trading sequential computation for parallelism and direct long-range connections. The $O(n^2)$ cost is real but manageable through systems optimizations (FlashAttention) and sparse patterns. The architecture's modularity and scalability made it the universal backbone for modern AI.
+
+---
+
+## 4.11 Beyond Attention: State Space Models and Mamba
+
+### 4.11.1 What If We Did Not Need Attention at All?
+
+The preceding sections built the case for the Transformer: attention enables parallel training, direct long-range connections, and clean scalability. But attention has a fundamental cost that no systems optimization can eliminate. The $\mathbf{Q}\mathbf{K}^\top$ matrix has $n^2$ entries. FlashAttention reduces the *memory* footprint, but the *computation* remains $O(n^2 d)$ in sequence length $n$. For a 4,096-token context, this is tolerable. For 100,000 tokens — an entire codebase, a legal contract, an hour of audio — the quadratic cost becomes the dominant training and inference bottleneck.
+
+This observation led a subset of the research community to revisit an old idea: what if we returned to recurrence, but did it correctly this time? Not the ad hoc gating of LSTMs and GRUs, but recurrence grounded in continuous-time dynamical systems — specifically, *state space models* (SSMs). The result is a family of architectures that achieve $O(n)$ scaling in sequence length while matching or approaching Transformer quality on many benchmarks. The most prominent of these is Mamba (Gu & Dao, 2023).
+
+This section traces the line of research from classical state space models through S4 and HiPPO to Mamba and its successors, then examines how hybrid architectures combine the strengths of both paradigms.
+
+### 4.11.2 State Space Models: From Control Theory to Sequence Modeling
+
+A *linear time-invariant* (LTI) state space model is a standard object in control theory and signal processing. It maps a continuous-time input signal $x(t) \in \mathbb{R}$ to an output signal $y(t) \in \mathbb{R}$ through a latent state $\mathbf{h}(t) \in \mathbb{R}^N$:
+
+$$\mathbf{h}'(t) = \mathbf{A}\mathbf{h}(t) + \mathbf{B}x(t)$$
+$$y(t) = \mathbf{C}\mathbf{h}(t) + Dx(t)$$
+
+where $\mathbf{A} \in \mathbb{R}^{N \times N}$ is the *state matrix* governing the dynamics of the hidden state, $\mathbf{B} \in \mathbb{R}^{N \times 1}$ controls how input enters the state, $\mathbf{C} \in \mathbb{R}^{1 \times N}$ reads from the state to produce output, and $D \in \mathbb{R}$ is a direct feed-through (skip connection) from input to output.
+
+If you have a background in signal processing, you will recognize this immediately: the SSM is a *learned infinite impulse response (IIR) filter*. The state $\mathbf{h}(t)$ acts as a memory that integrates over the entire input history with exponentially decaying weights determined by the eigenvalues of $\mathbf{A}$. Unlike a finite impulse response (FIR) filter — which looks at a fixed window of past inputs — the IIR filter's response extends, in principle, infinitely into the past. The matrix $\mathbf{A}$ determines the filter's poles, and learning $\mathbf{A}$ is equivalent to learning the filter's frequency response.
+
+Alternatively, if you think in terms of neural networks: this is a *continuous-time linear RNN*. The hidden state evolves according to a first-order ODE rather than a discrete recurrence. Setting $D = 0$ and discretizing with Euler's method at step size $\Delta$ yields:
+
+$$\mathbf{h}_k = (\mathbf{I} + \Delta \mathbf{A})\mathbf{h}_{k-1} + \Delta \mathbf{B} x_k$$
+$$y_k = \mathbf{C}\mathbf{h}_k$$
+
+This is precisely a linear RNN with transition matrix $\bar{\mathbf{A}} = \mathbf{I} + \Delta \mathbf{A}$ and input matrix $\bar{\mathbf{B}} = \Delta \mathbf{B}$. The continuous-time formulation is not merely aesthetic — it provides a principled framework for initialization (Section 4.11.3) and enables the *dual* computation modes that make SSMs practical (Section 4.11.4).
+
+### 4.11.3 HiPPO: How to Initialize State Dynamics
+
+The matrix $\mathbf{A}$ is the most important component of a state space model. It determines how the hidden state integrates past inputs — which information is retained, which is forgotten, and at what timescales. A random initialization of $\mathbf{A}$ performs poorly because the eigenvalues may cause the state to either explode (eigenvalues with positive real part) or forget too quickly (eigenvalues with large negative real part).
+
+Gu et al. (2020) introduced the *HiPPO* (High-order Polynomial Projection Operators) framework, which derives $\mathbf{A}$ analytically from a specific objective: at every time $t$, the hidden state $\mathbf{h}(t)$ should optimally approximate the *history* of the input signal $x(\tau)$ for $\tau \leq t$ by projecting it onto a basis of orthogonal polynomials.
+
+The most important instance is HiPPO-LegS (Legendre Scaled), which maintains a running projection onto scaled Legendre polynomials over the interval $[0, t]$. The resulting state matrix has entries:
+
+$$A_{nk} = \begin{cases} -(2n+1)^{1/2}(2k+1)^{1/2} & \text{if } n > k \\ -(n+1) & \text{if } n = k \\ 0 & \text{if } n < k \end{cases}$$
+
+This matrix has two crucial properties. First, it is *stable*: all eigenvalues have negative real parts, so the state does not explode. Second, it provides *uniform approximation* of the input history — the state encodes both recent and distant inputs without the exponential decay that plagues vanilla RNNs. In practice, initializing $\mathbf{A}$ with the HiPPO matrix and then allowing the model to fine-tune it through gradient descent yields dramatically better long-range dependency modeling than random initialization.
+
+The analogy to software engineering is initialization as *prior knowledge baked into architecture*. Just as Xavier/He initialization (Chapter 2) sets weight scales to preserve gradient magnitudes, HiPPO initialization sets the state dynamics to preserve input history. The principle is the same: structure the initial conditions so that gradient descent starts in a productive region of parameter space.
+
+### 4.11.4 S4: Structured State Spaces for Sequences
+
+The Structured State Space for Sequences model (S4; Gu et al., 2022) made SSMs practical for deep learning by solving two problems: computational efficiency and numerical stability.
+
+**The efficiency problem.** A naive implementation of the discretized SSM processes tokens sequentially — exactly the $O(n)$ sequential bottleneck that the Transformer was designed to avoid. However, because the LTI system is *linear*, the SSM has a dual representation as a *convolution*. Unrolling the recurrence:
+
+$$y_k = \mathbf{C}\bar{\mathbf{A}}^k \bar{\mathbf{B}} x_0 + \mathbf{C}\bar{\mathbf{A}}^{k-1}\bar{\mathbf{B}} x_1 + \cdots + \mathbf{C}\bar{\mathbf{B}} x_k$$
+
+This is a standard (non-circular) convolution $y = \bar{K} * x$ with kernel:
+
+$$\bar{K}_j = \mathbf{C}\bar{\mathbf{A}}^j \bar{\mathbf{B}}, \quad j = 0, 1, \ldots, n-1$$
+
+Once the kernel $\bar{K}$ is precomputed, the convolution can be executed in $O(n \log n)$ time using the Fast Fourier Transform (FFT). This is the key insight: during *training*, the SSM operates as a global convolution (parallelizable, like attention), while during *inference*, it operates as a recurrence (constant memory per step, unlike attention's growing KV cache).
+
+**The stability problem.** Computing $\bar{\mathbf{A}}^j$ for large $j$ is numerically unstable unless the state matrix has specific structure. S4 restricts $\mathbf{A}$ to be *diagonal plus low-rank* (DPLR), which admits closed-form computation of the convolution kernel via the Cauchy kernel trick. Subsequent work (S4D; Gu et al., 2022b) simplified this further by restricting $\mathbf{A}$ to be purely diagonal in complex space. Each diagonal entry $a_i \in \mathbb{C}$ governs an independent one-dimensional state that decays at rate $\text{Re}(a_i)$ and oscillates at frequency $\text{Im}(a_i)$. The full state dynamics decompose into $N$ independent damped oscillators — simple to implement, stable to compute, and embarrassingly parallel.
+
+**S4 results.** S4 achieved breakthrough performance on the Long Range Arena benchmark, a suite of tasks specifically designed to test long-range dependency modeling at sequence lengths of 1,024 to 16,384. On the Path-X task (classifying whether two points on a 128x128 image are connected by a path — a sequence of 16,384 tokens), S4 achieved 94% accuracy where Transformers failed to exceed random chance. This demonstrated that the SSM's $O(n)$ scaling was not merely an efficiency gain — it enabled modeling of dependencies at lengths where the quadratic cost of attention was prohibitive.
+
+### 4.11.5 Mamba: Selective State Spaces
+
+S4 had a significant limitation: the state dynamics are *time-invariant*. The matrices $\mathbf{A}$, $\mathbf{B}$, $\mathbf{C}$ are fixed regardless of the input. This means the model applies the same linear filter to every sequence, regardless of content. It cannot, for instance, decide to "pay more attention" to a particular token based on what that token contains. In Transformer terms, S4 is like attention with fixed, data-independent weights — a substantial expressiveness bottleneck.
+
+Mamba (Gu & Dao, 2023) removed this limitation by making the SSM parameters *input-dependent*. Specifically, $\mathbf{B}$, $\mathbf{C}$, and the discretization step size $\Delta$ are computed as functions of the current input:
+
+$$\mathbf{B}_k = \text{Linear}_B(\mathbf{x}_k), \quad \mathbf{C}_k = \text{Linear}_C(\mathbf{x}_k), \quad \Delta_k = \text{softplus}(\text{Linear}_\Delta(\mathbf{x}_k))$$
+
+The step size $\Delta_k$ is particularly important. It controls how much of the current input is incorporated into the state versus how much the state retains from the past. A large $\Delta_k$ means "write this input strongly into memory"; a small $\Delta_k$ means "retain existing memory and largely ignore this input." This is the *selection mechanism* — the model dynamically gates which inputs to remember and which to skip, analogous to the forget gate in an LSTM but derived from the continuous-time SSM framework.
+
+The selection mechanism has a critical consequence for computation: with input-dependent parameters, the system is no longer time-invariant, and the convolution representation from Section 4.11.4 no longer applies. Mamba cannot use the FFT trick. Instead, Gu and Dao developed a *hardware-aware parallel scan* algorithm that computes the selective SSM recurrence in $O(n)$ work with $O(\log n)$ parallel depth, carefully orchestrating data movement between GPU HBM and SRAM — the same IO-awareness principle behind FlashAttention, applied to the recurrence rather than to attention.
+
+The Mamba architecture wraps the selective SSM in a simplified block design:
+
+```
+Input x: [batch, seq_len, d_model]
+    |-- Linear projection -> [batch, seq_len, d_inner]  (expand)
+    |       |-- 1D causal convolution (short kernel, e.g., k=4)
+    |       |-- SiLU activation
+    |       +-- Selective SSM
+    |-- Linear projection -> [batch, seq_len, d_inner]  (gate)
+    |       +-- SiLU activation
+    +-- Element-wise multiply (gated output)
+            +-- Linear projection -> [batch, seq_len, d_model]  (contract)
+```
+
+There is no attention sublayer and no MLP sublayer in the traditional sense. The entire block combines gating, convolution, and the selective state space into a single fused unit. The 1D causal convolution with a short kernel (typically 4) captures local patterns, while the SSM handles long-range dependencies.
+
+**Mamba results.** Mamba matched or exceeded Transformer quality on language modeling at scales up to 2.8B parameters, with significantly better throughput. On a 1.4B parameter model, Mamba achieved the same perplexity as a Transformer++ baseline (a Transformer with modern improvements such as RMSNorm, SwiGLU, and RoPE) while generating tokens 3-5x faster at long sequence lengths, because inference requires no KV cache — only the fixed-size state $\mathbf{h} \in \mathbb{R}^{N}$ is carried forward.
+
+### 4.11.6 Mamba-2: Structured State Space Duality
+
+A natural question arose after Mamba: what is the precise relationship between selective state spaces and attention? Mamba-2 (Dao & Gu, 2024) answered this by proving a formal duality between the two.
+
+The key result: a selective SSM with scalar-valued states and diagonal structure is mathematically equivalent to a form of *linear attention* with a specific *structured mask*. More precisely, the SSM output can be written as a matrix multiplication $\mathbf{y} = \mathbf{M} \mathbf{x}$, where $\mathbf{M}$ is a *semiseparable matrix* — a structured matrix whose $(i,j)$ entry for $i \geq j$ factors as $\mathbf{C}_i^\top \left(\prod_{k=j+1}^{i} \bar{\mathbf{A}}_k\right) \bar{\mathbf{B}}_j$. This is the SSM's analogue of the attention score matrix, but with structure imposed by the state dynamics. The products of $\bar{\mathbf{A}}_k$ terms enforce a form of *causal decay* — distant tokens contribute less unless the state dynamics explicitly preserve them.
+
+This duality is not merely theoretical. It implies that SSMs and attention are two instantiations of a common algebraic framework, and that one can interpolate between them. Mamba-2 exploits this by using larger head dimensions (matching multi-head attention conventions) and a block-decomposition algorithm that processes chunks of the sequence with matrix multiplications (the "attention-like" view) while connecting chunks via the recurrence (the "SSM-like" view). The result is 2-8x faster training throughput than Mamba-1 at the same model quality.
+
+### 4.11.7 Hybrid Architectures: Jamba and the Emerging Consensus
+
+Pure SSM architectures and pure Transformer architectures each have distinct strengths and weaknesses. Attention excels at *in-context retrieval* — tasks that require a token at position $k$ to look up specific information deposited at position $j$, such as copying a name mentioned earlier in a document, or performing few-shot learning from examples in the prompt. The explicit $\mathbf{Q}\mathbf{K}^\top$ lookup is well-suited to this: the model can learn to match a query against all keys and retrieve the corresponding value. SSMs, by contrast, compress history into a fixed-size state vector, which makes precise retrieval of specific tokens harder — analogous to the information bottleneck of RNN encoder-decoder models that motivated attention in the first place (Section 4.1).
+
+Conversely, SSMs excel at tasks requiring *smooth integration* over long contexts: summarization, perplexity modeling over long documents, and tasks where the relevant information is distributed across the entire sequence rather than concentrated at specific positions. The $O(n)$ cost and constant-memory inference also make SSMs strictly superior for deployment at very long context lengths.
+
+This complementarity led to *hybrid* architectures that interleave attention and SSM layers. Jamba (Lieber et al., 2024) from AI21 Labs is the most prominent example. Jamba interleaves Mamba layers with Transformer attention layers in a ratio of approximately 7:1 (seven Mamba layers per one attention layer), and further incorporates mixture-of-experts (MoE) on the feed-forward components. The design rationale is explicit: use cheap Mamba layers for the bulk of the computation and insert sparse attention layers where in-context retrieval is needed.
+
+At 52B total parameters (12B active due to MoE), Jamba fits on a single 80GB GPU while supporting context lengths up to 256K tokens — a regime where a pure Transformer of equivalent quality would require multiple GPUs for the KV cache alone. The hybrid approach captures the best of both worlds: the attention layers provide retrieval capability, and the Mamba layers provide efficient long-range modeling.
+
+The emerging consensus in the field, as of this writing, is that the future likely belongs to hybrid architectures rather than to either paradigm in isolation.
+
+### 4.11.8 Advantages, Limitations, and Open Questions
+
+**Key advantages of SSMs:**
+
+- **$O(n)$ time and memory.** Both training (via convolution or parallel scan) and inference (via recurrence) scale linearly in sequence length. There is no quadratic bottleneck.
+- **No KV cache.** During autoregressive generation, a Transformer must store key and value vectors for every past token at every layer — the KV cache grows as $O(n \cdot L \cdot d)$ where $L$ is the number of layers. An SSM carries only the fixed-size state $\mathbf{h} \in \mathbb{R}^N$, independent of sequence length. For long-context deployment, this difference dominates memory cost.
+- **Principled long-range modeling.** The HiPPO initialization and continuous-time formulation provide a theoretically grounded approach to long-range dependencies, in contrast to attention's brute-force pairwise comparison.
+- **Dual computation modes.** The same model can operate as a convolution (training) or a recurrence (inference), choosing whichever is more efficient for the hardware and use case.
+
+**Key limitations:**
+
+- **In-context retrieval.** As discussed in Section 4.11.7, the fixed-size state creates an information bottleneck for tasks requiring exact recall of specific tokens from the context. Attention's explicit lookup mechanism remains superior for these tasks.
+- **Attention still dominates at scale.** As of this writing, the largest and most capable language models (GPT-4, Claude, Gemini) remain primarily Transformer-based. SSMs have demonstrated competitive quality at scales up to tens of billions of parameters, but the scaling behavior at hundreds of billions and beyond is less established.
+- **Ecosystem maturity.** Transformers benefit from nearly a decade of engineering investment: optimized kernels (FlashAttention, cuBLAS), serving infrastructure, quantization techniques, and extensive empirical knowledge about training dynamics. The SSM ecosystem is younger and less optimized, though this gap is closing rapidly.
+- **Theoretical understanding.** Despite the duality results of Mamba-2, the question of *which inductive biases are better for which tasks* remains incompletely answered. The field does not yet have a clean characterization of when attention is necessary and when it is wasteful.
+
+The state space model line of research demonstrates a broader lesson: architectural innovation in deep learning is rarely a linear progression. The field moved from recurrence (RNNs) to attention (Transformers) and is now circling back to a structured form of recurrence informed by continuous-time dynamics and control theory. Each iteration incorporates the lessons of the previous one — and the most practical outcome may be architectures that combine both.
+
+---
+
+## Summary
+
+- The Transformer replaces recurrence with self-attention, eliminating the sequential bottleneck of RNNs and enabling full parallelization across sequence positions during training.
+- Scaled dot-product attention performs a soft dictionary lookup: each query computes similarity with all keys, normalizes via softmax, and returns a weighted sum of values. Scaling by $1/\sqrt{d_k}$ prevents softmax saturation.
+- Multi-head attention runs $h$ independent attention functions in parallel subspaces, enabling the model to simultaneously capture syntactic, semantic, and positional relationships. The total parameter cost equals that of a single full-dimensional head.
+- The encoder-decoder architecture alternates between token-to-token communication (attention) and per-token computation (FFN), with residual connections and layer normalization ensuring stable gradient flow through deep stacks.
+- Positional encodings are necessary because attention is permutation-equivariant. Sinusoidal encodings support relative position via linear transformations; RoPE encodes relative position through query-key rotations and has become the modern standard.
+- The $O(n^2)$ cost of self-attention in sequence length is the architecture's primary scaling limitation. FlashAttention reduces memory via tiled computation without approximation; sparse attention patterns reduce computation for very long contexts.
+- State space models (S4, Mamba) achieve $O(n)$ scaling by replacing attention with structured recurrence derived from continuous-time dynamical systems. Mamba's selective state spaces make parameters input-dependent, recovering much of attention's expressiveness.
+- Hybrid architectures (Jamba) interleave attention and SSM layers, using cheap Mamba layers for bulk computation and sparse attention layers where in-context retrieval is required, capturing the strengths of both paradigms.
+
+---
+
+## Key Equations Reference
+
+| Name | Equation | Section |
+|---|---|---|
+| Scaled dot-product attention | $\text{Attention}(\mathbf{Q}, \mathbf{K}, \mathbf{V}) = \text{softmax}\!\left(\frac{\mathbf{Q}\mathbf{K}^\top}{\sqrt{d_k}}\right)\mathbf{V}$ | 4.2.2 |
+| Multi-head attention | $\text{MultiHead} = \text{Concat}(\text{head}_1, \ldots, \text{head}_h)\,\mathbf{W}^O$ | 4.3 |
+| Feed-forward network | $\text{FFN}(\mathbf{x}) = \text{ReLU}(\mathbf{x}\mathbf{W}_1 + \mathbf{b}_1)\mathbf{W}_2 + \mathbf{b}_2$ | 4.4.1 |
+| Residual connection gradient | $\frac{\partial y}{\partial \mathbf{x}} = \mathbf{I} + \frac{\partial f(\mathbf{x})}{\partial \mathbf{x}}$ | 4.4.3 |
+| Sinusoidal positional encoding | $PE_{(pos, 2i)} = \sin(pos / 10000^{2i/d_{\text{model}}})$ | 4.5.2 |
+| RoPE rotation | $(\mathbf{R}_m \mathbf{q})^\top (\mathbf{R}_n \mathbf{k}) = \mathbf{q}^\top \mathbf{R}_{n-m}\,\mathbf{k}$ | 4.5.4 |
+| Transformer learning rate schedule | $\text{lr} = d_{\text{model}}^{-0.5} \cdot \min(\text{step}^{-0.5},\, \text{step} \cdot \text{warmup}^{-1.5})$ | 4.6.1 |
+| SSM state equation | $\mathbf{h}'(t) = \mathbf{A}\mathbf{h}(t) + \mathbf{B}x(t)$ | 4.11.2 |
 
 ---
 
@@ -665,6 +823,86 @@ Part 3: Multi-head attention
 
 ---
 
+## Additional Exercises
+
+**Exercise 4.1** *(Computation)*
+
+Compute attention weights by hand for the following toy example. You have three tokens with $d_k = 2$:
+
+$$\mathbf{Q} = \begin{pmatrix} 1 & 0 \\ 0 & 1 \\ 1 & 1 \end{pmatrix}, \quad \mathbf{K} = \begin{pmatrix} 1 & 0 \\ 0 & 1 \\ 1 & 1 \end{pmatrix}, \quad \mathbf{V} = \begin{pmatrix} 1 & 0 \\ 0 & 1 \\ 1 & 1 \end{pmatrix}$$
+
+(a) Compute the raw score matrix $\mathbf{Q}\mathbf{K}^\top \in \mathbb{R}^{3 \times 3}$. What does entry $(i, j)$ represent geometrically?
+
+(b) Scale the scores by $\frac{1}{\sqrt{d_k}} = \frac{1}{\sqrt{2}}$. Apply row-wise softmax to obtain the attention weight matrix $\mathbf{A}$.
+
+(c) Compute the output $\mathbf{A}\mathbf{V}$. Verify that row 3 of the output is a weighted combination of all three value vectors, and explain why token 3 attends most strongly to itself.
+
+(d) Apply a causal mask (set upper-triangular entries to $-\infty$ before softmax). Recompute $\mathbf{A}$ and the output. What changes about the representation of token 1?
+
+---
+
+**Exercise 4.2** *(Computation)*
+
+Count parameters in the base Transformer ($d_{\text{model}} = 512$, $d_{\text{ff}} = 2048$, $h = 8$ heads, $N = 6$ encoder layers, $N = 6$ decoder layers, vocabulary size $V = 37{,}000$).
+
+(a) One encoder layer: compute parameters for (i) multi-head self-attention, (ii) position-wise FFN, and (iii) two LayerNorm layers (each has $2 \times d_{\text{model}}$ parameters for scale and bias). Sum to get per-layer total.
+
+(b) One decoder layer: same as encoder but adds a cross-attention sublayer and a third LayerNorm. What is the per-layer total?
+
+(c) The token embedding matrix $\mathbf{E} \in \mathbb{R}^{V \times d_{\text{model}}}$ is shared with the pre-softmax output projection (weight tying). How many parameters does this save compared to having separate matrices?
+
+(d) Estimate the total parameter count for the base model (6 encoder + 6 decoder layers + embeddings). The paper reports ~65M parameters. How close is your estimate?
+
+---
+
+**Exercise 4.3** *(Conceptual)*
+
+Analyze the sinusoidal positional encoding for a sequence of length $n = 4$ and $d_{\text{model}} = 4$ (so $i \in \{0, 1\}$).
+
+(a) Compute the $4 \times 4$ PE matrix where rows are positions ($pos \in \{0, 1, 2, 3\}$) and columns are dimensions. Use:
+$$PE_{(pos, 0)} = \sin(pos), \quad PE_{(pos, 1)} = \cos(pos), \quad PE_{(pos, 2)} = \sin(pos/100), \quad PE_{(pos, 3)} = \cos(pos/100)$$
+
+(b) The wavelengths range from $2\pi$ to $10000 \cdot 2\pi$. Explain intuitively why using multiple frequencies at very different scales helps the model represent both local (adjacent-token) and global (document-level) position information.
+
+(c) Suppose you train with $n_{\text{train}} = 512$ and at inference encounter $n_{\text{test}} = 1024$. Which positional encoding scheme handles this gracefully — sinusoidal, learned, or RoPE — and why? What breaks for the other two?
+
+(d) RoPE encodes position by rotating query and key vectors so that $(\mathbf{R}_m \mathbf{q})^\top (\mathbf{R}_n \mathbf{k})$ depends only on $m - n$. Why is encoding *relative* rather than *absolute* position particularly valuable for tasks like question answering over long documents?
+
+---
+
+**Exercise 4.4** *(Computation)*
+
+Analyze the $O(n^2)$ attention cost and compare it to alternative architectures.
+
+(a) Fill in the following table for single-head attention with $d_k = 64$, storing the attention matrix in float32 (4 bytes per entry):
+
+| Sequence length $n$ | Attention matrix entries | Memory (MB) |
+|---|---|---|
+| 512 | | |
+| 2,048 | | |
+| 8,192 | | |
+| 32,768 | | |
+
+(b) An LSTM has $O(n \cdot d^2)$ computation per layer (one matmul per step). For $d = 512$, at what sequence length $n$ does attention become more expensive than the LSTM in FLOPs? Show your calculation.
+
+(c) Swin Transformer uses local window attention with window size $w = 7$ (for image patches). If the total sequence length is $n = 196$ patches, how many times fewer attention FLOPs does window attention use compared to full attention? Give the ratio in terms of $n$ and $w$.
+
+(d) FlashAttention reorders computation to avoid materializing the full $n \times n$ matrix. It achieves the same mathematical result as standard attention but reduces HBM memory reads/writes from $O(n^2)$ to $O(n^2 d / M)$ where $M$ is SRAM size. For $d = 64$ and $M = 20\text{MB}$, estimate the memory traffic reduction factor for $n = 8192$ sequences stored in float32.
+
+---
+
+**Exercise 4.5** *(Conceptual)*
+
+Trace the tensor shapes through the `MultiHeadAttention` class in Section 4.3.2.
+
+(a) For a batch of $B = 2$, sequence length $n = 10$, $d_{\text{model}} = 512$, $h = 8$ heads: write out the shape of the tensor after each line of the `forward` method, from the initial `Q` input through to `self.W_O(context)`. There are 6 shape-changing operations.
+
+(b) After `context = weights @ V`, the tensor has shape $[B, h, n, d_k]$. The code calls `.transpose(1, 2).contiguous().view(B, -1, h \cdot d_k)`. Why is `.contiguous()` necessary before `.view()`? What does "contiguous" mean in PyTorch memory layout, and what error would you see without it?
+
+(c) Different heads empirically specialize. Design a simple probing experiment: given a trained Transformer (e.g., a pretrained BERT available via `transformers`), describe step by step how you would test whether any head has learned a "previous-token" pattern (high attention weight on position $t-1$ for each query position $t$). What metric would you compute, and what threshold would suggest specialization?
+
+---
+
 ## References
 
 - Bahdanau, D., Cho, K., & Bengio, Y. (2015). Neural machine translation by jointly learning to align and translate. *ICLR 2015*.
@@ -672,8 +910,13 @@ Part 3: Multi-head attention
 - Chen, L., Lu, K., Rajeswaran, A., Lee, K., Grover, A., Laskin, M., Abbeel, P., Srinivas, A., & Mordatch, I. (2021). Decision Transformer: Reinforcement learning via sequence modeling. *NeurIPS 2021*.
 - Child, R., Gray, S., Radford, A., & Sutskever, I. (2019). Generating long sequences with sparse transformers. *arXiv:1904.10509*.
 - Dao, T., Fu, D. Y., Ermon, S., Rudra, A., & Re, C. (2022). FlashAttention: Fast and memory-efficient exact attention with IO-awareness. *NeurIPS 2022*.
+- Dao, T., & Gu, A. (2024). Transformers are SSMs: Generalized models and efficient algorithms through structured state space duality. *ICML 2024*.
+- Gu, A., Goel, K., & Re, C. (2022). Efficiently modeling long sequences with structured state spaces. *ICLR 2022*.
+- Gu, A., & Dao, T. (2023). Mamba: Linear-time sequence modeling with selective state spaces. *arXiv:2312.00752*.
+- Gu, A., Dao, T., Ermon, S., Rudra, A., & Re, C. (2020). HiPPO: Recurrent memory with optimal polynomial projections. *NeurIPS 2020*.
 - He, K., Zhang, X., Ren, S., & Sun, J. (2016). Deep residual learning for image recognition. *CVPR 2016*.
 - Ioffe, S., & Szegedy, C. (2015). Batch normalization: Accelerating deep network training by reducing internal covariate shift. *ICML 2015*.
+- Lieber, O., Lenz, B., Bata, H., Cohen, G., Osin, J., Dalmedigos, I., Safahi, E., Meirom, E., Belinkov, Y., Shalev-Shwartz, S., & Shoham, Y. (2024). Jamba: A hybrid Transformer-Mamba language model. *arXiv:2403.19887*.
 - Shaw, P., Uszkoreit, J., & Vaswani, A. (2018). Self-attention with relative position representations. *NAACL 2018*.
 - Su, J., Lu, Y., Pan, S., Murtadha, A., Wen, B., & Liu, Y. (2021). RoFormer: Enhanced transformer with rotary position embedding. *arXiv:2104.09864*.
 - Vaswani, A., Shazeer, N., Parmar, N., Uszkoreit, J., Jones, L., Gomez, A. N., Kaiser, L., & Polosukhin, I. (2017). Attention is all you need. *NeurIPS 2017*.

@@ -211,7 +211,37 @@ A standard dense (fully connected) layer computes:
 
 $$\mathbf{h} = \sigma(\mathbf{W}\mathbf{x} + \mathbf{b})$$
 
-where $\mathbf{W}$ is a weight matrix, $\mathbf{b}$ is a bias vector, and $\sigma$ is a non-linear activation function. The forward pass in pseudocode:
+where $\mathbf{W}$ is a weight matrix, $\mathbf{b}$ is a bias vector, and $\sigma$ is a non-linear activation function. At the level of a **single neuron**, this is:
+
+```mermaid
+graph LR
+    classDef input fill:#f1f5f9,stroke:#475569,stroke-width:2px,color:#0f172a,font-family:monospace
+    classDef weight fill:#fef3c7,stroke:#d97706,stroke-width:2px,color:#78350f,font-style:italic
+    classDef sum fill:#e0f2fe,stroke:#0284c7,stroke-width:3px,color:#0c4a6e,font-weight:bold
+    classDef act fill:#dcfce7,stroke:#22c55e,stroke-width:2px,color:#14532d
+    classDef out fill:#f1f5f9,stroke:#475569,stroke-width:2px,color:#0f172a,font-weight:bold
+
+    X1["x₁"]:::input
+    X2["x₂"]:::input
+    X3["x₃"]:::input
+    B["Bias b"]:::weight
+
+    W1(["× w₁"]):::weight
+    W2(["× w₂"]):::weight
+    W3(["× w₃"]):::weight
+
+    Sum(["Σ\nw₁x₁ + w₂x₂\n+ w₃x₃ + b"]):::sum
+    Act["σ(z)\n(Activation)"]:::act
+    Out["Output h"]:::out
+
+    X1 --> W1 --> Sum
+    X2 --> W2 --> Sum
+    X3 --> W3 --> Sum
+    B --> Sum
+    Sum --> Act --> Out
+```
+
+The forward pass in pseudocode:
 
 ```python
 def forward(x, layers):
@@ -474,6 +504,39 @@ This has three consequences:
 1. **Parameter sharing**: a $3 \times 3$ kernel has 9 parameters regardless of input size. A fully connected layer mapping a $224 \times 224$ image to even a modestly sized hidden layer would require billions of parameters.
 2. **Local connectivity**: each output depends on a small spatial neighborhood, not the entire input.
 3. **Hierarchical feature extraction**: stacking convolutional layers with pooling creates a hierarchy — early layers detect edges, middle layers detect textures and parts, later layers detect objects. This hierarchy emerges from training, not from explicit engineering.
+
+```mermaid
+graph LR
+    classDef layer fill:#e0f2fe,stroke:#0284c7,stroke-width:2px,color:#0c4a6e,font-weight:bold
+    classDef pool fill:#f1f5f9,stroke:#94a3b8,stroke-width:1px,color:#475569,font-style:italic
+    classDef feature fill:#fef3c7,stroke:#d97706,stroke-width:2px,color:#78350f
+    classDef out fill:#dcfce7,stroke:#22c55e,stroke-width:2px,color:#14532d,font-weight:bold
+
+    Input["Input Image\n(224×224×3)"]:::layer
+
+    subgraph Stage1 ["Early Layers (Low-level)"]
+        C1["Conv Block 1\n(224×224×64)"]:::layer
+        F1["Features:\nEdges, Corners,\nColor Blobs"]:::feature
+        P1["Pool\n(112×112×64)"]:::pool
+    end
+
+    subgraph Stage2 ["Mid Layers (Mid-level)"]
+        C2["Conv Block 2\n(112×112×128)"]:::layer
+        F2["Features:\nTextures, Gradients,\nSimple Patterns"]:::feature
+        P2["Pool\n(56×56×128)"]:::pool
+    end
+
+    subgraph Stage3 ["Deep Layers (High-level)"]
+        C3["Conv Block 3\n(56×56×512)"]:::layer
+        F3["Features:\nParts (eyes, wheels),\nObject Components"]:::feature
+        P3["Pool\n(7×7×512)"]:::pool
+    end
+
+    FC["FC Layers +\nSoftmax"]:::layer
+    Out["Class Scores\n(e.g., 'dog': 0.92)"]:::out
+
+    Input --> C1 --> F1 --> P1 --> C2 --> F2 --> P2 --> C3 --> F3 --> P3 --> FC --> Out
+```
 
 Pooling layers (max pooling, average pooling) reduce spatial dimensions and provide a degree of translation invariance on top of the equivariance from convolution.
 

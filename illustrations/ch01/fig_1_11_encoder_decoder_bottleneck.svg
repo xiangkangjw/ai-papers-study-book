@@ -48,9 +48,10 @@
   <text x="362" y="135" text-anchor="middle" font-size="11" fill="#d4645c">compress</text>
 
   <!-- Bottleneck annotation -->
-  <text x="430" y="210" text-anchor="middle" font-size="11" font-weight="bold" fill="#d4645c">⚠ Information Bottleneck</text>
-  <text x="430" y="225" text-anchor="middle" font-size="11" fill="#b5454a">Entire input compressed to</text>
-  <text x="430" y="238" text-anchor="middle" font-size="11" fill="#b5454a">one vector — lossy for long seq</text>
+  <rect x="345" y="198" width="170" height="48" rx="8" fill="#fff4f2" stroke="#d4645c" stroke-width="1.5"/>
+  <text x="430" y="216" text-anchor="middle" font-size="11" font-weight="bold" fill="#d4645c">Information Bottleneck</text>
+  <text x="430" y="232" text-anchor="middle" font-size="10.5" fill="#b5454a">One fixed-size vector must carry</text>
+  <text x="430" y="244" text-anchor="middle" font-size="10.5" fill="#b5454a">the whole source sequence.</text>
 
   <!-- ===== DECODER ===== -->
   <rect x="520" y="80" width="380" height="180" rx="10" fill="#f6e4e3" stroke="#d4645c" stroke-width="1.5" stroke-dasharray="6,3"/>
@@ -101,7 +102,7 @@
   <line x1="760" y1="200" x2="780" y2="200" stroke="#c0c0c8" stroke-width="1.5" stroke-dasharray="5,3"/>
   <line x1="780" y1="200" x2="817" y2="172" stroke="#c0c0c8" stroke-width="1.5" stroke-dasharray="5,3" marker-end="url(#a)"/>
 
-  <text x="640" y="250" font-size="11" fill="#c0c0c8">autoregressive feed</text>
+  <text x="640" y="250" font-size="11" fill="#a9adb9">autoregressive feed</text>
 
   <!-- Bottom annotation -->
   <rect x="60" y="290" width="800" height="70" rx="8" fill="#f5f5f8" stroke="#f5f5f8" stroke-width="1"/>

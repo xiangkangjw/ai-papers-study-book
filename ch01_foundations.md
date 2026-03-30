@@ -357,6 +357,38 @@ The per-parameter learning rate adaptation means that infrequent features get la
 
 **AdamW** (Loshchilov & Hutter, 2019) decouples weight decay from the adaptive learning rate. Standard L2 regularization interacts poorly with Adam's per-parameter scaling. AdamW fixes this by applying weight decay directly to the parameters rather than through the gradient. It is the standard optimizer for Transformer training.
 
+```mermaid
+graph TD
+    classDef sgd fill:#fee2e2,stroke:#ef4444,stroke-width:2px,color:#7f1d1d
+    classDef adam fill:#dcfce7,stroke:#22c55e,stroke-width:3px,color:#14532d,font-weight:bold
+    classDef note fill:#f1f5f9,stroke:#94a3b8,stroke-width:1px,color:#475569,font-style:italic
+
+    subgraph SGDP ["SGD (Vanilla / With Momentum)"]
+        direction TB
+        S1["Start: θ₀"]:::sgd
+        S2["Step 1: large oscillation\n(narrow valley)"]:::sgd
+        S3["Step 2: continues oscillating\nacross curvature"]:::sgd
+        S4["Step N: slow convergence\ndue to equal LR across dims"]:::sgd
+        SN["Saddle Point risk:\nmay get stuck"]:::sgd
+        S1 --> S2 --> S3 --> S4 --> SN
+    end
+
+    subgraph AdamP ["Adam / AdamW"]
+        direction TB
+        A1["Start: θ₀"]:::adam
+        A2["Step 1: adapts LR per-dim\n(large steps in sparse dims)"]:::adam
+        A3["Step 2: momentum smooths\nnoisy gradient directions"]:::adam
+        A4["Step N: converges faster\nbias correction stabilizes early"]:::adam
+        AN["Converges: less oscillation\nin narrow loss valleys"]:::adam
+        A1 --> A2 --> A3 --> A4 --> AN
+    end
+
+    NA["SGD: same LR for all dims\nOscillates in curved valleys"]:::note
+    NB["Adam: per-dim adaptive LR\n+ momentum = faster convergence"]:::note
+    SGDP -.-> NA
+    AdamP -.-> NB
+```
+
 ### 1.4.2 Backpropagation *(Review)*
 
 Backpropagation (Rumelhart et al., 1986) computes $\nabla_\theta \mathcal{L}$ efficiently via reverse-mode autodiff. The algorithm:

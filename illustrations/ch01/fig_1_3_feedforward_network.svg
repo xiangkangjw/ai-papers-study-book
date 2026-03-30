@@ -1,4 +1,4 @@
-<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 860 310" font-family="Inter, Helvetica, Arial, sans-serif">
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 900 305" font-family="Inter, Helvetica, Arial, sans-serif">
   <defs>
     <marker id="a" markerWidth="8" markerHeight="6" refX="8" refY="3" orient="auto"><path d="M0,0 L8,3 L0,6 Z" fill="#4a4a5a"/></marker>
   </defs>
@@ -55,15 +55,15 @@
   <line x1="685" y1="127" x2="718" y2="127" stroke="#4a4a5a" stroke-width="1.5" marker-end="url(#a)"/>
 
   <!-- Output -->
-  <rect x="725" y="100" width="120" height="55" rx="6" fill="#dff0ed" stroke="#3a9e8f" stroke-width="2"/>
-  <text x="785" y="122" text-anchor="middle" font-size="11" font-weight="bold" fill="#3a9e8f">Output f(x)</text>
-  <text x="785" y="142" text-anchor="middle" font-size="11" fill="#3a9e8f" font-family="'JetBrains Mono', 'Fira Code', monospace">[B, d_out]</text>
+  <rect x="725" y="100" width="130" height="55" rx="6" fill="#dff0ed" stroke="#3a9e8f" stroke-width="2"/>
+  <text x="790" y="122" text-anchor="middle" font-size="11" font-weight="bold" fill="#3a9e8f">Output f(x)</text>
+  <text x="790" y="142" text-anchor="middle" font-size="11" fill="#3a9e8f" font-family="'JetBrains Mono', 'Fira Code', monospace">[B, d_out]</text>
 
   <!-- Bottom annotation -->
-  <rect x="100" y="210" width="660" height="48" rx="6" fill="#f5f5f8" stroke="#f5f5f8" stroke-width="1"/>
-  <text x="430" y="230" text-anchor="middle" font-size="11" font-weight="bold" fill="#3a3a4a">Parameters: {W₁, b₁, W₂, b₂, ..., W_L, b_L}</text>
-  <text x="430" y="248" text-anchor="middle" font-size="11" fill="#7a7a8a">Each layer is a learnable function. Training adjusts all parameters to minimize the loss. Depth = expressive power.</text>
+  <rect x="60" y="210" width="780" height="48" rx="6" fill="#f5f5f8" stroke="#f5f5f8" stroke-width="1"/>
+  <text x="450" y="230" text-anchor="middle" font-size="11" font-weight="bold" fill="#3a3a4a">Parameters: {W₁, b₁, W₂, b₂, ..., W_L, b_L}</text>
+  <text x="450" y="248" text-anchor="middle" font-size="11" fill="#7a7a8a">Each layer is a learnable function. Training adjusts all parameters to minimize the loss. Depth = expressive power.</text>
 
   <!-- Brace annotation for "composable" -->
-  <text x="430" y="290" text-anchor="middle" font-size="11" fill="#d4a03c">Think: Unix pipes  |  Express.js middleware chain  |  function composition in FP</text>
+  <text x="450" y="290" text-anchor="middle" font-size="11" fill="#d4a03c">Think: Unix pipes  |  Express.js middleware chain  |  function composition in FP</text>
 </svg>

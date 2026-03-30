@@ -345,22 +345,59 @@ The entire model is fine-tuned end-to-end. BERT-Large achieved new state-of-the-
 
 GPT and BERT represent a fundamental architectural fork that shaped the field for years afterward. Understanding the tradeoffs is essential for applying these models correctly.
 
-```
-                    GPT                         BERT
-         ┌─────────────────────┐    ┌─────────────────────────┐
-Arch:    │  Decoder-only       │    │  Encoder-only           │
-         │  Causal attention   │    │  Full attention         │
-         └─────────────────────┘    └─────────────────────────┘
-Pre-     │  Autoregressive LM  │    │  Masked LM + NSP        │
-training:│  P(t_n|t_1..t_{n-1})│    │  P(t_masked|context)    │
-         └─────────────────────┘    └─────────────────────────┘
-Context: │  Left context only  │    │  Full bidirectional      │
-         └─────────────────────┘    └─────────────────────────┘
-Strength:│  Text generation    │    │  Understanding/encoding  │
-         └─────────────────────┘    └─────────────────────────┘
-Fine-    │  Linear head on     │    │  Task-specific heads,   │
-tuning:  │  final token        │    │  [CLS] or token-level   │
-         └─────────────────────┘    └─────────────────────────┘
+| Feature | GPT | BERT |
+| :--- | :--- | :--- |
+| **Architecture** | Decoder-only (Causal attention) | Encoder-only (Full attention) |
+| **Pre-training** | Autoregressive LM $P(t_n \| t_1 \dots t_{n-1})$ | Masked LM + Next Sentence Prediction |
+| **Context** | Strictly Left-to-Right | Full Bidirectional |
+| **Core Strength** | Text Generation | Text Understanding / Encoding |
+| **Fine-tuning** | Linear head on final token | Task-specific heads on [CLS] or tokens |
+
+```mermaid
+graph TD
+    classDef token fill:#f1f5f9,stroke:#475569,stroke-width:2px,color:#0f172a,font-family:monospace
+    classDef maskToken fill:#fee2e2,stroke:#ef4444,stroke-width:2px,stroke-dasharray: 4 4,color:#7f1d1d,font-family:monospace
+    classDef out fill:#e0f2fe,stroke:#0284c7,stroke-width:2px,color:#0c4a6e,font-weight:bold
+    classDef outBert fill:#dcfce7,stroke:#22c55e,stroke-width:2px,color:#14532d,font-weight:bold
+
+    subgraph GPT ["(a) GPT: Causal Attention (Left-to-Right)"]
+        direction TB
+        G1["t_1"]:::token
+        G2["t_2"]:::token
+        G3["t_3"]:::token
+        
+        O1["Out_1"]:::out
+        O2["Out_2"]:::out
+        O3["Out_3"]:::out
+        
+        %% Out_1 only sees t_1
+        G1 --> O1
+        
+        %% Out_2 sees t_1, t_2
+        G1 --> O2
+        G2 --> O2
+        
+        %% Out_3 sees t_1, t_2, t_3
+        G1 --> O3
+        G2 --> O3
+        G3 --> O3
+    end
+
+    subgraph BERT ["(b) BERT: Bidirectional Attention"]
+        direction TB
+        B1["t_1"]:::token
+        B2["[MASK]"]:::maskToken
+        B3["t_3"]:::token
+        
+        OB1["Out_1"]:::outBert
+        OB2["Out_mask"]:::outBert
+        OB3["Out_3"]:::outBert
+        
+        %% Every output sees every input
+        B1 --> OB1 & OB2 & OB3
+        B2 --> OB1 & OB2 & OB3
+        B3 --> OB1 & OB2 & OB3
+    end
 ```
 
 **The "read vs. write" framing**: BERT learns to read — its objective is reconstruction, filling in missing pieces given full context. GPT learns to write — its objective is continuation, producing coherent text given a prefix. Both require deep language understanding, but the computational structure biases them differently.
@@ -418,6 +455,39 @@ $$L(D) \sim \left(\frac{D_c}{D}\right)^{\alpha_D} \quad \text{performance vs dat
 $$L(C) \sim \left(\frac{C_c}{C}\right)^{\alpha_C} \quad \text{performance vs compute budget}$$
 
 where $L$ is cross-entropy loss. The exponents $\alpha$ are empirically measured by Kaplan et al. as $\alpha_N \approx 0.076$, $\alpha_D \approx 0.095$, $\alpha_C \approx 0.050$. Note that Hoffmann et al. (2022, "Chinchilla") later found substantially different exponents (roughly $\alpha_N \approx 0.34$, $\alpha_D \approx 0.28$), implying data matters more than Kaplan et al. originally suggested. The qualitative picture — smooth power-law scaling — holds across both studies, but the quantitative exponents differ significantly. Key findings:
+
+```mermaid
+graph TD
+    classDef powerlaw fill:#e0f2fe,stroke:#0284c7,stroke-width:2px,color:#0c4a6e,font-weight:bold
+    classDef optimal fill:#dcfce7,stroke:#22c55e,stroke-width:3px,color:#14532d,font-weight:bold
+    classDef bad fill:#fee2e2,stroke:#ef4444,stroke-width:2px,stroke-dasharray: 4 4,color:#7f1d1d
+    classDef metric fill:#f8fafc,stroke:#94a3b8,stroke-width:2px,color:#334155
+
+    subgraph Predictability ["1. Power-Law Predictability (Log-Linear)"]
+        direction LR
+        N_scale["10x Parameters"]:::metric
+        D_scale["10x Data"]:::metric
+        C_scale["100x Compute"]:::metric
+        LossDrop["Predictable Constant Drop<br/>in Validation Loss"]:::powerlaw
+        
+        N_scale --> C_scale
+        D_scale --> C_scale
+        C_scale ==> LossDrop
+    end
+
+    subgraph Allocation ["2. Compute-Optimal Frontier (Hoffmann / Chinchilla)"]
+        direction TB
+        Budget["Fixed Compute Budget (FLOPs)"]:::metric
+        
+        Opt["Optimal Point:<br/>Scale Parameters and Data equally<br/>(~20 tokens per parameter)"]:::optimal
+        Kaplan["Kaplan regime:<br/>Over-parameterized, undertrained<br/>(Suboptimal loss for given compute)"]:::bad
+        Llama["Llama-3 regime:<br/>Small model, massively overtrained<br/>(Suboptimal for training, optimal for inference)"]:::metric
+        
+        Budget --> Opt
+        Budget -.->|"Waste of compute"| Kaplan
+        Budget -.->|"Inference-driven"| Llama
+    end
+```
 
 1. **Smooth, predictable improvement**: Performance improves as a smooth power law across many orders of magnitude. There are no phase transitions at arbitrary scales (though see Section 5.7 on emergent abilities).
 

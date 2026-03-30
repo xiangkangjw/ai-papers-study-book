@@ -264,6 +264,32 @@ $$\boldsymbol{\varepsilon}_{\text{guided}} = \boldsymbol{\varepsilon}_\theta(\ma
 
 This is vector extrapolation in noise-prediction space: start from the unconditional prediction and move further in the direction that the conditioning pushes you, scaled by guidance weight $w$.
 
+```mermaid
+graph TD
+    classDef origin fill:#f1f5f9,stroke:#475569,stroke-width:2px,color:#0f172a,font-weight:bold
+    classDef uncond fill:#fee2e2,stroke:#ef4444,stroke-width:2px,color:#7f1d1d
+    classDef cond fill:#dcfce7,stroke:#22c55e,stroke-width:2px,color:#14532d
+    classDef guided fill:#e0f2fe,stroke:#0284c7,stroke-width:3px,color:#0c4a6e,font-weight:bold
+
+    subgraph CFG ["Classifier-Free Guidance Geometry (Vector Extrapolation)"]
+        direction LR
+        Origin(("Latent State x_t")):::origin
+        
+        Uncond["Unconditional Prediction<br/>ε_uncond (null prompt ∅)"]:::uncond
+        Cond["Conditional Prediction<br/>ε_cond (text prompt c)"]:::cond
+        
+        Guided["Guided Prediction<br/>ε_guided"]:::guided
+
+        Origin -- "w = 0" --> Uncond
+        Origin -- "w = 1" --> Cond
+        
+        Uncond -.->|"Direction Vector:<br/>(ε_cond - ε_uncond)"| Cond
+        Cond -.->|"Scale by (w-1)"| Guided
+        
+        Origin == "w = 7.5<br/>ε_guided = ε_uncond + w(ε_cond - ε_uncond)" ==> Guided
+    end
+```
+
 - $w = 0$: pure unconditional generation (diverse, may not match prompt)
 - $w = 1$: pure conditional generation
 - $w \approx 7\text{--}10$: aggressive conditioning (strongly matches prompt, but less diverse, may over-saturate)

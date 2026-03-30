@@ -107,6 +107,44 @@ The two encoders are independent — no cross-attention between query and docume
 
 At indexing time, every document in the knowledge corpus is passed through $E_D$, producing a vector in $\mathbb{R}^d$. These vectors are stored in a FAISS index. At query time, the query is encoded with $E_Q$, and FAISS performs **Maximum Inner Product Search (MIPS)** to retrieve the top-$k$ documents by dot product similarity.
 
+```mermaid
+graph TD
+    classDef offline fill:#e0f2fe,stroke:#0284c7,stroke-width:2px,color:#0c4a6e
+    classDef online fill:#dcfce7,stroke:#22c55e,stroke-width:2px,color:#14532d
+    classDef embed fill:#fef3c7,stroke:#d97706,stroke-width:2px,color:#78350f,font-family:monospace
+    classDef db fill:#f1f5f9,stroke:#475569,stroke-width:2px,color:#0f172a,stroke-dasharray: 4 4
+    classDef op fill:#cbd5e1,stroke:#334155,stroke-width:2px,color:#0f172a,font-weight:bold
+
+    subgraph Offline ["Offline Indexing (Run once per corpus)"]
+        direction TB
+        Docs["Corpus Passages<br/>(e.g., Wikipedia)"]:::offline
+        EncD["Document Encoder E_D<br/>(BERT)"]:::offline
+        EmbD["Document Embeddings<br/>dz ∈ R^d"]:::embed
+        FAISS[(FAISS Vector Database)]:::db
+        
+        Docs ==>|"Chunk & Encode"| EncD ==>|"Batch Encode"| EmbD ==>|"Build Index"| FAISS
+    end
+
+    subgraph Online ["Online Querying (Run per user request)"]
+        direction TB
+        Q["User Query x"]:::online
+        EncQ["Question Encoder E_Q<br/>(BERT)"]:::online
+        EmbQ["Query Embedding<br/>dx ∈ R^d"]:::embed
+        
+        Q ==>|"Encode"| EncQ ==> EmbQ
+    end
+
+    DotProd(("Max Inner Product<br/>dxᵀ · dz")):::op
+    TopK["Retrieve Top-K Documents"]:::online
+
+    EmbQ -.->|"Query Vector"| DotProd
+    FAISS -.->|"Fast Approximate Search"| DotProd
+    DotProd ==> TopK
+    
+    linkStyle 6 stroke:#d97706,stroke-width:3px,stroke-dasharray: 5 5
+    linkStyle 7 stroke:#475569,stroke-width:3px,stroke-dasharray: 5 5
+```
+
 DPR was trained on Natural Questions using in-batch negatives plus hard negatives (documents retrieved by BM25 that are not answers). The training loss is softmax cross-entropy over the positive passage and all negatives: for a query $x$ with positive document $z^+$ and negatives $z^-_1, \ldots, z^-_n$,
 
 $$\mathcal{L} = -\log \frac{e^{s(x, z^+)}}{e^{s(x, z^+)} + \sum_{i=1}^{n} e^{s(x, z_i^-)}}$$

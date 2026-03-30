@@ -174,26 +174,42 @@ The full forward pass, summarized with shapes (ViT-Base/16, $224 \times 224$ inp
 
 ```mermaid
 graph TD
-    classDef io fill:#f1f5f9,stroke:#475569,stroke-width:2px,color:#0f172a,font-family:monospace
-    classDef op fill:#e0f2fe,stroke:#0284c7,stroke-width:2px,color:#0c4a6e
-    classDef opt fill:#fef3c7,stroke:#d97706,stroke-width:2px,color:#78350f
+    classDef input fill:#f1f5f9,stroke:#475569,stroke-width:2px,color:#0f172a,font-family:monospace
+    classDef proc fill:#e0f2fe,stroke:#0284c7,stroke-width:2px,color:#0c4a6e,font-weight:bold
+    classDef embed fill:#fef3c7,stroke:#d97706,stroke-width:2px,color:#78350f,font-family:monospace
+    classDef enc fill:#dcfce7,stroke:#22c55e,stroke-width:3px,color:#14532d,font-weight:bold
 
-    Input["Input Image<br/>[B, 3, 224, 224]"]:::io
-    Extract["Patch Extraction & Linear Projection<br/>[B, 196, 768]"]:::op
-    AddCLS["Prepend [CLS] Token<br/>[B, 197, 768]"]:::op
-    AddPos["+ Learnable Positional Embeddings<br/>[B, 197, 768]"]:::op
-    Encoder["Transformer Encoder (×12)<br/>[B, 197, 768]"]:::opt
-    ExtractCLS["Extract [CLS] Output<br/>[B, 768]"]:::op
-    LN["Layer Normalization<br/>[B, 768]"]:::op
-    Head["MLP Classification Head<br/>[B, 1000]"]:::io
+    subgraph Stage1 ["1. Patch Embedding Stage"]
+        direction TB
+        IMG["Input Image"]:::input
+        PATCH["Extract Patches & Project"]:::proc
+        CLS["Prepend [CLS] Token"]:::embed
+        POS["Add Positional Embeddings"]:::embed
+        
+        IMG -->|"[B, 3, 224, 224]"| PATCH
+        PATCH -->|"[B, 196, 768]"| CLS
+        CLS -->|"[B, 197, 768]"| POS
+    end
 
-    Input --> Extract
-    Extract --> AddCLS
-    AddCLS --> AddPos
-    AddPos --> Encoder
-    Encoder --> ExtractCLS
-    ExtractCLS --> LN
-    LN --> Head
+    subgraph Stage2 ["2. Transformer Architecture"]
+        direction TB
+        ENC["Transformer Encoder (×12 layers)<br/>MSA → FFN"]:::enc
+    end
+
+    subgraph Stage3 ["3. Classification Stage"]
+        direction TB
+        EXTRACT["Extract [CLS] State<br/>(index 0)"]:::proc
+        NORM["LayerNorm"]:::proc
+        MLP["MLP Classification Head"]:::proc
+        OUT["Predictions"]:::input
+        
+        EXTRACT -->|"[B, 768]"| NORM
+        NORM -->|"[B, 768]"| MLP
+        MLP -->|"[B, 1000]"| OUT
+    end
+
+    POS ==>|"[B, 197, 768]"| ENC
+    ENC ==>|"[B, 197, 768]"| EXTRACT
 ```
 
 ---
@@ -215,6 +231,39 @@ Results: ViT-Base/16 trained only on ImageNet achieves ~77.9% top-1 accuracy on 
 The interpretation is mechanistic: CNNs embed locality and translation equivariance as hard constraints. These constraints act as a strong prior that regularizes the model when data is limited. Transformers impose no such prior — every position can attend to every other position from layer 1. With 1.3M examples, there is not enough signal to learn spatial structure from scratch. With 300M examples, the model learns more flexible representations that CNNs cannot express.
 
 This is the same tradeoff you see throughout machine learning: more assumptions (priors) → better sample efficiency, lower asymptotic performance. Fewer assumptions → worse sample efficiency, higher asymptotic performance. ViT is simply a more general model, and general models need more data to reach their potential.
+
+```mermaid
+graph TD
+    classDef vit fill:#e0f2fe,stroke:#0284c7,stroke-width:3px,font-weight:bold,color:#0c4a6e
+    classDef cnn fill:#fff7ed,stroke:#ea580c,stroke-width:3px,stroke-dasharray: 4 4,font-weight:bold,color:#7c2d12
+
+    subgraph Graph ["Performance Crossover: ViT vs CNN Data Efficiency"]
+        direction LR
+        
+        subgraph Stage1 ["Small Data (1M Images)<br/>ImageNet-1K"]
+            direction TB
+            CNN1["ResNet: ~79.1%"]:::cnn
+            VIT1["ViT: ~77.9%"]:::vit
+            CNN1 -.->|"CNN Inductive Priors Win"| VIT1
+        end
+        
+        subgraph Stage2 ["Medium Data (14M Images)<br/>ImageNet-21K"]
+            direction TB
+            VIT2["ViT: ~82%"]:::vit
+            CNN2["ResNet: ~82%"]:::cnn
+            VIT2 <==>|"Crossover Point"| CNN2
+        end
+
+        subgraph Stage3 ["Massive Data (300M Images)<br/>JFT-300M"]
+            direction TB
+            VIT3["ViT: ~88.5%"]:::vit
+            CNN3["ResNet: ~87%"]:::cnn
+            VIT3 ==>|"ViT Capacity Scales Better"| CNN3
+        end
+
+        Stage1 ==>|"Scale Data"| Stage2 ==>|"Scale Data"| Stage3
+    end
+```
 
 ### 6.4.2 Training Details
 

@@ -181,6 +181,36 @@ where:
 
 At the start of training, $\mathbf{B}\mathbf{A} = \mathbf{0}$, so the modified model is identical to the pre-trained model. This is crucial: LoRA training starts from exactly the pre-trained behavior, not from some random perturbation.
 
+```mermaid
+graph TD
+    classDef frozen fill:#e0f2fe,stroke:#0284c7,stroke-width:2px,color:#0c4a6e
+    classDef trainable fill:#dcfce7,stroke:#22c55e,stroke-width:2px,color:#14532d
+    classDef io fill:#f1f5f9,stroke:#475569,stroke-width:2px,color:#0f172a,font-family:monospace
+    classDef op fill:#cbd5e1,stroke:#334155,stroke-width:2px,color:#0f172a,font-weight:bold
+
+    subgraph Architecture ["LoRA Decomposition (Training Forward Pass)"]
+        direction TB
+        X["Input x<br/>(Dimension: d)"]:::io
+        
+        W["Frozen Base Weights<br/>W ∈ R^(d×d)"]:::frozen
+        
+        A["Trainable Matrix A<br/>R^(r×d)<br/>Random Init"]:::trainable
+        B["Trainable Matrix B<br/>R^(d×r)<br/>Zero Init"]:::trainable
+        
+        Add(("Add")):::op
+        
+        X -->|"x"| W
+        X -.->|"x"| A
+        A -.->|"r-dimensional<br/>bottleneck"| B
+        
+        W ==>|"Wx"| Add
+        B -.->|"BAx"| Add
+        
+        H["Output h = Wx + BAx<br/>(Dimension: d)"]:::io
+        Add ==> H
+    end
+```
+
 **Scaling factor**: The LoRA output is scaled by $\alpha/r$ where $\alpha$ is a hyperparameter:
 
 $$\mathbf{h} = \mathbf{W} \mathbf{x} + \frac{\alpha}{r} \mathbf{B} \mathbf{A} \mathbf{x}$$
@@ -228,6 +258,28 @@ $$\mathbf{W}_{\text{merged}} = \mathbf{W} + \frac{\alpha}{r} \mathbf{B} \mathbf{
 After merging, $\mathbf{B}$ and $\mathbf{A}$ are discarded. The inference graph is identical to the original model — same architecture, same compute graph, same latency. You "train with adapters, deploy without them."
 
 The merge is a single matrix addition per adapted layer. It's fast and exact. No approximation.
+
+```mermaid
+graph LR
+    classDef frozen fill:#e0f2fe,stroke:#0284c7,stroke-width:2px,color:#0c4a6e
+    classDef op fill:#cbd5e1,stroke:#334155,stroke-width:2px,color:#0f172a,font-weight:bold
+    classDef param fill:#dcfce7,stroke:#22c55e,stroke-width:2px,color:#14532d
+    classDef merge fill:#fef3c7,stroke:#d97706,stroke-width:3px,color:#78350f,font-weight:bold
+
+    subgraph Inference ["LoRA Merge at Inference (Zero Added Latency)"]
+        direction LR
+        W["Frozen Base Weights<br/>W_0 ∈ R^(d×d)"]:::frozen
+        AB["Trained Adapter<br/>B × A ∈ R^(d×d)"]:::param
+        
+        Add(("Merge<br/>(+)")):::op
+        
+        W_New["Merged Weights<br/>W' = W_0 + BA<br/>(Standard d×d matrix)"]:::merge
+
+        W --> Add
+        AB --> Add
+        Add ==> W_New
+    end
+```
 
 **Implication**: At serving time, you can either:
 1. **Pre-merge**: Merge adapters into a single model file. Zero overhead, but you need a separate model file per task.

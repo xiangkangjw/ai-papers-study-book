@@ -16,6 +16,18 @@ Reinforcement learning solves a fundamentally different problem than supervised 
 
 **The Markov Decision Process (MDP).** An MDP is defined by the tuple $(S, A, P, R, \gamma)$:
 
+```mermaid
+graph LR
+    classDef agent fill:#e0f2fe,stroke:#0284c7,stroke-width:2px,color:#0c4a6e,font-weight:bold
+    classDef env fill:#dcfce7,stroke:#22c55e,stroke-width:2px,color:#14532d,font-weight:bold
+
+    Agent["Agent<br/>Policy π(a|s)"]:::agent
+    Env["Environment<br/>State space S"]:::env
+
+    Agent -->|"Action a_t ∈ A"| Env
+    Env -->|"State s_{t+1} ∈ S<br/>Reward r_{t+1} ∈ R"| Agent
+```
+
 - $\mathbf{S}$: the set of states the agent can occupy
 - $\mathbf{A}$: the set of actions available to the agent
 - $P(s' \mid s, a)$: the transition probability --- given state $s$ and action $a$, the probability of landing in state $s'$
@@ -61,6 +73,33 @@ PPO uses a clipped surrogate objective. Let $r_t(\theta) = \frac{\pi_\theta(a_t 
 $$L^{\text{CLIP}}(\theta) = \mathbb{E}_t \left[ \min\!\left( r_t(\theta) \cdot A_t,\; \text{clip}(r_t(\theta),\, 1-\varepsilon,\, 1+\varepsilon) \cdot A_t \right) \right]$$
 
 where $\varepsilon$ is typically $0.1$ or $0.2$. The clipping prevents the ratio $r_t$ from moving too far from $1$, which means the new policy cannot deviate too much from the old policy in a single update. When the advantage is positive (good action), the ratio is clipped from above --- you cannot increase the action's probability too aggressively. When the advantage is negative (bad action), the ratio is clipped from below --- this prevents *reducing* the action's probability too aggressively, which could destabilize training by making the policy overly confident in avoiding that action.
+
+```mermaid
+graph TD
+    classDef clip fill:#fee2e2,stroke:#ef4444,stroke-width:2px,color:#7f1d1d,font-weight:bold
+    classDef unclip fill:#dcfce7,stroke:#22c55e,stroke-width:2px,color:#14532d,font-weight:bold
+    classDef rule fill:#f1f5f9,stroke:#94a3b8,stroke-width:2px,color:#334155
+
+    subgraph Objective ["PPO Clipping Objective: Behavior by Advantage"]
+        direction TB
+        
+        subgraph PosAdv ["When Advantage A > 0 (Action was Good)"]
+            direction LR
+            P_Rule["Goal: Increase Probability<br/>(Push ratio r_t up)"]:::rule
+            P1["r_t(θ) < 1+ε<br/>Gradient Flow Active"]:::unclip
+            P2["r_t(θ) ≥ 1+ε<br/>Clipped (Gradient = 0)"]:::clip
+            P_Rule --> P1 -->|"Reaches threshold"| P2
+        end
+
+        subgraph NegAdv ["When Advantage A < 0 (Action was Bad)"]
+            direction LR
+            N_Rule["Goal: Decrease Probability<br/>(Push ratio r_t down)"]:::rule
+            N1["r_t(θ) > 1-ε<br/>Gradient Flow Active"]:::unclip
+            N2["r_t(θ) ≤ 1-ε<br/>Clipped (Gradient = 0)"]:::clip
+            N_Rule --> N1 -->|"Reaches threshold"| N2
+        end
+    end
+```
 
 Why PPO over alternatives like TRPO (Trust Region Policy Optimization)? TRPO uses a hard KL-divergence constraint and requires conjugate gradient methods to solve. PPO achieves similar stability with a simple clipped objective that works with standard gradient descent. It is easier to implement, easier to tune, and scales to large models. This practicality is why PPO became the default for RLHF.
 
@@ -728,15 +767,32 @@ CLIP aligns image and text representations but does not generate text. Generativ
 
 **The common architecture pattern:**
 
-```
-  Image           Projection /           LLM
-  Encoder         Adapter                Decoder
-  +--------+     +-----------+     +---------------+
-  | ViT    | --> | Linear /  | --> | Autoregressive|
-  | (often |     | MLP /     |     | Transformer   |
-  |  CLIP  |     | Cross-Attn|     | (generates    |
-  |  ViT)  |     |           |     |  text output) |
-  +--------+     +-----------+     +---------------+
+**The common architecture pattern:**
+
+```mermaid
+graph LR
+    classDef vision fill:#e0f2fe,stroke:#0284c7,stroke-width:2px,color:#0c4a6e
+    classDef adapter fill:#fef3c7,stroke:#d97706,stroke-width:2px,color:#78350f
+    classDef llm fill:#dcfce7,stroke:#22c55e,stroke-width:2px,color:#14532d
+    classDef io fill:#f1f5f9,stroke:#475569,stroke-width:2px,color:#0f172a,font-weight:bold
+
+    Img["Image Input"]:::io
+    Text["Text Prompt"]:::io
+    Out["Text Output"]:::io
+
+    subgraph VLM ["VLM Common Architecture Pattern"]
+        direction LR
+        Enc["1. Vision Encoder<br/>(e.g., CLIP ViT)"]:::vision
+        Proj["2. Projection / Adapter<br/>(Linear, MLP, or Resampler)"]:::adapter
+        Dec["3. LLM Backbone<br/>(Autoregressive Decoder)"]:::llm
+        
+        Enc -->|"Visual Patches"| Proj
+        Proj -->|"Visual Tokens in<br/>LLM Embedding Space"| Dec
+    end
+
+    Img --> Enc
+    Text -->|"Text Tokens"| Dec
+    Dec --> Out
 ```
 
 The vision encoder (almost always a ViT, often CLIP's) produces visual tokens. A projection or adapter module maps these into the LLM's embedding space. The LLM then generates text conditioned on both visual and textual tokens.

@@ -1,104 +1,104 @@
 <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 860 440" font-family="Inter, Helvetica, Arial, sans-serif">
   <defs>
-    <marker id="a" markerWidth="8" markerHeight="6" refX="8" refY="3" orient="auto"><path d="M0,0 L8,3 L0,6 Z" fill="#475569"/></marker>
+    <marker id="a" markerWidth="8" markerHeight="6" refX="8" refY="3" orient="auto"><path d="M0,0 L8,3 L0,6 Z" fill="#4a4a5a"/></marker>
   </defs>
 
-  <text x="430" y="28" text-anchor="middle" font-size="17" font-weight="bold" fill="#0f172a">DeiT: Data-Efficient Image Transformers</text>
-  <text x="430" y="46" text-anchor="middle" font-size="10" fill="#64748b">Touvron et al. (2021) — Train ViT on ImageNet-1K alone via distillation from CNN teacher</text>
+  <text x="430" y="28" text-anchor="middle" font-size="17" font-weight="bold" fill="#1a1a2e">DeiT: Data-Efficient Image Transformers</text>
+  <text x="430" y="46" text-anchor="middle" font-size="11" fill="#7a7a8a">Touvron et al. (2021) — Train ViT on ImageNet-1K alone via distillation from CNN teacher</text>
 
   <!-- Architecture -->
-  <rect x="30" y="65" width="500" height="340" rx="10" fill="#f8fafc" stroke="#e2e8f0" stroke-width="2"/>
-  <text x="280" y="90" text-anchor="middle" font-size="12" font-weight="bold" fill="#0f172a">DeiT Architecture (ViT + Distillation Token)</text>
+  <rect x="30" y="65" width="500" height="340" rx="10" fill="#f5f5f8" stroke="#f5f5f8" stroke-width="2"/>
+  <text x="280" y="90" text-anchor="middle" font-size="12" font-weight="bold" fill="#1a1a2e">DeiT Architecture (ViT + Distillation Token)</text>
 
   <!-- Patch embeddings -->
-  <rect x="60" y="110" width="30" height="25" rx="3" fill="#e0f2fe" stroke="#0284c7" stroke-width="1"/>
-  <text x="75" y="127" text-anchor="middle" font-size="6" fill="#0c4a6e">p₁</text>
-  <rect x="95" y="110" width="30" height="25" rx="3" fill="#e0f2fe" stroke="#0284c7" stroke-width="1"/>
-  <text x="110" y="127" text-anchor="middle" font-size="6" fill="#0c4a6e">p₂</text>
-  <rect x="130" y="110" width="30" height="25" rx="3" fill="#e0f2fe" stroke="#0284c7" stroke-width="1"/>
-  <text x="145" y="127" text-anchor="middle" font-size="6" fill="#0c4a6e">p₃</text>
-  <text x="175" y="127" font-size="10" fill="#94a3b8">···</text>
-  <rect x="195" y="110" width="30" height="25" rx="3" fill="#e0f2fe" stroke="#0284c7" stroke-width="1"/>
-  <text x="210" y="127" text-anchor="middle" font-size="6" fill="#0c4a6e">p_N</text>
+  <rect x="60" y="110" width="30" height="25" rx="3" fill="#e1eaf3" stroke="#4a7fb5" stroke-width="1"/>
+  <text x="75" y="127" text-anchor="middle" font-size="11" fill="#4a7fb5">p₁</text>
+  <rect x="95" y="110" width="30" height="25" rx="3" fill="#e1eaf3" stroke="#4a7fb5" stroke-width="1"/>
+  <text x="110" y="127" text-anchor="middle" font-size="11" fill="#4a7fb5">p₂</text>
+  <rect x="130" y="110" width="30" height="25" rx="3" fill="#e1eaf3" stroke="#4a7fb5" stroke-width="1"/>
+  <text x="145" y="127" text-anchor="middle" font-size="11" fill="#4a7fb5">p₃</text>
+  <text x="175" y="127" font-size="11" fill="#c0c0c8">···</text>
+  <rect x="195" y="110" width="30" height="25" rx="3" fill="#e1eaf3" stroke="#4a7fb5" stroke-width="1"/>
+  <text x="210" y="127" text-anchor="middle" font-size="11" fill="#4a7fb5">p_N</text>
 
   <!-- CLS token -->
-  <rect x="260" y="105" width="55" height="30" rx="4" fill="#dcfce7" stroke="#16a34a" stroke-width="2"/>
-  <text x="287" y="124" text-anchor="middle" font-size="8" font-weight="bold" fill="#14532d">[CLS]</text>
+  <rect x="260" y="105" width="55" height="30" rx="4" fill="#dff0ed" stroke="#3a9e8f" stroke-width="2"/>
+  <text x="287" y="124" text-anchor="middle" font-size="11" font-weight="bold" fill="#3a9e8f">[CLS]</text>
 
   <!-- Distillation token (key innovation) -->
-  <rect x="330" y="105" width="65" height="30" rx="4" fill="#fef3c7" stroke="#d97706" stroke-width="2.5"/>
-  <text x="362" y="124" text-anchor="middle" font-size="8" font-weight="bold" fill="#78350f">[DIST]</text>
+  <rect x="330" y="105" width="65" height="30" rx="4" fill="#f5ece0" stroke="#d4a03c" stroke-width="2.5"/>
+  <text x="362" y="124" text-anchor="middle" font-size="11" font-weight="bold" fill="#d4a03c">[DIST]</text>
 
-  <text x="430" y="120" font-size="7" fill="#d97706" font-weight="bold">← NEW</text>
+  <text x="430" y="120" font-size="11" fill="#d4a03c" font-weight="bold">← NEW</text>
 
   <!-- Transformer encoder -->
-  <line x1="220" y1="140" x2="220" y2="158" stroke="#475569" stroke-width="1.5" marker-end="url(#a)"/>
+  <line x1="220" y1="140" x2="220" y2="158" stroke="#4a4a5a" stroke-width="1.5" marker-end="url(#a)"/>
 
-  <rect x="60" y="160" width="400" height="100" rx="8" fill="#fce7f3" stroke="#db2777" stroke-width="2"/>
-  <text x="260" y="185" text-anchor="middle" font-size="10" font-weight="bold" fill="#831843">Transformer Encoder (×12)</text>
-  <text x="260" y="205" text-anchor="middle" font-size="8" fill="#db2777">MSA + FFN (same as ViT)</text>
-  <text x="260" y="225" text-anchor="middle" font-size="8" fill="#334155">[CLS] and [DIST] attend to all patches and each other</text>
-  <text x="260" y="245" text-anchor="middle" font-size="8" fill="#334155">All tokens interact via self-attention</text>
+  <rect x="60" y="160" width="400" height="100" rx="8" fill="#f6e4e3" stroke="#d4645c" stroke-width="2"/>
+  <text x="260" y="185" text-anchor="middle" font-size="11" font-weight="bold" fill="#d4645c">Transformer Encoder (×12)</text>
+  <text x="260" y="205" text-anchor="middle" font-size="11" fill="#d4645c">MSA + FFN (same as ViT)</text>
+  <text x="260" y="225" text-anchor="middle" font-size="11" fill="#3a3a4a">[CLS] and [DIST] attend to all patches and each other</text>
+  <text x="260" y="245" text-anchor="middle" font-size="11" fill="#3a3a4a">All tokens interact via self-attention</text>
 
   <!-- Two output heads -->
-  <line x1="200" y1="260" x2="150" y2="288" stroke="#16a34a" stroke-width="1.5" marker-end="url(#a)"/>
-  <line x1="300" y1="260" x2="350" y2="288" stroke="#d97706" stroke-width="1.5" marker-end="url(#a)"/>
+  <line x1="200" y1="260" x2="150" y2="288" stroke="#3a9e8f" stroke-width="1.5" marker-end="url(#a)"/>
+  <line x1="300" y1="260" x2="350" y2="288" stroke="#d4a03c" stroke-width="1.5" marker-end="url(#a)"/>
 
   <!-- Classification head (from CLS) -->
-  <rect x="80" y="290" width="140" height="50" rx="6" fill="#dcfce7" stroke="#16a34a" stroke-width="2"/>
-  <text x="150" y="312" text-anchor="middle" font-size="9" font-weight="bold" fill="#14532d">Class Head</text>
-  <text x="150" y="328" text-anchor="middle" font-size="7" fill="#16a34a">from [CLS] token</text>
+  <rect x="80" y="290" width="140" height="50" rx="6" fill="#dff0ed" stroke="#3a9e8f" stroke-width="2"/>
+  <text x="150" y="312" text-anchor="middle" font-size="11" font-weight="bold" fill="#3a9e8f">Class Head</text>
+  <text x="150" y="328" text-anchor="middle" font-size="11" fill="#3a9e8f">from [CLS] token</text>
 
   <!-- Distillation head (from DIST) -->
-  <rect x="280" y="290" width="140" height="50" rx="6" fill="#fef3c7" stroke="#d97706" stroke-width="2"/>
-  <text x="350" y="312" text-anchor="middle" font-size="9" font-weight="bold" fill="#78350f">Distill Head</text>
-  <text x="350" y="328" text-anchor="middle" font-size="7" fill="#d97706">from [DIST] token</text>
+  <rect x="280" y="290" width="140" height="50" rx="6" fill="#f5ece0" stroke="#d4a03c" stroke-width="2"/>
+  <text x="350" y="312" text-anchor="middle" font-size="11" font-weight="bold" fill="#d4a03c">Distill Head</text>
+  <text x="350" y="328" text-anchor="middle" font-size="11" fill="#d4a03c">from [DIST] token</text>
 
   <!-- Loss labels -->
-  <line x1="150" y1="340" x2="150" y2="363" stroke="#16a34a" stroke-width="1.5" marker-end="url(#a)"/>
-  <rect x="90" y="365" width="120" height="25" rx="4" fill="#f0fdf4" stroke="#16a34a" stroke-width="1"/>
-  <text x="150" y="382" text-anchor="middle" font-size="7" fill="#14532d">L_CE (true labels)</text>
+  <line x1="150" y1="340" x2="150" y2="363" stroke="#3a9e8f" stroke-width="1.5" marker-end="url(#a)"/>
+  <rect x="90" y="365" width="120" height="25" rx="4" fill="#edf7f5" stroke="#3a9e8f" stroke-width="1"/>
+  <text x="150" y="382" text-anchor="middle" font-size="11" fill="#3a9e8f">L_CE (true labels)</text>
 
-  <line x1="350" y1="340" x2="350" y2="363" stroke="#d97706" stroke-width="1.5" marker-end="url(#a)"/>
-  <rect x="280" y="365" width="140" height="25" rx="4" fill="#fef3c7" stroke="#d97706" stroke-width="1"/>
-  <text x="350" y="382" text-anchor="middle" font-size="7" fill="#78350f">L_distill (teacher labels)</text>
+  <line x1="350" y1="340" x2="350" y2="363" stroke="#d4a03c" stroke-width="1.5" marker-end="url(#a)"/>
+  <rect x="280" y="365" width="140" height="25" rx="4" fill="#f5ece0" stroke="#d4a03c" stroke-width="1"/>
+  <text x="350" y="382" text-anchor="middle" font-size="11" fill="#d4a03c">L_distill (teacher labels)</text>
 
   <!-- Teacher model -->
-  <rect x="555" y="65" width="280" height="130" rx="10" fill="#fce7f3" stroke="#db2777" stroke-width="2"/>
-  <text x="695" y="90" text-anchor="middle" font-size="11" font-weight="bold" fill="#831843">Teacher: RegNet (CNN)</text>
+  <rect x="555" y="65" width="280" height="130" rx="10" fill="#f6e4e3" stroke="#d4645c" stroke-width="2"/>
+  <text x="695" y="90" text-anchor="middle" font-size="11" font-weight="bold" fill="#d4645c">Teacher: RegNet (CNN)</text>
 
-  <text x="575" y="115" font-size="8" fill="#334155">• Pre-trained CNN (RegNetY-16GF)</text>
-  <text x="575" y="133" font-size="8" fill="#334155">• Provides hard or soft labels</text>
-  <text x="575" y="151" font-size="8" fill="#334155">• Hard distillation works best!</text>
-  <text x="575" y="169" font-size="8" fill="#334155">• [DIST] learns CNN-like features</text>
-  <text x="575" y="187" font-size="8" fill="#334155">• [CLS] learns ViT-like features</text>
+  <text x="575" y="115" font-size="11" fill="#3a3a4a">• Pre-trained CNN (RegNetY-16GF)</text>
+  <text x="575" y="133" font-size="11" fill="#3a3a4a">• Provides hard or soft labels</text>
+  <text x="575" y="151" font-size="11" fill="#3a3a4a">• Hard distillation works best!</text>
+  <text x="575" y="169" font-size="11" fill="#3a3a4a">• [DIST] learns CNN-like features</text>
+  <text x="575" y="187" font-size="11" fill="#3a3a4a">• [CLS] learns ViT-like features</text>
 
   <!-- Results -->
-  <rect x="555" y="210" width="280" height="110" rx="10" fill="#dcfce7" stroke="#16a34a" stroke-width="1.5"/>
-  <text x="695" y="235" text-anchor="middle" font-size="10" font-weight="bold" fill="#14532d">Results (ImageNet-1K only)</text>
+  <rect x="555" y="210" width="280" height="110" rx="10" fill="#dff0ed" stroke="#3a9e8f" stroke-width="1.5"/>
+  <text x="695" y="235" text-anchor="middle" font-size="11" font-weight="bold" fill="#3a9e8f">Results (ImageNet-1K only)</text>
 
-  <text x="610" y="258" font-size="8" fill="#475569" font-weight="bold">Model</text>
-  <text x="740" y="258" font-size="8" fill="#475569" font-weight="bold">Top-1</text>
-  <text x="800" y="258" font-size="8" fill="#475569" font-weight="bold">Data</text>
+  <text x="610" y="258" font-size="11" fill="#4a4a5a" font-weight="bold">Model</text>
+  <text x="740" y="258" font-size="11" fill="#4a4a5a" font-weight="bold">Top-1</text>
+  <text x="800" y="258" font-size="11" fill="#4a4a5a" font-weight="bold">Data</text>
 
-  <line x1="570" y1="264" x2="820" y2="264" stroke="#e2e8f0" stroke-width="1"/>
+  <line x1="570" y1="264" x2="820" y2="264" stroke="#f5f5f8" stroke-width="1"/>
 
-  <text x="610" y="280" font-size="8" fill="#334155">ViT-B (orig)</text>
-  <text x="740" y="280" font-size="8" fill="#334155">77.9%</text>
-  <text x="800" y="280" font-size="8" fill="#ef4444">JFT-300M</text>
+  <text x="610" y="280" font-size="11" fill="#3a3a4a">ViT-B (orig)</text>
+  <text x="740" y="280" font-size="11" fill="#3a3a4a">77.9%</text>
+  <text x="800" y="280" font-size="11" fill="#d4645c">JFT-300M</text>
 
-  <text x="610" y="296" font-size="8" fill="#14532d" font-weight="bold">DeiT-B</text>
-  <text x="740" y="296" font-size="8" fill="#14532d" font-weight="bold">81.8%</text>
-  <text x="800" y="296" font-size="8" fill="#16a34a">IN-1K</text>
+  <text x="610" y="296" font-size="11" fill="#3a9e8f" font-weight="bold">DeiT-B</text>
+  <text x="740" y="296" font-size="11" fill="#3a9e8f" font-weight="bold">81.8%</text>
+  <text x="800" y="296" font-size="11" fill="#3a9e8f">IN-1K</text>
 
-  <text x="610" y="312" font-size="8" fill="#14532d" font-weight="bold">DeiT-B ⚗</text>
-  <text x="740" y="312" font-size="8" fill="#14532d" font-weight="bold">83.4%</text>
-  <text x="800" y="312" font-size="8" fill="#16a34a">IN-1K</text>
+  <text x="610" y="312" font-size="11" fill="#3a9e8f" font-weight="bold">DeiT-B ⚗</text>
+  <text x="740" y="312" font-size="11" fill="#3a9e8f" font-weight="bold">83.4%</text>
+  <text x="800" y="312" font-size="11" fill="#3a9e8f">IN-1K</text>
 
   <!-- Training recipe -->
-  <rect x="555" y="335" width="280" height="75" rx="8" fill="#fef3c7" stroke="#d97706" stroke-width="1.5"/>
-  <text x="695" y="358" text-anchor="middle" font-size="9" font-weight="bold" fill="#78350f">Training Recipe (Key to DeiT)</text>
-  <text x="575" y="376" font-size="7" fill="#334155">• RandAugment, Mixup, CutMix, Random Erasing</text>
-  <text x="575" y="392" font-size="7" fill="#334155">• Repeated Augmentation, Stochastic Depth</text>
-  <text x="575" y="408" font-size="7" fill="#334155">• 300 epoch training, AdamW, cosine schedule</text>
+  <rect x="555" y="335" width="280" height="75" rx="8" fill="#f5ece0" stroke="#d4a03c" stroke-width="1.5"/>
+  <text x="695" y="358" text-anchor="middle" font-size="11" font-weight="bold" fill="#d4a03c">Training Recipe (Key to DeiT)</text>
+  <text x="575" y="376" font-size="11" fill="#3a3a4a">• RandAugment, Mixup, CutMix, Random Erasing</text>
+  <text x="575" y="392" font-size="11" fill="#3a3a4a">• Repeated Augmentation, Stochastic Depth</text>
+  <text x="575" y="408" font-size="11" fill="#3a3a4a">• 300 epoch training, AdamW, cosine schedule</text>
 </svg>

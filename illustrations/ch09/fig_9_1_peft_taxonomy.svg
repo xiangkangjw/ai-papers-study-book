@@ -1,130 +1,130 @@
-<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 860 480" font-family="Inter, Helvetica, Arial, sans-serif">
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 960 480" font-family="Inter, Helvetica, Arial, sans-serif">
   <defs>
-    <marker id="a" markerWidth="8" markerHeight="6" refX="8" refY="3" orient="auto"><path d="M0,0 L8,3 L0,6 Z" fill="#475569"/></marker>
+    <marker id="a" markerWidth="8" markerHeight="6" refX="8" refY="3" orient="auto"><path d="M0,0 L8,3 L0,6 Z" fill="#4a4a5a"/></marker>
   </defs>
 
-  <text x="430" y="28" text-anchor="middle" font-size="17" font-weight="bold" fill="#0f172a">PEFT Method Taxonomy</text>
-  <text x="430" y="46" text-anchor="middle" font-size="10" fill="#64748b">Freeze pre-trained weights, add small trainable parameters — one backbone, many adapters</text>
+  <text x="480" y="28" text-anchor="middle" font-size="17" font-weight="bold" fill="#1a1a2e">PEFT Method Taxonomy</text>
+  <text x="480" y="46" text-anchor="middle" font-size="11" fill="#7a7a8a">Freeze pre-trained weights, add small trainable parameters — one backbone, many adapters</text>
 
   <!-- Root -->
-  <rect x="310" y="65" width="240" height="45" rx="10" fill="#f1f5f9" stroke="#475569" stroke-width="2.5"/>
-  <text x="430" y="85" text-anchor="middle" font-size="13" font-weight="bold" fill="#0f172a">PEFT Methods</text>
-  <text x="430" y="102" text-anchor="middle" font-size="8" fill="#64748b">Parameter-Efficient Fine-Tuning</text>
+  <rect x="360" y="65" width="240" height="45" rx="10" fill="#f5f5f8" stroke="#4a4a5a" stroke-width="2.5"/>
+  <text x="480" y="85" text-anchor="middle" font-size="13" font-weight="bold" fill="#1a1a2e">PEFT Methods</text>
+  <text x="480" y="102" text-anchor="middle" font-size="11" fill="#7a7a8a">Parameter-Efficient Fine-Tuning</text>
 
   <!-- Branches -->
-  <line x1="340" y1="110" x2="155" y2="155" stroke="#475569" stroke-width="2"/>
-  <line x1="430" y1="110" x2="430" y2="155" stroke="#475569" stroke-width="2"/>
-  <line x1="520" y1="110" x2="705" y2="155" stroke="#475569" stroke-width="2"/>
+  <line x1="390" y1="110" x2="175" y2="155" stroke="#4a4a5a" stroke-width="2"/>
+  <line x1="480" y1="110" x2="480" y2="155" stroke="#4a4a5a" stroke-width="2"/>
+  <line x1="570" y1="110" x2="785" y2="155" stroke="#4a4a5a" stroke-width="2"/>
 
   <!-- ===== Additive Methods ===== -->
-  <rect x="30" y="155" width="250" height="50" rx="8" fill="#e0f2fe" stroke="#0284c7" stroke-width="2"/>
-  <text x="155" y="177" text-anchor="middle" font-size="12" font-weight="bold" fill="#0c4a6e">Additive Methods</text>
-  <text x="155" y="196" text-anchor="middle" font-size="8" fill="#0284c7">Insert new trainable parameters</text>
+  <rect x="20" y="155" width="310" height="50" rx="8" fill="#e1eaf3" stroke="#4a7fb5" stroke-width="2"/>
+  <text x="175" y="177" text-anchor="middle" font-size="12" font-weight="bold" fill="#4a7fb5">Additive Methods</text>
+  <text x="175" y="196" text-anchor="middle" font-size="11" fill="#4a7fb5">Insert new trainable parameters</text>
 
   <!-- Additive children -->
-  <line x1="80" y1="205" x2="80" y2="235" stroke="#0284c7" stroke-width="1.5"/>
-  <line x1="155" y1="205" x2="155" y2="235" stroke="#0284c7" stroke-width="1.5"/>
-  <line x1="230" y1="205" x2="230" y2="235" stroke="#0284c7" stroke-width="1.5"/>
+  <line x1="75" y1="205" x2="75" y2="235" stroke="#4a7fb5" stroke-width="1.5"/>
+  <line x1="175" y1="205" x2="175" y2="235" stroke="#4a7fb5" stroke-width="1.5"/>
+  <line x1="275" y1="205" x2="275" y2="235" stroke="#4a7fb5" stroke-width="1.5"/>
 
-  <rect x="20" y="238" width="120" height="80" rx="6" fill="#f0f9ff" stroke="#0284c7" stroke-width="1.5"/>
-  <text x="80" y="258" text-anchor="middle" font-size="9" font-weight="bold" fill="#0c4a6e">Adapters</text>
-  <text x="80" y="274" text-anchor="middle" font-size="7" fill="#0284c7">Houlsby et al., 2019</text>
-  <text x="80" y="290" text-anchor="middle" font-size="7" fill="#64748b">Bottleneck layers</text>
-  <text x="80" y="304" text-anchor="middle" font-size="7" fill="#64748b">between sublayers</text>
+  <rect x="15" y="238" width="120" height="80" rx="6" fill="#edf2f8" stroke="#4a7fb5" stroke-width="1.5"/>
+  <text x="75" y="258" text-anchor="middle" font-size="11" font-weight="bold" fill="#4a7fb5">Adapters</text>
+  <text x="75" y="274" text-anchor="middle" font-size="11" fill="#4a7fb5">Houlsby et al., 2019</text>
+  <text x="75" y="290" text-anchor="middle" font-size="11" fill="#7a7a8a">Bottleneck layers</text>
+  <text x="75" y="304" text-anchor="middle" font-size="11" fill="#7a7a8a">between sublayers</text>
 
-  <rect x="95" y="238" width="120" height="80" rx="6" fill="#f0f9ff" stroke="#0284c7" stroke-width="1.5"/>
-  <text x="155" y="258" text-anchor="middle" font-size="9" font-weight="bold" fill="#0c4a6e">Prefix Tuning</text>
-  <text x="155" y="274" text-anchor="middle" font-size="7" fill="#0284c7">Li &amp; Liang, 2021</text>
-  <text x="155" y="290" text-anchor="middle" font-size="7" fill="#64748b">Learned K,V prefixes</text>
-  <text x="155" y="304" text-anchor="middle" font-size="7" fill="#64748b">at each layer</text>
+  <rect x="140" y="238" width="110" height="80" rx="6" fill="#edf2f8" stroke="#4a7fb5" stroke-width="1.5"/>
+  <text x="195" y="258" text-anchor="middle" font-size="11" font-weight="bold" fill="#4a7fb5">Prefix Tuning</text>
+  <text x="195" y="274" text-anchor="middle" font-size="11" fill="#4a7fb5">Li &amp; Liang, 2021</text>
+  <text x="195" y="290" text-anchor="middle" font-size="11" fill="#7a7a8a">Learned K,V prefixes</text>
+  <text x="195" y="304" text-anchor="middle" font-size="11" fill="#7a7a8a">at each layer</text>
 
-  <rect x="170" y="238" width="120" height="80" rx="6" fill="#f0f9ff" stroke="#0284c7" stroke-width="1.5"/>
-  <text x="230" y="258" text-anchor="middle" font-size="9" font-weight="bold" fill="#0c4a6e">Prompt Tuning</text>
-  <text x="230" y="274" text-anchor="middle" font-size="7" fill="#0284c7">Lester et al., 2021</text>
-  <text x="230" y="290" text-anchor="middle" font-size="7" fill="#64748b">Soft tokens prepended</text>
-  <text x="230" y="304" text-anchor="middle" font-size="7" fill="#64748b">to input only</text>
+  <rect x="255" y="238" width="115" height="80" rx="6" fill="#edf2f8" stroke="#4a7fb5" stroke-width="1.5"/>
+  <text x="312" y="258" text-anchor="middle" font-size="11" font-weight="bold" fill="#4a7fb5">Prompt Tuning</text>
+  <text x="312" y="274" text-anchor="middle" font-size="11" fill="#4a7fb5">Lester et al., 2021</text>
+  <text x="312" y="290" text-anchor="middle" font-size="11" fill="#7a7a8a">Soft tokens prepended</text>
+  <text x="312" y="304" text-anchor="middle" font-size="11" fill="#7a7a8a">to input only</text>
 
   <!-- ===== Selective Methods ===== -->
-  <rect x="305" y="155" width="250" height="50" rx="8" fill="#fef3c7" stroke="#d97706" stroke-width="2"/>
-  <text x="430" y="177" text-anchor="middle" font-size="12" font-weight="bold" fill="#78350f">Selective Methods</text>
-  <text x="430" y="196" text-anchor="middle" font-size="8" fill="#d97706">Train subset of existing params</text>
+  <rect x="390" y="155" width="180" height="50" rx="8" fill="#f5ece0" stroke="#d4a03c" stroke-width="2"/>
+  <text x="480" y="177" text-anchor="middle" font-size="12" font-weight="bold" fill="#d4a03c">Selective Methods</text>
+  <text x="480" y="196" text-anchor="middle" font-size="11" fill="#d4a03c">Train subset of existing params</text>
 
   <!-- Selective children -->
-  <line x1="390" y1="205" x2="390" y2="235" stroke="#d97706" stroke-width="1.5"/>
-  <line x1="470" y1="205" x2="470" y2="235" stroke="#d97706" stroke-width="1.5"/>
+  <line x1="440" y1="205" x2="440" y2="235" stroke="#d4a03c" stroke-width="1.5"/>
+  <line x1="520" y1="205" x2="520" y2="235" stroke="#d4a03c" stroke-width="1.5"/>
 
-  <rect x="330" y="238" width="120" height="80" rx="6" fill="#fffbeb" stroke="#d97706" stroke-width="1.5"/>
-  <text x="390" y="258" text-anchor="middle" font-size="9" font-weight="bold" fill="#78350f">BitFit</text>
-  <text x="390" y="274" text-anchor="middle" font-size="7" fill="#d97706">Ben Zaken et al., 2022</text>
-  <text x="390" y="290" text-anchor="middle" font-size="7" fill="#64748b">Train bias terms only</text>
-  <text x="390" y="304" text-anchor="middle" font-size="7" fill="#64748b">~0.1% of params</text>
+  <rect x="380" y="238" width="120" height="80" rx="6" fill="#faf5ee" stroke="#d4a03c" stroke-width="1.5"/>
+  <text x="440" y="258" text-anchor="middle" font-size="11" font-weight="bold" fill="#d4a03c">BitFit</text>
+  <text x="440" y="274" text-anchor="middle" font-size="11" fill="#d4a03c">Ben Zaken et al., 2022</text>
+  <text x="440" y="290" text-anchor="middle" font-size="11" fill="#7a7a8a">Train bias terms only</text>
+  <text x="440" y="304" text-anchor="middle" font-size="11" fill="#7a7a8a">~0.1% of params</text>
 
-  <rect x="410" y="238" width="120" height="80" rx="6" fill="#fffbeb" stroke="#d97706" stroke-width="1.5"/>
-  <text x="470" y="258" text-anchor="middle" font-size="9" font-weight="bold" fill="#78350f">Diff Pruning</text>
-  <text x="470" y="274" text-anchor="middle" font-size="7" fill="#d97706">Guo et al., 2021</text>
-  <text x="470" y="290" text-anchor="middle" font-size="7" fill="#64748b">Sparse diff mask</text>
-  <text x="470" y="304" text-anchor="middle" font-size="7" fill="#64748b">over full weights</text>
+  <rect x="505" y="238" width="120" height="80" rx="6" fill="#faf5ee" stroke="#d4a03c" stroke-width="1.5"/>
+  <text x="565" y="258" text-anchor="middle" font-size="11" font-weight="bold" fill="#d4a03c">Diff Pruning</text>
+  <text x="565" y="274" text-anchor="middle" font-size="11" fill="#d4a03c">Guo et al., 2021</text>
+  <text x="565" y="290" text-anchor="middle" font-size="11" fill="#7a7a8a">Sparse diff mask</text>
+  <text x="565" y="304" text-anchor="middle" font-size="11" fill="#7a7a8a">over full weights</text>
 
   <!-- ===== Reparameterization Methods ===== -->
-  <rect x="580" y="155" width="250" height="50" rx="8" fill="#dcfce7" stroke="#16a34a" stroke-width="2.5"/>
-  <text x="705" y="177" text-anchor="middle" font-size="12" font-weight="bold" fill="#14532d">Reparameterization</text>
-  <text x="705" y="196" text-anchor="middle" font-size="8" fill="#16a34a">ΔW = low-rank decomposition</text>
+  <rect x="645" y="155" width="290" height="50" rx="8" fill="#dff0ed" stroke="#3a9e8f" stroke-width="2.5"/>
+  <text x="790" y="177" text-anchor="middle" font-size="12" font-weight="bold" fill="#3a9e8f">Reparameterization</text>
+  <text x="790" y="196" text-anchor="middle" font-size="11" fill="#3a9e8f">ΔW = low-rank decomposition</text>
 
   <!-- Reparam children -->
-  <line x1="630" y1="205" x2="630" y2="235" stroke="#16a34a" stroke-width="1.5"/>
-  <line x1="705" y1="205" x2="705" y2="235" stroke="#16a34a" stroke-width="1.5"/>
-  <line x1="780" y1="205" x2="780" y2="235" stroke="#16a34a" stroke-width="1.5"/>
+  <line x1="700" y1="205" x2="700" y2="235" stroke="#3a9e8f" stroke-width="1.5"/>
+  <line x1="790" y1="205" x2="790" y2="235" stroke="#3a9e8f" stroke-width="1.5"/>
+  <line x1="880" y1="205" x2="880" y2="235" stroke="#3a9e8f" stroke-width="1.5"/>
 
-  <rect x="570" y="238" width="120" height="80" rx="6" fill="#f0fdf4" stroke="#16a34a" stroke-width="2"/>
-  <text x="630" y="258" text-anchor="middle" font-size="10" font-weight="bold" fill="#14532d">LoRA</text>
-  <text x="630" y="274" text-anchor="middle" font-size="7" fill="#16a34a">Hu et al., 2021</text>
-  <text x="630" y="290" text-anchor="middle" font-size="7" fill="#14532d">ΔW = B·A (rank r)</text>
-  <text x="630" y="304" text-anchor="middle" font-size="7" fill="#14532d">Zero inference overhead</text>
+  <rect x="645" y="238" width="110" height="80" rx="6" fill="#edf7f5" stroke="#3a9e8f" stroke-width="2"/>
+  <text x="700" y="258" text-anchor="middle" font-size="11" font-weight="bold" fill="#3a9e8f">LoRA</text>
+  <text x="700" y="274" text-anchor="middle" font-size="11" fill="#3a9e8f">Hu et al., 2021</text>
+  <text x="700" y="290" text-anchor="middle" font-size="11" fill="#3a9e8f">ΔW = B·A (rank r)</text>
+  <text x="700" y="304" text-anchor="middle" font-size="11" fill="#3a9e8f">Zero inference cost</text>
 
-  <rect x="645" y="238" width="120" height="80" rx="6" fill="#f0fdf4" stroke="#16a34a" stroke-width="1.5"/>
-  <text x="705" y="258" text-anchor="middle" font-size="9" font-weight="bold" fill="#14532d">AdaLoRA</text>
-  <text x="705" y="274" text-anchor="middle" font-size="7" fill="#16a34a">Zhang et al., 2023</text>
-  <text x="705" y="290" text-anchor="middle" font-size="7" fill="#64748b">Adaptive rank per</text>
-  <text x="705" y="304" text-anchor="middle" font-size="7" fill="#64748b">weight matrix</text>
+  <rect x="760" y="238" width="110" height="80" rx="6" fill="#edf7f5" stroke="#3a9e8f" stroke-width="1.5"/>
+  <text x="815" y="258" text-anchor="middle" font-size="11" font-weight="bold" fill="#3a9e8f">AdaLoRA</text>
+  <text x="815" y="274" text-anchor="middle" font-size="11" fill="#3a9e8f">Zhang et al., 2023</text>
+  <text x="815" y="290" text-anchor="middle" font-size="11" fill="#7a7a8a">Adaptive rank per</text>
+  <text x="815" y="304" text-anchor="middle" font-size="11" fill="#7a7a8a">weight matrix</text>
 
-  <rect x="720" y="238" width="120" height="80" rx="6" fill="#f0fdf4" stroke="#16a34a" stroke-width="1.5"/>
-  <text x="780" y="258" text-anchor="middle" font-size="9" font-weight="bold" fill="#14532d">DoRA</text>
-  <text x="780" y="274" text-anchor="middle" font-size="7" fill="#16a34a">Liu et al., 2024</text>
-  <text x="780" y="290" text-anchor="middle" font-size="7" fill="#64748b">Weight-decomposed:</text>
-  <text x="780" y="304" text-anchor="middle" font-size="7" fill="#64748b">magnitude + direction</text>
+  <rect x="875" y="238" width="110" height="80" rx="6" fill="#edf7f5" stroke="#3a9e8f" stroke-width="1.5"/>
+  <text x="930" y="258" text-anchor="middle" font-size="11" font-weight="bold" fill="#3a9e8f">DoRA</text>
+  <text x="930" y="274" text-anchor="middle" font-size="11" fill="#3a9e8f">Liu et al., 2024</text>
+  <text x="930" y="290" text-anchor="middle" font-size="11" fill="#7a7a8a">Weight-decomposed:</text>
+  <text x="930" y="304" text-anchor="middle" font-size="11" fill="#7a7a8a">magnitude + direction</text>
 
   <!-- ===== Dominant approach highlight ===== -->
-  <rect x="565" y="322" width="130" height="22" rx="4" fill="#16a34a" stroke="none"/>
-  <text x="630" y="337" text-anchor="middle" font-size="8" font-weight="bold" fill="#fff">Dominant in practice</text>
+  <rect x="635" y="322" width="130" height="22" rx="4" fill="#3a9e8f" stroke="none"/>
+  <text x="700" y="337" text-anchor="middle" font-size="11" font-weight="bold" fill="#fff">Dominant in practice</text>
 
   <!-- ===== Comparison summary ===== -->
-  <rect x="100" y="370" width="660" height="95" rx="8" fill="#f8fafc" stroke="#e2e8f0" stroke-width="1.5"/>
-  <text x="430" y="392" text-anchor="middle" font-size="10" font-weight="bold" fill="#0f172a">Method Comparison</text>
+  <rect x="150" y="370" width="660" height="95" rx="8" fill="#f5f5f8" stroke="#f5f5f8" stroke-width="1.5"/>
+  <text x="480" y="392" text-anchor="middle" font-size="11" font-weight="bold" fill="#1a1a2e">Method Comparison</text>
 
   <!-- Table-like layout -->
-  <text x="180" y="412" text-anchor="middle" font-size="8" font-weight="bold" fill="#64748b">Method</text>
-  <text x="310" y="412" text-anchor="middle" font-size="8" font-weight="bold" fill="#64748b">Params Added</text>
-  <text x="430" y="412" text-anchor="middle" font-size="8" font-weight="bold" fill="#64748b">Inference Cost</text>
-  <text x="560" y="412" text-anchor="middle" font-size="8" font-weight="bold" fill="#64748b">Mergeable?</text>
-  <text x="680" y="412" text-anchor="middle" font-size="8" font-weight="bold" fill="#64748b">Performance</text>
+  <text x="230" y="412" text-anchor="middle" font-size="11" font-weight="bold" fill="#7a7a8a">Method</text>
+  <text x="360" y="412" text-anchor="middle" font-size="11" font-weight="bold" fill="#7a7a8a">Params Added</text>
+  <text x="480" y="412" text-anchor="middle" font-size="11" font-weight="bold" fill="#7a7a8a">Inference Cost</text>
+  <text x="610" y="412" text-anchor="middle" font-size="11" font-weight="bold" fill="#7a7a8a">Mergeable?</text>
+  <text x="730" y="412" text-anchor="middle" font-size="11" font-weight="bold" fill="#7a7a8a">Performance</text>
 
-  <line x1="120" y1="418" x2="740" y2="418" stroke="#e2e8f0" stroke-width="1"/>
+  <line x1="170" y1="418" x2="790" y2="418" stroke="#f5f5f8" stroke-width="1"/>
 
-  <text x="180" y="434" text-anchor="middle" font-size="8" fill="#0c4a6e">Adapters</text>
-  <text x="310" y="434" text-anchor="middle" font-size="8" fill="#334155">0.5–3%</text>
-  <text x="430" y="434" text-anchor="middle" font-size="8" fill="#ef4444">+latency</text>
-  <text x="560" y="434" text-anchor="middle" font-size="8" fill="#ef4444">No</text>
-  <text x="680" y="434" text-anchor="middle" font-size="8" fill="#16a34a">Strong</text>
+  <text x="230" y="434" text-anchor="middle" font-size="11" fill="#4a7fb5">Adapters</text>
+  <text x="360" y="434" text-anchor="middle" font-size="11" fill="#3a3a4a">0.5–3%</text>
+  <text x="480" y="434" text-anchor="middle" font-size="11" fill="#d4645c">+latency</text>
+  <text x="610" y="434" text-anchor="middle" font-size="11" fill="#d4645c">No</text>
+  <text x="730" y="434" text-anchor="middle" font-size="11" fill="#3a9e8f">Strong</text>
 
-  <text x="180" y="450" text-anchor="middle" font-size="8" fill="#78350f">BitFit</text>
-  <text x="310" y="450" text-anchor="middle" font-size="8" fill="#334155">~0.1%</text>
-  <text x="430" y="450" text-anchor="middle" font-size="8" fill="#16a34a">Zero</text>
-  <text x="560" y="450" text-anchor="middle" font-size="8" fill="#16a34a">Yes</text>
-  <text x="680" y="450" text-anchor="middle" font-size="8" fill="#d97706">Moderate</text>
+  <text x="230" y="450" text-anchor="middle" font-size="11" fill="#d4a03c">BitFit</text>
+  <text x="360" y="450" text-anchor="middle" font-size="11" fill="#3a3a4a">~0.1%</text>
+  <text x="480" y="450" text-anchor="middle" font-size="11" fill="#3a9e8f">Zero</text>
+  <text x="610" y="450" text-anchor="middle" font-size="11" fill="#3a9e8f">Yes</text>
+  <text x="730" y="450" text-anchor="middle" font-size="11" fill="#d4a03c">Moderate</text>
 
-  <text x="180" y="466" text-anchor="middle" font-size="8" font-weight="bold" fill="#14532d">LoRA</text>
-  <text x="310" y="466" text-anchor="middle" font-size="8" fill="#334155">0.1–1%</text>
-  <text x="430" y="466" text-anchor="middle" font-size="8" font-weight="bold" fill="#16a34a">Zero</text>
-  <text x="560" y="466" text-anchor="middle" font-size="8" font-weight="bold" fill="#16a34a">Yes (W+BA)</text>
-  <text x="680" y="466" text-anchor="middle" font-size="8" font-weight="bold" fill="#16a34a">Strong</text>
+  <text x="230" y="466" text-anchor="middle" font-size="11" font-weight="bold" fill="#3a9e8f">LoRA</text>
+  <text x="360" y="466" text-anchor="middle" font-size="11" fill="#3a3a4a">0.1–1%</text>
+  <text x="480" y="466" text-anchor="middle" font-size="11" font-weight="bold" fill="#3a9e8f">Zero</text>
+  <text x="610" y="466" text-anchor="middle" font-size="11" font-weight="bold" fill="#3a9e8f">Yes (W+BA)</text>
+  <text x="730" y="466" text-anchor="middle" font-size="11" font-weight="bold" fill="#3a9e8f">Strong</text>
 </svg>

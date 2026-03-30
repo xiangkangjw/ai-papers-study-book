@@ -1,121 +1,121 @@
 <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 860 480" font-family="Inter, Helvetica, Arial, sans-serif">
   <defs>
-    <marker id="a" markerWidth="8" markerHeight="6" refX="8" refY="3" orient="auto"><path d="M0,0 L8,3 L0,6 Z" fill="#475569"/></marker>
+    <marker id="a" markerWidth="8" markerHeight="6" refX="8" refY="3" orient="auto"><path d="M0,0 L8,3 L0,6 Z" fill="#4a4a5a"/></marker>
   </defs>
 
-  <text x="430" y="28" text-anchor="middle" font-size="17" font-weight="bold" fill="#0f172a">LLaVA: Visual Instruction Tuning</text>
-  <text x="430" y="46" text-anchor="middle" font-size="10" fill="#64748b">Liu et al. (2023) — Connect CLIP vision encoder to LLaMA via simple linear projection</text>
+  <text x="430" y="28" text-anchor="middle" font-size="17" font-weight="bold" fill="#1a1a2e">LLaVA: Visual Instruction Tuning</text>
+  <text x="430" y="46" text-anchor="middle" font-size="11" fill="#7a7a8a">Liu et al. (2023) — Connect CLIP vision encoder to LLaMA via simple linear projection</text>
 
   <!-- Two-Stage Training -->
-  <text x="430" y="78" text-anchor="middle" font-size="12" font-weight="bold" fill="#0f172a">Two-Stage Training Pipeline</text>
+  <text x="430" y="78" text-anchor="middle" font-size="12" font-weight="bold" fill="#1a1a2e">Two-Stage Training Pipeline</text>
 
   <!-- Stage 1: Pre-training -->
-  <rect x="30" y="95" width="390" height="175" rx="10" fill="#f0f9ff" stroke="#0284c7" stroke-width="2"/>
-  <text x="225" y="118" text-anchor="middle" font-size="11" font-weight="bold" fill="#0c4a6e">Stage 1: Feature Alignment</text>
+  <rect x="30" y="95" width="390" height="175" rx="10" fill="#edf2f8" stroke="#4a7fb5" stroke-width="2"/>
+  <text x="225" y="118" text-anchor="middle" font-size="11" font-weight="bold" fill="#4a7fb5">Stage 1: Feature Alignment</text>
 
   <!-- Image -->
-  <rect x="50" y="140" width="50" height="50" rx="4" fill="#f1f5f9" stroke="#475569" stroke-width="1.5"/>
-  <text x="75" y="170" text-anchor="middle" font-size="8" fill="#0f172a">Image</text>
+  <rect x="50" y="140" width="50" height="50" rx="4" fill="#f5f5f8" stroke="#4a4a5a" stroke-width="1.5"/>
+  <text x="75" y="170" text-anchor="middle" font-size="11" fill="#1a1a2e">Image</text>
 
-  <line x1="100" y1="165" x2="118" y2="165" stroke="#475569" stroke-width="1.5" marker-end="url(#a)"/>
+  <line x1="100" y1="165" x2="118" y2="165" stroke="#4a4a5a" stroke-width="1.5" marker-end="url(#a)"/>
 
   <!-- CLIP ViT (frozen) -->
-  <rect x="120" y="135" width="80" height="60" rx="6" fill="#e2e8f0" stroke="#94a3b8" stroke-width="2"/>
-  <text x="160" y="158" text-anchor="middle" font-size="8" font-weight="bold" fill="#475569">CLIP ViT-L</text>
-  <text x="160" y="172" text-anchor="middle" font-size="7" fill="#94a3b8">🔒 frozen</text>
-  <text x="160" y="188" text-anchor="middle" font-size="6" fill="#94a3b8" font-family="'SF Mono', Consolas, monospace">→ 576 tokens</text>
+  <rect x="120" y="135" width="80" height="60" rx="6" fill="#f5f5f8" stroke="#c0c0c8" stroke-width="2"/>
+  <text x="160" y="158" text-anchor="middle" font-size="11" font-weight="bold" fill="#4a4a5a">CLIP ViT-L</text>
+  <text x="160" y="172" text-anchor="middle" font-size="11" fill="#c0c0c8">🔒 frozen</text>
+  <text x="160" y="188" text-anchor="middle" font-size="11" fill="#c0c0c8" font-family="'JetBrains Mono', 'Fira Code', monospace">→ 576 tokens</text>
 
-  <line x1="200" y1="165" x2="218" y2="165" stroke="#475569" stroke-width="1.5" marker-end="url(#a)"/>
+  <line x1="200" y1="165" x2="218" y2="165" stroke="#4a4a5a" stroke-width="1.5" marker-end="url(#a)"/>
 
   <!-- Linear projection (trainable) -->
-  <rect x="220" y="140" width="70" height="50" rx="6" fill="#fef3c7" stroke="#d97706" stroke-width="2.5"/>
-  <text x="255" y="160" text-anchor="middle" font-size="8" font-weight="bold" fill="#78350f">Linear W</text>
-  <text x="255" y="175" text-anchor="middle" font-size="7" fill="#d97706">🔥 trainable</text>
+  <rect x="220" y="140" width="70" height="50" rx="6" fill="#f5ece0" stroke="#d4a03c" stroke-width="2.5"/>
+  <text x="255" y="160" text-anchor="middle" font-size="11" font-weight="bold" fill="#d4a03c">Linear W</text>
+  <text x="255" y="175" text-anchor="middle" font-size="11" fill="#d4a03c">🔥 trainable</text>
 
-  <line x1="290" y1="165" x2="308" y2="165" stroke="#475569" stroke-width="1.5" marker-end="url(#a)"/>
+  <line x1="290" y1="165" x2="308" y2="165" stroke="#4a4a5a" stroke-width="1.5" marker-end="url(#a)"/>
 
   <!-- LLaMA (frozen) -->
-  <rect x="310" y="135" width="90" height="60" rx="6" fill="#e2e8f0" stroke="#94a3b8" stroke-width="2"/>
-  <text x="355" y="158" text-anchor="middle" font-size="8" font-weight="bold" fill="#475569">LLaMA</text>
-  <text x="355" y="172" text-anchor="middle" font-size="7" fill="#94a3b8">🔒 frozen</text>
+  <rect x="310" y="135" width="90" height="60" rx="6" fill="#f5f5f8" stroke="#c0c0c8" stroke-width="2"/>
+  <text x="355" y="158" text-anchor="middle" font-size="11" font-weight="bold" fill="#4a4a5a">LLaMA</text>
+  <text x="355" y="172" text-anchor="middle" font-size="11" fill="#c0c0c8">🔒 frozen</text>
 
-  <text x="225" y="230" text-anchor="middle" font-size="8" fill="#0284c7">Data: 595K image-caption pairs (CC3M filtered)</text>
-  <text x="225" y="248" text-anchor="middle" font-size="8" fill="#0284c7">Goal: Align visual tokens to LLM embedding space</text>
-  <text x="225" y="266" text-anchor="middle" font-size="8" fill="#d97706" font-weight="bold">Only W is trained (few hours on 8 GPUs)</text>
+  <text x="225" y="230" text-anchor="middle" font-size="11" fill="#4a7fb5">Data: 595K image-caption pairs (CC3M filtered)</text>
+  <text x="225" y="248" text-anchor="middle" font-size="11" fill="#4a7fb5">Goal: Align visual tokens to LLM embedding space</text>
+  <text x="225" y="266" text-anchor="middle" font-size="11" fill="#d4a03c" font-weight="bold">Only W is trained (few hours on 8 GPUs)</text>
 
   <!-- Stage 2: Fine-tuning -->
-  <rect x="440" y="95" width="390" height="175" rx="10" fill="#f0fdf4" stroke="#16a34a" stroke-width="2"/>
-  <text x="635" y="118" text-anchor="middle" font-size="11" font-weight="bold" fill="#14532d">Stage 2: Visual Instruction Tuning</text>
+  <rect x="440" y="95" width="390" height="175" rx="10" fill="#edf7f5" stroke="#3a9e8f" stroke-width="2"/>
+  <text x="635" y="118" text-anchor="middle" font-size="11" font-weight="bold" fill="#3a9e8f">Stage 2: Visual Instruction Tuning</text>
 
   <!-- Image -->
-  <rect x="460" y="140" width="50" height="50" rx="4" fill="#f1f5f9" stroke="#475569" stroke-width="1.5"/>
-  <text x="485" y="170" text-anchor="middle" font-size="8" fill="#0f172a">Image</text>
+  <rect x="460" y="140" width="50" height="50" rx="4" fill="#f5f5f8" stroke="#4a4a5a" stroke-width="1.5"/>
+  <text x="485" y="170" text-anchor="middle" font-size="11" fill="#1a1a2e">Image</text>
 
-  <line x1="510" y1="165" x2="528" y2="165" stroke="#475569" stroke-width="1.5" marker-end="url(#a)"/>
+  <line x1="510" y1="165" x2="528" y2="165" stroke="#4a4a5a" stroke-width="1.5" marker-end="url(#a)"/>
 
   <!-- CLIP ViT (frozen) -->
-  <rect x="530" y="135" width="80" height="60" rx="6" fill="#e2e8f0" stroke="#94a3b8" stroke-width="2"/>
-  <text x="570" y="158" text-anchor="middle" font-size="8" font-weight="bold" fill="#475569">CLIP ViT-L</text>
-  <text x="570" y="172" text-anchor="middle" font-size="7" fill="#94a3b8">🔒 frozen</text>
+  <rect x="530" y="135" width="80" height="60" rx="6" fill="#f5f5f8" stroke="#c0c0c8" stroke-width="2"/>
+  <text x="570" y="158" text-anchor="middle" font-size="11" font-weight="bold" fill="#4a4a5a">CLIP ViT-L</text>
+  <text x="570" y="172" text-anchor="middle" font-size="11" fill="#c0c0c8">🔒 frozen</text>
 
-  <line x1="610" y1="165" x2="628" y2="165" stroke="#475569" stroke-width="1.5" marker-end="url(#a)"/>
+  <line x1="610" y1="165" x2="628" y2="165" stroke="#4a4a5a" stroke-width="1.5" marker-end="url(#a)"/>
 
   <!-- Linear projection (trainable) -->
-  <rect x="630" y="140" width="70" height="50" rx="6" fill="#fef3c7" stroke="#d97706" stroke-width="2.5"/>
-  <text x="665" y="160" text-anchor="middle" font-size="8" font-weight="bold" fill="#78350f">Linear W</text>
-  <text x="665" y="175" text-anchor="middle" font-size="7" fill="#d97706">🔥 trainable</text>
+  <rect x="630" y="140" width="70" height="50" rx="6" fill="#f5ece0" stroke="#d4a03c" stroke-width="2.5"/>
+  <text x="665" y="160" text-anchor="middle" font-size="11" font-weight="bold" fill="#d4a03c">Linear W</text>
+  <text x="665" y="175" text-anchor="middle" font-size="11" fill="#d4a03c">🔥 trainable</text>
 
-  <line x1="700" y1="165" x2="718" y2="165" stroke="#475569" stroke-width="1.5" marker-end="url(#a)"/>
+  <line x1="700" y1="165" x2="718" y2="165" stroke="#4a4a5a" stroke-width="1.5" marker-end="url(#a)"/>
 
   <!-- LLaMA (trainable!) -->
-  <rect x="720" y="135" width="90" height="60" rx="6" fill="#dcfce7" stroke="#16a34a" stroke-width="2.5"/>
-  <text x="765" y="158" text-anchor="middle" font-size="8" font-weight="bold" fill="#14532d">LLaMA</text>
-  <text x="765" y="172" text-anchor="middle" font-size="7" fill="#16a34a">🔥 fine-tuned</text>
+  <rect x="720" y="135" width="90" height="60" rx="6" fill="#dff0ed" stroke="#3a9e8f" stroke-width="2.5"/>
+  <text x="765" y="158" text-anchor="middle" font-size="11" font-weight="bold" fill="#3a9e8f">LLaMA</text>
+  <text x="765" y="172" text-anchor="middle" font-size="11" fill="#3a9e8f">🔥 fine-tuned</text>
 
-  <text x="635" y="230" text-anchor="middle" font-size="8" fill="#16a34a">Data: 158K multimodal instruction-following</text>
-  <text x="635" y="248" text-anchor="middle" font-size="8" fill="#16a34a">Generated by GPT-4 from images + captions</text>
-  <text x="635" y="266" text-anchor="middle" font-size="8" fill="#16a34a" font-weight="bold">Both W and LLaMA are trained</text>
+  <text x="635" y="230" text-anchor="middle" font-size="11" fill="#3a9e8f">Data: 158K multimodal instruction-following</text>
+  <text x="635" y="248" text-anchor="middle" font-size="11" fill="#3a9e8f">Generated by GPT-4 from images + captions</text>
+  <text x="635" y="266" text-anchor="middle" font-size="11" fill="#3a9e8f" font-weight="bold">Both W and LLaMA are trained</text>
 
   <!-- Architecture detail -->
-  <rect x="30" y="290" width="800" height="95" rx="10" fill="#fef3c7" stroke="#d97706" stroke-width="1.5"/>
-  <text x="430" y="315" text-anchor="middle" font-size="11" font-weight="bold" fill="#78350f">Input Format to LLM</text>
+  <rect x="30" y="290" width="800" height="95" rx="10" fill="#f5ece0" stroke="#d4a03c" stroke-width="1.5"/>
+  <text x="430" y="315" text-anchor="middle" font-size="11" font-weight="bold" fill="#d4a03c">Input Format to LLM</text>
 
   <!-- Token sequence visualization -->
-  <rect x="55" y="330" width="70" height="28" rx="3" fill="#e0f2fe" stroke="#0284c7" stroke-width="1.5"/>
-  <text x="90" y="348" text-anchor="middle" font-size="7" fill="#0c4a6e">[SYS] prompt</text>
+  <rect x="55" y="330" width="70" height="28" rx="3" fill="#e1eaf3" stroke="#4a7fb5" stroke-width="1.5"/>
+  <text x="90" y="348" text-anchor="middle" font-size="11" fill="#4a7fb5">[SYS] prompt</text>
 
-  <rect x="135" y="330" width="25" height="28" rx="3" fill="#fef3c7" stroke="#d97706" stroke-width="2"/>
-  <text x="147" y="348" text-anchor="middle" font-size="7" fill="#78350f">v₁</text>
-  <rect x="165" y="330" width="25" height="28" rx="3" fill="#fef3c7" stroke="#d97706" stroke-width="2"/>
-  <text x="177" y="348" text-anchor="middle" font-size="7" fill="#78350f">v₂</text>
-  <text x="200" y="348" font-size="10" fill="#d97706">···</text>
-  <rect x="215" y="330" width="30" height="28" rx="3" fill="#fef3c7" stroke="#d97706" stroke-width="2"/>
-  <text x="230" y="348" text-anchor="middle" font-size="7" fill="#78350f">v₅₇₆</text>
+  <rect x="135" y="330" width="25" height="28" rx="3" fill="#f5ece0" stroke="#d4a03c" stroke-width="2"/>
+  <text x="147" y="348" text-anchor="middle" font-size="11" fill="#d4a03c">v₁</text>
+  <rect x="165" y="330" width="25" height="28" rx="3" fill="#f5ece0" stroke="#d4a03c" stroke-width="2"/>
+  <text x="177" y="348" text-anchor="middle" font-size="11" fill="#d4a03c">v₂</text>
+  <text x="200" y="348" font-size="11" fill="#d4a03c">···</text>
+  <rect x="215" y="330" width="30" height="28" rx="3" fill="#f5ece0" stroke="#d4a03c" stroke-width="2"/>
+  <text x="230" y="348" text-anchor="middle" font-size="11" fill="#d4a03c">v₅₇₆</text>
 
-  <rect x="260" y="330" width="120" height="28" rx="3" fill="#dcfce7" stroke="#16a34a" stroke-width="1.5"/>
-  <text x="320" y="348" text-anchor="middle" font-size="7" fill="#14532d">"Describe this image"</text>
+  <rect x="260" y="330" width="120" height="28" rx="3" fill="#dff0ed" stroke="#3a9e8f" stroke-width="1.5"/>
+  <text x="320" y="348" text-anchor="middle" font-size="11" fill="#3a9e8f">"Describe this image"</text>
 
-  <rect x="390" y="330" width="30" height="28" rx="3" fill="#fce7f3" stroke="#db2777" stroke-width="1.5"/>
-  <text x="405" y="348" text-anchor="middle" font-size="7" fill="#831843">→</text>
+  <rect x="390" y="330" width="30" height="28" rx="3" fill="#f6e4e3" stroke="#d4645c" stroke-width="1.5"/>
+  <text x="405" y="348" text-anchor="middle" font-size="11" fill="#d4645c">→</text>
 
-  <rect x="430" y="330" width="270" height="28" rx="3" fill="#fce7f3" stroke="#db2777" stroke-width="1.5"/>
-  <text x="565" y="348" text-anchor="middle" font-size="7" fill="#831843">"The image shows a cat sitting on..." (autoregressive)</text>
+  <rect x="430" y="330" width="270" height="28" rx="3" fill="#f6e4e3" stroke="#d4645c" stroke-width="1.5"/>
+  <text x="565" y="348" text-anchor="middle" font-size="11" fill="#d4645c">"The image shows a cat sitting on..." (autoregressive)</text>
 
-  <text x="130" y="375" font-size="7" fill="#d97706" font-weight="bold">576 visual tokens from CLIP</text>
-  <text x="370" y="375" font-size="7" fill="#16a34a">text instruction</text>
-  <text x="550" y="375" font-size="7" fill="#db2777">generated response</text>
+  <text x="130" y="375" font-size="11" fill="#d4a03c" font-weight="bold">576 visual tokens from CLIP</text>
+  <text x="370" y="375" font-size="11" fill="#3a9e8f">text instruction</text>
+  <text x="550" y="375" font-size="11" fill="#d4645c">generated response</text>
 
   <!-- Key results -->
-  <rect x="30" y="400" width="390" height="70" rx="8" fill="#dcfce7" stroke="#16a34a" stroke-width="1.5"/>
-  <text x="225" y="420" text-anchor="middle" font-size="10" font-weight="bold" fill="#14532d">Why LLaVA Matters</text>
-  <text x="50" y="440" font-size="8" fill="#334155">• Surprisingly simple: linear projection works!</text>
-  <text x="50" y="456" font-size="8" fill="#334155">• GPT-4 generated instruction data → high quality</text>
-  <text x="50" y="472" font-size="8" fill="#334155">• Template for open-source VLMs (LLaVA-1.5, etc.)</text>
+  <rect x="30" y="400" width="390" height="70" rx="8" fill="#dff0ed" stroke="#3a9e8f" stroke-width="1.5"/>
+  <text x="225" y="420" text-anchor="middle" font-size="11" font-weight="bold" fill="#3a9e8f">Why LLaVA Matters</text>
+  <text x="50" y="440" font-size="11" fill="#3a3a4a">• Surprisingly simple: linear projection works!</text>
+  <text x="50" y="456" font-size="11" fill="#3a3a4a">• GPT-4 generated instruction data → high quality</text>
+  <text x="50" y="472" font-size="11" fill="#3a3a4a">• Template for open-source VLMs (LLaVA-1.5, etc.)</text>
 
   <!-- Comparison -->
-  <rect x="440" y="400" width="390" height="70" rx="8" fill="#f1f5f9" stroke="#475569" stroke-width="1.5"/>
-  <text x="635" y="420" text-anchor="middle" font-size="10" font-weight="bold" fill="#0f172a">LLaVA-1.5 Improvements</text>
-  <text x="460" y="440" font-size="8" fill="#334155">• MLP projection (2-layer) instead of linear</text>
-  <text x="460" y="456" font-size="8" fill="#334155">• Higher resolution (336px), Vicuna-13B base</text>
-  <text x="460" y="472" font-size="8" fill="#334155">• Academic compute budget, competitive with GPT-4V</text>
+  <rect x="440" y="400" width="390" height="70" rx="8" fill="#f5f5f8" stroke="#4a4a5a" stroke-width="1.5"/>
+  <text x="635" y="420" text-anchor="middle" font-size="11" font-weight="bold" fill="#1a1a2e">LLaVA-1.5 Improvements</text>
+  <text x="460" y="440" font-size="11" fill="#3a3a4a">• MLP projection (2-layer) instead of linear</text>
+  <text x="460" y="456" font-size="11" fill="#3a3a4a">• Higher resolution (336px), Vicuna-13B base</text>
+  <text x="460" y="472" font-size="11" fill="#3a3a4a">• Academic compute budget, competitive with GPT-4V</text>
 </svg>

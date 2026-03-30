@@ -1,98 +1,98 @@
 <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 860 460" font-family="Inter, Helvetica, Arial, sans-serif">
   <defs>
-    <marker id="a" markerWidth="8" markerHeight="6" refX="8" refY="3" orient="auto"><path d="M0,0 L8,3 L0,6 Z" fill="#475569"/></marker>
+    <marker id="a" markerWidth="8" markerHeight="6" refX="8" refY="3" orient="auto"><path d="M0,0 L8,3 L0,6 Z" fill="#4a4a5a"/></marker>
   </defs>
 
-  <text x="430" y="28" text-anchor="middle" font-size="17" font-weight="bold" fill="#0f172a">Self-RAG: Self-Reflective Retrieval-Augmented Generation</text>
-  <text x="430" y="46" text-anchor="middle" font-size="10" fill="#64748b">Asai et al. (2023) — LM decides when to retrieve and self-evaluates output quality</text>
+  <text x="430" y="28" text-anchor="middle" font-size="17" font-weight="bold" fill="#1a1a2e">Self-RAG: Self-Reflective Retrieval-Augmented Generation</text>
+  <text x="430" y="46" text-anchor="middle" font-size="11" fill="#7a7a8a">Asai et al. (2023) — LM decides when to retrieve and self-evaluates output quality</text>
 
   <!-- Pipeline -->
-  <rect x="30" y="65" width="800" height="310" rx="10" fill="#f8fafc" stroke="#e2e8f0" stroke-width="2"/>
+  <rect x="30" y="65" width="800" height="310" rx="10" fill="#f5f5f8" stroke="#f5f5f8" stroke-width="2"/>
 
   <!-- Step 1: Input -->
-  <rect x="55" y="90" width="100" height="40" rx="5" fill="#f1f5f9" stroke="#475569" stroke-width="2"/>
-  <text x="105" y="115" text-anchor="middle" font-size="9" font-weight="bold" fill="#0f172a">Query x</text>
+  <rect x="55" y="90" width="100" height="40" rx="5" fill="#f5f5f8" stroke="#4a4a5a" stroke-width="2"/>
+  <text x="105" y="115" text-anchor="middle" font-size="11" font-weight="bold" fill="#1a1a2e">Query x</text>
 
-  <line x1="155" y1="110" x2="178" y2="110" stroke="#475569" stroke-width="1.5" marker-end="url(#a)"/>
+  <line x1="155" y1="110" x2="178" y2="110" stroke="#4a4a5a" stroke-width="1.5" marker-end="url(#a)"/>
 
   <!-- Step 2: Retrieve decision -->
-  <rect x="180" y="80" width="130" height="60" rx="8" fill="#fef3c7" stroke="#d97706" stroke-width="2"/>
-  <text x="245" y="102" text-anchor="middle" font-size="9" font-weight="bold" fill="#78350f">LM generates</text>
-  <text x="245" y="118" text-anchor="middle" font-size="9" font-weight="bold" fill="#d97706">[Retrieve]?</text>
-  <text x="245" y="133" text-anchor="middle" font-size="7" fill="#d97706">yes / no / continue</text>
+  <rect x="180" y="80" width="130" height="60" rx="8" fill="#f5ece0" stroke="#d4a03c" stroke-width="2"/>
+  <text x="245" y="102" text-anchor="middle" font-size="11" font-weight="bold" fill="#d4a03c">LM generates</text>
+  <text x="245" y="118" text-anchor="middle" font-size="11" font-weight="bold" fill="#d4a03c">[Retrieve]?</text>
+  <text x="245" y="133" text-anchor="middle" font-size="11" fill="#d4a03c">yes / no / continue</text>
 
   <!-- Branch: No retrieval -->
-  <line x1="310" y1="95" x2="350" y2="82" stroke="#94a3b8" stroke-width="1.5" marker-end="url(#a)"/>
-  <text x="335" y="78" font-size="7" fill="#94a3b8">no</text>
+  <line x1="310" y1="95" x2="350" y2="82" stroke="#c0c0c8" stroke-width="1.5" marker-end="url(#a)"/>
+  <text x="335" y="78" font-size="11" fill="#c0c0c8">no</text>
 
-  <rect x="355" y="68" width="110" height="30" rx="4" fill="#f1f5f9" stroke="#94a3b8" stroke-width="1.5"/>
-  <text x="410" y="87" text-anchor="middle" font-size="8" fill="#64748b">Generate directly</text>
+  <rect x="355" y="68" width="110" height="30" rx="4" fill="#f5f5f8" stroke="#c0c0c8" stroke-width="1.5"/>
+  <text x="410" y="87" text-anchor="middle" font-size="11" fill="#7a7a8a">Generate directly</text>
 
   <!-- Branch: Yes retrieval -->
-  <line x1="310" y1="115" x2="350" y2="130" stroke="#16a34a" stroke-width="1.5" marker-end="url(#a)"/>
-  <text x="335" y="135" font-size="7" fill="#16a34a">yes</text>
+  <line x1="310" y1="115" x2="350" y2="130" stroke="#3a9e8f" stroke-width="1.5" marker-end="url(#a)"/>
+  <text x="335" y="135" font-size="11" fill="#3a9e8f">yes</text>
 
   <!-- Step 3: Retrieve -->
-  <rect x="355" y="115" width="110" height="40" rx="6" fill="#e0f2fe" stroke="#0284c7" stroke-width="2"/>
-  <text x="410" y="135" text-anchor="middle" font-size="8" font-weight="bold" fill="#0c4a6e">Retrieve docs</text>
-  <text x="410" y="148" text-anchor="middle" font-size="7" fill="#0284c7">d₁, d₂, ..., d_k</text>
+  <rect x="355" y="115" width="110" height="40" rx="6" fill="#e1eaf3" stroke="#4a7fb5" stroke-width="2"/>
+  <text x="410" y="135" text-anchor="middle" font-size="11" font-weight="bold" fill="#4a7fb5">Retrieve docs</text>
+  <text x="410" y="148" text-anchor="middle" font-size="11" fill="#4a7fb5">d₁, d₂, ..., d_k</text>
 
-  <line x1="465" y1="135" x2="488" y2="135" stroke="#475569" stroke-width="1.5" marker-end="url(#a)"/>
+  <line x1="465" y1="135" x2="488" y2="135" stroke="#4a4a5a" stroke-width="1.5" marker-end="url(#a)"/>
 
   <!-- Step 4: Generate with each doc -->
-  <rect x="490" y="105" width="130" height="60" rx="6" fill="#fce7f3" stroke="#db2777" stroke-width="2"/>
-  <text x="555" y="125" text-anchor="middle" font-size="8" font-weight="bold" fill="#831843">Generate y_i</text>
-  <text x="555" y="140" text-anchor="middle" font-size="7" fill="#db2777">for each d_i</text>
-  <text x="555" y="155" text-anchor="middle" font-size="7" fill="#db2777">+ reflection tokens</text>
+  <rect x="490" y="105" width="130" height="60" rx="6" fill="#f6e4e3" stroke="#d4645c" stroke-width="2"/>
+  <text x="555" y="125" text-anchor="middle" font-size="11" font-weight="bold" fill="#d4645c">Generate y_i</text>
+  <text x="555" y="140" text-anchor="middle" font-size="11" fill="#d4645c">for each d_i</text>
+  <text x="555" y="155" text-anchor="middle" font-size="11" fill="#d4645c">+ reflection tokens</text>
 
-  <line x1="620" y1="135" x2="643" y2="135" stroke="#475569" stroke-width="1.5" marker-end="url(#a)"/>
+  <line x1="620" y1="135" x2="643" y2="135" stroke="#4a4a5a" stroke-width="1.5" marker-end="url(#a)"/>
 
   <!-- Step 5: Self-evaluate -->
-  <rect x="645" y="90" width="160" height="85" rx="8" fill="#dcfce7" stroke="#16a34a" stroke-width="2"/>
-  <text x="725" y="113" text-anchor="middle" font-size="9" font-weight="bold" fill="#14532d">Self-Evaluate</text>
-  <text x="725" y="133" text-anchor="middle" font-size="8" fill="#16a34a">[ISREL] relevant?</text>
-  <text x="725" y="148" text-anchor="middle" font-size="8" fill="#16a34a">[ISSUP] supported?</text>
-  <text x="725" y="163" text-anchor="middle" font-size="8" fill="#16a34a">[ISUSE] useful?</text>
+  <rect x="645" y="90" width="160" height="85" rx="8" fill="#dff0ed" stroke="#3a9e8f" stroke-width="2"/>
+  <text x="725" y="113" text-anchor="middle" font-size="11" font-weight="bold" fill="#3a9e8f">Self-Evaluate</text>
+  <text x="725" y="133" text-anchor="middle" font-size="11" fill="#3a9e8f">[ISREL] relevant?</text>
+  <text x="725" y="148" text-anchor="middle" font-size="11" fill="#3a9e8f">[ISSUP] supported?</text>
+  <text x="725" y="163" text-anchor="middle" font-size="11" fill="#3a9e8f">[ISUSE] useful?</text>
 
   <!-- Reflection Tokens (key innovation) -->
-  <rect x="55" y="195" width="750" height="80" rx="8" fill="#fef3c7" stroke="#d97706" stroke-width="1.5"/>
-  <text x="430" y="218" text-anchor="middle" font-size="10" font-weight="bold" fill="#78350f">Special Reflection Tokens (Trained into LM vocabulary)</text>
+  <rect x="55" y="195" width="750" height="80" rx="8" fill="#f5ece0" stroke="#d4a03c" stroke-width="1.5"/>
+  <text x="430" y="218" text-anchor="middle" font-size="11" font-weight="bold" fill="#d4a03c">Special Reflection Tokens (Trained into LM vocabulary)</text>
 
-  <rect x="75" y="230" width="140" height="30" rx="4" fill="#fef3c7" stroke="#d97706" stroke-width="1"/>
-  <text x="145" y="245" text-anchor="middle" font-size="7" font-weight="bold" fill="#78350f">[Retrieve] yes/no/continue</text>
-  <text x="145" y="258" text-anchor="middle" font-size="6" fill="#64748b">When to retrieve</text>
+  <rect x="75" y="230" width="140" height="30" rx="4" fill="#f5ece0" stroke="#d4a03c" stroke-width="1"/>
+  <text x="145" y="245" text-anchor="middle" font-size="11" font-weight="bold" fill="#d4a03c">[Retrieve] yes/no/continue</text>
+  <text x="145" y="258" text-anchor="middle" font-size="11" fill="#7a7a8a">When to retrieve</text>
 
-  <rect x="230" y="230" width="130" height="30" rx="4" fill="#fef3c7" stroke="#d97706" stroke-width="1"/>
-  <text x="295" y="245" text-anchor="middle" font-size="7" font-weight="bold" fill="#78350f">[ISREL] relevant/irrelevant</text>
-  <text x="295" y="258" text-anchor="middle" font-size="6" fill="#64748b">Is doc relevant to query?</text>
+  <rect x="230" y="230" width="130" height="30" rx="4" fill="#f5ece0" stroke="#d4a03c" stroke-width="1"/>
+  <text x="295" y="245" text-anchor="middle" font-size="11" font-weight="bold" fill="#d4a03c">[ISREL] relevant/irrelevant</text>
+  <text x="295" y="258" text-anchor="middle" font-size="11" fill="#7a7a8a">Is doc relevant to query?</text>
 
-  <rect x="375" y="230" width="150" height="30" rx="4" fill="#fef3c7" stroke="#d97706" stroke-width="1"/>
-  <text x="450" y="245" text-anchor="middle" font-size="7" font-weight="bold" fill="#78350f">[ISSUP] fully/partially/no</text>
-  <text x="450" y="258" text-anchor="middle" font-size="6" fill="#64748b">Is output supported by doc?</text>
+  <rect x="375" y="230" width="150" height="30" rx="4" fill="#f5ece0" stroke="#d4a03c" stroke-width="1"/>
+  <text x="450" y="245" text-anchor="middle" font-size="11" font-weight="bold" fill="#d4a03c">[ISSUP] fully/partially/no</text>
+  <text x="450" y="258" text-anchor="middle" font-size="11" fill="#7a7a8a">Is output supported by doc?</text>
 
-  <rect x="540" y="230" width="130" height="30" rx="4" fill="#fef3c7" stroke="#d97706" stroke-width="1"/>
-  <text x="605" y="245" text-anchor="middle" font-size="7" font-weight="bold" fill="#78350f">[ISUSE] 1-5 utility score</text>
-  <text x="605" y="258" text-anchor="middle" font-size="6" fill="#64748b">Overall response quality</text>
+  <rect x="540" y="230" width="130" height="30" rx="4" fill="#f5ece0" stroke="#d4a03c" stroke-width="1"/>
+  <text x="605" y="245" text-anchor="middle" font-size="11" font-weight="bold" fill="#d4a03c">[ISUSE] 1-5 utility score</text>
+  <text x="605" y="258" text-anchor="middle" font-size="11" fill="#7a7a8a">Overall response quality</text>
 
-  <rect x="685" y="230" width="100" height="30" rx="4" fill="#dcfce7" stroke="#16a34a" stroke-width="1.5"/>
-  <text x="735" y="245" text-anchor="middle" font-size="7" font-weight="bold" fill="#14532d">Select best y_i</text>
-  <text x="735" y="258" text-anchor="middle" font-size="6" fill="#16a34a">by critic score</text>
+  <rect x="685" y="230" width="100" height="30" rx="4" fill="#dff0ed" stroke="#3a9e8f" stroke-width="1.5"/>
+  <text x="735" y="245" text-anchor="middle" font-size="11" font-weight="bold" fill="#3a9e8f">Select best y_i</text>
+  <text x="735" y="258" text-anchor="middle" font-size="11" fill="#3a9e8f">by critic score</text>
 
   <!-- Training -->
-  <rect x="55" y="295" width="340" height="65" rx="6" fill="#f0f9ff" stroke="#0284c7" stroke-width="1.5"/>
-  <text x="225" y="315" text-anchor="middle" font-size="9" font-weight="bold" fill="#0c4a6e">Training</text>
-  <text x="75" y="335" font-size="8" fill="#334155">• GPT-4 generates reflection token labels</text>
-  <text x="75" y="350" font-size="8" fill="#334155">• Distilled into LLaMA via instruction tuning</text>
+  <rect x="55" y="295" width="340" height="65" rx="6" fill="#edf2f8" stroke="#4a7fb5" stroke-width="1.5"/>
+  <text x="225" y="315" text-anchor="middle" font-size="11" font-weight="bold" fill="#4a7fb5">Training</text>
+  <text x="75" y="335" font-size="11" fill="#3a3a4a">• GPT-4 generates reflection token labels</text>
+  <text x="75" y="350" font-size="11" fill="#3a3a4a">• Distilled into LLaMA via instruction tuning</text>
 
   <!-- Advantages -->
-  <rect x="415" y="295" width="390" height="65" rx="6" fill="#dcfce7" stroke="#16a34a" stroke-width="1.5"/>
-  <text x="610" y="315" text-anchor="middle" font-size="9" font-weight="bold" fill="#14532d">vs Standard RAG</text>
-  <text x="435" y="335" font-size="8" fill="#334155">• Adaptive: retrieves only when needed</text>
-  <text x="435" y="350" font-size="8" fill="#334155">• Self-critical: filters bad retrievals, reduces hallucination</text>
+  <rect x="415" y="295" width="390" height="65" rx="6" fill="#dff0ed" stroke="#3a9e8f" stroke-width="1.5"/>
+  <text x="610" y="315" text-anchor="middle" font-size="11" font-weight="bold" fill="#3a9e8f">vs Standard RAG</text>
+  <text x="435" y="335" font-size="11" fill="#3a3a4a">• Adaptive: retrieves only when needed</text>
+  <text x="435" y="350" font-size="11" fill="#3a3a4a">• Self-critical: filters bad retrievals, reduces hallucination</text>
 
   <!-- Bottom summary -->
-  <rect x="100" y="385" width="660" height="60" rx="6" fill="#f1f5f9" stroke="#475569" stroke-width="1.5"/>
-  <text x="430" y="405" text-anchor="middle" font-size="9" font-weight="bold" fill="#0f172a">Key Insight</text>
-  <text x="430" y="425" text-anchor="middle" font-size="8" fill="#334155">Self-RAG unifies retrieval decision, generation, and critique into a single LM that generates</text>
-  <text x="430" y="440" text-anchor="middle" font-size="8" fill="#334155">both text and reflection tokens — no separate retriever or critic model needed at inference.</text>
+  <rect x="100" y="385" width="660" height="60" rx="6" fill="#f5f5f8" stroke="#4a4a5a" stroke-width="1.5"/>
+  <text x="430" y="405" text-anchor="middle" font-size="11" font-weight="bold" fill="#1a1a2e">Key Insight</text>
+  <text x="430" y="425" text-anchor="middle" font-size="11" fill="#3a3a4a">Self-RAG unifies retrieval decision, generation, and critique into a single LM that generates</text>
+  <text x="430" y="440" text-anchor="middle" font-size="11" fill="#3a3a4a">both text and reflection tokens — no separate retriever or critic model needed at inference.</text>
 </svg>

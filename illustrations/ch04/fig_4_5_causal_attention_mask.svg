@@ -1,201 +1,201 @@
 <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 800 520" font-family="Inter, Helvetica, Arial, sans-serif">
   <defs>
-    <marker id="ar" markerWidth="10" markerHeight="7" refX="10" refY="3.5" orient="auto"><path d="M0,0 L10,3.5 L0,7 Z" fill="#475569"/></marker>
+    <marker id="ar" markerWidth="10" markerHeight="7" refX="10" refY="3.5" orient="auto"><path d="M0,0 L10,3.5 L0,7 Z" fill="#4a4a5a"/></marker>
   </defs>
 
-  <text x="400" y="28" text-anchor="middle" font-size="17" font-weight="bold" fill="#0f172a">Causal Attention Mask</text>
-  <text x="400" y="46" text-anchor="middle" font-size="10" fill="#64748b">Position i can only attend to positions ≤ i (autoregressive constraint)</text>
+  <text x="400" y="28" text-anchor="middle" font-size="17" font-weight="bold" fill="#1a1a2e">Causal Attention Mask</text>
+  <text x="400" y="46" text-anchor="middle" font-size="11" fill="#7a7a8a">Position i can only attend to positions ≤ i (autoregressive constraint)</text>
 
   <!-- Panel 1: Raw Scores -->
-  <text x="130" y="80" text-anchor="middle" font-size="11" font-weight="bold" fill="#334155">1. Raw Scores</text>
-  <text x="130" y="95" text-anchor="middle" font-size="9" fill="#64748b">QKᵀ / √d_k</text>
+  <text x="130" y="80" text-anchor="middle" font-size="11" font-weight="bold" fill="#3a3a4a">1. Raw Scores</text>
+  <text x="130" y="95" text-anchor="middle" font-size="11" fill="#7a7a8a">QKᵀ / √d_k</text>
 
   <!-- 4x4 Grid -->
   <g transform="translate(30, 110)">
     <!-- Headers -->
-    <text x="55" y="-5" text-anchor="middle" font-size="8" fill="#64748b">t₁</text>
-    <text x="105" y="-5" text-anchor="middle" font-size="8" fill="#64748b">t₂</text>
-    <text x="155" y="-5" text-anchor="middle" font-size="8" fill="#64748b">t₃</text>
-    <text x="205" y="-5" text-anchor="middle" font-size="8" fill="#64748b">t₄</text>
-    <text x="18" y="28" text-anchor="middle" font-size="8" fill="#64748b">t₁</text>
-    <text x="18" y="78" text-anchor="middle" font-size="8" fill="#64748b">t₂</text>
-    <text x="18" y="128" text-anchor="middle" font-size="8" fill="#64748b">t₃</text>
-    <text x="18" y="178" text-anchor="middle" font-size="8" fill="#64748b">t₄</text>
+    <text x="55" y="-5" text-anchor="middle" font-size="11" fill="#7a7a8a">t₁</text>
+    <text x="105" y="-5" text-anchor="middle" font-size="11" fill="#7a7a8a">t₂</text>
+    <text x="155" y="-5" text-anchor="middle" font-size="11" fill="#7a7a8a">t₃</text>
+    <text x="205" y="-5" text-anchor="middle" font-size="11" fill="#7a7a8a">t₄</text>
+    <text x="18" y="28" text-anchor="middle" font-size="11" fill="#7a7a8a">t₁</text>
+    <text x="18" y="78" text-anchor="middle" font-size="11" fill="#7a7a8a">t₂</text>
+    <text x="18" y="128" text-anchor="middle" font-size="11" fill="#7a7a8a">t₃</text>
+    <text x="18" y="178" text-anchor="middle" font-size="11" fill="#7a7a8a">t₄</text>
 
     <!-- Row 1 -->
-    <rect x="30" y="5" width="50" height="45" rx="3" fill="#f1f5f9" stroke="#cbd5e1" stroke-width="1"/>
-    <text x="55" y="32" text-anchor="middle" font-size="10" fill="#334155">s₁₁</text>
-    <rect x="80" y="5" width="50" height="45" rx="3" fill="#f1f5f9" stroke="#cbd5e1" stroke-width="1"/>
-    <text x="105" y="32" text-anchor="middle" font-size="10" fill="#334155">s₁₂</text>
-    <rect x="130" y="5" width="50" height="45" rx="3" fill="#f1f5f9" stroke="#cbd5e1" stroke-width="1"/>
-    <text x="155" y="32" text-anchor="middle" font-size="10" fill="#334155">s₁₃</text>
-    <rect x="180" y="5" width="50" height="45" rx="3" fill="#f1f5f9" stroke="#cbd5e1" stroke-width="1"/>
-    <text x="205" y="32" text-anchor="middle" font-size="10" fill="#334155">s₁₄</text>
+    <rect x="30" y="5" width="50" height="45" rx="3" fill="#f5f5f8" stroke="#c0c0c8" stroke-width="1"/>
+    <text x="55" y="32" text-anchor="middle" font-size="11" fill="#3a3a4a">s₁₁</text>
+    <rect x="80" y="5" width="50" height="45" rx="3" fill="#f5f5f8" stroke="#c0c0c8" stroke-width="1"/>
+    <text x="105" y="32" text-anchor="middle" font-size="11" fill="#3a3a4a">s₁₂</text>
+    <rect x="130" y="5" width="50" height="45" rx="3" fill="#f5f5f8" stroke="#c0c0c8" stroke-width="1"/>
+    <text x="155" y="32" text-anchor="middle" font-size="11" fill="#3a3a4a">s₁₃</text>
+    <rect x="180" y="5" width="50" height="45" rx="3" fill="#f5f5f8" stroke="#c0c0c8" stroke-width="1"/>
+    <text x="205" y="32" text-anchor="middle" font-size="11" fill="#3a3a4a">s₁₄</text>
 
     <!-- Row 2 -->
-    <rect x="30" y="55" width="50" height="45" rx="3" fill="#f1f5f9" stroke="#cbd5e1" stroke-width="1"/>
-    <text x="55" y="82" text-anchor="middle" font-size="10" fill="#334155">s₂₁</text>
-    <rect x="80" y="55" width="50" height="45" rx="3" fill="#f1f5f9" stroke="#cbd5e1" stroke-width="1"/>
-    <text x="105" y="82" text-anchor="middle" font-size="10" fill="#334155">s₂₂</text>
-    <rect x="130" y="55" width="50" height="45" rx="3" fill="#f1f5f9" stroke="#cbd5e1" stroke-width="1"/>
-    <text x="155" y="82" text-anchor="middle" font-size="10" fill="#334155">s₂₃</text>
-    <rect x="180" y="55" width="50" height="45" rx="3" fill="#f1f5f9" stroke="#cbd5e1" stroke-width="1"/>
-    <text x="205" y="82" text-anchor="middle" font-size="10" fill="#334155">s₂₄</text>
+    <rect x="30" y="55" width="50" height="45" rx="3" fill="#f5f5f8" stroke="#c0c0c8" stroke-width="1"/>
+    <text x="55" y="82" text-anchor="middle" font-size="11" fill="#3a3a4a">s₂₁</text>
+    <rect x="80" y="55" width="50" height="45" rx="3" fill="#f5f5f8" stroke="#c0c0c8" stroke-width="1"/>
+    <text x="105" y="82" text-anchor="middle" font-size="11" fill="#3a3a4a">s₂₂</text>
+    <rect x="130" y="55" width="50" height="45" rx="3" fill="#f5f5f8" stroke="#c0c0c8" stroke-width="1"/>
+    <text x="155" y="82" text-anchor="middle" font-size="11" fill="#3a3a4a">s₂₃</text>
+    <rect x="180" y="55" width="50" height="45" rx="3" fill="#f5f5f8" stroke="#c0c0c8" stroke-width="1"/>
+    <text x="205" y="82" text-anchor="middle" font-size="11" fill="#3a3a4a">s₂₄</text>
 
     <!-- Row 3 -->
-    <rect x="30" y="105" width="50" height="45" rx="3" fill="#f1f5f9" stroke="#cbd5e1" stroke-width="1"/>
-    <text x="55" y="132" text-anchor="middle" font-size="10" fill="#334155">s₃₁</text>
-    <rect x="80" y="105" width="50" height="45" rx="3" fill="#f1f5f9" stroke="#cbd5e1" stroke-width="1"/>
-    <text x="105" y="132" text-anchor="middle" font-size="10" fill="#334155">s₃₂</text>
-    <rect x="130" y="105" width="50" height="45" rx="3" fill="#f1f5f9" stroke="#cbd5e1" stroke-width="1"/>
-    <text x="155" y="132" text-anchor="middle" font-size="10" fill="#334155">s₃₃</text>
-    <rect x="180" y="105" width="50" height="45" rx="3" fill="#f1f5f9" stroke="#cbd5e1" stroke-width="1"/>
-    <text x="205" y="132" text-anchor="middle" font-size="10" fill="#334155">s₃₄</text>
+    <rect x="30" y="105" width="50" height="45" rx="3" fill="#f5f5f8" stroke="#c0c0c8" stroke-width="1"/>
+    <text x="55" y="132" text-anchor="middle" font-size="11" fill="#3a3a4a">s₃₁</text>
+    <rect x="80" y="105" width="50" height="45" rx="3" fill="#f5f5f8" stroke="#c0c0c8" stroke-width="1"/>
+    <text x="105" y="132" text-anchor="middle" font-size="11" fill="#3a3a4a">s₃₂</text>
+    <rect x="130" y="105" width="50" height="45" rx="3" fill="#f5f5f8" stroke="#c0c0c8" stroke-width="1"/>
+    <text x="155" y="132" text-anchor="middle" font-size="11" fill="#3a3a4a">s₃₃</text>
+    <rect x="180" y="105" width="50" height="45" rx="3" fill="#f5f5f8" stroke="#c0c0c8" stroke-width="1"/>
+    <text x="205" y="132" text-anchor="middle" font-size="11" fill="#3a3a4a">s₃₄</text>
 
     <!-- Row 4 -->
-    <rect x="30" y="155" width="50" height="45" rx="3" fill="#f1f5f9" stroke="#cbd5e1" stroke-width="1"/>
-    <text x="55" y="182" text-anchor="middle" font-size="10" fill="#334155">s₄₁</text>
-    <rect x="80" y="155" width="50" height="45" rx="3" fill="#f1f5f9" stroke="#cbd5e1" stroke-width="1"/>
-    <text x="105" y="182" text-anchor="middle" font-size="10" fill="#334155">s₄₂</text>
-    <rect x="130" y="155" width="50" height="45" rx="3" fill="#f1f5f9" stroke="#cbd5e1" stroke-width="1"/>
-    <text x="155" y="182" text-anchor="middle" font-size="10" fill="#334155">s₄₃</text>
-    <rect x="180" y="155" width="50" height="45" rx="3" fill="#f1f5f9" stroke="#cbd5e1" stroke-width="1"/>
-    <text x="205" y="182" text-anchor="middle" font-size="10" fill="#334155">s₄₄</text>
+    <rect x="30" y="155" width="50" height="45" rx="3" fill="#f5f5f8" stroke="#c0c0c8" stroke-width="1"/>
+    <text x="55" y="182" text-anchor="middle" font-size="11" fill="#3a3a4a">s₄₁</text>
+    <rect x="80" y="155" width="50" height="45" rx="3" fill="#f5f5f8" stroke="#c0c0c8" stroke-width="1"/>
+    <text x="105" y="182" text-anchor="middle" font-size="11" fill="#3a3a4a">s₄₂</text>
+    <rect x="130" y="155" width="50" height="45" rx="3" fill="#f5f5f8" stroke="#c0c0c8" stroke-width="1"/>
+    <text x="155" y="182" text-anchor="middle" font-size="11" fill="#3a3a4a">s₄₃</text>
+    <rect x="180" y="155" width="50" height="45" rx="3" fill="#f5f5f8" stroke="#c0c0c8" stroke-width="1"/>
+    <text x="205" y="182" text-anchor="middle" font-size="11" fill="#3a3a4a">s₄₄</text>
   </g>
 
   <!-- Arrow 1→2 -->
-  <line x1="268" y1="230" x2="295" y2="230" stroke="#475569" stroke-width="2" marker-end="url(#ar)"/>
+  <line x1="268" y1="230" x2="295" y2="230" stroke="#4a4a5a" stroke-width="2" marker-end="url(#ar)"/>
 
   <!-- Panel 2: After Mask -->
-  <text x="420" y="80" text-anchor="middle" font-size="11" font-weight="bold" fill="#334155">2. Apply Causal Mask</text>
-  <text x="420" y="95" text-anchor="middle" font-size="9" fill="#64748b">Add −∞ to upper triangle</text>
+  <text x="420" y="80" text-anchor="middle" font-size="11" font-weight="bold" fill="#3a3a4a">2. Apply Causal Mask</text>
+  <text x="420" y="95" text-anchor="middle" font-size="11" fill="#7a7a8a">Add −∞ to upper triangle</text>
 
   <g transform="translate(310, 110)">
-    <text x="55" y="-5" text-anchor="middle" font-size="8" fill="#64748b">t₁</text>
-    <text x="105" y="-5" text-anchor="middle" font-size="8" fill="#64748b">t₂</text>
-    <text x="155" y="-5" text-anchor="middle" font-size="8" fill="#64748b">t₃</text>
-    <text x="205" y="-5" text-anchor="middle" font-size="8" fill="#64748b">t₄</text>
+    <text x="55" y="-5" text-anchor="middle" font-size="11" fill="#7a7a8a">t₁</text>
+    <text x="105" y="-5" text-anchor="middle" font-size="11" fill="#7a7a8a">t₂</text>
+    <text x="155" y="-5" text-anchor="middle" font-size="11" fill="#7a7a8a">t₃</text>
+    <text x="205" y="-5" text-anchor="middle" font-size="11" fill="#7a7a8a">t₄</text>
 
     <!-- Row 1: only s11 visible -->
-    <rect x="30" y="5" width="50" height="45" rx="3" fill="#f1f5f9" stroke="#cbd5e1" stroke-width="1"/>
-    <text x="55" y="32" text-anchor="middle" font-size="10" fill="#334155">s₁₁</text>
-    <rect x="80" y="5" width="50" height="45" rx="3" fill="#fee2e2" stroke="#ef4444" stroke-width="1.5"/>
-    <text x="105" y="32" text-anchor="middle" font-size="10" font-weight="bold" fill="#ef4444">−∞</text>
-    <rect x="130" y="5" width="50" height="45" rx="3" fill="#fee2e2" stroke="#ef4444" stroke-width="1.5"/>
-    <text x="155" y="32" text-anchor="middle" font-size="10" font-weight="bold" fill="#ef4444">−∞</text>
-    <rect x="180" y="5" width="50" height="45" rx="3" fill="#fee2e2" stroke="#ef4444" stroke-width="1.5"/>
-    <text x="205" y="32" text-anchor="middle" font-size="10" font-weight="bold" fill="#ef4444">−∞</text>
+    <rect x="30" y="5" width="50" height="45" rx="3" fill="#f5f5f8" stroke="#c0c0c8" stroke-width="1"/>
+    <text x="55" y="32" text-anchor="middle" font-size="11" fill="#3a3a4a">s₁₁</text>
+    <rect x="80" y="5" width="50" height="45" rx="3" fill="#f6e4e3" stroke="#d4645c" stroke-width="1.5"/>
+    <text x="105" y="32" text-anchor="middle" font-size="11" font-weight="bold" fill="#d4645c">−∞</text>
+    <rect x="130" y="5" width="50" height="45" rx="3" fill="#f6e4e3" stroke="#d4645c" stroke-width="1.5"/>
+    <text x="155" y="32" text-anchor="middle" font-size="11" font-weight="bold" fill="#d4645c">−∞</text>
+    <rect x="180" y="5" width="50" height="45" rx="3" fill="#f6e4e3" stroke="#d4645c" stroke-width="1.5"/>
+    <text x="205" y="32" text-anchor="middle" font-size="11" font-weight="bold" fill="#d4645c">−∞</text>
 
     <!-- Row 2 -->
-    <rect x="30" y="55" width="50" height="45" rx="3" fill="#f1f5f9" stroke="#cbd5e1" stroke-width="1"/>
-    <text x="55" y="82" text-anchor="middle" font-size="10" fill="#334155">s₂₁</text>
-    <rect x="80" y="55" width="50" height="45" rx="3" fill="#f1f5f9" stroke="#cbd5e1" stroke-width="1"/>
-    <text x="105" y="82" text-anchor="middle" font-size="10" fill="#334155">s₂₂</text>
-    <rect x="130" y="55" width="50" height="45" rx="3" fill="#fee2e2" stroke="#ef4444" stroke-width="1.5"/>
-    <text x="155" y="82" text-anchor="middle" font-size="10" font-weight="bold" fill="#ef4444">−∞</text>
-    <rect x="180" y="55" width="50" height="45" rx="3" fill="#fee2e2" stroke="#ef4444" stroke-width="1.5"/>
-    <text x="205" y="82" text-anchor="middle" font-size="10" font-weight="bold" fill="#ef4444">−∞</text>
+    <rect x="30" y="55" width="50" height="45" rx="3" fill="#f5f5f8" stroke="#c0c0c8" stroke-width="1"/>
+    <text x="55" y="82" text-anchor="middle" font-size="11" fill="#3a3a4a">s₂₁</text>
+    <rect x="80" y="55" width="50" height="45" rx="3" fill="#f5f5f8" stroke="#c0c0c8" stroke-width="1"/>
+    <text x="105" y="82" text-anchor="middle" font-size="11" fill="#3a3a4a">s₂₂</text>
+    <rect x="130" y="55" width="50" height="45" rx="3" fill="#f6e4e3" stroke="#d4645c" stroke-width="1.5"/>
+    <text x="155" y="82" text-anchor="middle" font-size="11" font-weight="bold" fill="#d4645c">−∞</text>
+    <rect x="180" y="55" width="50" height="45" rx="3" fill="#f6e4e3" stroke="#d4645c" stroke-width="1.5"/>
+    <text x="205" y="82" text-anchor="middle" font-size="11" font-weight="bold" fill="#d4645c">−∞</text>
 
     <!-- Row 3 -->
-    <rect x="30" y="105" width="50" height="45" rx="3" fill="#f1f5f9" stroke="#cbd5e1" stroke-width="1"/>
-    <text x="55" y="132" text-anchor="middle" font-size="10" fill="#334155">s₃₁</text>
-    <rect x="80" y="105" width="50" height="45" rx="3" fill="#f1f5f9" stroke="#cbd5e1" stroke-width="1"/>
-    <text x="105" y="132" text-anchor="middle" font-size="10" fill="#334155">s₃₂</text>
-    <rect x="130" y="105" width="50" height="45" rx="3" fill="#f1f5f9" stroke="#cbd5e1" stroke-width="1"/>
-    <text x="155" y="132" text-anchor="middle" font-size="10" fill="#334155">s₃₃</text>
-    <rect x="180" y="105" width="50" height="45" rx="3" fill="#fee2e2" stroke="#ef4444" stroke-width="1.5"/>
-    <text x="205" y="132" text-anchor="middle" font-size="10" font-weight="bold" fill="#ef4444">−∞</text>
+    <rect x="30" y="105" width="50" height="45" rx="3" fill="#f5f5f8" stroke="#c0c0c8" stroke-width="1"/>
+    <text x="55" y="132" text-anchor="middle" font-size="11" fill="#3a3a4a">s₃₁</text>
+    <rect x="80" y="105" width="50" height="45" rx="3" fill="#f5f5f8" stroke="#c0c0c8" stroke-width="1"/>
+    <text x="105" y="132" text-anchor="middle" font-size="11" fill="#3a3a4a">s₃₂</text>
+    <rect x="130" y="105" width="50" height="45" rx="3" fill="#f5f5f8" stroke="#c0c0c8" stroke-width="1"/>
+    <text x="155" y="132" text-anchor="middle" font-size="11" fill="#3a3a4a">s₃₃</text>
+    <rect x="180" y="105" width="50" height="45" rx="3" fill="#f6e4e3" stroke="#d4645c" stroke-width="1.5"/>
+    <text x="205" y="132" text-anchor="middle" font-size="11" font-weight="bold" fill="#d4645c">−∞</text>
 
     <!-- Row 4: all visible -->
-    <rect x="30" y="155" width="50" height="45" rx="3" fill="#f1f5f9" stroke="#cbd5e1" stroke-width="1"/>
-    <text x="55" y="182" text-anchor="middle" font-size="10" fill="#334155">s₄₁</text>
-    <rect x="80" y="155" width="50" height="45" rx="3" fill="#f1f5f9" stroke="#cbd5e1" stroke-width="1"/>
-    <text x="105" y="182" text-anchor="middle" font-size="10" fill="#334155">s₄₂</text>
-    <rect x="130" y="155" width="50" height="45" rx="3" fill="#f1f5f9" stroke="#cbd5e1" stroke-width="1"/>
-    <text x="155" y="182" text-anchor="middle" font-size="10" fill="#334155">s₄₃</text>
-    <rect x="180" y="155" width="50" height="45" rx="3" fill="#f1f5f9" stroke="#cbd5e1" stroke-width="1"/>
-    <text x="205" y="182" text-anchor="middle" font-size="10" fill="#334155">s₄₄</text>
+    <rect x="30" y="155" width="50" height="45" rx="3" fill="#f5f5f8" stroke="#c0c0c8" stroke-width="1"/>
+    <text x="55" y="182" text-anchor="middle" font-size="11" fill="#3a3a4a">s₄₁</text>
+    <rect x="80" y="155" width="50" height="45" rx="3" fill="#f5f5f8" stroke="#c0c0c8" stroke-width="1"/>
+    <text x="105" y="182" text-anchor="middle" font-size="11" fill="#3a3a4a">s₄₂</text>
+    <rect x="130" y="155" width="50" height="45" rx="3" fill="#f5f5f8" stroke="#c0c0c8" stroke-width="1"/>
+    <text x="155" y="182" text-anchor="middle" font-size="11" fill="#3a3a4a">s₄₃</text>
+    <rect x="180" y="155" width="50" height="45" rx="3" fill="#f5f5f8" stroke="#c0c0c8" stroke-width="1"/>
+    <text x="205" y="182" text-anchor="middle" font-size="11" fill="#3a3a4a">s₄₄</text>
   </g>
 
   <!-- Arrow 2→3 -->
-  <line x1="548" y1="230" x2="575" y2="230" stroke="#475569" stroke-width="2" marker-end="url(#ar)"/>
+  <line x1="548" y1="230" x2="575" y2="230" stroke="#4a4a5a" stroke-width="2" marker-end="url(#ar)"/>
 
   <!-- Panel 3: After Softmax -->
-  <text x="700" y="80" text-anchor="middle" font-size="11" font-weight="bold" fill="#334155">3. After Softmax</text>
-  <text x="700" y="95" text-anchor="middle" font-size="9" fill="#64748b">Rows sum to 1.0</text>
+  <text x="700" y="80" text-anchor="middle" font-size="11" font-weight="bold" fill="#3a3a4a">3. After Softmax</text>
+  <text x="700" y="95" text-anchor="middle" font-size="11" fill="#7a7a8a">Rows sum to 1.0</text>
 
   <g transform="translate(590, 110)">
-    <text x="55" y="-5" text-anchor="middle" font-size="8" fill="#64748b">t₁</text>
-    <text x="105" y="-5" text-anchor="middle" font-size="8" fill="#64748b">t₂</text>
-    <text x="155" y="-5" text-anchor="middle" font-size="8" fill="#64748b">t₃</text>
-    <text x="205" y="-5" text-anchor="middle" font-size="8" fill="#64748b">t₄</text>
+    <text x="55" y="-5" text-anchor="middle" font-size="11" fill="#7a7a8a">t₁</text>
+    <text x="105" y="-5" text-anchor="middle" font-size="11" fill="#7a7a8a">t₂</text>
+    <text x="155" y="-5" text-anchor="middle" font-size="11" fill="#7a7a8a">t₃</text>
+    <text x="205" y="-5" text-anchor="middle" font-size="11" fill="#7a7a8a">t₄</text>
 
     <!-- Row 1 -->
-    <rect x="30" y="5" width="50" height="45" rx="3" fill="#dcfce7" stroke="#16a34a" stroke-width="1.5"/>
-    <text x="55" y="32" text-anchor="middle" font-size="10" font-weight="bold" fill="#14532d">1.0</text>
-    <rect x="80" y="5" width="50" height="45" rx="3" fill="#fef2f2" stroke="#fca5a5" stroke-width="1"/>
-    <text x="105" y="32" text-anchor="middle" font-size="10" fill="#b91c1c">0</text>
-    <rect x="130" y="5" width="50" height="45" rx="3" fill="#fef2f2" stroke="#fca5a5" stroke-width="1"/>
-    <text x="155" y="32" text-anchor="middle" font-size="10" fill="#b91c1c">0</text>
-    <rect x="180" y="5" width="50" height="45" rx="3" fill="#fef2f2" stroke="#fca5a5" stroke-width="1"/>
-    <text x="205" y="32" text-anchor="middle" font-size="10" fill="#b91c1c">0</text>
+    <rect x="30" y="5" width="50" height="45" rx="3" fill="#dff0ed" stroke="#3a9e8f" stroke-width="1.5"/>
+    <text x="55" y="32" text-anchor="middle" font-size="11" font-weight="bold" fill="#3a9e8f">1.0</text>
+    <rect x="80" y="5" width="50" height="45" rx="3" fill="#f6e4e3" stroke="#e4ada9" stroke-width="1"/>
+    <text x="105" y="32" text-anchor="middle" font-size="11" fill="#b5454a">0</text>
+    <rect x="130" y="5" width="50" height="45" rx="3" fill="#f6e4e3" stroke="#e4ada9" stroke-width="1"/>
+    <text x="155" y="32" text-anchor="middle" font-size="11" fill="#b5454a">0</text>
+    <rect x="180" y="5" width="50" height="45" rx="3" fill="#f6e4e3" stroke="#e4ada9" stroke-width="1"/>
+    <text x="205" y="32" text-anchor="middle" font-size="11" fill="#b5454a">0</text>
 
     <!-- Row 2 -->
-    <rect x="30" y="55" width="50" height="45" rx="3" fill="#dcfce7" stroke="#16a34a" stroke-width="1.5"/>
-    <text x="55" y="82" text-anchor="middle" font-size="10" font-weight="bold" fill="#14532d">.4</text>
-    <rect x="80" y="55" width="50" height="45" rx="3" fill="#dcfce7" stroke="#16a34a" stroke-width="1.5"/>
-    <text x="105" y="82" text-anchor="middle" font-size="10" font-weight="bold" fill="#14532d">.6</text>
-    <rect x="130" y="55" width="50" height="45" rx="3" fill="#fef2f2" stroke="#fca5a5" stroke-width="1"/>
-    <text x="155" y="82" text-anchor="middle" font-size="10" fill="#b91c1c">0</text>
-    <rect x="180" y="55" width="50" height="45" rx="3" fill="#fef2f2" stroke="#fca5a5" stroke-width="1"/>
-    <text x="205" y="82" text-anchor="middle" font-size="10" fill="#b91c1c">0</text>
+    <rect x="30" y="55" width="50" height="45" rx="3" fill="#dff0ed" stroke="#3a9e8f" stroke-width="1.5"/>
+    <text x="55" y="82" text-anchor="middle" font-size="11" font-weight="bold" fill="#3a9e8f">.4</text>
+    <rect x="80" y="55" width="50" height="45" rx="3" fill="#dff0ed" stroke="#3a9e8f" stroke-width="1.5"/>
+    <text x="105" y="82" text-anchor="middle" font-size="11" font-weight="bold" fill="#3a9e8f">.6</text>
+    <rect x="130" y="55" width="50" height="45" rx="3" fill="#f6e4e3" stroke="#e4ada9" stroke-width="1"/>
+    <text x="155" y="82" text-anchor="middle" font-size="11" fill="#b5454a">0</text>
+    <rect x="180" y="55" width="50" height="45" rx="3" fill="#f6e4e3" stroke="#e4ada9" stroke-width="1"/>
+    <text x="205" y="82" text-anchor="middle" font-size="11" fill="#b5454a">0</text>
 
     <!-- Row 3 -->
-    <rect x="30" y="105" width="50" height="45" rx="3" fill="#dcfce7" stroke="#16a34a" stroke-width="1.5"/>
-    <text x="55" y="132" text-anchor="middle" font-size="10" font-weight="bold" fill="#14532d">.2</text>
-    <rect x="80" y="105" width="50" height="45" rx="3" fill="#dcfce7" stroke="#16a34a" stroke-width="1.5"/>
-    <text x="105" y="132" text-anchor="middle" font-size="10" font-weight="bold" fill="#14532d">.3</text>
-    <rect x="130" y="105" width="50" height="45" rx="3" fill="#dcfce7" stroke="#16a34a" stroke-width="1.5"/>
-    <text x="155" y="132" text-anchor="middle" font-size="10" font-weight="bold" fill="#14532d">.5</text>
-    <rect x="180" y="105" width="50" height="45" rx="3" fill="#fef2f2" stroke="#fca5a5" stroke-width="1"/>
-    <text x="205" y="132" text-anchor="middle" font-size="10" fill="#b91c1c">0</text>
+    <rect x="30" y="105" width="50" height="45" rx="3" fill="#dff0ed" stroke="#3a9e8f" stroke-width="1.5"/>
+    <text x="55" y="132" text-anchor="middle" font-size="11" font-weight="bold" fill="#3a9e8f">.2</text>
+    <rect x="80" y="105" width="50" height="45" rx="3" fill="#dff0ed" stroke="#3a9e8f" stroke-width="1.5"/>
+    <text x="105" y="132" text-anchor="middle" font-size="11" font-weight="bold" fill="#3a9e8f">.3</text>
+    <rect x="130" y="105" width="50" height="45" rx="3" fill="#dff0ed" stroke="#3a9e8f" stroke-width="1.5"/>
+    <text x="155" y="132" text-anchor="middle" font-size="11" font-weight="bold" fill="#3a9e8f">.5</text>
+    <rect x="180" y="105" width="50" height="45" rx="3" fill="#f6e4e3" stroke="#e4ada9" stroke-width="1"/>
+    <text x="205" y="132" text-anchor="middle" font-size="11" fill="#b5454a">0</text>
 
     <!-- Row 4 -->
-    <rect x="30" y="155" width="50" height="45" rx="3" fill="#dcfce7" stroke="#16a34a" stroke-width="1.5"/>
-    <text x="55" y="182" text-anchor="middle" font-size="10" font-weight="bold" fill="#14532d">.1</text>
-    <rect x="80" y="155" width="50" height="45" rx="3" fill="#dcfce7" stroke="#16a34a" stroke-width="1.5"/>
-    <text x="105" y="182" text-anchor="middle" font-size="10" font-weight="bold" fill="#14532d">.2</text>
-    <rect x="130" y="155" width="50" height="45" rx="3" fill="#dcfce7" stroke="#16a34a" stroke-width="1.5"/>
-    <text x="155" y="182" text-anchor="middle" font-size="10" font-weight="bold" fill="#14532d">.3</text>
-    <rect x="180" y="155" width="50" height="45" rx="3" fill="#dcfce7" stroke="#16a34a" stroke-width="1.5"/>
-    <text x="205" y="182" text-anchor="middle" font-size="10" font-weight="bold" fill="#14532d">.4</text>
+    <rect x="30" y="155" width="50" height="45" rx="3" fill="#dff0ed" stroke="#3a9e8f" stroke-width="1.5"/>
+    <text x="55" y="182" text-anchor="middle" font-size="11" font-weight="bold" fill="#3a9e8f">.1</text>
+    <rect x="80" y="155" width="50" height="45" rx="3" fill="#dff0ed" stroke="#3a9e8f" stroke-width="1.5"/>
+    <text x="105" y="182" text-anchor="middle" font-size="11" font-weight="bold" fill="#3a9e8f">.2</text>
+    <rect x="130" y="155" width="50" height="45" rx="3" fill="#dff0ed" stroke="#3a9e8f" stroke-width="1.5"/>
+    <text x="155" y="182" text-anchor="middle" font-size="11" font-weight="bold" fill="#3a9e8f">.3</text>
+    <rect x="180" y="155" width="50" height="45" rx="3" fill="#dff0ed" stroke="#3a9e8f" stroke-width="1.5"/>
+    <text x="205" y="182" text-anchor="middle" font-size="11" font-weight="bold" fill="#3a9e8f">.4</text>
   </g>
 
   <!-- Key insight box -->
-  <rect x="100" y="340" width="600" height="44" rx="8" fill="#f8fafc" stroke="#e2e8f0" stroke-width="1.5"/>
-  <text x="400" y="358" text-anchor="middle" font-size="10" font-weight="bold" fill="#0f172a">e^(−∞) = 0  →  Softmax zeroes out future positions</text>
-  <text x="400" y="375" text-anchor="middle" font-size="9" fill="#64748b">Each row's visible weights sum to 1.0 — probability distribution over allowed positions only</text>
+  <rect x="100" y="340" width="600" height="44" rx="8" fill="#f5f5f8" stroke="#f5f5f8" stroke-width="1.5"/>
+  <text x="400" y="358" text-anchor="middle" font-size="11" font-weight="bold" fill="#1a1a2e">e^(−∞) = 0  →  Softmax zeroes out future positions</text>
+  <text x="400" y="375" text-anchor="middle" font-size="11" fill="#7a7a8a">Each row's visible weights sum to 1.0 — probability distribution over allowed positions only</text>
 
   <!-- Triangular mask visual -->
-  <text x="400" y="420" text-anchor="middle" font-size="11" font-weight="bold" fill="#334155">Mask Pattern (T=4)</text>
+  <text x="400" y="420" text-anchor="middle" font-size="11" font-weight="bold" fill="#3a3a4a">Mask Pattern (T=4)</text>
   <g transform="translate(330, 430)">
-    <rect x="0" y="0" width="20" height="20" fill="#dcfce7" stroke="#16a34a" stroke-width="1"/>
-    <rect x="20" y="0" width="20" height="20" fill="#fee2e2" stroke="#ef4444" stroke-width="1"/>
-    <rect x="40" y="0" width="20" height="20" fill="#fee2e2" stroke="#ef4444" stroke-width="1"/>
-    <rect x="60" y="0" width="20" height="20" fill="#fee2e2" stroke="#ef4444" stroke-width="1"/>
-    <rect x="0" y="20" width="20" height="20" fill="#dcfce7" stroke="#16a34a" stroke-width="1"/>
-    <rect x="20" y="20" width="20" height="20" fill="#dcfce7" stroke="#16a34a" stroke-width="1"/>
-    <rect x="40" y="20" width="20" height="20" fill="#fee2e2" stroke="#ef4444" stroke-width="1"/>
-    <rect x="60" y="20" width="20" height="20" fill="#fee2e2" stroke="#ef4444" stroke-width="1"/>
-    <rect x="0" y="40" width="20" height="20" fill="#dcfce7" stroke="#16a34a" stroke-width="1"/>
-    <rect x="20" y="40" width="20" height="20" fill="#dcfce7" stroke="#16a34a" stroke-width="1"/>
-    <rect x="40" y="40" width="20" height="20" fill="#dcfce7" stroke="#16a34a" stroke-width="1"/>
-    <rect x="60" y="40" width="20" height="20" fill="#fee2e2" stroke="#ef4444" stroke-width="1"/>
-    <rect x="0" y="60" width="20" height="20" fill="#dcfce7" stroke="#16a34a" stroke-width="1"/>
-    <rect x="20" y="60" width="20" height="20" fill="#dcfce7" stroke="#16a34a" stroke-width="1"/>
-    <rect x="40" y="60" width="20" height="20" fill="#dcfce7" stroke="#16a34a" stroke-width="1"/>
-    <rect x="60" y="60" width="20" height="20" fill="#dcfce7" stroke="#16a34a" stroke-width="1"/>
+    <rect x="0" y="0" width="20" height="20" fill="#dff0ed" stroke="#3a9e8f" stroke-width="1"/>
+    <rect x="20" y="0" width="20" height="20" fill="#f6e4e3" stroke="#d4645c" stroke-width="1"/>
+    <rect x="40" y="0" width="20" height="20" fill="#f6e4e3" stroke="#d4645c" stroke-width="1"/>
+    <rect x="60" y="0" width="20" height="20" fill="#f6e4e3" stroke="#d4645c" stroke-width="1"/>
+    <rect x="0" y="20" width="20" height="20" fill="#dff0ed" stroke="#3a9e8f" stroke-width="1"/>
+    <rect x="20" y="20" width="20" height="20" fill="#dff0ed" stroke="#3a9e8f" stroke-width="1"/>
+    <rect x="40" y="20" width="20" height="20" fill="#f6e4e3" stroke="#d4645c" stroke-width="1"/>
+    <rect x="60" y="20" width="20" height="20" fill="#f6e4e3" stroke="#d4645c" stroke-width="1"/>
+    <rect x="0" y="40" width="20" height="20" fill="#dff0ed" stroke="#3a9e8f" stroke-width="1"/>
+    <rect x="20" y="40" width="20" height="20" fill="#dff0ed" stroke="#3a9e8f" stroke-width="1"/>
+    <rect x="40" y="40" width="20" height="20" fill="#dff0ed" stroke="#3a9e8f" stroke-width="1"/>
+    <rect x="60" y="40" width="20" height="20" fill="#f6e4e3" stroke="#d4645c" stroke-width="1"/>
+    <rect x="0" y="60" width="20" height="20" fill="#dff0ed" stroke="#3a9e8f" stroke-width="1"/>
+    <rect x="20" y="60" width="20" height="20" fill="#dff0ed" stroke="#3a9e8f" stroke-width="1"/>
+    <rect x="40" y="60" width="20" height="20" fill="#dff0ed" stroke="#3a9e8f" stroke-width="1"/>
+    <rect x="60" y="60" width="20" height="20" fill="#dff0ed" stroke="#3a9e8f" stroke-width="1"/>
   </g>
-  <text x="450" y="465" font-size="9" fill="#16a34a">■ Attend</text>
-  <text x="450" y="480" font-size="9" fill="#ef4444">■ Masked (−∞)</text>
+  <text x="450" y="465" font-size="11" fill="#3a9e8f">■ Attend</text>
+  <text x="450" y="480" font-size="11" fill="#d4645c">■ Masked (−∞)</text>
 </svg>

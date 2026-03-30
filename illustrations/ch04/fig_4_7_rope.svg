@@ -1,107 +1,107 @@
 <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 860 470" font-family="Inter, Helvetica, Arial, sans-serif">
   <defs>
-    <marker id="a" markerWidth="8" markerHeight="6" refX="8" refY="3" orient="auto"><path d="M0,0 L8,3 L0,6 Z" fill="#475569"/></marker>
+    <marker id="a" markerWidth="8" markerHeight="6" refX="8" refY="3" orient="auto"><path d="M0,0 L8,3 L0,6 Z" fill="#4a4a5a"/></marker>
   </defs>
 
-  <text x="430" y="28" text-anchor="middle" font-size="17" font-weight="bold" fill="#0f172a">RoPE: Rotary Position Embedding</text>
-  <text x="430" y="46" text-anchor="middle" font-size="10" fill="#64748b">Su et al. (2021) — Encode position by rotating query/key vectors in 2D subspaces</text>
+  <text x="430" y="28" text-anchor="middle" font-size="17" font-weight="bold" fill="#1a1a2e">RoPE: Rotary Position Embedding</text>
+  <text x="430" y="46" text-anchor="middle" font-size="11" fill="#7a7a8a">Su et al. (2021) — Encode position by rotating query/key vectors in 2D subspaces</text>
 
   <!-- Core idea -->
-  <rect x="30" y="65" width="380" height="180" rx="10" fill="#f0f9ff" stroke="#0284c7" stroke-width="2"/>
-  <text x="220" y="90" text-anchor="middle" font-size="11" font-weight="bold" fill="#0c4a6e">Core Idea: Rotation Encodes Position</text>
+  <rect x="30" y="65" width="380" height="180" rx="10" fill="#edf2f8" stroke="#4a7fb5" stroke-width="2"/>
+  <text x="220" y="90" text-anchor="middle" font-size="11" font-weight="bold" fill="#4a7fb5">Core Idea: Rotation Encodes Position</text>
 
   <!-- 2D rotation diagram -->
-  <circle cx="160" cy="175" r="70" fill="none" stroke="#e2e8f0" stroke-width="1.5"/>
-  <circle cx="160" cy="175" r="2" fill="#475569"/>
+  <circle cx="160" cy="175" r="70" fill="none" stroke="#f5f5f8" stroke-width="1.5"/>
+  <circle cx="160" cy="175" r="2" fill="#4a4a5a"/>
 
   <!-- Original vector -->
-  <line x1="160" y1="175" x2="220" y2="145" stroke="#0284c7" stroke-width="2.5" marker-end="url(#a)"/>
-  <text x="225" y="140" font-size="8" font-weight="bold" fill="#0284c7">q (original)</text>
+  <line x1="160" y1="175" x2="220" y2="145" stroke="#4a7fb5" stroke-width="2.5" marker-end="url(#a)"/>
+  <text x="225" y="140" font-size="11" font-weight="bold" fill="#4a7fb5">q (original)</text>
 
   <!-- Rotated vector -->
-  <line x1="160" y1="175" x2="205" y2="115" stroke="#db2777" stroke-width="2.5" marker-end="url(#a)"/>
-  <text x="210" y="112" font-size="8" font-weight="bold" fill="#db2777">R(θ_m)·q</text>
-  <text x="210" y="125" font-size="7" fill="#db2777">rotated by m·θ</text>
+  <line x1="160" y1="175" x2="205" y2="115" stroke="#d4645c" stroke-width="2.5" marker-end="url(#a)"/>
+  <text x="210" y="112" font-size="11" font-weight="bold" fill="#d4645c">R(θ_m)·q</text>
+  <text x="210" y="125" font-size="11" fill="#d4645c">rotated by m·θ</text>
 
   <!-- Angle arc -->
-  <path d="M 200 155 A 30 30 0 0 0 192 130" fill="none" stroke="#d97706" stroke-width="1.5"/>
-  <text x="200" y="140" font-size="7" fill="#d97706">m·θ</text>
+  <path d="M 200 155 A 30 30 0 0 0 192 130" fill="none" stroke="#d4a03c" stroke-width="1.5"/>
+  <text x="200" y="140" font-size="11" fill="#d4a03c">m·θ</text>
 
   <!-- Explanation text -->
-  <text x="310" y="115" text-anchor="middle" font-size="8" fill="#334155">Each position m rotates</text>
-  <text x="310" y="130" text-anchor="middle" font-size="8" fill="#334155">q and k by angle m·θ</text>
-  <text x="310" y="150" text-anchor="middle" font-size="8" fill="#334155">in each 2D subspace.</text>
-  <text x="310" y="175" text-anchor="middle" font-size="8" fill="#0284c7" font-weight="bold">q_m · k_n depends only</text>
-  <text x="310" y="190" text-anchor="middle" font-size="8" fill="#0284c7" font-weight="bold">on relative position m-n</text>
+  <text x="310" y="115" text-anchor="middle" font-size="11" fill="#3a3a4a">Each position m rotates</text>
+  <text x="310" y="130" text-anchor="middle" font-size="11" fill="#3a3a4a">q and k by angle m·θ</text>
+  <text x="310" y="150" text-anchor="middle" font-size="11" fill="#3a3a4a">in each 2D subspace.</text>
+  <text x="310" y="175" text-anchor="middle" font-size="11" fill="#4a7fb5" font-weight="bold">q_m · k_n depends only</text>
+  <text x="310" y="190" text-anchor="middle" font-size="11" fill="#4a7fb5" font-weight="bold">on relative position m-n</text>
 
   <!-- Rotation matrix -->
-  <rect x="450" y="65" width="380" height="180" rx="10" fill="#fef3c7" stroke="#d97706" stroke-width="2"/>
-  <text x="640" y="90" text-anchor="middle" font-size="11" font-weight="bold" fill="#78350f">Rotation Matrix R(m·θ)</text>
+  <rect x="450" y="65" width="380" height="180" rx="10" fill="#f5ece0" stroke="#d4a03c" stroke-width="2"/>
+  <text x="640" y="90" text-anchor="middle" font-size="11" font-weight="bold" fill="#d4a03c">Rotation Matrix R(m·θ)</text>
 
-  <text x="640" y="120" text-anchor="middle" font-size="9" fill="#78350f" font-family="'SF Mono', Consolas, monospace">For dimension pair (2i, 2i+1):</text>
+  <text x="640" y="120" text-anchor="middle" font-size="11" fill="#d4a03c" font-family="'JetBrains Mono', 'Fira Code', monospace">For dimension pair (2i, 2i+1):</text>
 
-  <text x="640" y="150" text-anchor="middle" font-size="10" fill="#78350f" font-family="'SF Mono', Consolas, monospace">⎡ cos(mθᵢ)  -sin(mθᵢ) ⎤ ⎡ q₂ᵢ   ⎤</text>
-  <text x="640" y="170" text-anchor="middle" font-size="10" fill="#78350f" font-family="'SF Mono', Consolas, monospace">⎣ sin(mθᵢ)   cos(mθᵢ) ⎦ ⎣ q₂ᵢ₊₁ ⎦</text>
+  <text x="640" y="150" text-anchor="middle" font-size="11" fill="#d4a03c" font-family="'JetBrains Mono', 'Fira Code', monospace">⎡ cos(mθᵢ)  -sin(mθᵢ) ⎤ ⎡ q₂ᵢ   ⎤</text>
+  <text x="640" y="170" text-anchor="middle" font-size="11" fill="#d4a03c" font-family="'JetBrains Mono', 'Fira Code', monospace">⎣ sin(mθᵢ)   cos(mθᵢ) ⎦ ⎣ q₂ᵢ₊₁ ⎦</text>
 
-  <text x="640" y="200" text-anchor="middle" font-size="8" fill="#d97706" font-family="'SF Mono', Consolas, monospace">θᵢ = 10000^(-2i/d)   (same base as sinusoidal PE)</text>
+  <text x="640" y="200" text-anchor="middle" font-size="11" fill="#d4a03c" font-family="'JetBrains Mono', 'Fira Code', monospace">θᵢ = 10000^(-2i/d)   (same base as sinusoidal PE)</text>
 
-  <text x="640" y="225" text-anchor="middle" font-size="8" fill="#334155">d/2 independent 2D rotations applied to d-dimensional vector</text>
+  <text x="640" y="225" text-anchor="middle" font-size="11" fill="#3a3a4a">d/2 independent 2D rotations applied to d-dimensional vector</text>
 
   <!-- How it works in attention -->
-  <rect x="30" y="265" width="800" height="90" rx="10" fill="#f0fdf4" stroke="#16a34a" stroke-width="2"/>
-  <text x="430" y="290" text-anchor="middle" font-size="11" font-weight="bold" fill="#14532d">Application in Attention</text>
+  <rect x="30" y="265" width="800" height="90" rx="10" fill="#edf7f5" stroke="#3a9e8f" stroke-width="2"/>
+  <text x="430" y="290" text-anchor="middle" font-size="11" font-weight="bold" fill="#3a9e8f">Application in Attention</text>
 
   <!-- Pipeline -->
-  <rect x="55" y="305" width="70" height="35" rx="4" fill="#f1f5f9" stroke="#475569" stroke-width="1.5"/>
-  <text x="90" y="327" text-anchor="middle" font-size="8" fill="#0f172a">x_m</text>
+  <rect x="55" y="305" width="70" height="35" rx="4" fill="#f5f5f8" stroke="#4a4a5a" stroke-width="1.5"/>
+  <text x="90" y="327" text-anchor="middle" font-size="11" fill="#1a1a2e">x_m</text>
 
-  <line x1="125" y1="322" x2="148" y2="322" stroke="#475569" stroke-width="1.5" marker-end="url(#a)"/>
+  <line x1="125" y1="322" x2="148" y2="322" stroke="#4a4a5a" stroke-width="1.5" marker-end="url(#a)"/>
 
-  <rect x="150" y="305" width="60" height="35" rx="4" fill="#e0f2fe" stroke="#0284c7" stroke-width="1.5"/>
-  <text x="180" y="322" text-anchor="middle" font-size="7" fill="#0c4a6e">W_q · x</text>
-  <text x="180" y="335" text-anchor="middle" font-size="7" fill="#0c4a6e">→ q_m</text>
+  <rect x="150" y="305" width="60" height="35" rx="4" fill="#e1eaf3" stroke="#4a7fb5" stroke-width="1.5"/>
+  <text x="180" y="322" text-anchor="middle" font-size="11" fill="#4a7fb5">W_q · x</text>
+  <text x="180" y="335" text-anchor="middle" font-size="11" fill="#4a7fb5">→ q_m</text>
 
-  <line x1="210" y1="322" x2="233" y2="322" stroke="#475569" stroke-width="1.5" marker-end="url(#a)"/>
+  <line x1="210" y1="322" x2="233" y2="322" stroke="#4a4a5a" stroke-width="1.5" marker-end="url(#a)"/>
 
-  <rect x="235" y="300" width="90" height="45" rx="4" fill="#fce7f3" stroke="#db2777" stroke-width="2"/>
-  <text x="280" y="320" text-anchor="middle" font-size="8" font-weight="bold" fill="#831843">R(m·θ) · q_m</text>
-  <text x="280" y="336" text-anchor="middle" font-size="7" fill="#db2777">rotate query</text>
+  <rect x="235" y="300" width="90" height="45" rx="4" fill="#f6e4e3" stroke="#d4645c" stroke-width="2"/>
+  <text x="280" y="320" text-anchor="middle" font-size="11" font-weight="bold" fill="#d4645c">R(m·θ) · q_m</text>
+  <text x="280" y="336" text-anchor="middle" font-size="11" fill="#d4645c">rotate query</text>
 
-  <line x1="325" y1="322" x2="358" y2="322" stroke="#475569" stroke-width="1.5" marker-end="url(#a)"/>
-  <text x="342" y="315" font-size="7" fill="#475569">dot</text>
+  <line x1="325" y1="322" x2="358" y2="322" stroke="#4a4a5a" stroke-width="1.5" marker-end="url(#a)"/>
+  <text x="342" y="315" font-size="11" fill="#4a4a5a">dot</text>
 
-  <rect x="360" y="300" width="90" height="45" rx="4" fill="#fce7f3" stroke="#db2777" stroke-width="2"/>
-  <text x="405" y="320" text-anchor="middle" font-size="8" font-weight="bold" fill="#831843">R(n·θ) · k_n</text>
-  <text x="405" y="336" text-anchor="middle" font-size="7" fill="#db2777">rotate key</text>
+  <rect x="360" y="300" width="90" height="45" rx="4" fill="#f6e4e3" stroke="#d4645c" stroke-width="2"/>
+  <text x="405" y="320" text-anchor="middle" font-size="11" font-weight="bold" fill="#d4645c">R(n·θ) · k_n</text>
+  <text x="405" y="336" text-anchor="middle" font-size="11" fill="#d4645c">rotate key</text>
 
-  <line x1="450" y1="322" x2="473" y2="322" stroke="#475569" stroke-width="1.5" marker-end="url(#a)"/>
+  <line x1="450" y1="322" x2="473" y2="322" stroke="#4a4a5a" stroke-width="1.5" marker-end="url(#a)"/>
 
-  <rect x="475" y="305" width="60" height="35" rx="4" fill="#dcfce7" stroke="#16a34a" stroke-width="2"/>
-  <text x="505" y="320" text-anchor="middle" font-size="7" fill="#14532d" font-family="'SF Mono', Consolas, monospace">qᵀRᵀRk</text>
-  <text x="505" y="335" text-anchor="middle" font-size="7" fill="#14532d">= f(m-n)</text>
+  <rect x="475" y="305" width="60" height="35" rx="4" fill="#dff0ed" stroke="#3a9e8f" stroke-width="2"/>
+  <text x="505" y="320" text-anchor="middle" font-size="11" fill="#3a9e8f" font-family="'JetBrains Mono', 'Fira Code', monospace">qᵀRᵀRk</text>
+  <text x="505" y="335" text-anchor="middle" font-size="11" fill="#3a9e8f">= f(m-n)</text>
 
-  <line x1="535" y1="322" x2="558" y2="322" stroke="#475569" stroke-width="1.5" marker-end="url(#a)"/>
+  <line x1="535" y1="322" x2="558" y2="322" stroke="#4a4a5a" stroke-width="1.5" marker-end="url(#a)"/>
 
-  <rect x="560" y="305" width="90" height="35" rx="4" fill="#fef3c7" stroke="#d97706" stroke-width="1.5"/>
-  <text x="605" y="320" text-anchor="middle" font-size="8" fill="#78350f">softmax → V</text>
-  <text x="605" y="335" text-anchor="middle" font-size="7" fill="#d97706">standard attn</text>
+  <rect x="560" y="305" width="90" height="35" rx="4" fill="#f5ece0" stroke="#d4a03c" stroke-width="1.5"/>
+  <text x="605" y="320" text-anchor="middle" font-size="11" fill="#d4a03c">softmax → V</text>
+  <text x="605" y="335" text-anchor="middle" font-size="11" fill="#d4a03c">standard attn</text>
 
-  <line x1="650" y1="322" x2="673" y2="322" stroke="#475569" stroke-width="1.5" marker-end="url(#a)"/>
+  <line x1="650" y1="322" x2="673" y2="322" stroke="#4a4a5a" stroke-width="1.5" marker-end="url(#a)"/>
 
-  <rect x="675" y="305" width="70" height="35" rx="4" fill="#dcfce7" stroke="#16a34a" stroke-width="2"/>
-  <text x="710" y="327" text-anchor="middle" font-size="8" font-weight="bold" fill="#14532d">output</text>
+  <rect x="675" y="305" width="70" height="35" rx="4" fill="#dff0ed" stroke="#3a9e8f" stroke-width="2"/>
+  <text x="710" y="327" text-anchor="middle" font-size="11" font-weight="bold" fill="#3a9e8f">output</text>
 
   <!-- Advantages -->
-  <rect x="30" y="375" width="380" height="70" rx="8" fill="#dcfce7" stroke="#16a34a" stroke-width="1.5"/>
-  <text x="220" y="395" text-anchor="middle" font-size="10" font-weight="bold" fill="#14532d">Advantages over Sinusoidal PE</text>
-  <text x="50" y="415" font-size="8" fill="#334155">• Relative position emerges naturally from rotation</text>
-  <text x="50" y="430" font-size="8" fill="#334155">• Better length generalization (with NTK-aware scaling)</text>
-  <text x="50" y="445" font-size="8" fill="#334155">• Used in LLaMA, GPT-NeoX, PaLM, Mistral, etc.</text>
+  <rect x="30" y="375" width="380" height="70" rx="8" fill="#dff0ed" stroke="#3a9e8f" stroke-width="1.5"/>
+  <text x="220" y="395" text-anchor="middle" font-size="11" font-weight="bold" fill="#3a9e8f">Advantages over Sinusoidal PE</text>
+  <text x="50" y="415" font-size="11" fill="#3a3a4a">• Relative position emerges naturally from rotation</text>
+  <text x="50" y="430" font-size="11" fill="#3a3a4a">• Better length generalization (with NTK-aware scaling)</text>
+  <text x="50" y="445" font-size="11" fill="#3a3a4a">• Used in LLaMA, GPT-NeoX, PaLM, Mistral, etc.</text>
 
   <!-- Comparison -->
-  <rect x="450" y="375" width="380" height="70" rx="8" fill="#f1f5f9" stroke="#475569" stroke-width="1.5"/>
-  <text x="640" y="395" text-anchor="middle" font-size="10" font-weight="bold" fill="#0f172a">Key Insight</text>
-  <text x="640" y="415" text-anchor="middle" font-size="8" fill="#334155" font-family="'SF Mono', Consolas, monospace">R(m)ᵀ · R(n) = R(n-m)</text>
-  <text x="640" y="435" text-anchor="middle" font-size="8" fill="#64748b">Dot product of rotated vectors depends only on</text>
-  <text x="640" y="448" text-anchor="middle" font-size="8" fill="#64748b">relative distance (n-m), not absolute positions</text>
+  <rect x="450" y="375" width="380" height="70" rx="8" fill="#f5f5f8" stroke="#4a4a5a" stroke-width="1.5"/>
+  <text x="640" y="395" text-anchor="middle" font-size="11" font-weight="bold" fill="#1a1a2e">Key Insight</text>
+  <text x="640" y="415" text-anchor="middle" font-size="11" fill="#3a3a4a" font-family="'JetBrains Mono', 'Fira Code', monospace">R(m)ᵀ · R(n) = R(n-m)</text>
+  <text x="640" y="435" text-anchor="middle" font-size="11" fill="#7a7a8a">Dot product of rotated vectors depends only on</text>
+  <text x="640" y="448" text-anchor="middle" font-size="11" fill="#7a7a8a">relative distance (n-m), not absolute positions</text>
 </svg>

@@ -1,91 +1,91 @@
 <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 920 480" font-family="Inter, Helvetica, Arial, sans-serif">
   <defs>
-    <marker id="a" markerWidth="8" markerHeight="6" refX="8" refY="3" orient="auto"><path d="M0,0 L8,3 L0,6 Z" fill="#475569"/></marker>
-    <marker id="ag" markerWidth="8" markerHeight="6" refX="8" refY="3" orient="auto"><path d="M0,0 L8,3 L0,6 Z" fill="#16a34a"/></marker>
+    <marker id="a" markerWidth="8" markerHeight="6" refX="8" refY="3" orient="auto"><path d="M0,0 L8,3 L0,6 Z" fill="#4a4a5a"/></marker>
+    <marker id="ag" markerWidth="8" markerHeight="6" refX="8" refY="3" orient="auto"><path d="M0,0 L8,3 L0,6 Z" fill="#3a9e8f"/></marker>
   </defs>
 
-  <text x="460" y="28" text-anchor="middle" font-size="17" font-weight="bold" fill="#0f172a">RAG: Retrieval-Augmented Generation Pipeline</text>
-  <text x="460" y="46" text-anchor="middle" font-size="10" fill="#64748b">Lewis et al. (2020) — Combine parametric (LLM) and non-parametric (retrieval) knowledge</text>
+  <text x="460" y="28" text-anchor="middle" font-size="17" font-weight="bold" fill="#1a1a2e">RAG: Retrieval-Augmented Generation Pipeline</text>
+  <text x="460" y="46" text-anchor="middle" font-size="11" fill="#7a7a8a">Lewis et al. (2020) — Combine parametric (LLM) and non-parametric (retrieval) knowledge</text>
 
   <!-- ===== Input Query ===== -->
-  <rect x="20" y="80" width="150" height="50" rx="8" fill="#f1f5f9" stroke="#475569" stroke-width="2"/>
-  <text x="95" y="103" text-anchor="middle" font-size="10" font-weight="bold" fill="#0f172a">Input Query (x)</text>
-  <text x="95" y="120" text-anchor="middle" font-size="8" fill="#64748b">"Who won the 2024 Nobel?"</text>
+  <rect x="20" y="80" width="150" height="50" rx="8" fill="#f5f5f8" stroke="#4a4a5a" stroke-width="2"/>
+  <text x="95" y="103" text-anchor="middle" font-size="11" font-weight="bold" fill="#1a1a2e">Input Query (x)</text>
+  <text x="95" y="120" text-anchor="middle" font-size="11" fill="#7a7a8a">"Who won the 2024 Nobel?"</text>
 
   <!-- Arrow to query encoder -->
-  <line x1="170" y1="105" x2="205" y2="105" stroke="#475569" stroke-width="1.5" marker-end="url(#a)"/>
+  <line x1="170" y1="105" x2="205" y2="105" stroke="#4a4a5a" stroke-width="1.5" marker-end="url(#a)"/>
 
   <!-- ===== Query Encoder ===== -->
-  <rect x="210" y="75" width="130" height="60" rx="8" fill="#e0f2fe" stroke="#0284c7" stroke-width="2"/>
-  <text x="275" y="100" text-anchor="middle" font-size="10" font-weight="bold" fill="#0c4a6e">Query Encoder</text>
-  <text x="275" y="118" text-anchor="middle" font-size="8" fill="#0284c7">E_Q (BERT)</text>
-  <text x="275" y="130" text-anchor="middle" font-size="7" fill="#0284c7" font-family="'SF Mono', Consolas, monospace">q(x) ∈ ℝ^d</text>
+  <rect x="210" y="75" width="130" height="60" rx="8" fill="#e1eaf3" stroke="#4a7fb5" stroke-width="2"/>
+  <text x="275" y="100" text-anchor="middle" font-size="11" font-weight="bold" fill="#4a7fb5">Query Encoder</text>
+  <text x="275" y="118" text-anchor="middle" font-size="11" fill="#4a7fb5">E_Q (BERT)</text>
+  <text x="275" y="130" text-anchor="middle" font-size="11" fill="#4a7fb5" font-family="'JetBrains Mono', 'Fira Code', monospace">q(x) ∈ ℝ^d</text>
 
   <!-- Arrow to MIPS -->
-  <line x1="340" y1="105" x2="385" y2="105" stroke="#475569" stroke-width="1.5" marker-end="url(#a)"/>
+  <line x1="340" y1="105" x2="385" y2="105" stroke="#4a4a5a" stroke-width="1.5" marker-end="url(#a)"/>
 
   <!-- ===== FAISS / MIPS ===== -->
-  <rect x="390" y="70" width="150" height="70" rx="8" fill="#fef3c7" stroke="#d97706" stroke-width="2"/>
-  <text x="465" y="95" text-anchor="middle" font-size="10" font-weight="bold" fill="#78350f">MIPS Search</text>
-  <text x="465" y="112" text-anchor="middle" font-size="8" fill="#d97706">FAISS Index</text>
-  <text x="465" y="128" text-anchor="middle" font-size="7" fill="#d97706" font-family="'SF Mono', Consolas, monospace">argmax q(x)ᵀ · d(z)</text>
+  <rect x="390" y="70" width="150" height="70" rx="8" fill="#f5ece0" stroke="#d4a03c" stroke-width="2"/>
+  <text x="465" y="95" text-anchor="middle" font-size="11" font-weight="bold" fill="#d4a03c">MIPS Search</text>
+  <text x="465" y="112" text-anchor="middle" font-size="11" fill="#d4a03c">FAISS Index</text>
+  <text x="465" y="128" text-anchor="middle" font-size="11" fill="#d4a03c" font-family="'JetBrains Mono', 'Fira Code', monospace">argmax q(x)ᵀ · d(z)</text>
 
   <!-- ===== Offline Index (above) ===== -->
-  <rect x="350" y="175" width="230" height="90" rx="8" fill="#fff7ed" stroke="#d97706" stroke-width="1.5" stroke-dasharray="4,2"/>
-  <text x="465" y="195" text-anchor="middle" font-size="9" font-weight="bold" fill="#78350f">Offline Indexing (run once)</text>
-  <rect x="370" y="205" width="90" height="28" rx="4" fill="#fef3c7" stroke="#d97706" stroke-width="1"/>
-  <text x="415" y="224" text-anchor="middle" font-size="7" fill="#78350f">Doc Corpus</text>
-  <line x1="460" y1="219" x2="478" y2="219" stroke="#d97706" stroke-width="1" marker-end="url(#a)"/>
-  <rect x="480" y="205" width="80" height="28" rx="4" fill="#fef3c7" stroke="#d97706" stroke-width="1"/>
-  <text x="520" y="224" text-anchor="middle" font-size="7" fill="#78350f">Doc Encoder</text>
-  <text x="465" y="255" text-anchor="middle" font-size="7" fill="#d97706">Chunk → Embed → Build FAISS index</text>
-  <line x1="465" y1="175" x2="465" y2="142" stroke="#d97706" stroke-width="1" stroke-dasharray="3,2"/>
+  <rect x="350" y="175" width="230" height="90" rx="8" fill="#faf5ee" stroke="#d4a03c" stroke-width="1.5" stroke-dasharray="4,2"/>
+  <text x="465" y="195" text-anchor="middle" font-size="11" font-weight="bold" fill="#d4a03c">Offline Indexing (run once)</text>
+  <rect x="370" y="205" width="90" height="28" rx="4" fill="#f5ece0" stroke="#d4a03c" stroke-width="1"/>
+  <text x="415" y="224" text-anchor="middle" font-size="11" fill="#d4a03c">Doc Corpus</text>
+  <line x1="460" y1="219" x2="478" y2="219" stroke="#d4a03c" stroke-width="1" marker-end="url(#a)"/>
+  <rect x="480" y="205" width="80" height="28" rx="4" fill="#f5ece0" stroke="#d4a03c" stroke-width="1"/>
+  <text x="520" y="224" text-anchor="middle" font-size="11" fill="#d4a03c">Doc Encoder</text>
+  <text x="465" y="255" text-anchor="middle" font-size="11" fill="#d4a03c">Chunk → Embed → Build FAISS index</text>
+  <line x1="465" y1="175" x2="465" y2="142" stroke="#d4a03c" stroke-width="1" stroke-dasharray="3,2"/>
 
   <!-- Arrow from MIPS to top-k docs -->
-  <line x1="540" y1="105" x2="575" y2="105" stroke="#475569" stroke-width="1.5" marker-end="url(#a)"/>
+  <line x1="540" y1="105" x2="575" y2="105" stroke="#4a4a5a" stroke-width="1.5" marker-end="url(#a)"/>
 
   <!-- ===== Retrieved Documents ===== -->
-  <rect x="580" y="70" width="130" height="70" rx="8" fill="#f1f5f9" stroke="#475569" stroke-width="2"/>
-  <text x="645" y="95" text-anchor="middle" font-size="10" font-weight="bold" fill="#0f172a">Top-k Docs</text>
-  <text x="645" y="112" text-anchor="middle" font-size="8" fill="#475569">z₁, z₂, ..., z_k</text>
-  <text x="645" y="128" text-anchor="middle" font-size="7" fill="#64748b">(k = 5 typical)</text>
+  <rect x="580" y="70" width="130" height="70" rx="8" fill="#f5f5f8" stroke="#4a4a5a" stroke-width="2"/>
+  <text x="645" y="95" text-anchor="middle" font-size="11" font-weight="bold" fill="#1a1a2e">Top-k Docs</text>
+  <text x="645" y="112" text-anchor="middle" font-size="11" fill="#4a4a5a">z₁, z₂, ..., z_k</text>
+  <text x="645" y="128" text-anchor="middle" font-size="11" fill="#7a7a8a">(k = 5 typical)</text>
 
   <!-- ===== Concatenation ===== -->
-  <line x1="645" y1="140" x2="645" y2="180" stroke="#475569" stroke-width="1.5" marker-end="url(#a)"/>
+  <line x1="645" y1="140" x2="645" y2="180" stroke="#4a4a5a" stroke-width="1.5" marker-end="url(#a)"/>
   <!-- Also route query to concat -->
-  <path d="M 95 130 L 95 290 L 580 290" fill="none" stroke="#475569" stroke-width="1.5" marker-end="url(#a)"/>
-  <text x="340" y="283" text-anchor="middle" font-size="8" fill="#64748b">query x passed through</text>
+  <path d="M 95 130 L 95 290 L 580 290" fill="none" stroke="#4a4a5a" stroke-width="1.5" marker-end="url(#a)"/>
+  <text x="340" y="283" text-anchor="middle" font-size="11" fill="#7a7a8a">query x passed through</text>
 
-  <rect x="580" y="185" width="130" height="40" rx="6" fill="#e2e8f0" stroke="#475569" stroke-width="1.5"/>
-  <text x="645" y="203" text-anchor="middle" font-size="9" font-weight="bold" fill="#0f172a">Concat</text>
-  <text x="645" y="218" text-anchor="middle" font-size="7" fill="#475569">[query x ; doc z_i]</text>
+  <rect x="580" y="185" width="130" height="40" rx="6" fill="#f5f5f8" stroke="#4a4a5a" stroke-width="1.5"/>
+  <text x="645" y="203" text-anchor="middle" font-size="11" font-weight="bold" fill="#1a1a2e">Concat</text>
+  <text x="645" y="218" text-anchor="middle" font-size="11" fill="#4a4a5a">[query x ; doc z_i]</text>
 
-  <line x1="645" y1="225" x2="645" y2="260" stroke="#475569" stroke-width="1.5" marker-end="url(#a)"/>
+  <line x1="645" y1="225" x2="645" y2="260" stroke="#4a4a5a" stroke-width="1.5" marker-end="url(#a)"/>
 
   <!-- ===== Generator ===== -->
-  <rect x="570" y="265" width="260" height="80" rx="10" fill="#fce7f3" stroke="#db2777" stroke-width="2"/>
-  <text x="700" y="292" text-anchor="middle" font-size="12" font-weight="bold" fill="#831843">Generator (BART / LLM)</text>
-  <text x="700" y="312" text-anchor="middle" font-size="9" fill="#db2777">P(y | x, z_i) for each retrieved doc</text>
-  <text x="700" y="330" text-anchor="middle" font-size="8" fill="#db2777" font-family="'SF Mono', Consolas, monospace">Seq2Seq: encoder-decoder Transformer</text>
+  <rect x="570" y="265" width="260" height="80" rx="10" fill="#f6e4e3" stroke="#d4645c" stroke-width="2"/>
+  <text x="700" y="292" text-anchor="middle" font-size="12" font-weight="bold" fill="#d4645c">Generator (BART / LLM)</text>
+  <text x="700" y="312" text-anchor="middle" font-size="11" fill="#d4645c">P(y | x, z_i) for each retrieved doc</text>
+  <text x="700" y="330" text-anchor="middle" font-size="11" fill="#d4645c" font-family="'JetBrains Mono', 'Fira Code', monospace">Seq2Seq: encoder-decoder Transformer</text>
 
-  <line x1="700" y1="345" x2="700" y2="375" stroke="#475569" stroke-width="1.5" marker-end="url(#a)"/>
+  <line x1="700" y1="345" x2="700" y2="375" stroke="#4a4a5a" stroke-width="1.5" marker-end="url(#a)"/>
 
   <!-- ===== Marginalization ===== -->
-  <rect x="600" y="380" width="200" height="40" rx="6" fill="#f3e8ff" stroke="#9333ea" stroke-width="1.5"/>
-  <text x="700" y="398" text-anchor="middle" font-size="9" font-weight="bold" fill="#3b0764">Marginalize over docs</text>
-  <text x="700" y="414" text-anchor="middle" font-size="7" fill="#9333ea" font-family="'SF Mono', Consolas, monospace">P(y|x) = Σ P(z_i|x) · P(y|x,z_i)</text>
+  <rect x="600" y="380" width="200" height="40" rx="6" fill="#e8e4f1" stroke="#7b68a8" stroke-width="1.5"/>
+  <text x="700" y="398" text-anchor="middle" font-size="11" font-weight="bold" fill="#7b68a8">Marginalize over docs</text>
+  <text x="700" y="414" text-anchor="middle" font-size="11" fill="#7b68a8" font-family="'JetBrains Mono', 'Fira Code', monospace">P(y|x) = Σ P(z_i|x) · P(y|x,z_i)</text>
 
-  <line x1="700" y1="420" x2="700" y2="445" stroke="#16a34a" stroke-width="2" marker-end="url(#ag)"/>
+  <line x1="700" y1="420" x2="700" y2="445" stroke="#3a9e8f" stroke-width="2" marker-end="url(#ag)"/>
 
   <!-- ===== Output ===== -->
-  <rect x="610" y="448" width="180" height="30" rx="8" fill="#dcfce7" stroke="#16a34a" stroke-width="2"/>
-  <text x="700" y="468" text-anchor="middle" font-size="10" font-weight="bold" fill="#14532d">Output Answer (y)</text>
+  <rect x="610" y="448" width="180" height="30" rx="8" fill="#dff0ed" stroke="#3a9e8f" stroke-width="2"/>
+  <text x="700" y="468" text-anchor="middle" font-size="11" font-weight="bold" fill="#3a9e8f">Output Answer (y)</text>
 
   <!-- ===== Key insight box ===== -->
-  <rect x="20" y="350" width="350" height="100" rx="8" fill="#f8fafc" stroke="#e2e8f0" stroke-width="1.5"/>
-  <text x="195" y="372" text-anchor="middle" font-size="10" font-weight="bold" fill="#0f172a">Key Design Principles</text>
-  <text x="30" y="392" font-size="8" fill="#334155">1. Non-parametric memory: knowledge in retrieval, not weights</text>
-  <text x="30" y="408" font-size="8" fill="#334155">2. Updatable: swap corpus without retraining the model</text>
-  <text x="30" y="424" font-size="8" fill="#334155">3. Attributable: retrieved docs provide source citations</text>
-  <text x="30" y="440" font-size="8" fill="#334155">4. RAG-Token vs RAG-Sequence: per-token or per-seq marginalization</text>
+  <rect x="20" y="350" width="350" height="100" rx="8" fill="#f5f5f8" stroke="#f5f5f8" stroke-width="1.5"/>
+  <text x="195" y="372" text-anchor="middle" font-size="11" font-weight="bold" fill="#1a1a2e">Key Design Principles</text>
+  <text x="30" y="392" font-size="11" fill="#3a3a4a">1. Non-parametric memory: knowledge in retrieval, not weights</text>
+  <text x="30" y="408" font-size="11" fill="#3a3a4a">2. Updatable: swap corpus without retraining the model</text>
+  <text x="30" y="424" font-size="11" fill="#3a3a4a">3. Attributable: retrieved docs provide source citations</text>
+  <text x="30" y="440" font-size="11" fill="#3a3a4a">4. RAG-Token vs RAG-Sequence: per-token or per-seq marginalization</text>
 </svg>

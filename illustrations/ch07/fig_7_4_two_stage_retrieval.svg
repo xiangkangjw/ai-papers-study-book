@@ -1,83 +1,83 @@
 <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 860 400" font-family="Inter, Helvetica, Arial, sans-serif">
   <defs>
-    <marker id="a" markerWidth="8" markerHeight="6" refX="8" refY="3" orient="auto"><path d="M0,0 L8,3 L0,6 Z" fill="#475569"/></marker>
+    <marker id="a" markerWidth="8" markerHeight="6" refX="8" refY="3" orient="auto"><path d="M0,0 L8,3 L0,6 Z" fill="#4a4a5a"/></marker>
   </defs>
 
-  <text x="430" y="28" text-anchor="middle" font-size="17" font-weight="bold" fill="#0f172a">Two-Stage Retrieval: Retrieve then Re-rank</text>
-  <text x="430" y="46" text-anchor="middle" font-size="10" fill="#64748b">Fast retrieval narrows candidates, then expensive cross-encoder re-ranks for precision</text>
+  <text x="430" y="28" text-anchor="middle" font-size="17" font-weight="bold" fill="#1a1a2e">Two-Stage Retrieval: Retrieve then Re-rank</text>
+  <text x="430" y="46" text-anchor="middle" font-size="11" fill="#7a7a8a">Fast retrieval narrows candidates, then expensive cross-encoder re-ranks for precision</text>
 
   <!-- Full pipeline -->
-  <rect x="30" y="65" width="800" height="200" rx="10" fill="#f8fafc" stroke="#e2e8f0" stroke-width="2"/>
+  <rect x="30" y="65" width="800" height="200" rx="10" fill="#f5f5f8" stroke="#f5f5f8" stroke-width="2"/>
 
   <!-- Query -->
-  <rect x="50" y="120" width="80" height="40" rx="5" fill="#fce7f3" stroke="#db2777" stroke-width="2"/>
-  <text x="90" y="145" text-anchor="middle" font-size="9" font-weight="bold" fill="#831843">Query q</text>
+  <rect x="50" y="120" width="80" height="40" rx="5" fill="#f6e4e3" stroke="#d4645c" stroke-width="2"/>
+  <text x="90" y="145" text-anchor="middle" font-size="11" font-weight="bold" fill="#d4645c">Query q</text>
 
-  <line x1="130" y1="140" x2="153" y2="140" stroke="#475569" stroke-width="1.5" marker-end="url(#a)"/>
+  <line x1="130" y1="140" x2="153" y2="140" stroke="#4a4a5a" stroke-width="1.5" marker-end="url(#a)"/>
 
   <!-- Stage 1: Bi-Encoder Retrieval -->
-  <rect x="155" y="85" width="220" height="150" rx="8" fill="#e0f2fe" stroke="#0284c7" stroke-width="2"/>
-  <text x="265" y="108" text-anchor="middle" font-size="10" font-weight="bold" fill="#0c4a6e">Stage 1: Bi-Encoder Retrieval</text>
+  <rect x="155" y="85" width="220" height="150" rx="8" fill="#e1eaf3" stroke="#4a7fb5" stroke-width="2"/>
+  <text x="265" y="108" text-anchor="middle" font-size="11" font-weight="bold" fill="#4a7fb5">Stage 1: Bi-Encoder Retrieval</text>
 
-  <rect x="175" y="120" width="80" height="35" rx="4" fill="#0284c7" stroke="#0284c7" stroke-width="1"/>
-  <text x="215" y="142" text-anchor="middle" font-size="8" fill="#fff">DPR / BM25</text>
+  <rect x="175" y="120" width="80" height="35" rx="4" fill="#4a7fb5" stroke="#4a7fb5" stroke-width="1"/>
+  <text x="215" y="142" text-anchor="middle" font-size="11" fill="#fff">DPR / BM25</text>
 
-  <line x1="255" y1="137" x2="273" y2="137" stroke="#475569" stroke-width="1" marker-end="url(#a)"/>
+  <line x1="255" y1="137" x2="273" y2="137" stroke="#4a4a5a" stroke-width="1" marker-end="url(#a)"/>
 
-  <rect x="275" y="115" width="80" height="45" rx="4" fill="#e0f2fe" stroke="#0284c7" stroke-width="1.5"/>
-  <text x="315" y="133" text-anchor="middle" font-size="7" fill="#0c4a6e">FAISS</text>
-  <text x="315" y="148" text-anchor="middle" font-size="7" fill="#0c4a6e">top-100</text>
+  <rect x="275" y="115" width="80" height="45" rx="4" fill="#e1eaf3" stroke="#4a7fb5" stroke-width="1.5"/>
+  <text x="315" y="133" text-anchor="middle" font-size="11" fill="#4a7fb5">FAISS</text>
+  <text x="315" y="148" text-anchor="middle" font-size="11" fill="#4a7fb5">top-100</text>
 
-  <text x="265" y="185" text-anchor="middle" font-size="7" fill="#0284c7">Fast: O(1) per doc (dot product)</text>
-  <text x="265" y="200" text-anchor="middle" font-size="7" fill="#0284c7">Coarse but high recall</text>
-  <text x="265" y="215" text-anchor="middle" font-size="7" fill="#0284c7" font-family="'SF Mono', Consolas, monospace">~10ms for 10M docs</text>
+  <text x="265" y="185" text-anchor="middle" font-size="11" fill="#4a7fb5">Fast: O(1) per doc (dot product)</text>
+  <text x="265" y="200" text-anchor="middle" font-size="11" fill="#4a7fb5">Coarse but high recall</text>
+  <text x="265" y="215" text-anchor="middle" font-size="11" fill="#4a7fb5" font-family="'JetBrains Mono', 'Fira Code', monospace">~10ms for 10M docs</text>
 
-  <line x1="375" y1="140" x2="398" y2="140" stroke="#475569" stroke-width="1.5" marker-end="url(#a)"/>
+  <line x1="375" y1="140" x2="398" y2="140" stroke="#4a4a5a" stroke-width="1.5" marker-end="url(#a)"/>
 
   <!-- Candidate set -->
-  <rect x="400" y="115" width="70" height="50" rx="4" fill="#f1f5f9" stroke="#475569" stroke-width="1.5"/>
-  <text x="435" y="137" text-anchor="middle" font-size="8" fill="#0f172a">100</text>
-  <text x="435" y="152" text-anchor="middle" font-size="7" fill="#64748b">candidates</text>
+  <rect x="400" y="115" width="70" height="50" rx="4" fill="#f5f5f8" stroke="#4a4a5a" stroke-width="1.5"/>
+  <text x="435" y="137" text-anchor="middle" font-size="11" fill="#1a1a2e">100</text>
+  <text x="435" y="152" text-anchor="middle" font-size="11" fill="#7a7a8a">candidates</text>
 
-  <line x1="470" y1="140" x2="493" y2="140" stroke="#475569" stroke-width="1.5" marker-end="url(#a)"/>
+  <line x1="470" y1="140" x2="493" y2="140" stroke="#4a4a5a" stroke-width="1.5" marker-end="url(#a)"/>
 
   <!-- Stage 2: Cross-Encoder Re-ranking -->
-  <rect x="495" y="85" width="220" height="150" rx="8" fill="#dcfce7" stroke="#16a34a" stroke-width="2"/>
-  <text x="605" y="108" text-anchor="middle" font-size="10" font-weight="bold" fill="#14532d">Stage 2: Cross-Encoder Re-rank</text>
+  <rect x="495" y="85" width="220" height="150" rx="8" fill="#dff0ed" stroke="#3a9e8f" stroke-width="2"/>
+  <text x="605" y="108" text-anchor="middle" font-size="11" font-weight="bold" fill="#3a9e8f">Stage 2: Cross-Encoder Re-rank</text>
 
-  <rect x="515" y="120" width="100" height="45" rx="4" fill="#16a34a" stroke="#16a34a" stroke-width="1"/>
-  <text x="565" y="138" text-anchor="middle" font-size="8" fill="#fff">Cross-Encoder</text>
-  <text x="565" y="153" text-anchor="middle" font-size="7" fill="#dcfce7">[q; d] → BERT</text>
+  <rect x="515" y="120" width="100" height="45" rx="4" fill="#3a9e8f" stroke="#3a9e8f" stroke-width="1"/>
+  <text x="565" y="138" text-anchor="middle" font-size="11" fill="#fff">Cross-Encoder</text>
+  <text x="565" y="153" text-anchor="middle" font-size="11" fill="#dff0ed">[q; d] → BERT</text>
 
-  <line x1="615" y1="142" x2="633" y2="142" stroke="#475569" stroke-width="1" marker-end="url(#a)"/>
+  <line x1="615" y1="142" x2="633" y2="142" stroke="#4a4a5a" stroke-width="1" marker-end="url(#a)"/>
 
-  <rect x="635" y="120" width="60" height="45" rx="4" fill="#dcfce7" stroke="#16a34a" stroke-width="1.5"/>
-  <text x="665" y="138" text-anchor="middle" font-size="7" fill="#14532d">Re-rank</text>
-  <text x="665" y="153" text-anchor="middle" font-size="7" fill="#14532d">top-k</text>
+  <rect x="635" y="120" width="60" height="45" rx="4" fill="#dff0ed" stroke="#3a9e8f" stroke-width="1.5"/>
+  <text x="665" y="138" text-anchor="middle" font-size="11" fill="#3a9e8f">Re-rank</text>
+  <text x="665" y="153" text-anchor="middle" font-size="11" fill="#3a9e8f">top-k</text>
 
-  <text x="605" y="185" text-anchor="middle" font-size="7" fill="#16a34a">Slow: O(|q|·|d|) per pair (cross-attn)</text>
-  <text x="605" y="200" text-anchor="middle" font-size="7" fill="#16a34a">Precise relevance scoring</text>
-  <text x="605" y="215" text-anchor="middle" font-size="7" fill="#16a34a" font-family="'SF Mono', Consolas, monospace">~100ms for 100 candidates</text>
+  <text x="605" y="185" text-anchor="middle" font-size="11" fill="#3a9e8f">Slow: O(|q|·|d|) per pair (cross-attn)</text>
+  <text x="605" y="200" text-anchor="middle" font-size="11" fill="#3a9e8f">Precise relevance scoring</text>
+  <text x="605" y="215" text-anchor="middle" font-size="11" fill="#3a9e8f" font-family="'JetBrains Mono', 'Fira Code', monospace">~100ms for 100 candidates</text>
 
-  <line x1="715" y1="140" x2="738" y2="140" stroke="#475569" stroke-width="1.5" marker-end="url(#a)"/>
+  <line x1="715" y1="140" x2="738" y2="140" stroke="#4a4a5a" stroke-width="1.5" marker-end="url(#a)"/>
 
   <!-- Final output -->
-  <rect x="740" y="115" width="70" height="50" rx="5" fill="#dcfce7" stroke="#16a34a" stroke-width="2"/>
-  <text x="775" y="137" text-anchor="middle" font-size="8" font-weight="bold" fill="#14532d">top-5</text>
-  <text x="775" y="152" text-anchor="middle" font-size="7" fill="#16a34a">precise</text>
+  <rect x="740" y="115" width="70" height="50" rx="5" fill="#dff0ed" stroke="#3a9e8f" stroke-width="2"/>
+  <text x="775" y="137" text-anchor="middle" font-size="11" font-weight="bold" fill="#3a9e8f">top-5</text>
+  <text x="775" y="152" text-anchor="middle" font-size="11" fill="#3a9e8f">precise</text>
 
   <!-- Bi-Encoder vs Cross-Encoder comparison -->
-  <rect x="30" y="285" width="390" height="105" rx="8" fill="#e0f2fe" stroke="#0284c7" stroke-width="1.5"/>
-  <text x="225" y="310" text-anchor="middle" font-size="10" font-weight="bold" fill="#0c4a6e">Bi-Encoder (Stage 1)</text>
-  <text x="50" y="332" font-size="8" fill="#334155">• Separate encoders: E(q) and E(d)</text>
-  <text x="50" y="348" font-size="8" fill="#334155">• Score = dot(E(q), E(d)) — pre-computed</text>
-  <text x="50" y="364" font-size="8" fill="#334155">• Docs encoded offline → FAISS index</text>
-  <text x="50" y="380" font-size="8" fill="#0284c7">✓ Scales to billions · ✗ Less accurate</text>
+  <rect x="30" y="285" width="390" height="105" rx="8" fill="#e1eaf3" stroke="#4a7fb5" stroke-width="1.5"/>
+  <text x="225" y="310" text-anchor="middle" font-size="11" font-weight="bold" fill="#4a7fb5">Bi-Encoder (Stage 1)</text>
+  <text x="50" y="332" font-size="11" fill="#3a3a4a">• Separate encoders: E(q) and E(d)</text>
+  <text x="50" y="348" font-size="11" fill="#3a3a4a">• Score = dot(E(q), E(d)) — pre-computed</text>
+  <text x="50" y="364" font-size="11" fill="#3a3a4a">• Docs encoded offline → FAISS index</text>
+  <text x="50" y="380" font-size="11" fill="#4a7fb5">✓ Scales to billions · ✗ Less accurate</text>
 
-  <rect x="440" y="285" width="390" height="105" rx="8" fill="#dcfce7" stroke="#16a34a" stroke-width="1.5"/>
-  <text x="635" y="310" text-anchor="middle" font-size="10" font-weight="bold" fill="#14532d">Cross-Encoder (Stage 2)</text>
-  <text x="460" y="332" font-size="8" fill="#334155">• Joint encoder: BERT([q; SEP; d])</text>
-  <text x="460" y="348" font-size="8" fill="#334155">• Full cross-attention between q and d</text>
-  <text x="460" y="364" font-size="8" fill="#334155">• Cannot pre-compute — runs at query time</text>
-  <text x="460" y="380" font-size="8" fill="#16a34a">✓ Much more accurate · ✗ Only for small sets</text>
+  <rect x="440" y="285" width="390" height="105" rx="8" fill="#dff0ed" stroke="#3a9e8f" stroke-width="1.5"/>
+  <text x="635" y="310" text-anchor="middle" font-size="11" font-weight="bold" fill="#3a9e8f">Cross-Encoder (Stage 2)</text>
+  <text x="460" y="332" font-size="11" fill="#3a3a4a">• Joint encoder: BERT([q; SEP; d])</text>
+  <text x="460" y="348" font-size="11" fill="#3a3a4a">• Full cross-attention between q and d</text>
+  <text x="460" y="364" font-size="11" fill="#3a3a4a">• Cannot pre-compute — runs at query time</text>
+  <text x="460" y="380" font-size="11" fill="#3a9e8f">✓ Much more accurate · ✗ Only for small sets</text>
 </svg>

@@ -1,92 +1,92 @@
 <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 860 440" font-family="Inter, Helvetica, Arial, sans-serif">
-  <text x="430" y="28" text-anchor="middle" font-size="17" font-weight="bold" fill="#0f172a">PEFT Methods: Practical Comparison</text>
-  <text x="430" y="46" text-anchor="middle" font-size="10" fill="#64748b">When to use which parameter-efficient fine-tuning method</text>
+  <text x="430" y="28" text-anchor="middle" font-size="17" font-weight="bold" fill="#1a1a2e">PEFT Methods: Practical Comparison</text>
+  <text x="430" y="46" text-anchor="middle" font-size="11" fill="#7a7a8a">When to use which parameter-efficient fine-tuning method</text>
 
   <!-- Main comparison table -->
-  <rect x="30" y="65" width="800" height="250" rx="10" fill="#f8fafc" stroke="#e2e8f0" stroke-width="2"/>
+  <rect x="30" y="65" width="800" height="250" rx="10" fill="#f5f5f8" stroke="#f5f5f8" stroke-width="2"/>
 
   <!-- Headers -->
-  <text x="110" y="92" text-anchor="middle" font-size="9" font-weight="bold" fill="#0f172a">Method</text>
-  <text x="230" y="92" text-anchor="middle" font-size="9" font-weight="bold" fill="#0f172a">% Params</text>
-  <text x="330" y="92" text-anchor="middle" font-size="9" font-weight="bold" fill="#0f172a">Where Added</text>
-  <text x="460" y="92" text-anchor="middle" font-size="9" font-weight="bold" fill="#0f172a">Inference Cost</text>
-  <text x="580" y="92" text-anchor="middle" font-size="9" font-weight="bold" fill="#0f172a">Multi-task</text>
-  <text x="700" y="92" text-anchor="middle" font-size="9" font-weight="bold" fill="#0f172a">Best For</text>
+  <text x="110" y="92" text-anchor="middle" font-size="11" font-weight="bold" fill="#1a1a2e">Method</text>
+  <text x="230" y="92" text-anchor="middle" font-size="11" font-weight="bold" fill="#1a1a2e">% Params</text>
+  <text x="330" y="92" text-anchor="middle" font-size="11" font-weight="bold" fill="#1a1a2e">Where Added</text>
+  <text x="460" y="92" text-anchor="middle" font-size="11" font-weight="bold" fill="#1a1a2e">Inference Cost</text>
+  <text x="580" y="92" text-anchor="middle" font-size="11" font-weight="bold" fill="#1a1a2e">Multi-task</text>
+  <text x="700" y="92" text-anchor="middle" font-size="11" font-weight="bold" fill="#1a1a2e">Best For</text>
 
-  <line x1="45" y1="100" x2="815" y2="100" stroke="#e2e8f0" stroke-width="1.5"/>
+  <line x1="45" y1="100" x2="815" y2="100" stroke="#f5f5f8" stroke-width="1.5"/>
 
   <!-- LoRA -->
-  <rect x="45" y="108" width="130" height="30" rx="4" fill="#dcfce7" stroke="#16a34a" stroke-width="1.5"/>
-  <text x="110" y="127" text-anchor="middle" font-size="9" font-weight="bold" fill="#14532d">LoRA</text>
-  <text x="230" y="127" text-anchor="middle" font-size="8" fill="#334155">0.1-1%</text>
-  <text x="330" y="127" text-anchor="middle" font-size="8" fill="#334155">Parallel to W_q, W_v</text>
-  <text x="460" y="120" text-anchor="middle" font-size="8" fill="#16a34a" font-weight="bold">None (merge!)</text>
-  <text x="460" y="134" text-anchor="middle" font-size="6" fill="#16a34a">W' = W + BA</text>
-  <text x="580" y="127" text-anchor="middle" font-size="8" fill="#16a34a">Easy swap</text>
-  <text x="700" y="127" text-anchor="middle" font-size="8" fill="#334155">LLM fine-tuning</text>
+  <rect x="45" y="108" width="130" height="30" rx="4" fill="#dff0ed" stroke="#3a9e8f" stroke-width="1.5"/>
+  <text x="110" y="127" text-anchor="middle" font-size="11" font-weight="bold" fill="#3a9e8f">LoRA</text>
+  <text x="230" y="127" text-anchor="middle" font-size="11" fill="#3a3a4a">0.1-1%</text>
+  <text x="330" y="127" text-anchor="middle" font-size="11" fill="#3a3a4a">Parallel to W_q, W_v</text>
+  <text x="460" y="120" text-anchor="middle" font-size="11" fill="#3a9e8f" font-weight="bold">None (merge!)</text>
+  <text x="460" y="134" text-anchor="middle" font-size="11" fill="#3a9e8f">W' = W + BA</text>
+  <text x="580" y="127" text-anchor="middle" font-size="11" fill="#3a9e8f">Easy swap</text>
+  <text x="700" y="127" text-anchor="middle" font-size="11" fill="#3a3a4a">LLM fine-tuning</text>
 
-  <line x1="45" y1="142" x2="815" y2="142" stroke="#e2e8f0" stroke-width="1"/>
+  <line x1="45" y1="142" x2="815" y2="142" stroke="#f5f5f8" stroke-width="1"/>
 
   <!-- QLoRA -->
-  <rect x="45" y="148" width="130" height="30" rx="4" fill="#dcfce7" stroke="#16a34a" stroke-width="1.5"/>
-  <text x="110" y="167" text-anchor="middle" font-size="9" font-weight="bold" fill="#14532d">QLoRA</text>
-  <text x="230" y="167" text-anchor="middle" font-size="8" fill="#334155">0.1-1%</text>
-  <text x="330" y="167" text-anchor="middle" font-size="8" fill="#334155">LoRA + 4-bit W</text>
-  <text x="460" y="167" text-anchor="middle" font-size="8" fill="#16a34a" font-weight="bold">None</text>
-  <text x="580" y="167" text-anchor="middle" font-size="8" fill="#16a34a">Easy swap</text>
-  <text x="700" y="167" text-anchor="middle" font-size="8" fill="#334155">Low-memory LLM</text>
+  <rect x="45" y="148" width="130" height="30" rx="4" fill="#dff0ed" stroke="#3a9e8f" stroke-width="1.5"/>
+  <text x="110" y="167" text-anchor="middle" font-size="11" font-weight="bold" fill="#3a9e8f">QLoRA</text>
+  <text x="230" y="167" text-anchor="middle" font-size="11" fill="#3a3a4a">0.1-1%</text>
+  <text x="330" y="167" text-anchor="middle" font-size="11" fill="#3a3a4a">LoRA + 4-bit W</text>
+  <text x="460" y="167" text-anchor="middle" font-size="11" fill="#3a9e8f" font-weight="bold">None</text>
+  <text x="580" y="167" text-anchor="middle" font-size="11" fill="#3a9e8f">Easy swap</text>
+  <text x="700" y="167" text-anchor="middle" font-size="11" fill="#3a3a4a">Low-memory LLM</text>
 
-  <line x1="45" y1="182" x2="815" y2="182" stroke="#e2e8f0" stroke-width="1"/>
+  <line x1="45" y1="182" x2="815" y2="182" stroke="#f5f5f8" stroke-width="1"/>
 
   <!-- Adapters -->
-  <rect x="45" y="188" width="130" height="30" rx="4" fill="#e0f2fe" stroke="#0284c7" stroke-width="1.5"/>
-  <text x="110" y="207" text-anchor="middle" font-size="9" font-weight="bold" fill="#0c4a6e">Adapters</text>
-  <text x="230" y="207" text-anchor="middle" font-size="8" fill="#334155">0.5-4%</text>
-  <text x="330" y="207" text-anchor="middle" font-size="8" fill="#334155">Sequential in FFN</text>
-  <text x="460" y="200" text-anchor="middle" font-size="8" fill="#ef4444">+latency</text>
-  <text x="460" y="214" text-anchor="middle" font-size="6" fill="#ef4444">extra layers</text>
-  <text x="580" y="207" text-anchor="middle" font-size="8" fill="#0284c7">Composable</text>
-  <text x="700" y="207" text-anchor="middle" font-size="8" fill="#334155">NLU tasks</text>
+  <rect x="45" y="188" width="130" height="30" rx="4" fill="#e1eaf3" stroke="#4a7fb5" stroke-width="1.5"/>
+  <text x="110" y="207" text-anchor="middle" font-size="11" font-weight="bold" fill="#4a7fb5">Adapters</text>
+  <text x="230" y="207" text-anchor="middle" font-size="11" fill="#3a3a4a">0.5-4%</text>
+  <text x="330" y="207" text-anchor="middle" font-size="11" fill="#3a3a4a">Sequential in FFN</text>
+  <text x="460" y="200" text-anchor="middle" font-size="11" fill="#d4645c">+latency</text>
+  <text x="460" y="214" text-anchor="middle" font-size="11" fill="#d4645c">extra layers</text>
+  <text x="580" y="207" text-anchor="middle" font-size="11" fill="#4a7fb5">Composable</text>
+  <text x="700" y="207" text-anchor="middle" font-size="11" fill="#3a3a4a">NLU tasks</text>
 
-  <line x1="45" y1="222" x2="815" y2="222" stroke="#e2e8f0" stroke-width="1"/>
+  <line x1="45" y1="222" x2="815" y2="222" stroke="#f5f5f8" stroke-width="1"/>
 
   <!-- Prefix Tuning -->
-  <rect x="45" y="228" width="130" height="30" rx="4" fill="#fef3c7" stroke="#d97706" stroke-width="1.5"/>
-  <text x="110" y="247" text-anchor="middle" font-size="9" font-weight="bold" fill="#78350f">Prefix Tuning</text>
-  <text x="230" y="247" text-anchor="middle" font-size="8" fill="#334155">0.1%</text>
-  <text x="330" y="247" text-anchor="middle" font-size="8" fill="#334155">K,V at every layer</text>
-  <text x="460" y="240" text-anchor="middle" font-size="8" fill="#d97706">+context len</text>
-  <text x="460" y="254" text-anchor="middle" font-size="6" fill="#d97706">longer sequence</text>
-  <text x="580" y="247" text-anchor="middle" font-size="8" fill="#d97706">Batch mixing</text>
-  <text x="700" y="247" text-anchor="middle" font-size="8" fill="#334155">NLG tasks</text>
+  <rect x="45" y="228" width="130" height="30" rx="4" fill="#f5ece0" stroke="#d4a03c" stroke-width="1.5"/>
+  <text x="110" y="247" text-anchor="middle" font-size="11" font-weight="bold" fill="#d4a03c">Prefix Tuning</text>
+  <text x="230" y="247" text-anchor="middle" font-size="11" fill="#3a3a4a">0.1%</text>
+  <text x="330" y="247" text-anchor="middle" font-size="11" fill="#3a3a4a">K,V at every layer</text>
+  <text x="460" y="240" text-anchor="middle" font-size="11" fill="#d4a03c">+context len</text>
+  <text x="460" y="254" text-anchor="middle" font-size="11" fill="#d4a03c">longer sequence</text>
+  <text x="580" y="247" text-anchor="middle" font-size="11" fill="#d4a03c">Batch mixing</text>
+  <text x="700" y="247" text-anchor="middle" font-size="11" fill="#3a3a4a">NLG tasks</text>
 
-  <line x1="45" y1="262" x2="815" y2="262" stroke="#e2e8f0" stroke-width="1"/>
+  <line x1="45" y1="262" x2="815" y2="262" stroke="#f5f5f8" stroke-width="1"/>
 
   <!-- Prompt Tuning -->
-  <rect x="45" y="268" width="130" height="30" rx="4" fill="#fce7f3" stroke="#db2777" stroke-width="1.5"/>
-  <text x="110" y="287" text-anchor="middle" font-size="9" font-weight="bold" fill="#831843">Prompt Tuning</text>
-  <text x="230" y="287" text-anchor="middle" font-size="8" fill="#334155">0.01%</text>
-  <text x="330" y="287" text-anchor="middle" font-size="8" fill="#334155">Input embeds only</text>
-  <text x="460" y="280" text-anchor="middle" font-size="8" fill="#d97706">+context len</text>
-  <text x="460" y="294" text-anchor="middle" font-size="6" fill="#d97706">~20 tokens</text>
-  <text x="580" y="287" text-anchor="middle" font-size="8" fill="#16a34a">Easiest swap</text>
-  <text x="700" y="287" text-anchor="middle" font-size="8" fill="#334155">11B+ models</text>
+  <rect x="45" y="268" width="130" height="30" rx="4" fill="#f6e4e3" stroke="#d4645c" stroke-width="1.5"/>
+  <text x="110" y="287" text-anchor="middle" font-size="11" font-weight="bold" fill="#d4645c">Prompt Tuning</text>
+  <text x="230" y="287" text-anchor="middle" font-size="11" fill="#3a3a4a">0.01%</text>
+  <text x="330" y="287" text-anchor="middle" font-size="11" fill="#3a3a4a">Input embeds only</text>
+  <text x="460" y="280" text-anchor="middle" font-size="11" fill="#d4a03c">+context len</text>
+  <text x="460" y="294" text-anchor="middle" font-size="11" fill="#d4a03c">~20 tokens</text>
+  <text x="580" y="287" text-anchor="middle" font-size="11" fill="#3a9e8f">Easiest swap</text>
+  <text x="700" y="287" text-anchor="middle" font-size="11" fill="#3a3a4a">11B+ models</text>
 
   <!-- Decision flowchart -->
-  <rect x="30" y="330" width="800" height="100" rx="10" fill="#fef3c7" stroke="#d97706" stroke-width="1.5"/>
-  <text x="430" y="355" text-anchor="middle" font-size="11" font-weight="bold" fill="#78350f">Quick Decision Guide</text>
+  <rect x="30" y="330" width="800" height="100" rx="10" fill="#f5ece0" stroke="#d4a03c" stroke-width="1.5"/>
+  <text x="430" y="355" text-anchor="middle" font-size="11" font-weight="bold" fill="#d4a03c">Quick Decision Guide</text>
 
-  <text x="80" y="380" font-size="8" fill="#334155">Single GPU, big model?</text>
-  <text x="80" y="395" font-size="9" fill="#16a34a" font-weight="bold">→ QLoRA</text>
+  <text x="80" y="380" font-size="11" fill="#3a3a4a">Single GPU, big model?</text>
+  <text x="80" y="395" font-size="11" fill="#3a9e8f" font-weight="bold">→ QLoRA</text>
 
-  <text x="270" y="380" font-size="8" fill="#334155">Need zero inference cost?</text>
-  <text x="270" y="395" font-size="9" fill="#16a34a" font-weight="bold">→ LoRA (merge weights)</text>
+  <text x="270" y="380" font-size="11" fill="#3a3a4a">Need zero inference cost?</text>
+  <text x="270" y="395" font-size="11" fill="#3a9e8f" font-weight="bold">→ LoRA (merge weights)</text>
 
-  <text x="490" y="380" font-size="8" fill="#334155">Multi-task serving?</text>
-  <text x="490" y="395" font-size="9" fill="#0284c7" font-weight="bold">→ Prefix/Prompt Tuning</text>
+  <text x="490" y="380" font-size="11" fill="#3a3a4a">Multi-task serving?</text>
+  <text x="490" y="395" font-size="11" fill="#4a7fb5" font-weight="bold">→ Prefix/Prompt Tuning</text>
 
-  <text x="690" y="380" font-size="8" fill="#334155">BERT-size NLU?</text>
-  <text x="690" y="395" font-size="9" fill="#d97706" font-weight="bold">→ Adapters</text>
+  <text x="690" y="380" font-size="11" fill="#3a3a4a">BERT-size NLU?</text>
+  <text x="690" y="395" font-size="11" fill="#d4a03c" font-weight="bold">→ Adapters</text>
 
-  <text x="430" y="425" text-anchor="middle" font-size="8" fill="#64748b">Default recommendation: LoRA (best balance of quality, efficiency, and simplicity) — used by most practitioners in 2024+</text>
+  <text x="430" y="425" text-anchor="middle" font-size="11" fill="#7a7a8a">Default recommendation: LoRA (best balance of quality, efficiency, and simplicity) — used by most practitioners in 2024+</text>
 </svg>

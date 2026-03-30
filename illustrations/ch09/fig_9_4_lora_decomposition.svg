@@ -1,102 +1,102 @@
 <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 820 500" font-family="Inter, Helvetica, Arial, sans-serif">
   <defs>
-    <marker id="a" markerWidth="8" markerHeight="6" refX="8" refY="3" orient="auto"><path d="M0,0 L8,3 L0,6 Z" fill="#475569"/></marker>
-    <marker id="ag" markerWidth="8" markerHeight="6" refX="8" refY="3" orient="auto"><path d="M0,0 L8,3 L0,6 Z" fill="#16a34a"/></marker>
+    <marker id="a" markerWidth="8" markerHeight="6" refX="8" refY="3" orient="auto"><path d="M0,0 L8,3 L0,6 Z" fill="#4a4a5a"/></marker>
+    <marker id="ag" markerWidth="8" markerHeight="6" refX="8" refY="3" orient="auto"><path d="M0,0 L8,3 L0,6 Z" fill="#3a9e8f"/></marker>
   </defs>
 
-  <text x="410" y="28" text-anchor="middle" font-size="17" font-weight="bold" fill="#0f172a">LoRA: Low-Rank Adaptation</text>
-  <text x="410" y="46" text-anchor="middle" font-size="10" fill="#64748b">Hu et al. (2021) — h = Wx + (α/r) · BAx, where B·A is a rank-r bypass</text>
+  <text x="410" y="28" text-anchor="middle" font-size="17" font-weight="bold" fill="#1a1a2e">LoRA: Low-Rank Adaptation</text>
+  <text x="410" y="46" text-anchor="middle" font-size="11" fill="#7a7a8a">Hu et al. (2021) — h = Wx + (α/r) · BAx, where B·A is a rank-r bypass</text>
 
   <!-- ===== Training Forward Pass (Left) ===== -->
-  <rect x="20" y="65" width="380" height="370" rx="10" fill="#f8fafc" stroke="#e2e8f0" stroke-width="2"/>
-  <text x="210" y="88" text-anchor="middle" font-size="12" font-weight="bold" fill="#0f172a">Training: Two Parallel Paths</text>
+  <rect x="20" y="65" width="380" height="370" rx="10" fill="#f5f5f8" stroke="#f5f5f8" stroke-width="2"/>
+  <text x="210" y="88" text-anchor="middle" font-size="12" font-weight="bold" fill="#1a1a2e">Training: Two Parallel Paths</text>
 
   <!-- Input x -->
-  <rect x="155" y="105" width="110" height="35" rx="6" fill="#f1f5f9" stroke="#475569" stroke-width="2"/>
-  <text x="210" y="127" text-anchor="middle" font-size="10" font-weight="bold" fill="#0f172a" font-family="'SF Mono', Consolas, monospace">x ∈ ℝ^k</text>
+  <rect x="155" y="105" width="110" height="35" rx="6" fill="#f5f5f8" stroke="#4a4a5a" stroke-width="2"/>
+  <text x="210" y="127" text-anchor="middle" font-size="11" font-weight="bold" fill="#1a1a2e" font-family="'JetBrains Mono', 'Fira Code', monospace">x ∈ ℝ^k</text>
 
   <!-- Split -->
-  <line x1="170" y1="140" x2="100" y2="175" stroke="#475569" stroke-width="1.5"/>
-  <line x1="250" y1="140" x2="320" y2="175" stroke="#16a34a" stroke-width="1.5"/>
+  <line x1="170" y1="140" x2="100" y2="175" stroke="#4a4a5a" stroke-width="1.5"/>
+  <line x1="250" y1="140" x2="320" y2="175" stroke="#3a9e8f" stroke-width="1.5"/>
 
   <!-- Frozen W path -->
-  <rect x="40" y="180" width="120" height="80" rx="8" fill="#e0f2fe" stroke="#0284c7" stroke-width="2"/>
-  <text x="100" y="205" text-anchor="middle" font-size="11" font-weight="bold" fill="#0c4a6e">W</text>
-  <text x="100" y="225" text-anchor="middle" font-size="8" fill="#0284c7" font-family="'SF Mono', Consolas, monospace">d × k</text>
-  <text x="100" y="250" text-anchor="middle" font-size="8" fill="#0284c7">FROZEN</text>
+  <rect x="40" y="180" width="120" height="80" rx="8" fill="#e1eaf3" stroke="#4a7fb5" stroke-width="2"/>
+  <text x="100" y="205" text-anchor="middle" font-size="11" font-weight="bold" fill="#4a7fb5">W</text>
+  <text x="100" y="225" text-anchor="middle" font-size="11" fill="#4a7fb5" font-family="'JetBrains Mono', 'Fira Code', monospace">d × k</text>
+  <text x="100" y="250" text-anchor="middle" font-size="11" fill="#4a7fb5">FROZEN</text>
   <!-- Snowflake icon -->
-  <text x="140" y="252" font-size="12" fill="#0284c7">*</text>
+  <text x="140" y="252" font-size="12" fill="#4a7fb5">*</text>
 
   <!-- LoRA path: A then B -->
-  <rect x="260" y="178" width="100" height="50" rx="6" fill="#dcfce7" stroke="#16a34a" stroke-width="2"/>
-  <text x="310" y="200" text-anchor="middle" font-size="10" font-weight="bold" fill="#14532d">A</text>
-  <text x="310" y="218" text-anchor="middle" font-size="8" fill="#16a34a" font-family="'SF Mono', Consolas, monospace">r × k</text>
+  <rect x="260" y="178" width="100" height="50" rx="6" fill="#dff0ed" stroke="#3a9e8f" stroke-width="2"/>
+  <text x="310" y="200" text-anchor="middle" font-size="11" font-weight="bold" fill="#3a9e8f">A</text>
+  <text x="310" y="218" text-anchor="middle" font-size="11" fill="#3a9e8f" font-family="'JetBrains Mono', 'Fira Code', monospace">r × k</text>
 
-  <line x1="310" y1="228" x2="310" y2="245" stroke="#16a34a" stroke-width="1.5" marker-end="url(#ag)"/>
-  <text x="330" y="242" font-size="7" fill="#16a34a" font-family="'SF Mono', Consolas, monospace">ℝ^r</text>
+  <line x1="310" y1="228" x2="310" y2="245" stroke="#3a9e8f" stroke-width="1.5" marker-end="url(#ag)"/>
+  <text x="330" y="242" font-size="11" fill="#3a9e8f" font-family="'JetBrains Mono', 'Fira Code', monospace">ℝ^r</text>
 
-  <rect x="260" y="250" width="100" height="50" rx="6" fill="#dcfce7" stroke="#16a34a" stroke-width="2"/>
-  <text x="310" y="272" text-anchor="middle" font-size="10" font-weight="bold" fill="#14532d">B</text>
-  <text x="310" y="290" text-anchor="middle" font-size="8" fill="#16a34a" font-family="'SF Mono', Consolas, monospace">d × r</text>
+  <rect x="260" y="250" width="100" height="50" rx="6" fill="#dff0ed" stroke="#3a9e8f" stroke-width="2"/>
+  <text x="310" y="272" text-anchor="middle" font-size="11" font-weight="bold" fill="#3a9e8f">B</text>
+  <text x="310" y="290" text-anchor="middle" font-size="11" fill="#3a9e8f" font-family="'JetBrains Mono', 'Fira Code', monospace">d × r</text>
 
   <!-- Trainable labels -->
-  <text x="310" y="315" text-anchor="middle" font-size="8" fill="#16a34a" font-weight="bold">TRAINABLE</text>
+  <text x="310" y="315" text-anchor="middle" font-size="11" fill="#3a9e8f" font-weight="bold">TRAINABLE</text>
 
   <!-- Rank bottleneck annotation -->
-  <rect x="282" y="232" width="56" height="15" rx="3" fill="#fef3c7" stroke="#d97706" stroke-width="1"/>
-  <text x="310" y="243" text-anchor="middle" font-size="7" font-weight="bold" fill="#78350f">rank r</text>
+  <rect x="282" y="232" width="56" height="15" rx="3" fill="#f5ece0" stroke="#d4a03c" stroke-width="1"/>
+  <text x="310" y="243" text-anchor="middle" font-size="11" font-weight="bold" fill="#d4a03c">rank r</text>
 
   <!-- Outputs merge -->
-  <line x1="100" y1="260" x2="100" y2="330" stroke="#0284c7" stroke-width="1.5"/>
-  <line x1="310" y1="315" x2="310" y2="330" stroke="#16a34a" stroke-width="1.5"/>
+  <line x1="100" y1="260" x2="100" y2="330" stroke="#4a7fb5" stroke-width="1.5"/>
+  <line x1="310" y1="315" x2="310" y2="330" stroke="#3a9e8f" stroke-width="1.5"/>
 
   <!-- Add -->
-  <circle cx="210" cy="345" r="18" fill="#f3e8ff" stroke="#9333ea" stroke-width="2"/>
-  <text x="210" y="350" text-anchor="middle" font-size="14" font-weight="bold" fill="#9333ea">+</text>
+  <circle cx="210" cy="345" r="18" fill="#e8e4f1" stroke="#7b68a8" stroke-width="2"/>
+  <text x="210" y="350" text-anchor="middle" font-size="14" font-weight="bold" fill="#7b68a8">+</text>
 
-  <line x1="100" y1="330" x2="193" y2="340" stroke="#0284c7" stroke-width="1.5"/>
-  <line x1="310" y1="330" x2="227" y2="340" stroke="#16a34a" stroke-width="1.5"/>
-  <text x="145" y="325" text-anchor="middle" font-size="7" fill="#0284c7">Wx</text>
-  <text x="270" y="325" text-anchor="middle" font-size="7" fill="#16a34a">(α/r)·BAx</text>
+  <line x1="100" y1="330" x2="193" y2="340" stroke="#4a7fb5" stroke-width="1.5"/>
+  <line x1="310" y1="330" x2="227" y2="340" stroke="#3a9e8f" stroke-width="1.5"/>
+  <text x="145" y="325" text-anchor="middle" font-size="11" fill="#4a7fb5">Wx</text>
+  <text x="270" y="325" text-anchor="middle" font-size="11" fill="#3a9e8f">(α/r)·BAx</text>
 
   <!-- Output h -->
-  <line x1="210" y1="363" x2="210" y2="395" stroke="#475569" stroke-width="1.5" marker-end="url(#a)"/>
-  <rect x="155" y="398" width="110" height="30" rx="6" fill="#f1f5f9" stroke="#475569" stroke-width="2"/>
-  <text x="210" y="418" text-anchor="middle" font-size="10" font-weight="bold" fill="#0f172a" font-family="'SF Mono', Consolas, monospace">h ∈ ℝ^d</text>
+  <line x1="210" y1="363" x2="210" y2="395" stroke="#4a4a5a" stroke-width="1.5" marker-end="url(#a)"/>
+  <rect x="155" y="398" width="110" height="30" rx="6" fill="#f5f5f8" stroke="#4a4a5a" stroke-width="2"/>
+  <text x="210" y="418" text-anchor="middle" font-size="11" font-weight="bold" fill="#1a1a2e" font-family="'JetBrains Mono', 'Fira Code', monospace">h ∈ ℝ^d</text>
 
   <!-- ===== Inference Merge (Right) ===== -->
-  <rect x="420" y="65" width="380" height="370" rx="10" fill="#f0fdf4" stroke="#16a34a" stroke-width="2"/>
-  <text x="610" y="88" text-anchor="middle" font-size="12" font-weight="bold" fill="#14532d">Inference: Merged (Zero Overhead)</text>
+  <rect x="420" y="65" width="380" height="370" rx="10" fill="#edf7f5" stroke="#3a9e8f" stroke-width="2"/>
+  <text x="610" y="88" text-anchor="middle" font-size="12" font-weight="bold" fill="#3a9e8f">Inference: Merged (Zero Overhead)</text>
 
   <!-- Input x -->
-  <rect x="555" y="105" width="110" height="35" rx="6" fill="#f1f5f9" stroke="#475569" stroke-width="2"/>
-  <text x="610" y="127" text-anchor="middle" font-size="10" font-weight="bold" fill="#0f172a" font-family="'SF Mono', Consolas, monospace">x ∈ ℝ^k</text>
+  <rect x="555" y="105" width="110" height="35" rx="6" fill="#f5f5f8" stroke="#4a4a5a" stroke-width="2"/>
+  <text x="610" y="127" text-anchor="middle" font-size="11" font-weight="bold" fill="#1a1a2e" font-family="'JetBrains Mono', 'Fira Code', monospace">x ∈ ℝ^k</text>
 
-  <line x1="610" y1="140" x2="610" y2="175" stroke="#475569" stroke-width="2" marker-end="url(#a)"/>
+  <line x1="610" y1="140" x2="610" y2="175" stroke="#4a4a5a" stroke-width="2" marker-end="url(#a)"/>
 
   <!-- Merged W' = W + BA -->
-  <rect x="520" y="180" width="180" height="100" rx="10" fill="#dcfce7" stroke="#16a34a" stroke-width="2.5"/>
-  <text x="610" y="210" text-anchor="middle" font-size="13" font-weight="bold" fill="#14532d">W' = W + BA</text>
-  <text x="610" y="235" text-anchor="middle" font-size="9" fill="#16a34a" font-family="'SF Mono', Consolas, monospace">d × k</text>
-  <text x="610" y="260" text-anchor="middle" font-size="9" fill="#16a34a">Single matrix multiply</text>
-  <text x="610" y="275" text-anchor="middle" font-size="8" fill="#16a34a" font-weight="bold">No added latency!</text>
+  <rect x="520" y="180" width="180" height="100" rx="10" fill="#dff0ed" stroke="#3a9e8f" stroke-width="2.5"/>
+  <text x="610" y="210" text-anchor="middle" font-size="13" font-weight="bold" fill="#3a9e8f">W' = W + BA</text>
+  <text x="610" y="235" text-anchor="middle" font-size="11" fill="#3a9e8f" font-family="'JetBrains Mono', 'Fira Code', monospace">d × k</text>
+  <text x="610" y="260" text-anchor="middle" font-size="11" fill="#3a9e8f">Single matrix multiply</text>
+  <text x="610" y="275" text-anchor="middle" font-size="11" fill="#3a9e8f" font-weight="bold">No added latency!</text>
 
   <!-- Output -->
-  <line x1="610" y1="280" x2="610" y2="320" stroke="#475569" stroke-width="2" marker-end="url(#a)"/>
-  <rect x="555" y="325" width="110" height="30" rx="6" fill="#f1f5f9" stroke="#475569" stroke-width="2"/>
-  <text x="610" y="345" text-anchor="middle" font-size="10" font-weight="bold" fill="#0f172a" font-family="'SF Mono', Consolas, monospace">h ∈ ℝ^d</text>
+  <line x1="610" y1="280" x2="610" y2="320" stroke="#4a4a5a" stroke-width="2" marker-end="url(#a)"/>
+  <rect x="555" y="325" width="110" height="30" rx="6" fill="#f5f5f8" stroke="#4a4a5a" stroke-width="2"/>
+  <text x="610" y="345" text-anchor="middle" font-size="11" font-weight="bold" fill="#1a1a2e" font-family="'JetBrains Mono', 'Fira Code', monospace">h ∈ ℝ^d</text>
 
   <!-- Merge equation callout -->
-  <rect x="470" y="370" width="260" height="50" rx="6" fill="#fef3c7" stroke="#d97706" stroke-width="1.5"/>
-  <text x="600" y="390" text-anchor="middle" font-size="9" font-weight="bold" fill="#78350f">Merge: W' = W + (α/r) · B·A</text>
-  <text x="600" y="408" text-anchor="middle" font-size="8" fill="#d97706">Pre-compute once, deploy as standard model</text>
+  <rect x="470" y="370" width="260" height="50" rx="6" fill="#f5ece0" stroke="#d4a03c" stroke-width="1.5"/>
+  <text x="600" y="390" text-anchor="middle" font-size="11" font-weight="bold" fill="#d4a03c">Merge: W' = W + (α/r) · B·A</text>
+  <text x="600" y="408" text-anchor="middle" font-size="11" fill="#d4a03c">Pre-compute once, deploy as standard model</text>
 
   <!-- ===== Parameter Count ===== -->
-  <rect x="100" y="450" width="620" height="40" rx="8" fill="#f8fafc" stroke="#e2e8f0" stroke-width="1.5"/>
-  <text x="410" y="467" text-anchor="middle" font-size="9" font-weight="bold" fill="#0f172a">Parameter Savings (d=4096, r=16):</text>
-  <text x="410" y="483" text-anchor="middle" font-size="8" fill="#334155" font-family="'SF Mono', Consolas, monospace">Full: d×d = 16.8M params  |  LoRA: d×r + r×d = 131K params (0.78% of full)</text>
+  <rect x="100" y="450" width="620" height="40" rx="8" fill="#f5f5f8" stroke="#f5f5f8" stroke-width="1.5"/>
+  <text x="410" y="467" text-anchor="middle" font-size="11" font-weight="bold" fill="#1a1a2e">Parameter Savings (d=4096, r=16):</text>
+  <text x="410" y="483" text-anchor="middle" font-size="11" fill="#3a3a4a" font-family="'JetBrains Mono', 'Fira Code', monospace">Full: d×d = 16.8M params  |  LoRA: d×r + r×d = 131K params (0.78% of full)</text>
 
   <!-- Init callout -->
-  <rect x="245" y="155" width="130" height="20" rx="4" fill="#dcfce7" stroke="#16a34a" stroke-width="1"/>
-  <text x="310" y="169" text-anchor="middle" font-size="7" fill="#14532d">A ~ N(0,σ²), B = 0 → BA = 0 at init</text>
+  <rect x="245" y="155" width="130" height="20" rx="4" fill="#dff0ed" stroke="#3a9e8f" stroke-width="1"/>
+  <text x="310" y="169" text-anchor="middle" font-size="11" fill="#3a9e8f">A ~ N(0,σ²), B = 0 → BA = 0 at init</text>
 </svg>

@@ -1,82 +1,82 @@
 <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 820 350" font-family="Inter, Helvetica, Arial, sans-serif">
   <defs>
-    <marker id="a" markerWidth="8" markerHeight="6" refX="8" refY="3" orient="auto"><path d="M0,0 L8,3 L0,6 Z" fill="#475569"/></marker>
+    <marker id="a" markerWidth="8" markerHeight="6" refX="8" refY="3" orient="auto"><path d="M0,0 L8,3 L0,6 Z" fill="#4a4a5a"/></marker>
   </defs>
 
-  <text x="410" y="28" text-anchor="middle" font-size="17" font-weight="bold" fill="#0f172a">Posterior Collapse in VAEs</text>
-  <text x="410" y="46" text-anchor="middle" font-size="10" fill="#64748b">KL term drops to zero — encoder is ignored, decoder generates unconditionally</text>
+  <text x="410" y="28" text-anchor="middle" font-size="17" font-weight="bold" fill="#1a1a2e">Posterior Collapse in VAEs</text>
+  <text x="410" y="46" text-anchor="middle" font-size="11" fill="#7a7a8a">KL term drops to zero — encoder is ignored, decoder generates unconditionally</text>
 
   <!-- Healthy VAE (Left) -->
-  <rect x="20" y="65" width="370" height="230" rx="10" fill="#f0fdf4" stroke="#16a34a" stroke-width="2"/>
-  <text x="205" y="90" text-anchor="middle" font-size="12" font-weight="bold" fill="#14532d">Healthy VAE</text>
+  <rect x="20" y="65" width="370" height="230" rx="10" fill="#edf7f5" stroke="#3a9e8f" stroke-width="2"/>
+  <text x="205" y="90" text-anchor="middle" font-size="12" font-weight="bold" fill="#3a9e8f">Healthy VAE</text>
 
-  <rect x="50" y="105" width="80" height="40" rx="6" fill="#f1f5f9" stroke="#475569" stroke-width="1.5"/>
-  <text x="90" y="130" text-anchor="middle" font-size="9" fill="#0f172a">Input x</text>
+  <rect x="50" y="105" width="80" height="40" rx="6" fill="#f5f5f8" stroke="#4a4a5a" stroke-width="1.5"/>
+  <text x="90" y="130" text-anchor="middle" font-size="11" fill="#1a1a2e">Input x</text>
 
-  <line x1="130" y1="125" x2="155" y2="125" stroke="#475569" stroke-width="1.5" marker-end="url(#a)"/>
+  <line x1="130" y1="125" x2="155" y2="125" stroke="#4a4a5a" stroke-width="1.5" marker-end="url(#a)"/>
 
-  <rect x="158" y="105" width="70" height="40" rx="6" fill="#e0f2fe" stroke="#0284c7" stroke-width="2"/>
-  <text x="193" y="130" text-anchor="middle" font-size="9" font-weight="bold" fill="#0c4a6e">Encoder</text>
+  <rect x="158" y="105" width="70" height="40" rx="6" fill="#e1eaf3" stroke="#4a7fb5" stroke-width="2"/>
+  <text x="193" y="130" text-anchor="middle" font-size="11" font-weight="bold" fill="#4a7fb5">Encoder</text>
 
-  <line x1="228" y1="125" x2="253" y2="125" stroke="#0284c7" stroke-width="2" marker-end="url(#a)"/>
+  <line x1="228" y1="125" x2="253" y2="125" stroke="#4a7fb5" stroke-width="2" marker-end="url(#a)"/>
 
-  <rect x="256" y="105" width="50" height="40" rx="6" fill="#dcfce7" stroke="#16a34a" stroke-width="2"/>
-  <text x="281" y="128" text-anchor="middle" font-size="9" font-weight="bold" fill="#14532d">z</text>
+  <rect x="256" y="105" width="50" height="40" rx="6" fill="#dff0ed" stroke="#3a9e8f" stroke-width="2"/>
+  <text x="281" y="128" text-anchor="middle" font-size="11" font-weight="bold" fill="#3a9e8f">z</text>
 
-  <line x1="306" y1="125" x2="331" y2="125" stroke="#16a34a" stroke-width="2" marker-end="url(#a)"/>
+  <line x1="306" y1="125" x2="331" y2="125" stroke="#3a9e8f" stroke-width="2" marker-end="url(#a)"/>
 
-  <rect x="334" y="105" width="70" height="40" rx="6" fill="#fce7f3" stroke="#db2777" stroke-width="2"/>
-  <text x="369" y="130" text-anchor="middle" font-size="9" font-weight="bold" fill="#831843">Decoder</text>
+  <rect x="334" y="105" width="70" height="40" rx="6" fill="#f6e4e3" stroke="#d4645c" stroke-width="2"/>
+  <text x="369" y="130" text-anchor="middle" font-size="11" font-weight="bold" fill="#d4645c">Decoder</text>
 
   <!-- Info flow -->
-  <text x="205" y="170" text-anchor="middle" font-size="8" fill="#16a34a">Information flows through z</text>
-  <text x="205" y="188" text-anchor="middle" font-size="8" fill="#16a34a" font-family="'SF Mono', Consolas, monospace">KL(q(z|x) ‖ p(z)) &gt; 0</text>
-  <text x="205" y="210" text-anchor="middle" font-size="8" fill="#334155">q(z|x) is informative:</text>
-  <text x="205" y="226" text-anchor="middle" font-size="8" fill="#334155">different x → different z distributions</text>
+  <text x="205" y="170" text-anchor="middle" font-size="11" fill="#3a9e8f">Information flows through z</text>
+  <text x="205" y="188" text-anchor="middle" font-size="11" fill="#3a9e8f" font-family="'JetBrains Mono', 'Fira Code', monospace">KL(q(z|x) ‖ p(z)) &gt; 0</text>
+  <text x="205" y="210" text-anchor="middle" font-size="11" fill="#3a3a4a">q(z|x) is informative:</text>
+  <text x="205" y="226" text-anchor="middle" font-size="11" fill="#3a3a4a">different x → different z distributions</text>
 
   <!-- KL bar -->
-  <rect x="60" y="245" width="120" height="20" rx="3" fill="#dcfce7" stroke="#16a34a" stroke-width="1"/>
-  <text x="120" y="259" text-anchor="middle" font-size="7" fill="#14532d">KL = 3.2 (healthy)</text>
-  <rect x="200" y="245" width="160" height="20" rx="3" fill="#e0f2fe" stroke="#0284c7" stroke-width="1"/>
-  <text x="280" y="259" text-anchor="middle" font-size="7" fill="#0c4a6e">Recon = 12.5 (low)</text>
+  <rect x="60" y="245" width="120" height="20" rx="3" fill="#dff0ed" stroke="#3a9e8f" stroke-width="1"/>
+  <text x="120" y="259" text-anchor="middle" font-size="11" fill="#3a9e8f">KL = 3.2 (healthy)</text>
+  <rect x="200" y="245" width="160" height="20" rx="3" fill="#e1eaf3" stroke="#4a7fb5" stroke-width="1"/>
+  <text x="280" y="259" text-anchor="middle" font-size="11" fill="#4a7fb5">Recon = 12.5 (low)</text>
 
   <!-- Collapsed VAE (Right) -->
-  <rect x="430" y="65" width="370" height="230" rx="10" fill="#fef2f2" stroke="#ef4444" stroke-width="2"/>
-  <text x="615" y="90" text-anchor="middle" font-size="12" font-weight="bold" fill="#7f1d1d">Posterior Collapse</text>
+  <rect x="430" y="65" width="370" height="230" rx="10" fill="#f6e4e3" stroke="#d4645c" stroke-width="2"/>
+  <text x="615" y="90" text-anchor="middle" font-size="12" font-weight="bold" fill="#b5454a">Posterior Collapse</text>
 
-  <rect x="460" y="105" width="80" height="40" rx="6" fill="#f1f5f9" stroke="#475569" stroke-width="1.5"/>
-  <text x="500" y="130" text-anchor="middle" font-size="9" fill="#0f172a">Input x</text>
+  <rect x="460" y="105" width="80" height="40" rx="6" fill="#f5f5f8" stroke="#4a4a5a" stroke-width="1.5"/>
+  <text x="500" y="130" text-anchor="middle" font-size="11" fill="#1a1a2e">Input x</text>
 
-  <line x1="540" y1="125" x2="565" y2="125" stroke="#94a3b8" stroke-width="1.5" stroke-dasharray="4,2"/>
+  <line x1="540" y1="125" x2="565" y2="125" stroke="#c0c0c8" stroke-width="1.5" stroke-dasharray="4,2"/>
 
-  <rect x="568" y="105" width="70" height="40" rx="6" fill="#e2e8f0" stroke="#94a3b8" stroke-width="1.5" stroke-dasharray="4,2"/>
-  <text x="603" y="128" text-anchor="middle" font-size="9" fill="#94a3b8">Encoder</text>
-  <text x="603" y="140" text-anchor="middle" font-size="7" fill="#94a3b8">(ignored)</text>
+  <rect x="568" y="105" width="70" height="40" rx="6" fill="#f5f5f8" stroke="#c0c0c8" stroke-width="1.5" stroke-dasharray="4,2"/>
+  <text x="603" y="128" text-anchor="middle" font-size="11" fill="#c0c0c8">Encoder</text>
+  <text x="603" y="140" text-anchor="middle" font-size="11" fill="#c0c0c8">(ignored)</text>
 
-  <line x1="638" y1="125" x2="663" y2="125" stroke="#94a3b8" stroke-width="1.5" stroke-dasharray="4,2"/>
+  <line x1="638" y1="125" x2="663" y2="125" stroke="#c0c0c8" stroke-width="1.5" stroke-dasharray="4,2"/>
 
-  <rect x="666" y="105" width="50" height="40" rx="6" fill="#fee2e2" stroke="#ef4444" stroke-width="1.5"/>
-  <text x="691" y="125" text-anchor="middle" font-size="9" fill="#ef4444">z~p(z)</text>
+  <rect x="666" y="105" width="50" height="40" rx="6" fill="#f6e4e3" stroke="#d4645c" stroke-width="1.5"/>
+  <text x="691" y="125" text-anchor="middle" font-size="11" fill="#d4645c">z~p(z)</text>
 
-  <line x1="716" y1="125" x2="728" y2="125" stroke="#ef4444" stroke-width="1.5"/>
+  <line x1="716" y1="125" x2="728" y2="125" stroke="#d4645c" stroke-width="1.5"/>
 
-  <rect x="730" y="105" width="60" height="40" rx="6" fill="#fce7f3" stroke="#db2777" stroke-width="2"/>
-  <text x="760" y="130" text-anchor="middle" font-size="9" font-weight="bold" fill="#831843">Decoder</text>
+  <rect x="730" y="105" width="60" height="40" rx="6" fill="#f6e4e3" stroke="#d4645c" stroke-width="2"/>
+  <text x="760" y="130" text-anchor="middle" font-size="11" font-weight="bold" fill="#d4645c">Decoder</text>
 
   <!-- Bypass annotation -->
-  <path d="M 500 145 Q 500 180 760 145" fill="none" stroke="#ef4444" stroke-width="2" stroke-dasharray="5,3"/>
-  <text x="640" y="185" text-anchor="middle" font-size="8" font-weight="bold" fill="#ef4444">Decoder bypasses z entirely!</text>
+  <path d="M 500 145 Q 500 180 760 145" fill="none" stroke="#d4645c" stroke-width="2" stroke-dasharray="5,3"/>
+  <text x="640" y="185" text-anchor="middle" font-size="11" font-weight="bold" fill="#d4645c">Decoder bypasses z entirely!</text>
 
-  <text x="615" y="208" text-anchor="middle" font-size="8" fill="#ef4444" font-family="'SF Mono', Consolas, monospace">KL(q(z|x) ‖ p(z)) ≈ 0</text>
-  <text x="615" y="226" text-anchor="middle" font-size="8" fill="#334155">q(z|x) = p(z) for all x — z carries no info</text>
+  <text x="615" y="208" text-anchor="middle" font-size="11" fill="#d4645c" font-family="'JetBrains Mono', 'Fira Code', monospace">KL(q(z|x) ‖ p(z)) ≈ 0</text>
+  <text x="615" y="226" text-anchor="middle" font-size="11" fill="#3a3a4a">q(z|x) = p(z) for all x — z carries no info</text>
 
   <!-- KL bar -->
-  <rect x="470" y="245" width="30" height="20" rx="3" fill="#fee2e2" stroke="#ef4444" stroke-width="1"/>
-  <text x="485" y="259" text-anchor="middle" font-size="7" fill="#ef4444">KL≈0</text>
-  <rect x="510" y="245" width="250" height="20" rx="3" fill="#fef3c7" stroke="#d97706" stroke-width="1"/>
-  <text x="635" y="259" text-anchor="middle" font-size="7" fill="#78350f">Recon = 18.0 (higher — decoder can't use z)</text>
+  <rect x="470" y="245" width="30" height="20" rx="3" fill="#f6e4e3" stroke="#d4645c" stroke-width="1"/>
+  <text x="485" y="259" text-anchor="middle" font-size="11" fill="#d4645c">KL≈0</text>
+  <rect x="510" y="245" width="250" height="20" rx="3" fill="#f5ece0" stroke="#d4a03c" stroke-width="1"/>
+  <text x="635" y="259" text-anchor="middle" font-size="11" fill="#d4a03c">Recon = 18.0 (higher — decoder can't use z)</text>
 
   <!-- Bottom note -->
-  <rect x="100" y="310" width="620" height="30" rx="6" fill="#fef3c7" stroke="#d97706" stroke-width="1.5"/>
-  <text x="410" y="330" text-anchor="middle" font-size="9" fill="#78350f">Fix: KL annealing (β: 0→1), free bits, or δ-VAE — force z to carry minimum information</text>
+  <rect x="100" y="310" width="620" height="30" rx="6" fill="#f5ece0" stroke="#d4a03c" stroke-width="1.5"/>
+  <text x="410" y="330" text-anchor="middle" font-size="11" fill="#d4a03c">Fix: KL annealing (β: 0→1), free bits, or δ-VAE — force z to carry minimum information</text>
 </svg>

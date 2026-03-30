@@ -23,37 +23,7 @@ Before diving in, establish the notation. We have:
 
 The goal: train G so that $p_g \approx p_{\text{data}}$.
 
-```mermaid
-graph LR
-    classDef generator fill:#e0f2fe,stroke:#0284c7,stroke-width:2px,color:#0c4a6e,font-weight:bold
-    classDef discriminator fill:#fce7f3,stroke:#db2777,stroke-width:2px,color:#831843,font-weight:bold
-    classDef data fill:#f1f5f9,stroke:#475569,stroke-width:2px,color:#0f172a,font-family:monospace
-    classDef score fill:#fef3c7,stroke:#d97706,stroke-width:2px,color:#78350f,font-family:monospace
-
-    Z["Latent Noise<br/>z ~ p_z(z)"]:::data
-    RealX["Real Data<br/>x ~ p_{data}(x)"]:::data
-    
-    G["Generator (G)<br/>θ_G"]:::generator
-    FakeX["Fake Data<br/>G(z) ~ p_g(x)"]:::data
-    
-    D["Discriminator (D)<br/>θ_D"]:::discriminator
-    
-    ScoreFake["D(G(z))<br/>Prob(Fake is Real)"]:::score
-    ScoreReal["D(x)<br/>Prob(Real is Real)"]:::score
-
-    Z --> G
-    G -->|"Generates"| FakeX
-    
-    FakeX --> D
-    RealX --> D
-
-    D -->|"Scores Fake"| ScoreFake
-    D -->|"Scores Real"| ScoreReal
-
-    %% Adversarial Gradients
-    ScoreFake -.->|"∂L/∂θ_D<br/>D wants score → 0"| D
-    ScoreFake -.->|"∂L/∂θ_G<br/>G wants score → 1"| G
-```
+![Figure 3.1: GAN Setup](illustrations/ch03/fig_3_1_gan_setup.svg)
 
 ---
 
@@ -99,6 +69,8 @@ $$D^*(x) = \frac{p_{\text{data}}(x)}{p_{\text{data}}(x) + p_g(x)}$$
 
 This result is intuitive: $D^*$ outputs the Bayesian posterior probability that $x$ is real, given a uniform prior over real vs. generated. If $p_{\text{data}}(x) \gg p_g(x)$, then $D^*(x) \approx 1$. If $p_g(x) \gg p_{\text{data}}(x)$, then $D^*(x) \approx 0$. At the ideal generator where $p_g = p_{\text{data}}$, we get $D^*(x) = 1/2$ everywhere — the discriminator is maximally confused.
 
+![Figure 3.2: Optimal Discriminator](illustrations/ch03/fig_3_2_optimal_discriminator.svg)
+
 ### 3.2.3 The Generator Minimizes Jensen-Shannon Divergence
 
 Substituting $D^*$ back into $V(D^*, G)$ reveals what G is actually minimizing. Let us carry out the algebra.
@@ -137,37 +109,7 @@ In the GAN game, Nash equilibrium is $(G^*, D^*)$ where:
 
 At this point, G cannot improve (it has already matched the true distribution), and D cannot improve (its output is already the Bayes-optimal classifier). Neither player benefits from deviating.
 
-```mermaid
-graph TD
-    classDef state_bad fill:#fee2e2,stroke:#ef4444,stroke-width:2px,color:#7f1d1d
-    classDef state_mid fill:#fef3c7,stroke:#d97706,stroke-width:2px,color:#78350f
-    classDef state_good fill:#dcfce7,stroke:#22c55e,stroke-width:2px,color:#14532d,font-weight:bold
-    classDef desc fill:none,stroke:none,color:#334155,font-style:italic
-
-    subgraph T1 ["t=0: Initialization"]
-        direction TB
-        G1["p_g and p_{data} are disjoint"]:::state_bad
-        D1["D easily separates them<br/>D(x_real) ≈ 1, D(x_fake) ≈ 0"]:::desc
-        G1 --- D1
-    end
-
-    subgraph T2 ["t=k: Mid-Training"]
-        direction TB
-        G2["p_g shifts toward p_{data}"]:::state_mid
-        D2["D updates decision boundary<br/>to track the shifting p_g"]:::desc
-        G2 --- D2
-    end
-
-    subgraph T3 ["t=∞: Convergence (Nash Equilibrium)"]
-        direction TB
-        G3["p_g == p_{data} (Perfect Overlap)"]:::state_good
-        D3["D is maximally confused<br/>D(x) = 0.5 everywhere"]:::desc
-        G3 --- D3
-    end
-
-    T1 ==>|"G follows D's gradient"| T2
-    T2 ==>|"Game equilibrates"| T3
-```
+![Figure 3.3: GAN Training Dynamics](illustrations/ch03/fig_3_3_gan_training_dynamics.svg)
 
 This is theoretically elegant. In practice, reaching it is another matter entirely.
 
@@ -226,41 +168,7 @@ But consider the discriminator's perspective. At any given training step, D has 
 
 The result: G generates diverse-looking noise to the human eye, but actually produces only one or a few modes of the distribution. This is called mode collapse (partial or full).
 
-```mermaid
-graph LR
-    classDef z_space fill:#f1f5f9,stroke:#475569,stroke-width:2px,color:#0f172a,font-family:monospace
-    classDef gen fill:#e0f2fe,stroke:#0284c7,stroke-width:2px,color:#0c4a6e,font-weight:bold
-    classDef mode fill:#dcfce7,stroke:#22c55e,stroke-width:2px,color:#14532d
-    classDef dropped fill:#fee2e2,stroke:#ef4444,stroke-width:2px,color:#7f1d1d,stroke-dasharray: 4 4
-    classDef textNode fill:none,stroke:none,color:#0f172a,font-style:italic
-
-    subgraph Latent ["Latent Space (z ~ N(0, I))"]
-        direction TB
-        Z1["z_1"]:::z_space
-        Z2["z_2"]:::z_space
-        Z3["z_3"]:::z_space
-    end
-
-    G["Generator<br/>(Collapsed)"]:::gen
-
-    subgraph Output ["Data Space"]
-        direction TB
-        M1["Mode A (e.g., '1's)<br/>(Produces ONLY this)"]:::mode
-        M2["Mode B (e.g., '8's)<br/>(Dropped Mode)"]:::dropped
-        M3["Mode C (e.g., '3's)<br/>(Dropped Mode)"]:::dropped
-    end
-
-    Z1 --> G
-    Z2 --> G
-    Z3 --> G
-
-    G ==>|"Extreme compression.<br/>All z map here."| M1
-    G -.x M2
-    G -.x M3
-    
-    linkStyle 4 stroke:#ef4444,stroke-width:2px,stroke-dasharray: 5 5
-    linkStyle 5 stroke:#ef4444,stroke-width:2px,stroke-dasharray: 5 5
-```
+![Figure 3.4: Mode Collapse](illustrations/ch03/fig_3_4_mode_collapse.svg)
 
 Mode collapse is a non-stationary dynamics problem. G moves to exploit D's weakness; D updates to close that weakness; G moves to a new exploit; the cycle continues. Instead of converging, G cycles through modes without ever learning the full distribution.
 
@@ -358,6 +266,8 @@ These changes aren't theoretically motivated — they're empirical engineering. 
 
 DCGAN also showed that the GAN latent space has meaningful structure: interpolating between two latent vectors $z_1$ and $z_2$ produces a smooth transition between generated images, not random noise. The generator has learned a usable embedding.
 
+![Figure 3.5: DCGAN Architecture](illustrations/ch03/fig_3_5_dcgan_architecture.svg)
+
 ### 3.5.2 WGAN: Fixing the Loss with Wasserstein Distance
 
 **WGAN** (Arjovsky, Chintala, and Bottou, 2017) is one of the most theoretically important GAN variants, motivated by a precise diagnosis of what goes wrong.
@@ -374,31 +284,7 @@ where $\Pi(p, q)$ is the set of joint distributions with marginals $p$ and $q$. 
 
 The key property: Wasserstein distance provides meaningful gradients even when the distributions have disjoint support. If $p$ is a Gaussian at $x=0$ and $q$ is a Gaussian at $x=5$, JSD is $\log 2$ (maximum, no gradient information), but $W(p, q) = 5$ and the gradient points directly toward decreasing that distance.
 
-```mermaid
-graph TD
-    classDef bad fill:#fee2e2,stroke:#ef4444,stroke-width:2px,color:#7f1d1d
-    classDef good fill:#dcfce7,stroke:#22c55e,stroke-width:2px,color:#14532d,font-weight:bold
-    classDef label fill:none,stroke:none,color:#0f172a,font-style:italic
-
-    subgraph JSD ["(a) Jensen-Shannon Divergence (Vanilla GAN)"]
-        direction LR
-        P1["p_{real} (x=0)"]:::bad
-        Q1["p_{fake} (x=5)"]:::bad
-        
-        P1 -.->|"Divergence = log(2)<br/>Gradient = 0<br/>Cannot learn"| Q1
-    end
-
-    subgraph WASS ["(b) Wasserstein Distance (WGAN)"]
-        direction LR
-        P2["p_{real} (x=0)"]:::good
-        Q2["p_{fake} (x=5)"]:::good
-        
-        P2 <==>|"Distance = 5<br/>Gradient = -1<br/>Strong learning signal!"| Q2
-    end
-    
-    linkStyle 0 stroke:#ef4444,stroke-width:2px,stroke-dasharray: 4 4
-    linkStyle 1 stroke:#22c55e,stroke-width:3px
-```
+![Figure 3.6: JS Divergence vs Wasserstein Distance](illustrations/ch03/fig_3_6_wgan_js_vs_wasserstein.svg)
 
 By the **Kantorovich-Rubinstein duality**, the Wasserstein-1 distance can be written as:
 
@@ -466,6 +352,8 @@ where $y_{s,i}$ and $y_{b,i}$ are style scale and bias derived from $w$. This se
 
 StyleGAN2 (Karras et al., 2020) later replaced progressive growing with feature map normalization and path length regularization, achieving superior image quality with fewer training artifacts.
 
+![Figure 3.7: StyleGAN Architecture](illustrations/ch03/fig_3_7_stylegan_architecture.svg)
+
 ---
 
 ## 3.6 GANs vs. VAEs: A Precise Trade-off
@@ -475,6 +363,8 @@ Variational Autoencoders (Chapter 2) and GANs are both deep generative models, b
 **VAEs maximize the evidence lower bound (ELBO)**, which can be shown to correspond to approximately minimizing $\text{KL}(p_{\text{data}} \| p_g)$ — the forward KL divergence. This divergence is infinite when $p_{\text{data}}(x) > 0$ but $p_g(x) = 0$. To avoid this, the model must cover all modes of $p_{\text{data}}$ — even regions where the model is uncertain. The result: **mode covering**. VAEs assign probability mass everywhere $p_{\text{data}}$ has mass, even between modes. This produces blurry samples — the model averages over its uncertainty rather than committing to a specific output.
 
 **GANs minimize JSD (or Wasserstein distance)**. JSD penalizes the generator for placing probability mass in regions where $p_g(x) > p_{\text{data}}(x)$, but not asymmetrically for missing mass. The result: **mode dropping**. G can ignore entire modes of $p_{\text{data}}$ without being severely penalized, as long as what it does generate is indistinguishable from real data.
+
+![Figure 3.8: GAN vs VAE Comparison](illustrations/ch03/fig_3_8_gan_vs_vae_comparison.svg)
 
 The trade-off:
 

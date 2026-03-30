@@ -1,103 +1,103 @@
 <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 860 440" font-family="Inter, Helvetica, Arial, sans-serif">
   <defs>
-    <marker id="a" markerWidth="8" markerHeight="6" refX="8" refY="3" orient="auto"><path d="M0,0 L8,3 L0,6 Z" fill="#475569"/></marker>
+    <marker id="a" markerWidth="8" markerHeight="6" refX="8" refY="3" orient="auto"><path d="M0,0 L8,3 L0,6 Z" fill="#4a4a5a"/></marker>
   </defs>
 
-  <text x="430" y="28" text-anchor="middle" font-size="17" font-weight="bold" fill="#0f172a">Tree of Thoughts (ToT)</text>
-  <text x="430" y="46" text-anchor="middle" font-size="10" fill="#64748b">Yao et al. (2023) — Deliberate search over reasoning paths with self-evaluation and backtracking</text>
+  <text x="430" y="28" text-anchor="middle" font-size="17" font-weight="bold" fill="#1a1a2e">Tree of Thoughts (ToT)</text>
+  <text x="430" y="46" text-anchor="middle" font-size="11" fill="#7a7a8a">Yao et al. (2023) — Deliberate search over reasoning paths with self-evaluation and backtracking</text>
 
   <!-- CoT comparison (left) -->
-  <rect x="30" y="70" width="200" height="280" rx="10" fill="#f8fafc" stroke="#e2e8f0" stroke-width="1.5"/>
-  <text x="130" y="95" text-anchor="middle" font-size="10" font-weight="bold" fill="#0f172a">Chain-of-Thought</text>
-  <text x="130" y="112" text-anchor="middle" font-size="8" fill="#64748b">(single path)</text>
+  <rect x="30" y="70" width="200" height="280" rx="10" fill="#f5f5f8" stroke="#f5f5f8" stroke-width="1.5"/>
+  <text x="130" y="95" text-anchor="middle" font-size="11" font-weight="bold" fill="#1a1a2e">Chain-of-Thought</text>
+  <text x="130" y="112" text-anchor="middle" font-size="11" fill="#7a7a8a">(single path)</text>
 
   <!-- Single chain -->
-  <circle cx="130" cy="140" r="15" fill="#e0f2fe" stroke="#0284c7" stroke-width="2"/>
-  <text x="130" y="144" text-anchor="middle" font-size="8" fill="#0c4a6e">s₀</text>
-  <line x1="130" y1="155" x2="130" y2="178" stroke="#0284c7" stroke-width="1.5" marker-end="url(#a)"/>
-  <circle cx="130" cy="195" r="15" fill="#e0f2fe" stroke="#0284c7" stroke-width="2"/>
-  <text x="130" y="199" text-anchor="middle" font-size="8" fill="#0c4a6e">s₁</text>
-  <line x1="130" y1="210" x2="130" y2="233" stroke="#0284c7" stroke-width="1.5" marker-end="url(#a)"/>
-  <circle cx="130" cy="250" r="15" fill="#e0f2fe" stroke="#0284c7" stroke-width="2"/>
-  <text x="130" y="254" text-anchor="middle" font-size="8" fill="#0c4a6e">s₂</text>
-  <line x1="130" y1="265" x2="130" y2="288" stroke="#0284c7" stroke-width="1.5" marker-end="url(#a)"/>
-  <circle cx="130" cy="305" r="15" fill="#dcfce7" stroke="#16a34a" stroke-width="2"/>
-  <text x="130" y="309" text-anchor="middle" font-size="8" fill="#14532d">ans</text>
+  <circle cx="130" cy="140" r="15" fill="#e1eaf3" stroke="#4a7fb5" stroke-width="2"/>
+  <text x="130" y="144" text-anchor="middle" font-size="11" fill="#4a7fb5">s₀</text>
+  <line x1="130" y1="155" x2="130" y2="178" stroke="#4a7fb5" stroke-width="1.5" marker-end="url(#a)"/>
+  <circle cx="130" cy="195" r="15" fill="#e1eaf3" stroke="#4a7fb5" stroke-width="2"/>
+  <text x="130" y="199" text-anchor="middle" font-size="11" fill="#4a7fb5">s₁</text>
+  <line x1="130" y1="210" x2="130" y2="233" stroke="#4a7fb5" stroke-width="1.5" marker-end="url(#a)"/>
+  <circle cx="130" cy="250" r="15" fill="#e1eaf3" stroke="#4a7fb5" stroke-width="2"/>
+  <text x="130" y="254" text-anchor="middle" font-size="11" fill="#4a7fb5">s₂</text>
+  <line x1="130" y1="265" x2="130" y2="288" stroke="#4a7fb5" stroke-width="1.5" marker-end="url(#a)"/>
+  <circle cx="130" cy="305" r="15" fill="#dff0ed" stroke="#3a9e8f" stroke-width="2"/>
+  <text x="130" y="309" text-anchor="middle" font-size="11" fill="#3a9e8f">ans</text>
 
-  <text x="130" y="340" text-anchor="middle" font-size="7" fill="#64748b">No backtracking</text>
-  <text x="130" y="353" text-anchor="middle" font-size="7" fill="#64748b">No exploration</text>
+  <text x="130" y="340" text-anchor="middle" font-size="11" fill="#7a7a8a">No backtracking</text>
+  <text x="130" y="353" text-anchor="middle" font-size="11" fill="#7a7a8a">No exploration</text>
 
   <!-- Tree of Thoughts (right) -->
-  <rect x="260" y="70" width="570" height="280" rx="10" fill="#f0fdf4" stroke="#16a34a" stroke-width="2"/>
-  <text x="545" y="95" text-anchor="middle" font-size="10" font-weight="bold" fill="#14532d">Tree of Thoughts (search + evaluate + backtrack)</text>
+  <rect x="260" y="70" width="570" height="280" rx="10" fill="#edf7f5" stroke="#3a9e8f" stroke-width="2"/>
+  <text x="545" y="95" text-anchor="middle" font-size="11" font-weight="bold" fill="#3a9e8f">Tree of Thoughts (search + evaluate + backtrack)</text>
 
   <!-- Root -->
-  <circle cx="545" cy="130" r="18" fill="#e0f2fe" stroke="#0284c7" stroke-width="2"/>
-  <text x="545" y="134" text-anchor="middle" font-size="8" font-weight="bold" fill="#0c4a6e">s₀</text>
+  <circle cx="545" cy="130" r="18" fill="#e1eaf3" stroke="#4a7fb5" stroke-width="2"/>
+  <text x="545" y="134" text-anchor="middle" font-size="11" font-weight="bold" fill="#4a7fb5">s₀</text>
 
   <!-- Level 1: 3 branches -->
-  <line x1="530" y1="148" x2="400" y2="178" stroke="#0284c7" stroke-width="1.5" marker-end="url(#a)"/>
-  <line x1="545" y1="148" x2="545" y2="178" stroke="#0284c7" stroke-width="1.5" marker-end="url(#a)"/>
-  <line x1="560" y1="148" x2="690" y2="178" stroke="#0284c7" stroke-width="1.5" marker-end="url(#a)"/>
+  <line x1="530" y1="148" x2="400" y2="178" stroke="#4a7fb5" stroke-width="1.5" marker-end="url(#a)"/>
+  <line x1="545" y1="148" x2="545" y2="178" stroke="#4a7fb5" stroke-width="1.5" marker-end="url(#a)"/>
+  <line x1="560" y1="148" x2="690" y2="178" stroke="#4a7fb5" stroke-width="1.5" marker-end="url(#a)"/>
 
-  <circle cx="400" cy="195" r="16" fill="#dcfce7" stroke="#16a34a" stroke-width="2"/>
-  <text x="400" y="199" text-anchor="middle" font-size="7" fill="#14532d">s₁ᵃ</text>
-  <text x="400" y="218" text-anchor="middle" font-size="6" fill="#16a34a">v=0.8</text>
+  <circle cx="400" cy="195" r="16" fill="#dff0ed" stroke="#3a9e8f" stroke-width="2"/>
+  <text x="400" y="199" text-anchor="middle" font-size="11" fill="#3a9e8f">s₁ᵃ</text>
+  <text x="400" y="218" text-anchor="middle" font-size="11" fill="#3a9e8f">v=0.8</text>
 
-  <circle cx="545" cy="195" r="16" fill="#fef3c7" stroke="#d97706" stroke-width="2"/>
-  <text x="545" y="199" text-anchor="middle" font-size="7" fill="#78350f">s₁ᵇ</text>
-  <text x="545" y="218" text-anchor="middle" font-size="6" fill="#d97706">v=0.4</text>
+  <circle cx="545" cy="195" r="16" fill="#f5ece0" stroke="#d4a03c" stroke-width="2"/>
+  <text x="545" y="199" text-anchor="middle" font-size="11" fill="#d4a03c">s₁ᵇ</text>
+  <text x="545" y="218" text-anchor="middle" font-size="11" fill="#d4a03c">v=0.4</text>
 
-  <circle cx="690" cy="195" r="16" fill="#fee2e2" stroke="#ef4444" stroke-width="1.5"/>
-  <text x="690" y="199" text-anchor="middle" font-size="7" fill="#ef4444">s₁ᶜ</text>
-  <text x="690" y="218" text-anchor="middle" font-size="6" fill="#ef4444">v=0.1 ✗</text>
+  <circle cx="690" cy="195" r="16" fill="#f6e4e3" stroke="#d4645c" stroke-width="1.5"/>
+  <text x="690" y="199" text-anchor="middle" font-size="11" fill="#d4645c">s₁ᶜ</text>
+  <text x="690" y="218" text-anchor="middle" font-size="11" fill="#d4645c">v=0.1 ✗</text>
 
   <!-- Level 2: expand best (s1a) -->
-  <line x1="388" y1="211" x2="330" y2="248" stroke="#16a34a" stroke-width="1.5" marker-end="url(#a)"/>
-  <line x1="412" y1="211" x2="470" y2="248" stroke="#16a34a" stroke-width="1.5" marker-end="url(#a)"/>
+  <line x1="388" y1="211" x2="330" y2="248" stroke="#3a9e8f" stroke-width="1.5" marker-end="url(#a)"/>
+  <line x1="412" y1="211" x2="470" y2="248" stroke="#3a9e8f" stroke-width="1.5" marker-end="url(#a)"/>
 
-  <circle cx="330" cy="265" r="16" fill="#dcfce7" stroke="#16a34a" stroke-width="2"/>
-  <text x="330" y="269" text-anchor="middle" font-size="7" fill="#14532d">s₂ᵃ</text>
-  <text x="330" y="288" text-anchor="middle" font-size="6" fill="#16a34a">v=0.9</text>
+  <circle cx="330" cy="265" r="16" fill="#dff0ed" stroke="#3a9e8f" stroke-width="2"/>
+  <text x="330" y="269" text-anchor="middle" font-size="11" fill="#3a9e8f">s₂ᵃ</text>
+  <text x="330" y="288" text-anchor="middle" font-size="11" fill="#3a9e8f">v=0.9</text>
 
-  <circle cx="470" cy="265" r="16" fill="#fef3c7" stroke="#d97706" stroke-width="1.5"/>
-  <text x="470" y="269" text-anchor="middle" font-size="7" fill="#78350f">s₂ᵇ</text>
-  <text x="470" y="288" text-anchor="middle" font-size="6" fill="#d97706">v=0.5</text>
+  <circle cx="470" cy="265" r="16" fill="#f5ece0" stroke="#d4a03c" stroke-width="1.5"/>
+  <text x="470" y="269" text-anchor="middle" font-size="11" fill="#d4a03c">s₂ᵇ</text>
+  <text x="470" y="288" text-anchor="middle" font-size="11" fill="#d4a03c">v=0.5</text>
 
   <!-- Also expand s1b partially -->
-  <line x1="545" y1="211" x2="600" y2="248" stroke="#d97706" stroke-width="1" stroke-dasharray="3,2"/>
-  <circle cx="600" cy="265" r="14" fill="#fee2e2" stroke="#ef4444" stroke-width="1" stroke-dasharray="3,2"/>
-  <text x="600" y="269" text-anchor="middle" font-size="7" fill="#ef4444">✗</text>
+  <line x1="545" y1="211" x2="600" y2="248" stroke="#d4a03c" stroke-width="1" stroke-dasharray="3,2"/>
+  <circle cx="600" cy="265" r="14" fill="#f6e4e3" stroke="#d4645c" stroke-width="1" stroke-dasharray="3,2"/>
+  <text x="600" y="269" text-anchor="middle" font-size="11" fill="#d4645c">✗</text>
 
   <!-- Final answer from best path -->
-  <line x1="330" y1="281" x2="330" y2="310" stroke="#16a34a" stroke-width="2" marker-end="url(#a)"/>
-  <circle cx="330" cy="328" r="18" fill="#16a34a" stroke="#14532d" stroke-width="2"/>
-  <text x="330" y="332" text-anchor="middle" font-size="8" fill="#fff" font-weight="bold">ans</text>
+  <line x1="330" y1="281" x2="330" y2="310" stroke="#3a9e8f" stroke-width="2" marker-end="url(#a)"/>
+  <circle cx="330" cy="328" r="18" fill="#3a9e8f" stroke="#3a9e8f" stroke-width="2"/>
+  <text x="330" y="332" text-anchor="middle" font-size="11" fill="#fff" font-weight="bold">ans</text>
 
   <!-- Annotations -->
-  <rect x="660" y="245" width="150" height="85" rx="6" fill="#fef3c7" stroke="#d97706" stroke-width="1.5"/>
-  <text x="735" y="265" text-anchor="middle" font-size="8" font-weight="bold" fill="#78350f">Search Strategy</text>
-  <text x="675" y="283" font-size="7" fill="#334155">• BFS: breadth-first</text>
-  <text x="675" y="298" font-size="7" fill="#334155">• DFS: depth-first</text>
-  <text x="675" y="313" font-size="7" fill="#334155">• Best-first (by value)</text>
-  <text x="675" y="328" font-size="7" fill="#d97706">LLM evaluates each state</text>
+  <rect x="660" y="245" width="150" height="85" rx="6" fill="#f5ece0" stroke="#d4a03c" stroke-width="1.5"/>
+  <text x="735" y="265" text-anchor="middle" font-size="11" font-weight="bold" fill="#d4a03c">Search Strategy</text>
+  <text x="675" y="283" font-size="11" fill="#3a3a4a">• BFS: breadth-first</text>
+  <text x="675" y="298" font-size="11" fill="#3a3a4a">• DFS: depth-first</text>
+  <text x="675" y="313" font-size="11" fill="#3a3a4a">• Best-first (by value)</text>
+  <text x="675" y="328" font-size="11" fill="#d4a03c">LLM evaluates each state</text>
 
   <!-- Pruned annotation -->
-  <line x1="690" y1="195" x2="730" y2="195" stroke="#ef4444" stroke-width="2"/>
-  <line x1="690" y1="195" x2="690" y2="195" stroke="#ef4444" stroke-width="2"/>
-  <text x="748" y="199" font-size="7" fill="#ef4444">pruned</text>
+  <line x1="690" y1="195" x2="730" y2="195" stroke="#d4645c" stroke-width="2"/>
+  <line x1="690" y1="195" x2="690" y2="195" stroke="#d4645c" stroke-width="2"/>
+  <text x="748" y="199" font-size="11" fill="#d4645c">pruned</text>
 
   <!-- Bottom comparison -->
-  <rect x="30" y="370" width="800" height="60" rx="8" fill="#f1f5f9" stroke="#475569" stroke-width="1.5"/>
-  <text x="150" y="395" text-anchor="middle" font-size="8" font-weight="bold" fill="#0f172a">IO Prompting</text>
-  <text x="150" y="413" text-anchor="middle" font-size="7" fill="#64748b">input → output (no reasoning)</text>
+  <rect x="30" y="370" width="800" height="60" rx="8" fill="#f5f5f8" stroke="#4a4a5a" stroke-width="1.5"/>
+  <text x="150" y="395" text-anchor="middle" font-size="11" font-weight="bold" fill="#1a1a2e">IO Prompting</text>
+  <text x="150" y="413" text-anchor="middle" font-size="11" fill="#7a7a8a">input → output (no reasoning)</text>
 
-  <text x="330" y="395" text-anchor="middle" font-size="8" font-weight="bold" fill="#0284c7">Chain-of-Thought</text>
-  <text x="330" y="413" text-anchor="middle" font-size="7" fill="#64748b">single reasoning chain</text>
+  <text x="330" y="395" text-anchor="middle" font-size="11" font-weight="bold" fill="#4a7fb5">Chain-of-Thought</text>
+  <text x="330" y="413" text-anchor="middle" font-size="11" fill="#7a7a8a">single reasoning chain</text>
 
-  <text x="520" y="395" text-anchor="middle" font-size="8" font-weight="bold" fill="#d97706">Self-Consistency</text>
-  <text x="520" y="413" text-anchor="middle" font-size="7" fill="#64748b">N chains → majority vote</text>
+  <text x="520" y="395" text-anchor="middle" font-size="11" font-weight="bold" fill="#d4a03c">Self-Consistency</text>
+  <text x="520" y="413" text-anchor="middle" font-size="11" fill="#7a7a8a">N chains → majority vote</text>
 
-  <text x="710" y="395" text-anchor="middle" font-size="8" font-weight="bold" fill="#16a34a">Tree of Thoughts</text>
-  <text x="710" y="413" text-anchor="middle" font-size="7" fill="#16a34a">search + evaluate + backtrack</text>
+  <text x="710" y="395" text-anchor="middle" font-size="11" font-weight="bold" fill="#3a9e8f">Tree of Thoughts</text>
+  <text x="710" y="413" text-anchor="middle" font-size="11" fill="#3a9e8f">search + evaluate + backtrack</text>
 </svg>

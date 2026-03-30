@@ -16,6 +16,8 @@ Reinforcement learning solves a fundamentally different problem than supervised 
 
 **The Markov Decision Process (MDP).** An MDP is defined by the tuple $(S, A, P, R, \gamma)$:
 
+![Figure 10.1: The MDP Agent-Environment Loop](illustrations/ch10/fig_10_1_mdp_loop.svg)
+
 ```mermaid
 graph LR
     classDef agent fill:#e0f2fe,stroke:#0284c7,stroke-width:2px,color:#0c4a6e,font-weight:bold
@@ -66,6 +68,41 @@ $$A_t \approx r_t + \gamma \cdot V_\phi(s_{t+1}) - V_\phi(s_t)$$
 
 The "actor" is the policy $\pi_\theta$. The "critic" is the value function $V_\phi$. Both are learned simultaneously: the critic provides a low-variance training signal for the actor.
 
+![Figure 10.2: Actor-Critic Architecture](illustrations/ch10/fig_10_2_actor_critic.svg)
+
+```mermaid
+graph TD
+    classDef backbone fill:#e0f2fe,stroke:#0284c7,stroke-width:2px,color:#0c4a6e,font-weight:bold
+    classDef actor fill:#dcfce7,stroke:#22c55e,stroke-width:2px,color:#14532d,font-weight:bold
+    classDef critic fill:#fef3c7,stroke:#d97706,stroke-width:2px,color:#78350f,font-weight:bold
+    classDef adv fill:#fce7f3,stroke:#db2777,stroke-width:2px,color:#831843
+    classDef io fill:#f1f5f9,stroke:#475569,stroke-width:2px,color:#0f172a
+
+    State["State s_t"]:::io
+    Backbone["Shared Backbone\n(Feature Encoder)"]:::backbone
+
+    ActorHead["Actor Head\nπ_θ(a|s)\n→ action probabilities"]:::actor
+    CriticHead["Critic Head\nV_φ(s)\n→ scalar value estimate"]:::critic
+
+    Action["Sampled Action a_t\n(from policy π)"]:::actor
+    Value["Value Estimate V(s_t)\n(baseline for advantage)"]:::critic
+
+    Reward["Reward r_t\nfrom Environment"]:::io
+    Advantage["Advantage A_t\n= r_t + γV(s_{t+1}) - V(s_t)"]:::adv
+
+    ActorLoss["Actor Loss\n∇_θ log π_θ(a_t|s_t) · A_t"]:::actor
+    CriticLoss["Critic Loss\n(V(s_t) - target)²"]:::critic
+
+    State --> Backbone
+    Backbone --> ActorHead --> Action
+    Backbone --> CriticHead --> Value
+    Action --> Reward
+    Reward --> Advantage
+    Value --> Advantage
+    Advantage --> ActorLoss
+    Advantage --> CriticLoss
+```
+
 **Proximal Policy Optimization (PPO).** PPO (Schulman et al., 2017) is the workhorse of modern RL, including all major RLHF implementations. The core problem it solves: policy gradient updates can be unstable. A large gradient step might move the policy into a bad region from which it cannot recover.
 
 PPO uses a clipped surrogate objective. Let $r_t(\theta) = \frac{\pi_\theta(a_t \mid s_t)}{\pi_{\theta_{\text{old}}}(a_t \mid s_t)}$ be the probability ratio between the new and old policies. The PPO objective is:
@@ -73,6 +110,8 @@ PPO uses a clipped surrogate objective. Let $r_t(\theta) = \frac{\pi_\theta(a_t 
 $$L^{\text{CLIP}}(\theta) = \mathbb{E}_t \left[ \min\!\left( r_t(\theta) \cdot A_t,\; \text{clip}(r_t(\theta),\, 1-\varepsilon,\, 1+\varepsilon) \cdot A_t \right) \right]$$
 
 where $\varepsilon$ is typically $0.1$ or $0.2$. The clipping prevents the ratio $r_t$ from moving too far from $1$, which means the new policy cannot deviate too much from the old policy in a single update. When the advantage is positive (good action), the ratio is clipped from above --- you cannot increase the action's probability too aggressively. When the advantage is negative (bad action), the ratio is clipped from below --- this prevents *reducing* the action's probability too aggressively, which could destabilize training by making the policy overly confident in avoiding that action.
+
+![Figure 10.3: PPO Clipping Objective Behavior](illustrations/ch10/fig_10_3_ppo_clipping.svg)
 
 ```mermaid
 graph TD
@@ -108,6 +147,8 @@ Why PPO over alternatives like TRPO (Trust Region Policy Optimization)? TRPO use
 **The alignment problem.** A language model trained on internet text learns to predict the next token. This objective does not inherently produce helpful, harmless, or honest behavior. The model might generate toxic content, confidently state falsehoods, or refuse to follow instructions --- all of which are consistent with "predict what the internet would say next." Alignment is the problem of steering model behavior toward human preferences.
 
 **The three-stage pipeline.** The standard approach, established by InstructGPT (Ouyang et al., 2022), has three stages:
+
+![Figure 10.4: RLHF Pipeline — Three-Stage Training](illustrations/ch10/fig_10_4_rlhf_detailed.svg)
 
 ```mermaid
 graph TD
@@ -200,6 +241,44 @@ $$\mathcal{L}_{\text{DPO}}(\theta) = -\mathbb{E}_{(x,\, y_w,\, y_l)} \left[ \log
 
 DPO is simpler (no reward model training, no RL loop), more stable (standard supervised training), and empirically competitive with PPO-based RLHF. However, DPO has notable limitations: (1) **distribution shift** — the policy drifts from the reference model during training, but the preference data was collected under the reference distribution; (2) **overfitting** with limited preference data, since there is no explicit reward model to generalize; and (3) **length exploitation** — the model can learn to produce longer outputs that score higher under the implicit reward without actually being more helpful.
 
+![Figure 10.5: DPO vs. RLHF Pipeline Comparison](illustrations/ch10/fig_10_5_dpo_vs_rlhf.svg)
+
+```mermaid
+graph TD
+    classDef stage fill:#e0f2fe,stroke:#0284c7,stroke-width:2px,color:#0c4a6e
+    classDef model fill:#fef3c7,stroke:#d97706,stroke-width:2px,color:#78350f,font-weight:bold
+    classDef data fill:#f1f5f9,stroke:#475569,stroke-width:2px,color:#0f172a
+    classDef out fill:#dcfce7,stroke:#22c55e,stroke-width:3px,color:#14532d,font-weight:bold
+    classDef note fill:none,stroke:none,color:#64748b,font-style:italic
+
+    subgraph RLHF ["RLHF Pipeline (3 Models in Memory)"]
+        direction TB
+        D1["Human Demonstrations"]:::data
+        SFT1["Stage 1: SFT Model\n(supervised fine-tuning)"]:::model
+        D2["Preference Pairs\n(y_w vs y_l)"]:::data
+        RM["Stage 2: Reward Model\n(Bradley-Terry)"]:::model
+        PPO_M["Stage 3: PPO\n(policy + ref + RM + critic)"]:::model
+        Out1["Aligned Policy"]:::out
+        D1 --> SFT1 --> D2 --> RM --> PPO_M --> Out1
+    end
+
+    subgraph DPO_P ["DPO Pipeline (2 Models in Memory)"]
+        direction TB
+        D3["Human Demonstrations"]:::data
+        SFT2["Stage 1: SFT Model\n(supervised fine-tuning)"]:::model
+        D4["Preference Pairs\n(y_w vs y_l)"]:::data
+        DPO_M["Stage 2: Direct Preference Optimization\n(standard supervised loss on pairs)"]:::model
+        Out2["Aligned Policy"]:::out
+        D3 --> SFT2 --> D4 --> DPO_M --> Out2
+    end
+
+    N1["4 models peak memory\nReward hacking risk\nHigh stability tuning needed"]:::note
+    N2["2 models peak memory\nNo explicit RM\nDistribution shift risk"]:::note
+
+    RLHF -.-> N1
+    DPO_P -.-> N2
+```
+
 **Group Relative Policy Optimization (GRPO).** GRPO (Shao et al., 2024), used in DeepSeek models, is a variant that eliminates the critic network. For each prompt, GRPO samples a group of outputs, scores them with a reward function, and computes advantages relative to the group mean. This avoids the need to train a separate value function, reducing memory and compute requirements. The advantage for output $y_i$ in a group $\{y_1, \ldots, y_G\}$ is:
 
 $$A_i = \frac{R(y_i) - \text{mean}(R(y_1), \ldots, R(y_G))}{\text{std}(R(y_1), \ldots, R(y_G))}$$
@@ -215,6 +294,8 @@ Before we can train models to reason with RL, we must understand how reasoning i
 **The core observation.** Wei et al. (2022) demonstrated that large language models possess latent reasoning capabilities that standard prompting fails to elicit. The key finding: when prompted to produce intermediate reasoning steps before a final answer, models achieve dramatic improvements on arithmetic, commonsense, and symbolic reasoning tasks. On the GSM8K benchmark (grade-school math word problems), chain-of-thought (CoT) prompting improved PaLM 540B from 18% to 57% accuracy --- a transformation achieved by changing nothing about the model and everything about how it was asked to respond.
 
 The mechanism is straightforward. In standard prompting, the model maps directly from question to answer:
+
+![Figure 10.6: Chain-of-Thought Prompting](illustrations/ch10/fig_10_6_chain_of_thought.svg)
 
 ```mermaid
 graph TD
@@ -283,6 +364,8 @@ The deeper significance of self-consistency is what it revealed about the relati
 #### 10.3.3 Tree of Thoughts
 
 Self-consistency samples multiple complete reasoning paths independently. But what if you could make smarter decisions about which paths to explore? Yao et al. (2023) proposed the **Tree of Thoughts (ToT)** framework, which structures reasoning as a search problem over a tree of partial solutions.
+
+![Figure 10.7: Tree of Thoughts — Search over Reasoning Traces](illustrations/ch10/fig_10_7_tree_of_thoughts.svg)
 
 ```mermaid
 graph TD
@@ -526,6 +609,8 @@ The model no longer needs to be prompted to reason --- it has internalized the r
 
 ### 10.6 Decision Transformer
 
+![Figure 10.8: Decision Transformer — RL as Sequence Modeling](illustrations/ch10/fig_10_8_decision_transformer.svg)
+
 The Decision Transformer (Chen et al., 2021) reframes RL as sequence modeling. Instead of learning value functions or policy gradients, it trains a Transformer on trajectories of (return-to-go, state, action) tuples:
 
 ```
@@ -582,6 +667,8 @@ Multi-agent systems extend this to multiple agents collaborating or competing. A
 CLIP (Contrastive Language-Image Pre-training) (Radford et al., 2021) changed the relationship between vision and language in AI. Before CLIP, vision models were trained on fixed label sets (ImageNet's 1000 classes). CLIP showed that training on image-text pairs from the internet produces a model that understands both modalities and generalizes to tasks it was never explicitly trained for.
 
 **Architecture.** CLIP has two encoders:
+
+![Figure 10.9: CLIP Contrastive Learning Architecture](illustrations/ch10/fig_10_9_clip_detailed.svg)
 
 ```mermaid
 graph TD
@@ -767,6 +854,8 @@ CLIP aligns image and text representations but does not generate text. Generativ
 
 **The common architecture pattern:**
 
+![Figure 10.10: Common VLM Architecture Pattern](illustrations/ch10/fig_10_10_vlm_pattern.svg)
+
 **The common architecture pattern:**
 
 ```mermaid
@@ -797,6 +886,8 @@ graph LR
 
 The vision encoder (almost always a ViT, often CLIP's) produces visual tokens. A projection or adapter module maps these into the LLM's embedding space. The LLM then generates text conditioned on both visual and textual tokens.
 
+![Figure 10.11: Flamingo Architecture Detail](illustrations/ch10/fig_10_11_flamingo_detail.svg)
+
 **Flamingo** (Alayrac et al., 2022) was an early and influential generative VLM. Its design is notable for keeping both the vision encoder and the LLM frozen and only training two lightweight components that connect them: a **Perceiver Resampler** (which compresses variable-length visual tokens into a fixed number of latent vectors) and **gated cross-attention layers** (inserted between the frozen LLM blocks to inject visual information).
 
 ```
@@ -811,6 +902,8 @@ The vision encoder (almost always a ViT, often CLIP's) produces visual tokens. A
 The Perceiver Resampler takes a variable number of visual tokens and compresses them to a fixed number of latent vectors (typically 64). These latents are then injected into the LLM via gated cross-attention layers inserted between the frozen Transformer blocks. The gating starts at zero, so the model initially behaves exactly like the original LLM and gradually learns to incorporate visual information.
 
 Flamingo demonstrated strong few-shot multimodal learning: given a few image-text examples in context, it could perform new visual tasks without any gradient updates.
+
+![Figure 10.12: LLaVA Two-Stage Training](illustrations/ch10/fig_10_12_llava_two_stage.svg)
 
 **LLaVA** (Liu et al., 2023) took a simpler approach: visual instruction tuning. The architecture is minimal --- a CLIP ViT, a linear projection layer, and a Vicuna LLM (a fine-tuned Llama):
 
@@ -949,6 +1042,8 @@ The instruction tuning stage is analogous to the SFT stage in RLHF --- it teache
 **Open vocabulary detection.** Traditional object detection requires training on fixed categories. Open vocabulary detection (OVD) models like OWL-ViT (Minderer et al., 2022) detect arbitrary objects specified by text queries. OWL-ViT uses a CLIP-style architecture with a detection head: the ViT processes the image into patch-level features, the text encoder processes the class names, and detection is performed by matching image patches to text embeddings. This eliminates the need for category-specific training data.
 
 ### 10.12 The Convergence: RL + VLM = Embodied AI
+
+![Figure 10.13: Embodied AI — The Convergence of Vision, Language, and RL](illustrations/ch10/fig_10_13_embodied_ai.svg)
 
 The frontier of AI research lies at the intersection of everything in this chapter:
 

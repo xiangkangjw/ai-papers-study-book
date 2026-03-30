@@ -1,172 +1,172 @@
 <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 880 520" font-family="Inter, Helvetica, Arial, sans-serif">
   <defs>
-    <marker id="a" markerWidth="8" markerHeight="6" refX="8" refY="3" orient="auto"><path d="M0,0 L8,3 L0,6 Z" fill="#475569"/></marker>
+    <marker id="a" markerWidth="8" markerHeight="6" refX="8" refY="3" orient="auto"><path d="M0,0 L8,3 L0,6 Z" fill="#4a4a5a"/></marker>
   </defs>
 
-  <text x="440" y="28" text-anchor="middle" font-size="17" font-weight="bold" fill="#0f172a">State Space Models &amp; Mamba</text>
-  <text x="440" y="46" text-anchor="middle" font-size="10" fill="#64748b">Gu &amp; Dao (2023) — Selective SSM: linear-time sequence modeling with input-dependent dynamics</text>
+  <text x="440" y="28" text-anchor="middle" font-size="17" font-weight="bold" fill="#1a1a2e">State Space Models &amp; Mamba</text>
+  <text x="440" y="46" text-anchor="middle" font-size="11" fill="#7a7a8a">Gu &amp; Dao (2023) — Selective SSM: linear-time sequence modeling with input-dependent dynamics</text>
 
   <!-- SSM equations -->
-  <rect x="30" y="65" width="400" height="130" rx="10" fill="#f0f9ff" stroke="#0284c7" stroke-width="2"/>
-  <text x="230" y="90" text-anchor="middle" font-size="11" font-weight="bold" fill="#0c4a6e">Continuous SSM (S4 Foundation)</text>
+  <rect x="30" y="65" width="400" height="130" rx="10" fill="#edf2f8" stroke="#4a7fb5" stroke-width="2"/>
+  <text x="230" y="90" text-anchor="middle" font-size="11" font-weight="bold" fill="#4a7fb5">Continuous SSM (S4 Foundation)</text>
 
-  <text x="60" y="115" font-size="9" fill="#0c4a6e" font-family="'SF Mono', Consolas, monospace">h'(t) = A·h(t) + B·x(t)</text>
-  <text x="265" y="115" font-size="8" fill="#64748b">← state equation</text>
+  <text x="60" y="115" font-size="11" fill="#4a7fb5" font-family="'JetBrains Mono', 'Fira Code', monospace">h'(t) = A·h(t) + B·x(t)</text>
+  <text x="265" y="115" font-size="11" fill="#7a7a8a">← state equation</text>
 
-  <text x="60" y="138" font-size="9" fill="#0c4a6e" font-family="'SF Mono', Consolas, monospace">y(t)  = C·h(t) + D·x(t)</text>
-  <text x="265" y="138" font-size="8" fill="#64748b">← output equation</text>
+  <text x="60" y="138" font-size="11" fill="#4a7fb5" font-family="'JetBrains Mono', 'Fira Code', monospace">y(t)  = C·h(t) + D·x(t)</text>
+  <text x="265" y="138" font-size="11" fill="#7a7a8a">← output equation</text>
 
-  <text x="60" y="165" font-size="8" fill="#334155">Discretize (ZOH): Ā = exp(ΔA), B̄ = (ΔA)⁻¹(Ā - I)·ΔB</text>
-  <text x="60" y="180" font-size="8" fill="#334155">Then: h_k = Ā·h_{k-1} + B̄·x_k,  y_k = C·h_k</text>
+  <text x="60" y="165" font-size="11" fill="#3a3a4a">Discretize (ZOH): Ā = exp(ΔA), B̄ = (ΔA)⁻¹(Ā - I)·ΔB</text>
+  <text x="60" y="180" font-size="11" fill="#3a3a4a">Then: h_k = Ā·h_{k-1} + B̄·x_k,  y_k = C·h_k</text>
 
   <!-- Mamba selective SSM -->
-  <rect x="450" y="65" width="410" height="130" rx="10" fill="#fef3c7" stroke="#d97706" stroke-width="2"/>
-  <text x="655" y="90" text-anchor="middle" font-size="11" font-weight="bold" fill="#78350f">Mamba: Selective SSM (Key Innovation)</text>
+  <rect x="450" y="65" width="410" height="130" rx="10" fill="#f5ece0" stroke="#d4a03c" stroke-width="2"/>
+  <text x="655" y="90" text-anchor="middle" font-size="11" font-weight="bold" fill="#d4a03c">Mamba: Selective SSM (Key Innovation)</text>
 
-  <text x="470" y="115" font-size="9" fill="#78350f" font-family="'SF Mono', Consolas, monospace">B(x), C(x), Δ(x)</text>
-  <text x="670" y="115" font-size="8" fill="#d97706">← input-dependent!</text>
+  <text x="470" y="115" font-size="11" fill="#d4a03c" font-family="'JetBrains Mono', 'Fira Code', monospace">B(x), C(x), Δ(x)</text>
+  <text x="670" y="115" font-size="11" fill="#d4a03c">← input-dependent!</text>
 
-  <text x="470" y="140" font-size="8" fill="#334155">Standard S4: A, B, C, Δ are fixed parameters</text>
-  <text x="470" y="158" font-size="8" fill="#334155">Mamba: B, C, Δ are functions of input x</text>
-  <text x="470" y="176" font-size="8" fill="#d97706" font-weight="bold">→ Content-aware: selectively remember or forget</text>
+  <text x="470" y="140" font-size="11" fill="#3a3a4a">Standard S4: A, B, C, Δ are fixed parameters</text>
+  <text x="470" y="158" font-size="11" fill="#3a3a4a">Mamba: B, C, Δ are functions of input x</text>
+  <text x="470" y="176" font-size="11" fill="#d4a03c" font-weight="bold">→ Content-aware: selectively remember or forget</text>
 
   <!-- Recurrent vs Convolutional modes -->
-  <rect x="30" y="210" width="820" height="130" rx="10" fill="#f8fafc" stroke="#e2e8f0" stroke-width="1.5"/>
-  <text x="440" y="235" text-anchor="middle" font-size="11" font-weight="bold" fill="#0f172a">Dual Computation Modes</text>
+  <rect x="30" y="210" width="820" height="130" rx="10" fill="#f5f5f8" stroke="#f5f5f8" stroke-width="1.5"/>
+  <text x="440" y="235" text-anchor="middle" font-size="11" font-weight="bold" fill="#1a1a2e">Dual Computation Modes</text>
 
   <!-- Recurrent mode -->
-  <rect x="50" y="250" width="360" height="75" rx="6" fill="#dcfce7" stroke="#16a34a" stroke-width="1.5"/>
-  <text x="230" y="270" text-anchor="middle" font-size="9" font-weight="bold" fill="#14532d">Recurrent Mode (Inference)</text>
+  <rect x="50" y="250" width="360" height="75" rx="6" fill="#dff0ed" stroke="#3a9e8f" stroke-width="1.5"/>
+  <text x="230" y="270" text-anchor="middle" font-size="11" font-weight="bold" fill="#3a9e8f">Recurrent Mode (Inference)</text>
 
-  <rect x="70" y="280" width="40" height="25" rx="3" fill="#e0f2fe" stroke="#0284c7" stroke-width="1"/>
-  <text x="90" y="296" text-anchor="middle" font-size="7" fill="#0c4a6e">h_{k-1}</text>
+  <rect x="70" y="280" width="40" height="25" rx="3" fill="#e1eaf3" stroke="#4a7fb5" stroke-width="1"/>
+  <text x="90" y="296" text-anchor="middle" font-size="11" fill="#4a7fb5">h_{k-1}</text>
 
-  <line x1="110" y1="292" x2="133" y2="292" stroke="#475569" stroke-width="1.5" marker-end="url(#a)"/>
+  <line x1="110" y1="292" x2="133" y2="292" stroke="#4a4a5a" stroke-width="1.5" marker-end="url(#a)"/>
 
-  <rect x="135" y="280" width="55" height="25" rx="3" fill="#fef3c7" stroke="#d97706" stroke-width="1.5"/>
-  <text x="162" y="296" text-anchor="middle" font-size="7" fill="#78350f">Ā·h+B̄·x</text>
+  <rect x="135" y="280" width="55" height="25" rx="3" fill="#f5ece0" stroke="#d4a03c" stroke-width="1.5"/>
+  <text x="162" y="296" text-anchor="middle" font-size="11" fill="#d4a03c">Ā·h+B̄·x</text>
 
-  <line x1="190" y1="292" x2="213" y2="292" stroke="#475569" stroke-width="1.5" marker-end="url(#a)"/>
+  <line x1="190" y1="292" x2="213" y2="292" stroke="#4a4a5a" stroke-width="1.5" marker-end="url(#a)"/>
 
-  <rect x="215" y="280" width="40" height="25" rx="3" fill="#e0f2fe" stroke="#0284c7" stroke-width="1"/>
-  <text x="235" y="296" text-anchor="middle" font-size="7" fill="#0c4a6e">h_k</text>
+  <rect x="215" y="280" width="40" height="25" rx="3" fill="#e1eaf3" stroke="#4a7fb5" stroke-width="1"/>
+  <text x="235" y="296" text-anchor="middle" font-size="11" fill="#4a7fb5">h_k</text>
 
-  <line x1="255" y1="292" x2="278" y2="292" stroke="#475569" stroke-width="1.5" marker-end="url(#a)"/>
+  <line x1="255" y1="292" x2="278" y2="292" stroke="#4a4a5a" stroke-width="1.5" marker-end="url(#a)"/>
 
-  <rect x="280" y="280" width="40" height="25" rx="3" fill="#dcfce7" stroke="#16a34a" stroke-width="1"/>
-  <text x="300" y="296" text-anchor="middle" font-size="7" fill="#14532d">y_k</text>
+  <rect x="280" y="280" width="40" height="25" rx="3" fill="#dff0ed" stroke="#3a9e8f" stroke-width="1"/>
+  <text x="300" y="296" text-anchor="middle" font-size="11" fill="#3a9e8f">y_k</text>
 
-  <text x="230" y="320" text-anchor="middle" font-size="8" fill="#16a34a" font-family="'SF Mono', Consolas, monospace">O(1) per step, O(N) total</text>
+  <text x="230" y="320" text-anchor="middle" font-size="11" fill="#3a9e8f" font-family="'JetBrains Mono', 'Fira Code', monospace">O(1) per step, O(N) total</text>
 
   <!-- Convolutional mode -->
-  <rect x="450" y="250" width="380" height="75" rx="6" fill="#e0f2fe" stroke="#0284c7" stroke-width="1.5"/>
-  <text x="640" y="270" text-anchor="middle" font-size="9" font-weight="bold" fill="#0c4a6e">Convolutional Mode (Training)</text>
+  <rect x="450" y="250" width="380" height="75" rx="6" fill="#e1eaf3" stroke="#4a7fb5" stroke-width="1.5"/>
+  <text x="640" y="270" text-anchor="middle" font-size="11" font-weight="bold" fill="#4a7fb5">Convolutional Mode (Training)</text>
 
-  <rect x="470" y="280" width="60" height="25" rx="3" fill="#f1f5f9" stroke="#475569" stroke-width="1"/>
-  <text x="500" y="296" text-anchor="middle" font-size="7" fill="#0f172a">x (full seq)</text>
+  <rect x="470" y="280" width="60" height="25" rx="3" fill="#f5f5f8" stroke="#4a4a5a" stroke-width="1"/>
+  <text x="500" y="296" text-anchor="middle" font-size="11" fill="#1a1a2e">x (full seq)</text>
 
-  <line x1="530" y1="292" x2="553" y2="292" stroke="#475569" stroke-width="1.5" marker-end="url(#a)"/>
+  <line x1="530" y1="292" x2="553" y2="292" stroke="#4a4a5a" stroke-width="1.5" marker-end="url(#a)"/>
 
-  <rect x="555" y="280" width="80" height="25" rx="3" fill="#fef3c7" stroke="#d97706" stroke-width="1.5"/>
-  <text x="595" y="296" text-anchor="middle" font-size="7" fill="#78350f">K̄ = (C·B̄, CĀB̄,...)</text>
+  <rect x="555" y="280" width="80" height="25" rx="3" fill="#f5ece0" stroke="#d4a03c" stroke-width="1.5"/>
+  <text x="595" y="296" text-anchor="middle" font-size="11" fill="#d4a03c">K̄ = (C·B̄, CĀB̄,...)</text>
 
-  <line x1="635" y1="292" x2="658" y2="292" stroke="#475569" stroke-width="1.5" marker-end="url(#a)"/>
+  <line x1="635" y1="292" x2="658" y2="292" stroke="#4a4a5a" stroke-width="1.5" marker-end="url(#a)"/>
 
-  <rect x="660" y="280" width="55" height="25" rx="3" fill="#0284c7" stroke="#0284c7" stroke-width="1"/>
-  <text x="687" y="296" text-anchor="middle" font-size="7" fill="#fff">FFT conv</text>
+  <rect x="660" y="280" width="55" height="25" rx="3" fill="#4a7fb5" stroke="#4a7fb5" stroke-width="1"/>
+  <text x="687" y="296" text-anchor="middle" font-size="11" fill="#fff">FFT conv</text>
 
-  <line x1="715" y1="292" x2="738" y2="292" stroke="#475569" stroke-width="1.5" marker-end="url(#a)"/>
+  <line x1="715" y1="292" x2="738" y2="292" stroke="#4a4a5a" stroke-width="1.5" marker-end="url(#a)"/>
 
-  <rect x="740" y="280" width="40" height="25" rx="3" fill="#dcfce7" stroke="#16a34a" stroke-width="1"/>
-  <text x="760" y="296" text-anchor="middle" font-size="7" fill="#14532d">y</text>
+  <rect x="740" y="280" width="40" height="25" rx="3" fill="#dff0ed" stroke="#3a9e8f" stroke-width="1"/>
+  <text x="760" y="296" text-anchor="middle" font-size="11" fill="#3a9e8f">y</text>
 
-  <text x="640" y="320" text-anchor="middle" font-size="8" fill="#0284c7" font-family="'SF Mono', Consolas, monospace">O(N log N) — parallelizable!</text>
+  <text x="640" y="320" text-anchor="middle" font-size="11" fill="#4a7fb5" font-family="'JetBrains Mono', 'Fira Code', monospace">O(N log N) — parallelizable!</text>
 
   <!-- Mamba Block Architecture -->
-  <rect x="30" y="355" width="520" height="150" rx="10" fill="#f3e8ff" stroke="#9333ea" stroke-width="2"/>
-  <text x="290" y="380" text-anchor="middle" font-size="11" font-weight="bold" fill="#581c87">Mamba Block</text>
+  <rect x="30" y="355" width="520" height="150" rx="10" fill="#e8e4f1" stroke="#7b68a8" stroke-width="2"/>
+  <text x="290" y="380" text-anchor="middle" font-size="11" font-weight="bold" fill="#7b68a8">Mamba Block</text>
 
   <!-- Input -->
-  <rect x="50" y="400" width="50" height="30" rx="4" fill="#f1f5f9" stroke="#475569" stroke-width="1.5"/>
-  <text x="75" y="420" text-anchor="middle" font-size="8" fill="#0f172a">x</text>
+  <rect x="50" y="400" width="50" height="30" rx="4" fill="#f5f5f8" stroke="#4a4a5a" stroke-width="1.5"/>
+  <text x="75" y="420" text-anchor="middle" font-size="11" fill="#1a1a2e">x</text>
 
   <!-- Two branches -->
-  <line x1="100" y1="410" x2="120" y2="400" stroke="#475569" stroke-width="1.5"/>
-  <line x1="100" y1="410" x2="120" y2="445" stroke="#475569" stroke-width="1.5"/>
+  <line x1="100" y1="410" x2="120" y2="400" stroke="#4a4a5a" stroke-width="1.5"/>
+  <line x1="100" y1="410" x2="120" y2="445" stroke="#4a4a5a" stroke-width="1.5"/>
 
   <!-- Branch 1: Conv + SSM -->
-  <rect x="125" y="388" width="55" height="25" rx="3" fill="#e0f2fe" stroke="#0284c7" stroke-width="1.5"/>
-  <text x="152" y="405" text-anchor="middle" font-size="7" fill="#0c4a6e">Linear ↑</text>
+  <rect x="125" y="388" width="55" height="25" rx="3" fill="#e1eaf3" stroke="#4a7fb5" stroke-width="1.5"/>
+  <text x="152" y="405" text-anchor="middle" font-size="11" fill="#4a7fb5">Linear ↑</text>
 
-  <line x1="180" y1="400" x2="193" y2="400" stroke="#475569" stroke-width="1" marker-end="url(#a)"/>
+  <line x1="180" y1="400" x2="193" y2="400" stroke="#4a4a5a" stroke-width="1" marker-end="url(#a)"/>
 
-  <rect x="195" y="388" width="55" height="25" rx="3" fill="#fef3c7" stroke="#d97706" stroke-width="1.5"/>
-  <text x="222" y="405" text-anchor="middle" font-size="7" fill="#78350f">Conv1D</text>
+  <rect x="195" y="388" width="55" height="25" rx="3" fill="#f5ece0" stroke="#d4a03c" stroke-width="1.5"/>
+  <text x="222" y="405" text-anchor="middle" font-size="11" fill="#d4a03c">Conv1D</text>
 
-  <line x1="250" y1="400" x2="263" y2="400" stroke="#475569" stroke-width="1" marker-end="url(#a)"/>
+  <line x1="250" y1="400" x2="263" y2="400" stroke="#4a4a5a" stroke-width="1" marker-end="url(#a)"/>
 
-  <rect x="265" y="388" width="40" height="25" rx="3" fill="#9333ea" stroke="#9333ea" stroke-width="1"/>
-  <text x="285" y="405" text-anchor="middle" font-size="7" fill="#fff">SiLU</text>
+  <rect x="265" y="388" width="40" height="25" rx="3" fill="#7b68a8" stroke="#7b68a8" stroke-width="1"/>
+  <text x="285" y="405" text-anchor="middle" font-size="11" fill="#fff">SiLU</text>
 
-  <line x1="305" y1="400" x2="318" y2="400" stroke="#475569" stroke-width="1" marker-end="url(#a)"/>
+  <line x1="305" y1="400" x2="318" y2="400" stroke="#4a4a5a" stroke-width="1" marker-end="url(#a)"/>
 
-  <rect x="320" y="385" width="75" height="30" rx="3" fill="#fce7f3" stroke="#db2777" stroke-width="2"/>
-  <text x="357" y="404" text-anchor="middle" font-size="7" font-weight="bold" fill="#831843">Selective SSM</text>
+  <rect x="320" y="385" width="75" height="30" rx="3" fill="#f6e4e3" stroke="#d4645c" stroke-width="2"/>
+  <text x="357" y="404" text-anchor="middle" font-size="11" font-weight="bold" fill="#d4645c">Selective SSM</text>
 
   <!-- Branch 2: gate -->
-  <rect x="125" y="435" width="55" height="25" rx="3" fill="#e0f2fe" stroke="#0284c7" stroke-width="1.5"/>
-  <text x="152" y="452" text-anchor="middle" font-size="7" fill="#0c4a6e">Linear ↑</text>
+  <rect x="125" y="435" width="55" height="25" rx="3" fill="#e1eaf3" stroke="#4a7fb5" stroke-width="1.5"/>
+  <text x="152" y="452" text-anchor="middle" font-size="11" fill="#4a7fb5">Linear ↑</text>
 
-  <line x1="180" y1="447" x2="193" y2="447" stroke="#475569" stroke-width="1" marker-end="url(#a)"/>
+  <line x1="180" y1="447" x2="193" y2="447" stroke="#4a4a5a" stroke-width="1" marker-end="url(#a)"/>
 
-  <rect x="195" y="435" width="40" height="25" rx="3" fill="#9333ea" stroke="#9333ea" stroke-width="1"/>
-  <text x="215" y="452" text-anchor="middle" font-size="7" fill="#fff">SiLU</text>
+  <rect x="195" y="435" width="40" height="25" rx="3" fill="#7b68a8" stroke="#7b68a8" stroke-width="1"/>
+  <text x="215" y="452" text-anchor="middle" font-size="11" fill="#fff">SiLU</text>
 
   <!-- Multiply -->
-  <line x1="235" y1="447" x2="415" y2="415" stroke="#475569" stroke-width="1.5"/>
-  <line x1="395" y1="400" x2="415" y2="410" stroke="#475569" stroke-width="1.5"/>
+  <line x1="235" y1="447" x2="415" y2="415" stroke="#4a4a5a" stroke-width="1.5"/>
+  <line x1="395" y1="400" x2="415" y2="410" stroke="#4a4a5a" stroke-width="1.5"/>
 
-  <circle cx="420" cy="415" r="12" fill="#dcfce7" stroke="#16a34a" stroke-width="2"/>
-  <text x="420" y="419" text-anchor="middle" font-size="10" fill="#14532d">×</text>
+  <circle cx="420" cy="415" r="12" fill="#dff0ed" stroke="#3a9e8f" stroke-width="2"/>
+  <text x="420" y="419" text-anchor="middle" font-size="11" fill="#3a9e8f">×</text>
 
-  <line x1="432" y1="415" x2="453" y2="415" stroke="#475569" stroke-width="1.5" marker-end="url(#a)"/>
+  <line x1="432" y1="415" x2="453" y2="415" stroke="#4a4a5a" stroke-width="1.5" marker-end="url(#a)"/>
 
-  <rect x="455" y="400" width="55" height="30" rx="3" fill="#e0f2fe" stroke="#0284c7" stroke-width="1.5"/>
-  <text x="482" y="420" text-anchor="middle" font-size="7" fill="#0c4a6e">Linear ↓</text>
+  <rect x="455" y="400" width="55" height="30" rx="3" fill="#e1eaf3" stroke="#4a7fb5" stroke-width="1.5"/>
+  <text x="482" y="420" text-anchor="middle" font-size="11" fill="#4a7fb5">Linear ↓</text>
 
-  <line x1="510" y1="415" x2="523" y2="415" stroke="#475569" stroke-width="1.5" marker-end="url(#a)"/>
+  <line x1="510" y1="415" x2="523" y2="415" stroke="#4a4a5a" stroke-width="1.5" marker-end="url(#a)"/>
 
-  <rect x="525" y="402" width="25" height="25" rx="3" fill="#dcfce7" stroke="#16a34a" stroke-width="1.5"/>
-  <text x="537" y="419" text-anchor="middle" font-size="8" fill="#14532d">y</text>
+  <rect x="525" y="402" width="25" height="25" rx="3" fill="#dff0ed" stroke="#3a9e8f" stroke-width="1.5"/>
+  <text x="537" y="419" text-anchor="middle" font-size="11" fill="#3a9e8f">y</text>
 
   <!-- Comparison table -->
-  <rect x="570" y="355" width="290" height="150" rx="10" fill="#f8fafc" stroke="#e2e8f0" stroke-width="1.5"/>
-  <text x="715" y="378" text-anchor="middle" font-size="10" font-weight="bold" fill="#0f172a">Transformer vs Mamba</text>
+  <rect x="570" y="355" width="290" height="150" rx="10" fill="#f5f5f8" stroke="#f5f5f8" stroke-width="1.5"/>
+  <text x="715" y="378" text-anchor="middle" font-size="11" font-weight="bold" fill="#1a1a2e">Transformer vs Mamba</text>
 
   <!-- Header -->
-  <text x="640" y="398" text-anchor="middle" font-size="8" font-weight="bold" fill="#475569">Metric</text>
-  <text x="730" y="398" text-anchor="middle" font-size="8" font-weight="bold" fill="#db2777">Transformer</text>
-  <text x="820" y="398" text-anchor="middle" font-size="8" font-weight="bold" fill="#16a34a">Mamba</text>
+  <text x="640" y="398" text-anchor="middle" font-size="11" font-weight="bold" fill="#4a4a5a">Metric</text>
+  <text x="730" y="398" text-anchor="middle" font-size="11" font-weight="bold" fill="#d4645c">Transformer</text>
+  <text x="820" y="398" text-anchor="middle" font-size="11" font-weight="bold" fill="#3a9e8f">Mamba</text>
 
-  <line x1="585" y1="404" x2="845" y2="404" stroke="#e2e8f0" stroke-width="1"/>
+  <line x1="585" y1="404" x2="845" y2="404" stroke="#f5f5f8" stroke-width="1"/>
 
-  <text x="640" y="420" text-anchor="middle" font-size="7" fill="#334155">Training</text>
-  <text x="730" y="420" text-anchor="middle" font-size="7" fill="#334155">O(N²d)</text>
-  <text x="820" y="420" text-anchor="middle" font-size="7" fill="#16a34a">O(Nd)</text>
+  <text x="640" y="420" text-anchor="middle" font-size="11" fill="#3a3a4a">Training</text>
+  <text x="730" y="420" text-anchor="middle" font-size="11" fill="#3a3a4a">O(N²d)</text>
+  <text x="820" y="420" text-anchor="middle" font-size="11" fill="#3a9e8f">O(Nd)</text>
 
-  <text x="640" y="438" text-anchor="middle" font-size="7" fill="#334155">Inference</text>
-  <text x="730" y="438" text-anchor="middle" font-size="7" fill="#334155">O(N²) / KV cache</text>
-  <text x="820" y="438" text-anchor="middle" font-size="7" fill="#16a34a">O(1) per step</text>
+  <text x="640" y="438" text-anchor="middle" font-size="11" fill="#3a3a4a">Inference</text>
+  <text x="730" y="438" text-anchor="middle" font-size="11" fill="#3a3a4a">O(N²) / KV cache</text>
+  <text x="820" y="438" text-anchor="middle" font-size="11" fill="#3a9e8f">O(1) per step</text>
 
-  <text x="640" y="456" text-anchor="middle" font-size="7" fill="#334155">Memory</text>
-  <text x="730" y="456" text-anchor="middle" font-size="7" fill="#334155">O(N²) or O(N) flash</text>
-  <text x="820" y="456" text-anchor="middle" font-size="7" fill="#16a34a">O(N)</text>
+  <text x="640" y="456" text-anchor="middle" font-size="11" fill="#3a3a4a">Memory</text>
+  <text x="730" y="456" text-anchor="middle" font-size="11" fill="#3a3a4a">O(N²) or O(N) flash</text>
+  <text x="820" y="456" text-anchor="middle" font-size="11" fill="#3a9e8f">O(N)</text>
 
-  <text x="640" y="474" text-anchor="middle" font-size="7" fill="#334155">Selection</text>
-  <text x="730" y="474" text-anchor="middle" font-size="7" fill="#334155">Full attention</text>
-  <text x="820" y="474" text-anchor="middle" font-size="7" fill="#334155">Compressed state</text>
+  <text x="640" y="474" text-anchor="middle" font-size="11" fill="#3a3a4a">Selection</text>
+  <text x="730" y="474" text-anchor="middle" font-size="11" fill="#3a3a4a">Full attention</text>
+  <text x="820" y="474" text-anchor="middle" font-size="11" fill="#3a3a4a">Compressed state</text>
 
-  <text x="640" y="492" text-anchor="middle" font-size="7" fill="#334155">Long range</text>
-  <text x="730" y="492" text-anchor="middle" font-size="7" fill="#334155">Limited by context</text>
-  <text x="820" y="492" text-anchor="middle" font-size="7" fill="#16a34a">Theoretically ∞</text>
+  <text x="640" y="492" text-anchor="middle" font-size="11" fill="#3a3a4a">Long range</text>
+  <text x="730" y="492" text-anchor="middle" font-size="11" fill="#3a3a4a">Limited by context</text>
+  <text x="820" y="492" text-anchor="middle" font-size="11" fill="#3a9e8f">Theoretically ∞</text>
 </svg>

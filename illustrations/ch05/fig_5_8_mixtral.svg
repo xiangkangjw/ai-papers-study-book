@@ -1,121 +1,121 @@
 <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 860 480" font-family="Inter, Helvetica, Arial, sans-serif">
   <defs>
-    <marker id="a" markerWidth="8" markerHeight="6" refX="8" refY="3" orient="auto"><path d="M0,0 L8,3 L0,6 Z" fill="#475569"/></marker>
+    <marker id="a" markerWidth="8" markerHeight="6" refX="8" refY="3" orient="auto"><path d="M0,0 L8,3 L0,6 Z" fill="#4a4a5a"/></marker>
   </defs>
 
-  <text x="430" y="28" text-anchor="middle" font-size="17" font-weight="bold" fill="#0f172a">Mixtral 8×7B: Sparse MoE in Practice</text>
-  <text x="430" y="46" text-anchor="middle" font-size="10" fill="#64748b">Jiang et al. (2024) — 8 expert FFNs per layer, top-2 routing, Mistral 7B base</text>
+  <text x="430" y="28" text-anchor="middle" font-size="17" font-weight="bold" fill="#1a1a2e">Mixtral 8×7B: Sparse MoE in Practice</text>
+  <text x="430" y="46" text-anchor="middle" font-size="11" fill="#7a7a8a">Jiang et al. (2024) — 8 expert FFNs per layer, top-2 routing, Mistral 7B base</text>
 
   <!-- Transformer block -->
-  <rect x="30" y="65" width="500" height="350" rx="10" fill="#f8fafc" stroke="#e2e8f0" stroke-width="2"/>
-  <text x="280" y="90" text-anchor="middle" font-size="12" font-weight="bold" fill="#0f172a">Mixtral Transformer Block (×32 layers)</text>
+  <rect x="30" y="65" width="500" height="350" rx="10" fill="#f5f5f8" stroke="#f5f5f8" stroke-width="2"/>
+  <text x="280" y="90" text-anchor="middle" font-size="12" font-weight="bold" fill="#1a1a2e">Mixtral Transformer Block (×32 layers)</text>
 
   <!-- Input -->
-  <rect x="230" y="105" width="100" height="30" rx="4" fill="#f1f5f9" stroke="#475569" stroke-width="1.5"/>
-  <text x="280" y="124" text-anchor="middle" font-size="9" fill="#0f172a">Input tokens</text>
+  <rect x="230" y="105" width="100" height="30" rx="4" fill="#f5f5f8" stroke="#4a4a5a" stroke-width="1.5"/>
+  <text x="280" y="124" text-anchor="middle" font-size="11" fill="#1a1a2e">Input tokens</text>
 
-  <line x1="280" y1="135" x2="280" y2="153" stroke="#475569" stroke-width="1.5" marker-end="url(#a)"/>
+  <line x1="280" y1="135" x2="280" y2="153" stroke="#4a4a5a" stroke-width="1.5" marker-end="url(#a)"/>
 
   <!-- RMSNorm -->
-  <rect x="240" y="155" width="80" height="25" rx="4" fill="#f3e8ff" stroke="#9333ea" stroke-width="1.5"/>
-  <text x="280" y="172" text-anchor="middle" font-size="8" fill="#581c87">RMSNorm</text>
+  <rect x="240" y="155" width="80" height="25" rx="4" fill="#e8e4f1" stroke="#7b68a8" stroke-width="1.5"/>
+  <text x="280" y="172" text-anchor="middle" font-size="11" fill="#7b68a8">RMSNorm</text>
 
-  <line x1="280" y1="180" x2="280" y2="193" stroke="#475569" stroke-width="1.5" marker-end="url(#a)"/>
+  <line x1="280" y1="180" x2="280" y2="193" stroke="#4a4a5a" stroke-width="1.5" marker-end="url(#a)"/>
 
   <!-- GQA Attention -->
-  <rect x="190" y="195" width="180" height="40" rx="6" fill="#fce7f3" stroke="#db2777" stroke-width="2"/>
-  <text x="280" y="213" text-anchor="middle" font-size="9" font-weight="bold" fill="#831843">Grouped-Query Attention</text>
-  <text x="280" y="228" text-anchor="middle" font-size="7" fill="#db2777">32 heads, 8 KV heads (GQA)</text>
+  <rect x="190" y="195" width="180" height="40" rx="6" fill="#f6e4e3" stroke="#d4645c" stroke-width="2"/>
+  <text x="280" y="213" text-anchor="middle" font-size="11" font-weight="bold" fill="#d4645c">Grouped-Query Attention</text>
+  <text x="280" y="228" text-anchor="middle" font-size="11" fill="#d4645c">32 heads, 8 KV heads (GQA)</text>
 
   <!-- Residual -->
-  <line x1="170" y1="125" x2="170" y2="240" stroke="#94a3b8" stroke-width="1.5" stroke-dasharray="4,2"/>
-  <line x1="170" y1="240" x2="188" y2="240" stroke="#94a3b8" stroke-width="1"/>
-  <circle cx="192" cy="240" r="8" fill="#f1f5f9" stroke="#475569" stroke-width="1"/>
-  <text x="192" y="244" text-anchor="middle" font-size="9" fill="#475569">+</text>
+  <line x1="170" y1="125" x2="170" y2="240" stroke="#c0c0c8" stroke-width="1.5" stroke-dasharray="4,2"/>
+  <line x1="170" y1="240" x2="188" y2="240" stroke="#c0c0c8" stroke-width="1"/>
+  <circle cx="192" cy="240" r="8" fill="#f5f5f8" stroke="#4a4a5a" stroke-width="1"/>
+  <text x="192" y="244" text-anchor="middle" font-size="11" fill="#4a4a5a">+</text>
 
-  <line x1="280" y1="235" x2="280" y2="253" stroke="#475569" stroke-width="1.5" marker-end="url(#a)"/>
+  <line x1="280" y1="235" x2="280" y2="253" stroke="#4a4a5a" stroke-width="1.5" marker-end="url(#a)"/>
 
   <!-- RMSNorm 2 -->
-  <rect x="240" y="255" width="80" height="25" rx="4" fill="#f3e8ff" stroke="#9333ea" stroke-width="1.5"/>
-  <text x="280" y="272" text-anchor="middle" font-size="8" fill="#581c87">RMSNorm</text>
+  <rect x="240" y="255" width="80" height="25" rx="4" fill="#e8e4f1" stroke="#7b68a8" stroke-width="1.5"/>
+  <text x="280" y="272" text-anchor="middle" font-size="11" fill="#7b68a8">RMSNorm</text>
 
-  <line x1="280" y1="280" x2="280" y2="293" stroke="#475569" stroke-width="1.5" marker-end="url(#a)"/>
+  <line x1="280" y1="280" x2="280" y2="293" stroke="#4a4a5a" stroke-width="1.5" marker-end="url(#a)"/>
 
   <!-- MoE FFN Block -->
-  <rect x="55" y="295" width="450" height="100" rx="8" fill="#fef3c7" stroke="#d97706" stroke-width="2"/>
-  <text x="280" y="315" text-anchor="middle" font-size="10" font-weight="bold" fill="#78350f">Sparse MoE FFN (replaces dense FFN)</text>
+  <rect x="55" y="295" width="470" height="100" rx="8" fill="#f5ece0" stroke="#d4a03c" stroke-width="2"/>
+  <text x="280" y="315" text-anchor="middle" font-size="11" font-weight="bold" fill="#d4a03c">Sparse MoE FFN (replaces dense FFN)</text>
 
   <!-- Router -->
-  <rect x="75" y="330" width="80" height="30" rx="4" fill="#fef3c7" stroke="#d97706" stroke-width="1.5"/>
-  <text x="115" y="348" text-anchor="middle" font-size="7" font-weight="bold" fill="#78350f">Router</text>
-  <text x="115" y="360" text-anchor="middle" font-size="6" fill="#d97706">top-2</text>
+  <rect x="75" y="330" width="80" height="30" rx="4" fill="#f5ece0" stroke="#d4a03c" stroke-width="1.5"/>
+  <text x="115" y="348" text-anchor="middle" font-size="11" font-weight="bold" fill="#d4a03c">Router</text>
+  <text x="115" y="360" text-anchor="middle" font-size="11" fill="#d4a03c">top-2</text>
 
   <!-- 8 expert boxes -->
-  <rect x="175" y="325" width="38" height="30" rx="3" fill="#dcfce7" stroke="#16a34a" stroke-width="2"/>
-  <text x="194" y="344" text-anchor="middle" font-size="7" font-weight="bold" fill="#14532d">E₁</text>
+  <rect x="175" y="325" width="38" height="30" rx="3" fill="#dff0ed" stroke="#3a9e8f" stroke-width="2"/>
+  <text x="194" y="344" text-anchor="middle" font-size="11" font-weight="bold" fill="#3a9e8f">E₁</text>
 
-  <rect x="218" y="325" width="38" height="30" rx="3" fill="#f1f5f9" stroke="#94a3b8" stroke-width="1" stroke-dasharray="3,2"/>
-  <text x="237" y="344" text-anchor="middle" font-size="7" fill="#94a3b8">E₂</text>
+  <rect x="218" y="325" width="38" height="30" rx="3" fill="#f5f5f8" stroke="#c0c0c8" stroke-width="1" stroke-dasharray="3,2"/>
+  <text x="237" y="344" text-anchor="middle" font-size="11" fill="#c0c0c8">E₂</text>
 
-  <rect x="261" y="325" width="38" height="30" rx="3" fill="#f1f5f9" stroke="#94a3b8" stroke-width="1" stroke-dasharray="3,2"/>
-  <text x="280" y="344" text-anchor="middle" font-size="7" fill="#94a3b8">E₃</text>
+  <rect x="261" y="325" width="38" height="30" rx="3" fill="#f5f5f8" stroke="#c0c0c8" stroke-width="1" stroke-dasharray="3,2"/>
+  <text x="280" y="344" text-anchor="middle" font-size="11" fill="#c0c0c8">E₃</text>
 
-  <rect x="304" y="325" width="38" height="30" rx="3" fill="#f1f5f9" stroke="#94a3b8" stroke-width="1" stroke-dasharray="3,2"/>
-  <text x="323" y="344" text-anchor="middle" font-size="7" fill="#94a3b8">E₄</text>
+  <rect x="304" y="325" width="38" height="30" rx="3" fill="#f5f5f8" stroke="#c0c0c8" stroke-width="1" stroke-dasharray="3,2"/>
+  <text x="323" y="344" text-anchor="middle" font-size="11" fill="#c0c0c8">E₄</text>
 
-  <rect x="347" y="325" width="38" height="30" rx="3" fill="#dcfce7" stroke="#16a34a" stroke-width="2"/>
-  <text x="366" y="344" text-anchor="middle" font-size="7" font-weight="bold" fill="#14532d">E₅</text>
+  <rect x="347" y="325" width="38" height="30" rx="3" fill="#dff0ed" stroke="#3a9e8f" stroke-width="2"/>
+  <text x="366" y="344" text-anchor="middle" font-size="11" font-weight="bold" fill="#3a9e8f">E₅</text>
 
-  <rect x="390" y="325" width="38" height="30" rx="3" fill="#f1f5f9" stroke="#94a3b8" stroke-width="1" stroke-dasharray="3,2"/>
-  <text x="409" y="344" text-anchor="middle" font-size="7" fill="#94a3b8">E₆</text>
+  <rect x="390" y="325" width="38" height="30" rx="3" fill="#f5f5f8" stroke="#c0c0c8" stroke-width="1" stroke-dasharray="3,2"/>
+  <text x="409" y="344" text-anchor="middle" font-size="11" fill="#c0c0c8">E₆</text>
 
-  <rect x="433" y="325" width="38" height="30" rx="3" fill="#f1f5f9" stroke="#94a3b8" stroke-width="1" stroke-dasharray="3,2"/>
-  <text x="452" y="344" text-anchor="middle" font-size="7" fill="#94a3b8">E₇</text>
+  <rect x="433" y="325" width="38" height="30" rx="3" fill="#f5f5f8" stroke="#c0c0c8" stroke-width="1" stroke-dasharray="3,2"/>
+  <text x="452" y="344" text-anchor="middle" font-size="11" fill="#c0c0c8">E₇</text>
 
-  <rect x="476" y="325" width="25" height="30" rx="3" fill="#f1f5f9" stroke="#94a3b8" stroke-width="1" stroke-dasharray="3,2"/>
-  <text x="488" y="344" text-anchor="middle" font-size="7" fill="#94a3b8">E₈</text>
+  <rect x="476" y="325" width="38" height="30" rx="3" fill="#f5f5f8" stroke="#c0c0c8" stroke-width="1" stroke-dasharray="3,2"/>
+  <text x="495" y="344" text-anchor="middle" font-size="11" fill="#c0c0c8">E₈</text>
 
   <!-- Each expert label -->
-  <text x="330" y="375" text-anchor="middle" font-size="7" fill="#d97706">Each expert = SwiGLU FFN (d=4096 → 14336 → 4096)</text>
-  <text x="330" y="388" text-anchor="middle" font-size="7" fill="#16a34a" font-weight="bold">Only 2 of 8 active per token</text>
+  <text x="330" y="375" text-anchor="middle" font-size="11" fill="#d4a03c">Each expert = SwiGLU FFN (d=4096 → 14336 → 4096)</text>
+  <text x="330" y="388" text-anchor="middle" font-size="11" fill="#3a9e8f" font-weight="bold">Only 2 of 8 active per token</text>
 
   <!-- Specs panel -->
-  <rect x="555" y="65" width="280" height="200" rx="10" fill="#f0fdf4" stroke="#16a34a" stroke-width="2"/>
-  <text x="695" y="90" text-anchor="middle" font-size="11" font-weight="bold" fill="#14532d">Mixtral 8×7B Specs</text>
+  <rect x="555" y="65" width="280" height="200" rx="10" fill="#edf7f5" stroke="#3a9e8f" stroke-width="2"/>
+  <text x="695" y="90" text-anchor="middle" font-size="11" font-weight="bold" fill="#3a9e8f">Mixtral 8×7B Specs</text>
 
-  <text x="575" y="115" font-size="9" fill="#334155">Total parameters:</text>
-  <text x="760" y="115" font-size="9" fill="#14532d" font-weight="bold" font-family="'SF Mono', Consolas, monospace">46.7B</text>
+  <text x="575" y="115" font-size="11" fill="#3a3a4a">Total parameters:</text>
+  <text x="760" y="115" font-size="11" fill="#3a9e8f" font-weight="bold" font-family="'JetBrains Mono', 'Fira Code', monospace">46.7B</text>
 
-  <text x="575" y="138" font-size="9" fill="#334155">Active per token:</text>
-  <text x="760" y="138" font-size="9" fill="#14532d" font-weight="bold" font-family="'SF Mono', Consolas, monospace">12.9B</text>
+  <text x="575" y="138" font-size="11" fill="#3a3a4a">Active per token:</text>
+  <text x="760" y="138" font-size="11" fill="#3a9e8f" font-weight="bold" font-family="'JetBrains Mono', 'Fira Code', monospace">12.9B</text>
 
-  <text x="575" y="161" font-size="9" fill="#334155">Experts per layer:</text>
-  <text x="760" y="161" font-size="9" fill="#334155" font-family="'SF Mono', Consolas, monospace">8</text>
+  <text x="575" y="161" font-size="11" fill="#3a3a4a">Experts per layer:</text>
+  <text x="760" y="161" font-size="11" fill="#3a3a4a" font-family="'JetBrains Mono', 'Fira Code', monospace">8</text>
 
-  <text x="575" y="184" font-size="9" fill="#334155">Top-k routing:</text>
-  <text x="760" y="184" font-size="9" fill="#334155" font-family="'SF Mono', Consolas, monospace">2</text>
+  <text x="575" y="184" font-size="11" fill="#3a3a4a">Top-k routing:</text>
+  <text x="760" y="184" font-size="11" fill="#3a3a4a" font-family="'JetBrains Mono', 'Fira Code', monospace">2</text>
 
-  <text x="575" y="207" font-size="9" fill="#334155">Layers:</text>
-  <text x="760" y="207" font-size="9" fill="#334155" font-family="'SF Mono', Consolas, monospace">32</text>
+  <text x="575" y="207" font-size="11" fill="#3a3a4a">Layers:</text>
+  <text x="760" y="207" font-size="11" fill="#3a3a4a" font-family="'JetBrains Mono', 'Fira Code', monospace">32</text>
 
-  <text x="575" y="230" font-size="9" fill="#334155">Context window:</text>
-  <text x="760" y="230" font-size="9" fill="#334155" font-family="'SF Mono', Consolas, monospace">32K (SWA)</text>
+  <text x="575" y="230" font-size="11" fill="#3a3a4a">Context window:</text>
+  <text x="760" y="230" font-size="11" fill="#3a3a4a" font-family="'JetBrains Mono', 'Fira Code', monospace">32K (SWA)</text>
 
-  <text x="575" y="253" font-size="9" fill="#334155">Attention:</text>
-  <text x="760" y="253" font-size="9" fill="#334155" font-family="'SF Mono', Consolas, monospace">GQA + SWA</text>
+  <text x="575" y="253" font-size="11" fill="#3a3a4a">Attention:</text>
+  <text x="760" y="253" font-size="11" fill="#3a3a4a" font-family="'JetBrains Mono', 'Fira Code', monospace">GQA + SWA</text>
 
   <!-- Performance comparison -->
-  <rect x="555" y="280" width="280" height="135" rx="10" fill="#fef3c7" stroke="#d97706" stroke-width="1.5"/>
-  <text x="695" y="305" text-anchor="middle" font-size="10" font-weight="bold" fill="#78350f">Performance</text>
+  <rect x="555" y="280" width="280" height="135" rx="10" fill="#f5ece0" stroke="#d4a03c" stroke-width="1.5"/>
+  <text x="695" y="305" text-anchor="middle" font-size="11" font-weight="bold" fill="#d4a03c">Performance</text>
 
-  <text x="575" y="328" font-size="8" fill="#334155">• Matches LLaMA 2 70B on most benchmarks</text>
-  <text x="575" y="346" font-size="8" fill="#334155">• With only 12.9B active params (6× less FLOPs)</text>
-  <text x="575" y="364" font-size="8" fill="#334155">• Excels at math and code tasks</text>
-  <text x="575" y="382" font-size="8" fill="#334155">• Sliding Window Attention (4096 window)</text>
-  <text x="575" y="400" font-size="8" fill="#334155">• First strong open-source MoE LLM</text>
+  <text x="575" y="328" font-size="11" fill="#3a3a4a">• Matches LLaMA 2 70B on most benchmarks</text>
+  <text x="575" y="346" font-size="11" fill="#3a3a4a">• With only 12.9B active params (6× less FLOPs)</text>
+  <text x="575" y="364" font-size="11" fill="#3a3a4a">• Excels at math and code tasks</text>
+  <text x="575" y="382" font-size="11" fill="#3a3a4a">• Sliding Window Attention (4096 window)</text>
+  <text x="575" y="400" font-size="11" fill="#3a3a4a">• First strong open-source MoE LLM</text>
 
   <!-- Bottom insight -->
-  <rect x="30" y="430" width="800" height="40" rx="6" fill="#dcfce7" stroke="#16a34a" stroke-width="1.5"/>
-  <text x="430" y="448" text-anchor="middle" font-size="9" font-weight="bold" fill="#14532d">Key Insight: MoE allows scaling model capacity (total params) while keeping inference cost (active params) fixed.</text>
-  <text x="430" y="464" text-anchor="middle" font-size="8" fill="#334155">Tradeoff: requires more GPU memory to hold all experts, but each forward pass only uses a fraction.</text>
+  <rect x="30" y="430" width="800" height="40" rx="6" fill="#dff0ed" stroke="#3a9e8f" stroke-width="1.5"/>
+  <text x="430" y="448" text-anchor="middle" font-size="11" font-weight="bold" fill="#3a9e8f">Key Insight: MoE allows scaling model capacity (total params) while keeping inference cost (active params) fixed.</text>
+  <text x="430" y="464" text-anchor="middle" font-size="11" fill="#3a3a4a">Tradeoff: requires more GPU memory to hold all experts, but each forward pass only uses a fraction.</text>
 </svg>

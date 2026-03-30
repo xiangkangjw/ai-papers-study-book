@@ -1,122 +1,122 @@
 <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 880 480" font-family="Inter, Helvetica, Arial, sans-serif">
   <defs>
-    <marker id="a" markerWidth="8" markerHeight="6" refX="8" refY="3" orient="auto"><path d="M0,0 L8,3 L0,6 Z" fill="#475569"/></marker>
+    <marker id="a" markerWidth="8" markerHeight="6" refX="8" refY="3" orient="auto"><path d="M0,0 L8,3 L0,6 Z" fill="#4a4a5a"/></marker>
   </defs>
 
-  <text x="440" y="28" text-anchor="middle" font-size="17" font-weight="bold" fill="#0f172a">ControlNet: Adding Spatial Control to Diffusion</text>
-  <text x="440" y="46" text-anchor="middle" font-size="10" fill="#64748b">Zhang et al. (2023) — Lock original SD, train a parallel copy conditioned on spatial inputs</text>
+  <text x="440" y="28" text-anchor="middle" font-size="17" font-weight="bold" fill="#1a1a2e">ControlNet: Adding Spatial Control to Diffusion</text>
+  <text x="440" y="46" text-anchor="middle" font-size="11" fill="#7a7a8a">Zhang et al. (2023) — Lock original SD, train a parallel copy conditioned on spatial inputs</text>
 
   <!-- Architecture -->
-  <rect x="30" y="65" width="820" height="310" rx="10" fill="#f8fafc" stroke="#e2e8f0" stroke-width="2"/>
+  <rect x="30" y="65" width="820" height="310" rx="10" fill="#f5f5f8" stroke="#f5f5f8" stroke-width="2"/>
 
   <!-- Locked SD U-Net -->
-  <rect x="300" y="85" width="260" height="270" rx="8" fill="#e2e8f0" stroke="#94a3b8" stroke-width="2"/>
-  <text x="430" y="108" text-anchor="middle" font-size="10" font-weight="bold" fill="#475569">Stable Diffusion U-Net</text>
-  <text x="430" y="124" text-anchor="middle" font-size="8" fill="#94a3b8">🔒 Completely Frozen</text>
+  <rect x="300" y="85" width="260" height="270" rx="8" fill="#f5f5f8" stroke="#c0c0c8" stroke-width="2"/>
+  <text x="430" y="108" text-anchor="middle" font-size="11" font-weight="bold" fill="#4a4a5a">Stable Diffusion U-Net</text>
+  <text x="430" y="124" text-anchor="middle" font-size="11" fill="#c0c0c8">🔒 Completely Frozen</text>
 
   <!-- SD Encoder blocks -->
-  <rect x="320" y="140" width="80" height="30" rx="4" fill="#e2e8f0" stroke="#94a3b8" stroke-width="1.5"/>
-  <text x="360" y="159" text-anchor="middle" font-size="7" fill="#475569">Enc Block 1</text>
-  <rect x="320" y="180" width="80" height="30" rx="4" fill="#e2e8f0" stroke="#94a3b8" stroke-width="1.5"/>
-  <text x="360" y="199" text-anchor="middle" font-size="7" fill="#475569">Enc Block 2</text>
-  <rect x="320" y="220" width="80" height="30" rx="4" fill="#e2e8f0" stroke="#94a3b8" stroke-width="1.5"/>
-  <text x="360" y="239" text-anchor="middle" font-size="7" fill="#475569">Enc Block 3</text>
+  <rect x="320" y="140" width="80" height="30" rx="4" fill="#f5f5f8" stroke="#c0c0c8" stroke-width="1.5"/>
+  <text x="360" y="159" text-anchor="middle" font-size="11" fill="#4a4a5a">Enc Block 1</text>
+  <rect x="320" y="180" width="80" height="30" rx="4" fill="#f5f5f8" stroke="#c0c0c8" stroke-width="1.5"/>
+  <text x="360" y="199" text-anchor="middle" font-size="11" fill="#4a4a5a">Enc Block 2</text>
+  <rect x="320" y="220" width="80" height="30" rx="4" fill="#f5f5f8" stroke="#c0c0c8" stroke-width="1.5"/>
+  <text x="360" y="239" text-anchor="middle" font-size="11" fill="#4a4a5a">Enc Block 3</text>
 
   <!-- SD middle -->
-  <rect x="375" y="265" width="110" height="25" rx="4" fill="#e2e8f0" stroke="#94a3b8" stroke-width="1.5"/>
-  <text x="430" y="282" text-anchor="middle" font-size="7" fill="#475569">Middle Block</text>
+  <rect x="375" y="265" width="110" height="25" rx="4" fill="#f5f5f8" stroke="#c0c0c8" stroke-width="1.5"/>
+  <text x="430" y="282" text-anchor="middle" font-size="11" fill="#4a4a5a">Middle Block</text>
 
   <!-- SD Decoder blocks -->
-  <rect x="460" y="140" width="80" height="30" rx="4" fill="#e2e8f0" stroke="#94a3b8" stroke-width="1.5"/>
-  <text x="500" y="159" text-anchor="middle" font-size="7" fill="#475569">Dec Block 1</text>
-  <rect x="460" y="180" width="80" height="30" rx="4" fill="#e2e8f0" stroke="#94a3b8" stroke-width="1.5"/>
-  <text x="500" y="199" text-anchor="middle" font-size="7" fill="#475569">Dec Block 2</text>
-  <rect x="460" y="220" width="80" height="30" rx="4" fill="#e2e8f0" stroke="#94a3b8" stroke-width="1.5"/>
-  <text x="500" y="239" text-anchor="middle" font-size="7" fill="#475569">Dec Block 3</text>
+  <rect x="460" y="140" width="80" height="30" rx="4" fill="#f5f5f8" stroke="#c0c0c8" stroke-width="1.5"/>
+  <text x="500" y="159" text-anchor="middle" font-size="11" fill="#4a4a5a">Dec Block 1</text>
+  <rect x="460" y="180" width="80" height="30" rx="4" fill="#f5f5f8" stroke="#c0c0c8" stroke-width="1.5"/>
+  <text x="500" y="199" text-anchor="middle" font-size="11" fill="#4a4a5a">Dec Block 2</text>
+  <rect x="460" y="220" width="80" height="30" rx="4" fill="#f5f5f8" stroke="#c0c0c8" stroke-width="1.5"/>
+  <text x="500" y="239" text-anchor="middle" font-size="11" fill="#4a4a5a">Dec Block 3</text>
 
   <!-- Skip connections in SD -->
-  <line x1="400" y1="155" x2="458" y2="155" stroke="#94a3b8" stroke-width="1" stroke-dasharray="3,2"/>
-  <line x1="400" y1="195" x2="458" y2="195" stroke="#94a3b8" stroke-width="1" stroke-dasharray="3,2"/>
-  <line x1="400" y1="235" x2="458" y2="235" stroke="#94a3b8" stroke-width="1" stroke-dasharray="3,2"/>
+  <line x1="400" y1="155" x2="458" y2="155" stroke="#c0c0c8" stroke-width="1" stroke-dasharray="3,2"/>
+  <line x1="400" y1="195" x2="458" y2="195" stroke="#c0c0c8" stroke-width="1" stroke-dasharray="3,2"/>
+  <line x1="400" y1="235" x2="458" y2="235" stroke="#c0c0c8" stroke-width="1" stroke-dasharray="3,2"/>
 
   <!-- ControlNet (trainable copy) -->
-  <rect x="50" y="85" width="230" height="270" rx="8" fill="#dcfce7" stroke="#16a34a" stroke-width="2.5"/>
-  <text x="165" y="108" text-anchor="middle" font-size="10" font-weight="bold" fill="#14532d">ControlNet Copy</text>
-  <text x="165" y="124" text-anchor="middle" font-size="8" fill="#16a34a">🔥 Trainable (initialized from SD encoder)</text>
+  <rect x="50" y="85" width="230" height="270" rx="8" fill="#dff0ed" stroke="#3a9e8f" stroke-width="2.5"/>
+  <text x="165" y="108" text-anchor="middle" font-size="11" font-weight="bold" fill="#3a9e8f">ControlNet Copy</text>
+  <text x="165" y="124" text-anchor="middle" font-size="11" fill="#3a9e8f">🔥 Trainable (initialized from SD encoder)</text>
 
   <!-- Condition input -->
-  <rect x="70" y="140" width="80" height="35" rx="4" fill="#fef3c7" stroke="#d97706" stroke-width="2"/>
-  <text x="110" y="155" text-anchor="middle" font-size="7" font-weight="bold" fill="#78350f">Condition c</text>
-  <text x="110" y="168" text-anchor="middle" font-size="6" fill="#d97706">edge/pose/depth</text>
+  <rect x="70" y="140" width="80" height="35" rx="4" fill="#f5ece0" stroke="#d4a03c" stroke-width="2"/>
+  <text x="110" y="155" text-anchor="middle" font-size="11" font-weight="bold" fill="#d4a03c">Condition c</text>
+  <text x="110" y="168" text-anchor="middle" font-size="11" fill="#d4a03c">edge/pose/depth</text>
 
   <!-- ControlNet encoder blocks -->
-  <rect x="170" y="140" width="80" height="30" rx="4" fill="#dcfce7" stroke="#16a34a" stroke-width="1.5"/>
-  <text x="210" y="159" text-anchor="middle" font-size="7" fill="#14532d">Enc Block 1'</text>
-  <rect x="170" y="180" width="80" height="30" rx="4" fill="#dcfce7" stroke="#16a34a" stroke-width="1.5"/>
-  <text x="210" y="199" text-anchor="middle" font-size="7" fill="#14532d">Enc Block 2'</text>
-  <rect x="170" y="220" width="80" height="30" rx="4" fill="#dcfce7" stroke="#16a34a" stroke-width="1.5"/>
-  <text x="210" y="239" text-anchor="middle" font-size="7" fill="#14532d">Enc Block 3'</text>
+  <rect x="170" y="140" width="80" height="30" rx="4" fill="#dff0ed" stroke="#3a9e8f" stroke-width="1.5"/>
+  <text x="210" y="159" text-anchor="middle" font-size="11" fill="#3a9e8f">Enc Block 1'</text>
+  <rect x="170" y="180" width="80" height="30" rx="4" fill="#dff0ed" stroke="#3a9e8f" stroke-width="1.5"/>
+  <text x="210" y="199" text-anchor="middle" font-size="11" fill="#3a9e8f">Enc Block 2'</text>
+  <rect x="170" y="220" width="80" height="30" rx="4" fill="#dff0ed" stroke="#3a9e8f" stroke-width="1.5"/>
+  <text x="210" y="239" text-anchor="middle" font-size="11" fill="#3a9e8f">Enc Block 3'</text>
 
   <!-- ControlNet middle -->
-  <rect x="120" y="265" width="120" height="25" rx="4" fill="#dcfce7" stroke="#16a34a" stroke-width="1.5"/>
-  <text x="180" y="282" text-anchor="middle" font-size="7" fill="#14532d">Middle Block'</text>
+  <rect x="120" y="265" width="120" height="25" rx="4" fill="#dff0ed" stroke="#3a9e8f" stroke-width="1.5"/>
+  <text x="180" y="282" text-anchor="middle" font-size="11" fill="#3a9e8f">Middle Block'</text>
 
   <!-- Zero convolutions (key innovation) -->
-  <rect x="255" y="145" width="35" height="20" rx="3" fill="#9333ea" stroke="#9333ea" stroke-width="1"/>
-  <text x="272" y="159" text-anchor="middle" font-size="5" fill="#fff">0-conv</text>
-  <rect x="255" y="185" width="35" height="20" rx="3" fill="#9333ea" stroke="#9333ea" stroke-width="1"/>
-  <text x="272" y="199" text-anchor="middle" font-size="5" fill="#fff">0-conv</text>
-  <rect x="255" y="225" width="35" height="20" rx="3" fill="#9333ea" stroke="#9333ea" stroke-width="1"/>
-  <text x="272" y="239" text-anchor="middle" font-size="5" fill="#fff">0-conv</text>
-  <rect x="245" y="270" width="35" height="15" rx="3" fill="#9333ea" stroke="#9333ea" stroke-width="1"/>
-  <text x="262" y="281" text-anchor="middle" font-size="5" fill="#fff">0-conv</text>
+  <rect x="255" y="145" width="35" height="20" rx="3" fill="#7b68a8" stroke="#7b68a8" stroke-width="1"/>
+  <text x="272" y="159" text-anchor="middle" font-size="11" fill="#fff">0-conv</text>
+  <rect x="255" y="185" width="35" height="20" rx="3" fill="#7b68a8" stroke="#7b68a8" stroke-width="1"/>
+  <text x="272" y="199" text-anchor="middle" font-size="11" fill="#fff">0-conv</text>
+  <rect x="255" y="225" width="35" height="20" rx="3" fill="#7b68a8" stroke="#7b68a8" stroke-width="1"/>
+  <text x="272" y="239" text-anchor="middle" font-size="11" fill="#fff">0-conv</text>
+  <rect x="245" y="270" width="35" height="15" rx="3" fill="#7b68a8" stroke="#7b68a8" stroke-width="1"/>
+  <text x="262" y="281" text-anchor="middle" font-size="11" fill="#fff">0-conv</text>
 
   <!-- Arrows: ControlNet output → SD decoder (addition) -->
-  <line x1="290" y1="155" x2="455" y2="155" stroke="#16a34a" stroke-width="2" marker-end="url(#a)"/>
-  <line x1="290" y1="195" x2="455" y2="195" stroke="#16a34a" stroke-width="2" marker-end="url(#a)"/>
-  <line x1="290" y1="235" x2="455" y2="235" stroke="#16a34a" stroke-width="2" marker-end="url(#a)"/>
-  <line x1="280" y1="277" x2="373" y2="277" stroke="#16a34a" stroke-width="2" marker-end="url(#a)"/>
+  <line x1="290" y1="155" x2="455" y2="155" stroke="#3a9e8f" stroke-width="2" marker-end="url(#a)"/>
+  <line x1="290" y1="195" x2="455" y2="195" stroke="#3a9e8f" stroke-width="2" marker-end="url(#a)"/>
+  <line x1="290" y1="235" x2="455" y2="235" stroke="#3a9e8f" stroke-width="2" marker-end="url(#a)"/>
+  <line x1="280" y1="277" x2="373" y2="277" stroke="#3a9e8f" stroke-width="2" marker-end="url(#a)"/>
 
   <!-- Addition symbols -->
-  <circle cx="457" cy="155" r="6" fill="#dcfce7" stroke="#16a34a" stroke-width="1.5"/>
-  <text x="457" y="158" text-anchor="middle" font-size="8" fill="#16a34a">+</text>
-  <circle cx="457" cy="195" r="6" fill="#dcfce7" stroke="#16a34a" stroke-width="1.5"/>
-  <text x="457" y="198" text-anchor="middle" font-size="8" fill="#16a34a">+</text>
-  <circle cx="457" cy="235" r="6" fill="#dcfce7" stroke="#16a34a" stroke-width="1.5"/>
-  <text x="457" y="238" text-anchor="middle" font-size="8" fill="#16a34a">+</text>
+  <circle cx="457" cy="155" r="6" fill="#dff0ed" stroke="#3a9e8f" stroke-width="1.5"/>
+  <text x="457" y="158" text-anchor="middle" font-size="11" fill="#3a9e8f">+</text>
+  <circle cx="457" cy="195" r="6" fill="#dff0ed" stroke="#3a9e8f" stroke-width="1.5"/>
+  <text x="457" y="198" text-anchor="middle" font-size="11" fill="#3a9e8f">+</text>
+  <circle cx="457" cy="235" r="6" fill="#dff0ed" stroke="#3a9e8f" stroke-width="1.5"/>
+  <text x="457" y="238" text-anchor="middle" font-size="11" fill="#3a9e8f">+</text>
 
   <!-- Input/Output -->
-  <rect x="580" y="90" width="90" height="35" rx="4" fill="#f1f5f9" stroke="#475569" stroke-width="1.5"/>
-  <text x="625" y="108" text-anchor="middle" font-size="7" fill="#0f172a">Noisy latent</text>
-  <text x="625" y="120" text-anchor="middle" font-size="7" fill="#0f172a">z_t + prompt</text>
+  <rect x="580" y="90" width="90" height="35" rx="4" fill="#f5f5f8" stroke="#4a4a5a" stroke-width="1.5"/>
+  <text x="625" y="108" text-anchor="middle" font-size="11" fill="#1a1a2e">Noisy latent</text>
+  <text x="625" y="120" text-anchor="middle" font-size="11" fill="#1a1a2e">z_t + prompt</text>
 
-  <line x1="580" y1="107" x2="562" y2="107" stroke="#475569" stroke-width="1.5" marker-end="url(#a)"/>
+  <line x1="580" y1="107" x2="562" y2="107" stroke="#4a4a5a" stroke-width="1.5" marker-end="url(#a)"/>
 
-  <rect x="580" y="310" width="90" height="35" rx="4" fill="#dcfce7" stroke="#16a34a" stroke-width="2"/>
-  <text x="625" y="332" text-anchor="middle" font-size="8" font-weight="bold" fill="#14532d">ε_θ output</text>
+  <rect x="580" y="310" width="90" height="35" rx="4" fill="#dff0ed" stroke="#3a9e8f" stroke-width="2"/>
+  <text x="625" y="332" text-anchor="middle" font-size="11" font-weight="bold" fill="#3a9e8f">ε_θ output</text>
 
   <!-- Condition types -->
-  <rect x="30" y="395" width="820" height="75" rx="8" fill="#fef3c7" stroke="#d97706" stroke-width="1.5"/>
-  <text x="440" y="418" text-anchor="middle" font-size="10" font-weight="bold" fill="#78350f">Supported Condition Types</text>
+  <rect x="30" y="395" width="820" height="75" rx="8" fill="#f5ece0" stroke="#d4a03c" stroke-width="1.5"/>
+  <text x="440" y="418" text-anchor="middle" font-size="11" font-weight="bold" fill="#d4a03c">Supported Condition Types</text>
 
-  <rect x="55" y="430" width="95" height="28" rx="4" fill="#fef3c7" stroke="#d97706" stroke-width="1"/>
-  <text x="102" y="448" text-anchor="middle" font-size="8" fill="#78350f">Canny Edges</text>
+  <rect x="55" y="430" width="95" height="28" rx="4" fill="#f5ece0" stroke="#d4a03c" stroke-width="1"/>
+  <text x="102" y="448" text-anchor="middle" font-size="11" fill="#d4a03c">Canny Edges</text>
 
-  <rect x="165" y="430" width="95" height="28" rx="4" fill="#fef3c7" stroke="#d97706" stroke-width="1"/>
-  <text x="212" y="448" text-anchor="middle" font-size="8" fill="#78350f">Depth Map</text>
+  <rect x="165" y="430" width="95" height="28" rx="4" fill="#f5ece0" stroke="#d4a03c" stroke-width="1"/>
+  <text x="212" y="448" text-anchor="middle" font-size="11" fill="#d4a03c">Depth Map</text>
 
-  <rect x="275" y="430" width="100" height="28" rx="4" fill="#fef3c7" stroke="#d97706" stroke-width="1"/>
-  <text x="325" y="448" text-anchor="middle" font-size="8" fill="#78350f">OpenPose</text>
+  <rect x="275" y="430" width="100" height="28" rx="4" fill="#f5ece0" stroke="#d4a03c" stroke-width="1"/>
+  <text x="325" y="448" text-anchor="middle" font-size="11" fill="#d4a03c">OpenPose</text>
 
-  <rect x="390" y="430" width="110" height="28" rx="4" fill="#fef3c7" stroke="#d97706" stroke-width="1"/>
-  <text x="445" y="448" text-anchor="middle" font-size="8" fill="#78350f">Segmentation</text>
+  <rect x="390" y="430" width="110" height="28" rx="4" fill="#f5ece0" stroke="#d4a03c" stroke-width="1"/>
+  <text x="445" y="448" text-anchor="middle" font-size="11" fill="#d4a03c">Segmentation</text>
 
-  <rect x="515" y="430" width="85" height="28" rx="4" fill="#fef3c7" stroke="#d97706" stroke-width="1"/>
-  <text x="557" y="448" text-anchor="middle" font-size="8" fill="#78350f">Normal Map</text>
+  <rect x="515" y="430" width="85" height="28" rx="4" fill="#f5ece0" stroke="#d4a03c" stroke-width="1"/>
+  <text x="557" y="448" text-anchor="middle" font-size="11" fill="#d4a03c">Normal Map</text>
 
-  <rect x="615" y="430" width="95" height="28" rx="4" fill="#fef3c7" stroke="#d97706" stroke-width="1"/>
-  <text x="662" y="448" text-anchor="middle" font-size="8" fill="#78350f">Scribble</text>
+  <rect x="615" y="430" width="95" height="28" rx="4" fill="#f5ece0" stroke="#d4a03c" stroke-width="1"/>
+  <text x="662" y="448" text-anchor="middle" font-size="11" fill="#d4a03c">Scribble</text>
 
-  <rect x="725" y="430" width="100" height="28" rx="4" fill="#f3e8ff" stroke="#9333ea" stroke-width="1.5"/>
-  <text x="775" y="448" text-anchor="middle" font-size="8" fill="#581c87" font-weight="bold">Zero-Conv Key!</text>
+  <rect x="725" y="430" width="100" height="28" rx="4" fill="#e8e4f1" stroke="#7b68a8" stroke-width="1.5"/>
+  <text x="775" y="448" text-anchor="middle" font-size="11" fill="#7b68a8" font-weight="bold">Zero-Conv Key!</text>
 </svg>

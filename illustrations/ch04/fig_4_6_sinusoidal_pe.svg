@@ -1,156 +1,156 @@
 <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 860 440" font-family="Inter, Helvetica, Arial, sans-serif">
   <defs>
-    <marker id="a" markerWidth="8" markerHeight="6" refX="8" refY="3" orient="auto"><path d="M0,0 L8,3 L0,6 Z" fill="#475569"/></marker>
+    <marker id="a" markerWidth="8" markerHeight="6" refX="8" refY="3" orient="auto"><path d="M0,0 L8,3 L0,6 Z" fill="#4a4a5a"/></marker>
   </defs>
 
-  <text x="430" y="28" text-anchor="middle" font-size="17" font-weight="bold" fill="#0f172a">Sinusoidal Positional Encoding</text>
-  <text x="430" y="46" text-anchor="middle" font-size="10" fill="#64748b">Vaswani et al. (2017) — Fixed frequency patterns encode absolute position</text>
+  <text x="430" y="28" text-anchor="middle" font-size="17" font-weight="bold" fill="#1a1a2e">Sinusoidal Positional Encoding</text>
+  <text x="430" y="46" text-anchor="middle" font-size="11" fill="#7a7a8a">Vaswani et al. (2017) — Fixed frequency patterns encode absolute position</text>
 
   <!-- Formula -->
-  <rect x="130" y="60" width="600" height="50" rx="6" fill="#fef3c7" stroke="#d97706" stroke-width="1.5"/>
-  <text x="430" y="80" text-anchor="middle" font-size="9" fill="#78350f" font-family="'SF Mono', Consolas, monospace">PE(pos, 2i)   = sin(pos / 10000^(2i/d_model))</text>
-  <text x="430" y="98" text-anchor="middle" font-size="9" fill="#78350f" font-family="'SF Mono', Consolas, monospace">PE(pos, 2i+1) = cos(pos / 10000^(2i/d_model))</text>
+  <rect x="130" y="60" width="600" height="50" rx="6" fill="#f5ece0" stroke="#d4a03c" stroke-width="1.5"/>
+  <text x="430" y="80" text-anchor="middle" font-size="11" fill="#d4a03c" font-family="'JetBrains Mono', 'Fira Code', monospace">PE(pos, 2i)   = sin(pos / 10000^(2i/d_model))</text>
+  <text x="430" y="98" text-anchor="middle" font-size="11" fill="#d4a03c" font-family="'JetBrains Mono', 'Fira Code', monospace">PE(pos, 2i+1) = cos(pos / 10000^(2i/d_model))</text>
 
   <!-- Heatmap visualization -->
-  <rect x="50" y="125" width="480" height="240" rx="8" fill="#f8fafc" stroke="#e2e8f0" stroke-width="1.5"/>
-  <text x="290" y="148" text-anchor="middle" font-size="10" font-weight="bold" fill="#0f172a">PE Matrix Heatmap</text>
+  <rect x="50" y="125" width="480" height="240" rx="8" fill="#f5f5f8" stroke="#f5f5f8" stroke-width="1.5"/>
+  <text x="290" y="148" text-anchor="middle" font-size="11" font-weight="bold" fill="#1a1a2e">PE Matrix Heatmap</text>
 
   <!-- Axes labels -->
-  <text x="290" y="355" text-anchor="middle" font-size="9" fill="#475569">Dimension index (i) →</text>
-  <text x="30" y="250" text-anchor="middle" font-size="9" fill="#475569" transform="rotate(-90 30 250)">Position (pos) →</text>
+  <text x="290" y="355" text-anchor="middle" font-size="11" fill="#4a4a5a">Dimension index (i) →</text>
+  <text x="30" y="250" text-anchor="middle" font-size="11" fill="#4a4a5a" transform="rotate(-90 30 250)">Position (pos) →</text>
 
   <!-- Simplified heatmap: rows = positions, cols = dimensions -->
   <!-- High frequency (low i) -->
-  <rect x="90" y="160" width="20" height="18" rx="1" fill="#0284c7"/>
-  <rect x="90" y="180" width="20" height="18" rx="1" fill="#e0f2fe"/>
-  <rect x="90" y="200" width="20" height="18" rx="1" fill="#0284c7"/>
-  <rect x="90" y="220" width="20" height="18" rx="1" fill="#e0f2fe"/>
-  <rect x="90" y="240" width="20" height="18" rx="1" fill="#0284c7"/>
-  <rect x="90" y="260" width="20" height="18" rx="1" fill="#e0f2fe"/>
-  <rect x="90" y="280" width="20" height="18" rx="1" fill="#0284c7"/>
-  <rect x="90" y="300" width="20" height="18" rx="1" fill="#e0f2fe"/>
+  <rect x="90" y="160" width="20" height="18" rx="1" fill="#4a7fb5"/>
+  <rect x="90" y="180" width="20" height="18" rx="1" fill="#e1eaf3"/>
+  <rect x="90" y="200" width="20" height="18" rx="1" fill="#4a7fb5"/>
+  <rect x="90" y="220" width="20" height="18" rx="1" fill="#e1eaf3"/>
+  <rect x="90" y="240" width="20" height="18" rx="1" fill="#4a7fb5"/>
+  <rect x="90" y="260" width="20" height="18" rx="1" fill="#e1eaf3"/>
+  <rect x="90" y="280" width="20" height="18" rx="1" fill="#4a7fb5"/>
+  <rect x="90" y="300" width="20" height="18" rx="1" fill="#e1eaf3"/>
 
-  <rect x="115" y="160" width="20" height="18" rx="1" fill="#e0f2fe"/>
-  <rect x="115" y="180" width="20" height="18" rx="1" fill="#0284c7"/>
-  <rect x="115" y="200" width="20" height="18" rx="1" fill="#e0f2fe"/>
-  <rect x="115" y="220" width="20" height="18" rx="1" fill="#0284c7"/>
-  <rect x="115" y="240" width="20" height="18" rx="1" fill="#e0f2fe"/>
-  <rect x="115" y="260" width="20" height="18" rx="1" fill="#0284c7"/>
-  <rect x="115" y="280" width="20" height="18" rx="1" fill="#e0f2fe"/>
-  <rect x="115" y="300" width="20" height="18" rx="1" fill="#0284c7"/>
+  <rect x="115" y="160" width="20" height="18" rx="1" fill="#e1eaf3"/>
+  <rect x="115" y="180" width="20" height="18" rx="1" fill="#4a7fb5"/>
+  <rect x="115" y="200" width="20" height="18" rx="1" fill="#e1eaf3"/>
+  <rect x="115" y="220" width="20" height="18" rx="1" fill="#4a7fb5"/>
+  <rect x="115" y="240" width="20" height="18" rx="1" fill="#e1eaf3"/>
+  <rect x="115" y="260" width="20" height="18" rx="1" fill="#4a7fb5"/>
+  <rect x="115" y="280" width="20" height="18" rx="1" fill="#e1eaf3"/>
+  <rect x="115" y="300" width="20" height="18" rx="1" fill="#4a7fb5"/>
 
   <!-- Medium frequency -->
-  <rect x="170" y="160" width="20" height="18" rx="1" fill="#0284c7"/>
-  <rect x="170" y="180" width="20" height="18" rx="1" fill="#0284c7" opacity="0.7"/>
-  <rect x="170" y="200" width="20" height="18" rx="1" fill="#e0f2fe"/>
-  <rect x="170" y="220" width="20" height="18" rx="1" fill="#e0f2fe"/>
-  <rect x="170" y="240" width="20" height="18" rx="1" fill="#0284c7"/>
-  <rect x="170" y="260" width="20" height="18" rx="1" fill="#0284c7" opacity="0.7"/>
-  <rect x="170" y="280" width="20" height="18" rx="1" fill="#e0f2fe"/>
-  <rect x="170" y="300" width="20" height="18" rx="1" fill="#e0f2fe"/>
+  <rect x="170" y="160" width="20" height="18" rx="1" fill="#4a7fb5"/>
+  <rect x="170" y="180" width="20" height="18" rx="1" fill="#4a7fb5" opacity="0.7"/>
+  <rect x="170" y="200" width="20" height="18" rx="1" fill="#e1eaf3"/>
+  <rect x="170" y="220" width="20" height="18" rx="1" fill="#e1eaf3"/>
+  <rect x="170" y="240" width="20" height="18" rx="1" fill="#4a7fb5"/>
+  <rect x="170" y="260" width="20" height="18" rx="1" fill="#4a7fb5" opacity="0.7"/>
+  <rect x="170" y="280" width="20" height="18" rx="1" fill="#e1eaf3"/>
+  <rect x="170" y="300" width="20" height="18" rx="1" fill="#e1eaf3"/>
 
-  <rect x="195" y="160" width="20" height="18" rx="1" fill="#e0f2fe"/>
-  <rect x="195" y="180" width="20" height="18" rx="1" fill="#e0f2fe"/>
-  <rect x="195" y="200" width="20" height="18" rx="1" fill="#0284c7" opacity="0.7"/>
-  <rect x="195" y="220" width="20" height="18" rx="1" fill="#0284c7"/>
-  <rect x="195" y="240" width="20" height="18" rx="1" fill="#e0f2fe"/>
-  <rect x="195" y="260" width="20" height="18" rx="1" fill="#e0f2fe"/>
-  <rect x="195" y="280" width="20" height="18" rx="1" fill="#0284c7" opacity="0.7"/>
-  <rect x="195" y="300" width="20" height="18" rx="1" fill="#0284c7"/>
+  <rect x="195" y="160" width="20" height="18" rx="1" fill="#e1eaf3"/>
+  <rect x="195" y="180" width="20" height="18" rx="1" fill="#e1eaf3"/>
+  <rect x="195" y="200" width="20" height="18" rx="1" fill="#4a7fb5" opacity="0.7"/>
+  <rect x="195" y="220" width="20" height="18" rx="1" fill="#4a7fb5"/>
+  <rect x="195" y="240" width="20" height="18" rx="1" fill="#e1eaf3"/>
+  <rect x="195" y="260" width="20" height="18" rx="1" fill="#e1eaf3"/>
+  <rect x="195" y="280" width="20" height="18" rx="1" fill="#4a7fb5" opacity="0.7"/>
+  <rect x="195" y="300" width="20" height="18" rx="1" fill="#4a7fb5"/>
 
   <!-- Transition zone -->
-  <rect x="250" y="160" width="20" height="18" rx="1" fill="#0284c7"/>
-  <rect x="250" y="180" width="20" height="18" rx="1" fill="#0284c7" opacity="0.8"/>
-  <rect x="250" y="200" width="20" height="18" rx="1" fill="#0284c7" opacity="0.5"/>
-  <rect x="250" y="220" width="20" height="18" rx="1" fill="#e0f2fe"/>
-  <rect x="250" y="240" width="20" height="18" rx="1" fill="#e0f2fe"/>
-  <rect x="250" y="260" width="20" height="18" rx="1" fill="#e0f2fe"/>
-  <rect x="250" y="280" width="20" height="18" rx="1" fill="#e0f2fe"/>
-  <rect x="250" y="300" width="20" height="18" rx="1" fill="#0284c7" opacity="0.3"/>
+  <rect x="250" y="160" width="20" height="18" rx="1" fill="#4a7fb5"/>
+  <rect x="250" y="180" width="20" height="18" rx="1" fill="#4a7fb5" opacity="0.8"/>
+  <rect x="250" y="200" width="20" height="18" rx="1" fill="#4a7fb5" opacity="0.5"/>
+  <rect x="250" y="220" width="20" height="18" rx="1" fill="#e1eaf3"/>
+  <rect x="250" y="240" width="20" height="18" rx="1" fill="#e1eaf3"/>
+  <rect x="250" y="260" width="20" height="18" rx="1" fill="#e1eaf3"/>
+  <rect x="250" y="280" width="20" height="18" rx="1" fill="#e1eaf3"/>
+  <rect x="250" y="300" width="20" height="18" rx="1" fill="#4a7fb5" opacity="0.3"/>
 
-  <rect x="275" y="160" width="20" height="18" rx="1" fill="#e0f2fe"/>
-  <rect x="275" y="180" width="20" height="18" rx="1" fill="#e0f2fe"/>
-  <rect x="275" y="200" width="20" height="18" rx="1" fill="#e0f2fe"/>
-  <rect x="275" y="220" width="20" height="18" rx="1" fill="#0284c7" opacity="0.4"/>
-  <rect x="275" y="240" width="20" height="18" rx="1" fill="#0284c7" opacity="0.6"/>
-  <rect x="275" y="260" width="20" height="18" rx="1" fill="#0284c7" opacity="0.8"/>
-  <rect x="275" y="280" width="20" height="18" rx="1" fill="#0284c7"/>
-  <rect x="275" y="300" width="20" height="18" rx="1" fill="#0284c7" opacity="0.9"/>
+  <rect x="275" y="160" width="20" height="18" rx="1" fill="#e1eaf3"/>
+  <rect x="275" y="180" width="20" height="18" rx="1" fill="#e1eaf3"/>
+  <rect x="275" y="200" width="20" height="18" rx="1" fill="#e1eaf3"/>
+  <rect x="275" y="220" width="20" height="18" rx="1" fill="#4a7fb5" opacity="0.4"/>
+  <rect x="275" y="240" width="20" height="18" rx="1" fill="#4a7fb5" opacity="0.6"/>
+  <rect x="275" y="260" width="20" height="18" rx="1" fill="#4a7fb5" opacity="0.8"/>
+  <rect x="275" y="280" width="20" height="18" rx="1" fill="#4a7fb5"/>
+  <rect x="275" y="300" width="20" height="18" rx="1" fill="#4a7fb5" opacity="0.9"/>
 
   <!-- Low frequency (high i) -->
-  <rect x="330" y="160" width="20" height="18" rx="1" fill="#0284c7"/>
-  <rect x="330" y="180" width="20" height="18" rx="1" fill="#0284c7" opacity="0.95"/>
-  <rect x="330" y="200" width="20" height="18" rx="1" fill="#0284c7" opacity="0.9"/>
-  <rect x="330" y="220" width="20" height="18" rx="1" fill="#0284c7" opacity="0.85"/>
-  <rect x="330" y="240" width="20" height="18" rx="1" fill="#0284c7" opacity="0.8"/>
-  <rect x="330" y="260" width="20" height="18" rx="1" fill="#0284c7" opacity="0.75"/>
-  <rect x="330" y="280" width="20" height="18" rx="1" fill="#0284c7" opacity="0.7"/>
-  <rect x="330" y="300" width="20" height="18" rx="1" fill="#0284c7" opacity="0.65"/>
+  <rect x="330" y="160" width="20" height="18" rx="1" fill="#4a7fb5"/>
+  <rect x="330" y="180" width="20" height="18" rx="1" fill="#4a7fb5" opacity="0.95"/>
+  <rect x="330" y="200" width="20" height="18" rx="1" fill="#4a7fb5" opacity="0.9"/>
+  <rect x="330" y="220" width="20" height="18" rx="1" fill="#4a7fb5" opacity="0.85"/>
+  <rect x="330" y="240" width="20" height="18" rx="1" fill="#4a7fb5" opacity="0.8"/>
+  <rect x="330" y="260" width="20" height="18" rx="1" fill="#4a7fb5" opacity="0.75"/>
+  <rect x="330" y="280" width="20" height="18" rx="1" fill="#4a7fb5" opacity="0.7"/>
+  <rect x="330" y="300" width="20" height="18" rx="1" fill="#4a7fb5" opacity="0.65"/>
 
-  <rect x="355" y="160" width="20" height="18" rx="1" fill="#0284c7" opacity="0.95"/>
-  <rect x="355" y="180" width="20" height="18" rx="1" fill="#0284c7" opacity="0.93"/>
-  <rect x="355" y="200" width="20" height="18" rx="1" fill="#0284c7" opacity="0.9"/>
-  <rect x="355" y="220" width="20" height="18" rx="1" fill="#0284c7" opacity="0.88"/>
-  <rect x="355" y="240" width="20" height="18" rx="1" fill="#0284c7" opacity="0.85"/>
-  <rect x="355" y="260" width="20" height="18" rx="1" fill="#0284c7" opacity="0.82"/>
-  <rect x="355" y="280" width="20" height="18" rx="1" fill="#0284c7" opacity="0.8"/>
-  <rect x="355" y="300" width="20" height="18" rx="1" fill="#0284c7" opacity="0.78"/>
+  <rect x="355" y="160" width="20" height="18" rx="1" fill="#4a7fb5" opacity="0.95"/>
+  <rect x="355" y="180" width="20" height="18" rx="1" fill="#4a7fb5" opacity="0.93"/>
+  <rect x="355" y="200" width="20" height="18" rx="1" fill="#4a7fb5" opacity="0.9"/>
+  <rect x="355" y="220" width="20" height="18" rx="1" fill="#4a7fb5" opacity="0.88"/>
+  <rect x="355" y="240" width="20" height="18" rx="1" fill="#4a7fb5" opacity="0.85"/>
+  <rect x="355" y="260" width="20" height="18" rx="1" fill="#4a7fb5" opacity="0.82"/>
+  <rect x="355" y="280" width="20" height="18" rx="1" fill="#4a7fb5" opacity="0.8"/>
+  <rect x="355" y="300" width="20" height="18" rx="1" fill="#4a7fb5" opacity="0.78"/>
 
   <!-- Nearly constant (highest i) -->
-  <rect x="410" y="160" width="20" height="18" rx="1" fill="#0284c7" opacity="0.9"/>
-  <rect x="410" y="180" width="20" height="18" rx="1" fill="#0284c7" opacity="0.9"/>
-  <rect x="410" y="200" width="20" height="18" rx="1" fill="#0284c7" opacity="0.89"/>
-  <rect x="410" y="220" width="20" height="18" rx="1" fill="#0284c7" opacity="0.89"/>
-  <rect x="410" y="240" width="20" height="18" rx="1" fill="#0284c7" opacity="0.88"/>
-  <rect x="410" y="260" width="20" height="18" rx="1" fill="#0284c7" opacity="0.88"/>
-  <rect x="410" y="280" width="20" height="18" rx="1" fill="#0284c7" opacity="0.87"/>
-  <rect x="410" y="300" width="20" height="18" rx="1" fill="#0284c7" opacity="0.87"/>
+  <rect x="410" y="160" width="20" height="18" rx="1" fill="#4a7fb5" opacity="0.9"/>
+  <rect x="410" y="180" width="20" height="18" rx="1" fill="#4a7fb5" opacity="0.9"/>
+  <rect x="410" y="200" width="20" height="18" rx="1" fill="#4a7fb5" opacity="0.89"/>
+  <rect x="410" y="220" width="20" height="18" rx="1" fill="#4a7fb5" opacity="0.89"/>
+  <rect x="410" y="240" width="20" height="18" rx="1" fill="#4a7fb5" opacity="0.88"/>
+  <rect x="410" y="260" width="20" height="18" rx="1" fill="#4a7fb5" opacity="0.88"/>
+  <rect x="410" y="280" width="20" height="18" rx="1" fill="#4a7fb5" opacity="0.87"/>
+  <rect x="410" y="300" width="20" height="18" rx="1" fill="#4a7fb5" opacity="0.87"/>
 
-  <rect x="435" y="160" width="20" height="18" rx="1" fill="#e0f2fe"/>
-  <rect x="435" y="180" width="20" height="18" rx="1" fill="#e0f2fe"/>
-  <rect x="435" y="200" width="20" height="18" rx="1" fill="#e0f2fe"/>
-  <rect x="435" y="220" width="20" height="18" rx="1" fill="#e0f2fe"/>
-  <rect x="435" y="240" width="20" height="18" rx="1" fill="#e0f2fe"/>
-  <rect x="435" y="260" width="20" height="18" rx="1" fill="#e0f2fe"/>
-  <rect x="435" y="280" width="20" height="18" rx="1" fill="#e0f2fe"/>
-  <rect x="435" y="300" width="20" height="18" rx="1" fill="#e0f2fe"/>
+  <rect x="435" y="160" width="20" height="18" rx="1" fill="#e1eaf3"/>
+  <rect x="435" y="180" width="20" height="18" rx="1" fill="#e1eaf3"/>
+  <rect x="435" y="200" width="20" height="18" rx="1" fill="#e1eaf3"/>
+  <rect x="435" y="220" width="20" height="18" rx="1" fill="#e1eaf3"/>
+  <rect x="435" y="240" width="20" height="18" rx="1" fill="#e1eaf3"/>
+  <rect x="435" y="260" width="20" height="18" rx="1" fill="#e1eaf3"/>
+  <rect x="435" y="280" width="20" height="18" rx="1" fill="#e1eaf3"/>
+  <rect x="435" y="300" width="20" height="18" rx="1" fill="#e1eaf3"/>
 
   <!-- Frequency annotations -->
-  <text x="105" y="330" text-anchor="middle" font-size="7" fill="#0284c7">high freq</text>
-  <text x="250" y="330" text-anchor="middle" font-size="7" fill="#0284c7">← wavelength increases →</text>
-  <text x="435" y="330" text-anchor="middle" font-size="7" fill="#0284c7">low freq</text>
+  <text x="105" y="330" text-anchor="middle" font-size="11" fill="#4a7fb5">high freq</text>
+  <text x="250" y="330" text-anchor="middle" font-size="11" fill="#4a7fb5">← wavelength increases →</text>
+  <text x="435" y="330" text-anchor="middle" font-size="11" fill="#4a7fb5">low freq</text>
 
   <!-- Position labels -->
-  <text x="82" y="173" text-anchor="end" font-size="7" fill="#64748b">pos 0</text>
-  <text x="82" y="193" text-anchor="end" font-size="7" fill="#64748b">1</text>
-  <text x="82" y="213" text-anchor="end" font-size="7" fill="#64748b">2</text>
-  <text x="82" y="233" text-anchor="end" font-size="7" fill="#64748b">3</text>
-  <text x="82" y="253" text-anchor="end" font-size="7" fill="#64748b">4</text>
-  <text x="82" y="273" text-anchor="end" font-size="7" fill="#64748b">5</text>
-  <text x="82" y="293" text-anchor="end" font-size="7" fill="#64748b">6</text>
-  <text x="82" y="313" text-anchor="end" font-size="7" fill="#64748b">7</text>
+  <text x="82" y="173" text-anchor="end" font-size="11" fill="#7a7a8a">pos 0</text>
+  <text x="82" y="193" text-anchor="end" font-size="11" fill="#7a7a8a">1</text>
+  <text x="82" y="213" text-anchor="end" font-size="11" fill="#7a7a8a">2</text>
+  <text x="82" y="233" text-anchor="end" font-size="11" fill="#7a7a8a">3</text>
+  <text x="82" y="253" text-anchor="end" font-size="11" fill="#7a7a8a">4</text>
+  <text x="82" y="273" text-anchor="end" font-size="11" fill="#7a7a8a">5</text>
+  <text x="82" y="293" text-anchor="end" font-size="11" fill="#7a7a8a">6</text>
+  <text x="82" y="313" text-anchor="end" font-size="11" fill="#7a7a8a">7</text>
 
   <!-- Explanation panel -->
-  <rect x="555" y="125" width="280" height="240" rx="10" fill="#f8fafc" stroke="#e2e8f0" stroke-width="1.5"/>
-  <text x="695" y="150" text-anchor="middle" font-size="10" font-weight="bold" fill="#0f172a">Key Properties</text>
+  <rect x="555" y="125" width="280" height="240" rx="10" fill="#f5f5f8" stroke="#f5f5f8" stroke-width="1.5"/>
+  <text x="695" y="150" text-anchor="middle" font-size="11" font-weight="bold" fill="#1a1a2e">Key Properties</text>
 
-  <rect x="570" y="165" width="250" height="50" rx="6" fill="#dcfce7" stroke="#16a34a" stroke-width="1.5"/>
-  <text x="695" y="183" text-anchor="middle" font-size="9" font-weight="bold" fill="#14532d">Unique Encoding</text>
-  <text x="695" y="200" text-anchor="middle" font-size="7" fill="#334155">Each position gets a unique d-dimensional vector</text>
-  <text x="695" y="212" text-anchor="middle" font-size="7" fill="#334155">Like binary encoding but continuous</text>
+  <rect x="570" y="165" width="250" height="50" rx="6" fill="#dff0ed" stroke="#3a9e8f" stroke-width="1.5"/>
+  <text x="695" y="183" text-anchor="middle" font-size="11" font-weight="bold" fill="#3a9e8f">Unique Encoding</text>
+  <text x="695" y="200" text-anchor="middle" font-size="11" fill="#3a3a4a">Each position gets a unique d-dimensional vector</text>
+  <text x="695" y="212" text-anchor="middle" font-size="11" fill="#3a3a4a">Like binary encoding but continuous</text>
 
-  <rect x="570" y="225" width="250" height="50" rx="6" fill="#e0f2fe" stroke="#0284c7" stroke-width="1.5"/>
-  <text x="695" y="243" text-anchor="middle" font-size="9" font-weight="bold" fill="#0c4a6e">Relative Position</text>
-  <text x="695" y="260" text-anchor="middle" font-size="7" fill="#334155">PE(pos+k) is a linear function of PE(pos)</text>
-  <text x="695" y="272" text-anchor="middle" font-size="7" fill="#334155">Model can learn to attend by relative offset</text>
+  <rect x="570" y="225" width="250" height="50" rx="6" fill="#e1eaf3" stroke="#4a7fb5" stroke-width="1.5"/>
+  <text x="695" y="243" text-anchor="middle" font-size="11" font-weight="bold" fill="#4a7fb5">Relative Position</text>
+  <text x="695" y="260" text-anchor="middle" font-size="11" fill="#3a3a4a">PE(pos+k) is a linear function of PE(pos)</text>
+  <text x="695" y="272" text-anchor="middle" font-size="11" fill="#3a3a4a">Model can learn to attend by relative offset</text>
 
-  <rect x="570" y="285" width="250" height="50" rx="6" fill="#fef3c7" stroke="#d97706" stroke-width="1.5"/>
-  <text x="695" y="303" text-anchor="middle" font-size="9" font-weight="bold" fill="#78350f">Extrapolation</text>
-  <text x="695" y="320" text-anchor="middle" font-size="7" fill="#334155">Can extrapolate to longer sequences</text>
-  <text x="695" y="332" text-anchor="middle" font-size="7" fill="#334155">than seen during training (in theory)</text>
+  <rect x="570" y="285" width="250" height="50" rx="6" fill="#f5ece0" stroke="#d4a03c" stroke-width="1.5"/>
+  <text x="695" y="303" text-anchor="middle" font-size="11" font-weight="bold" fill="#d4a03c">Extrapolation</text>
+  <text x="695" y="320" text-anchor="middle" font-size="11" fill="#3a3a4a">Can extrapolate to longer sequences</text>
+  <text x="695" y="332" text-anchor="middle" font-size="11" fill="#3a3a4a">than seen during training (in theory)</text>
 
   <!-- Bottom: how it's used -->
-  <rect x="100" y="385" width="660" height="42" rx="6" fill="#f1f5f9" stroke="#475569" stroke-width="1.5"/>
-  <text x="430" y="403" text-anchor="middle" font-size="9" font-weight="bold" fill="#0f172a">Usage: input_embedding(x) + PE(pos) → transformer input</text>
-  <text x="430" y="420" text-anchor="middle" font-size="8" fill="#64748b">Added (not concatenated) to token embeddings — same dimension d_model. Most modern LLMs use learned or RoPE instead.</text>
+  <rect x="100" y="385" width="660" height="42" rx="6" fill="#f5f5f8" stroke="#4a4a5a" stroke-width="1.5"/>
+  <text x="430" y="403" text-anchor="middle" font-size="11" font-weight="bold" fill="#1a1a2e">Usage: input_embedding(x) + PE(pos) → transformer input</text>
+  <text x="430" y="420" text-anchor="middle" font-size="11" fill="#7a7a8a">Added (not concatenated) to token embeddings — same dimension d_model. Most modern LLMs use learned or RoPE instead.</text>
 </svg>

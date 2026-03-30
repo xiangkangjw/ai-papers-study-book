@@ -1,67 +1,67 @@
 <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 760 300" font-family="Inter, Helvetica, Arial, sans-serif">
   <defs>
-    <marker id="a" markerWidth="8" markerHeight="6" refX="8" refY="3" orient="auto"><path d="M0,0 L8,3 L0,6 Z" fill="#475569"/></marker>
+    <marker id="a" markerWidth="8" markerHeight="6" refX="8" refY="3" orient="auto"><path d="M0,0 L8,3 L0,6 Z" fill="#4a4a5a"/></marker>
   </defs>
 
-  <text x="380" y="28" text-anchor="middle" font-size="17" font-weight="bold" fill="#0f172a">Single Neuron / Perceptron</text>
-  <text x="380" y="46" text-anchor="middle" font-size="10" fill="#64748b">A function with learnable parameters: y = σ(w·x + b)</text>
+  <text x="380" y="28" text-anchor="middle" font-size="17" font-weight="bold" fill="#1a1a2e">Single Neuron / Perceptron</text>
+  <text x="380" y="46" text-anchor="middle" font-size="11" fill="#7a7a8a">A function with learnable parameters: y = σ(w·x + b)</text>
 
   <!-- Inputs -->
-  <circle cx="70" cy="90" r="22" fill="#f1f5f9" stroke="#475569" stroke-width="2"/>
-  <text x="70" y="95" text-anchor="middle" font-size="10" font-weight="bold" fill="#0f172a">x₁</text>
+  <circle cx="70" cy="90" r="22" fill="#f5f5f8" stroke="#4a4a5a" stroke-width="2"/>
+  <text x="70" y="95" text-anchor="middle" font-size="11" font-weight="bold" fill="#1a1a2e">x₁</text>
 
-  <circle cx="70" cy="155" r="22" fill="#f1f5f9" stroke="#475569" stroke-width="2"/>
-  <text x="70" y="160" text-anchor="middle" font-size="10" font-weight="bold" fill="#0f172a">x₂</text>
+  <circle cx="70" cy="155" r="22" fill="#f5f5f8" stroke="#4a4a5a" stroke-width="2"/>
+  <text x="70" y="160" text-anchor="middle" font-size="11" font-weight="bold" fill="#1a1a2e">x₂</text>
 
-  <circle cx="70" cy="220" r="22" fill="#f1f5f9" stroke="#475569" stroke-width="2"/>
-  <text x="70" y="225" text-anchor="middle" font-size="10" font-weight="bold" fill="#0f172a">x_n</text>
+  <circle cx="70" cy="220" r="22" fill="#f5f5f8" stroke="#4a4a5a" stroke-width="2"/>
+  <text x="70" y="225" text-anchor="middle" font-size="11" font-weight="bold" fill="#1a1a2e">x_n</text>
 
-  <text x="70" y="190" text-anchor="middle" font-size="14" fill="#94a3b8">⋮</text>
+  <text x="70" y="190" text-anchor="middle" font-size="14" fill="#c0c0c8">⋮</text>
 
   <!-- Weight lines -->
-  <line x1="92" y1="90" x2="250" y2="148" stroke="#d97706" stroke-width="2"/>
-  <text x="155" y="108" text-anchor="middle" font-size="9" fill="#d97706" font-weight="bold">w₁</text>
+  <line x1="92" y1="90" x2="250" y2="148" stroke="#d4a03c" stroke-width="2"/>
+  <text x="155" y="108" text-anchor="middle" font-size="11" fill="#d4a03c" font-weight="bold">w₁</text>
 
-  <line x1="92" y1="155" x2="250" y2="155" stroke="#d97706" stroke-width="2"/>
-  <text x="155" y="148" text-anchor="middle" font-size="9" fill="#d97706" font-weight="bold">w₂</text>
+  <line x1="92" y1="155" x2="250" y2="155" stroke="#d4a03c" stroke-width="2"/>
+  <text x="155" y="148" text-anchor="middle" font-size="11" fill="#d4a03c" font-weight="bold">w₂</text>
 
-  <line x1="92" y1="220" x2="250" y2="162" stroke="#d97706" stroke-width="2"/>
-  <text x="155" y="205" text-anchor="middle" font-size="9" fill="#d97706" font-weight="bold">w_n</text>
+  <line x1="92" y1="220" x2="250" y2="162" stroke="#d4a03c" stroke-width="2"/>
+  <text x="155" y="205" text-anchor="middle" font-size="11" fill="#d4a03c" font-weight="bold">w_n</text>
 
   <!-- Summation node -->
-  <circle cx="280" cy="155" r="30" fill="#e0f2fe" stroke="#0284c7" stroke-width="2.5"/>
-  <text x="280" y="153" text-anchor="middle" font-size="14" font-weight="bold" fill="#0c4a6e">Σ</text>
-  <text x="280" y="172" text-anchor="middle" font-size="7" fill="#0284c7">+ b</text>
+  <circle cx="280" cy="155" r="30" fill="#e1eaf3" stroke="#4a7fb5" stroke-width="2.5"/>
+  <text x="280" y="153" text-anchor="middle" font-size="14" font-weight="bold" fill="#4a7fb5">Σ</text>
+  <text x="280" y="172" text-anchor="middle" font-size="11" fill="#4a7fb5">+ b</text>
 
   <!-- Bias -->
-  <line x1="280" y1="80" x2="280" y2="125" stroke="#9333ea" stroke-width="1.5" marker-end="url(#a)"/>
-  <text x="280" y="72" text-anchor="middle" font-size="9" font-weight="bold" fill="#9333ea">bias b</text>
+  <line x1="280" y1="80" x2="280" y2="125" stroke="#7b68a8" stroke-width="1.5" marker-end="url(#a)"/>
+  <text x="280" y="72" text-anchor="middle" font-size="11" font-weight="bold" fill="#7b68a8">bias b</text>
 
   <!-- Arrow to activation -->
-  <line x1="310" y1="155" x2="360" y2="155" stroke="#475569" stroke-width="2" marker-end="url(#a)"/>
-  <text x="335" y="145" text-anchor="middle" font-size="8" fill="#475569" font-family="'SF Mono', Consolas, monospace">z = Σwᵢxᵢ+b</text>
+  <line x1="310" y1="155" x2="360" y2="155" stroke="#4a4a5a" stroke-width="2" marker-end="url(#a)"/>
+  <text x="335" y="145" text-anchor="middle" font-size="11" fill="#4a4a5a" font-family="'JetBrains Mono', 'Fira Code', monospace">z = Σwᵢxᵢ+b</text>
 
   <!-- Activation function -->
-  <rect x="365" y="125" width="120" height="60" rx="10" fill="#fce7f3" stroke="#db2777" stroke-width="2.5"/>
-  <text x="425" y="152" text-anchor="middle" font-size="12" font-weight="bold" fill="#831843">σ(z)</text>
-  <text x="425" y="175" text-anchor="middle" font-size="7" fill="#db2777">Activation fn</text>
+  <rect x="365" y="125" width="120" height="60" rx="10" fill="#f6e4e3" stroke="#d4645c" stroke-width="2.5"/>
+  <text x="425" y="152" text-anchor="middle" font-size="12" font-weight="bold" fill="#d4645c">σ(z)</text>
+  <text x="425" y="175" text-anchor="middle" font-size="11" fill="#d4645c">Activation fn</text>
 
   <!-- Output arrow -->
-  <line x1="485" y1="155" x2="550" y2="155" stroke="#475569" stroke-width="2" marker-end="url(#a)"/>
+  <line x1="485" y1="155" x2="550" y2="155" stroke="#4a4a5a" stroke-width="2" marker-end="url(#a)"/>
 
   <!-- Output -->
-  <circle cx="580" cy="155" r="25" fill="#dcfce7" stroke="#16a34a" stroke-width="2.5"/>
-  <text x="580" y="160" text-anchor="middle" font-size="11" font-weight="bold" fill="#14532d">y</text>
+  <circle cx="580" cy="155" r="25" fill="#dff0ed" stroke="#3a9e8f" stroke-width="2.5"/>
+  <text x="580" y="160" text-anchor="middle" font-size="11" font-weight="bold" fill="#3a9e8f">y</text>
 
   <!-- Equation -->
-  <rect x="160" y="245" width="440" height="35" rx="6" fill="#f8fafc" stroke="#e2e8f0" stroke-width="1.5"/>
-  <text x="380" y="268" text-anchor="middle" font-size="10" fill="#0f172a" font-family="'SF Mono', Consolas, monospace">y = σ(w₁x₁ + w₂x₂ + ... + wₙxₙ + b) = σ(wᵀx + b)</text>
+  <rect x="160" y="245" width="440" height="35" rx="6" fill="#f5f5f8" stroke="#f5f5f8" stroke-width="1.5"/>
+  <text x="380" y="268" text-anchor="middle" font-size="11" fill="#1a1a2e" font-family="'JetBrains Mono', 'Fira Code', monospace">y = σ(w₁x₁ + w₂x₂ + ... + wₙxₙ + b) = σ(wᵀx + b)</text>
 
   <!-- Legend -->
-  <circle cx="630" cy="90" r="8" fill="#f1f5f9" stroke="#475569" stroke-width="1.5"/>
-  <text x="645" y="94" font-size="8" fill="#475569">Inputs</text>
-  <rect x="622" y="112" width="16" height="8" rx="2" fill="#fef3c7" stroke="#d97706" stroke-width="1"/>
-  <text x="645" y="121" font-size="8" fill="#d97706">Weights (learned)</text>
-  <circle cx="630" cy="142" r="8" fill="#fce7f3" stroke="#db2777" stroke-width="1.5"/>
-  <text x="645" y="146" font-size="8" fill="#db2777">Activation</text>
+  <circle cx="630" cy="90" r="8" fill="#f5f5f8" stroke="#4a4a5a" stroke-width="1.5"/>
+  <text x="645" y="94" font-size="11" fill="#4a4a5a">Inputs</text>
+  <rect x="622" y="112" width="16" height="8" rx="2" fill="#f5ece0" stroke="#d4a03c" stroke-width="1"/>
+  <text x="645" y="121" font-size="11" fill="#d4a03c">Weights (learned)</text>
+  <circle cx="630" cy="142" r="8" fill="#f6e4e3" stroke="#d4645c" stroke-width="1.5"/>
+  <text x="645" y="146" font-size="11" fill="#d4645c">Activation</text>
 </svg>

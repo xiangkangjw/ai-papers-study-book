@@ -1,110 +1,110 @@
 <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 880 500" font-family="Inter, Helvetica, Arial, sans-serif">
   <defs>
-    <marker id="a" markerWidth="8" markerHeight="6" refX="8" refY="3" orient="auto"><path d="M0,0 L8,3 L0,6 Z" fill="#475569"/></marker>
+    <marker id="a" markerWidth="8" markerHeight="6" refX="8" refY="3" orient="auto"><path d="M0,0 L8,3 L0,6 Z" fill="#4a4a5a"/></marker>
   </defs>
 
-  <text x="440" y="28" text-anchor="middle" font-size="17" font-weight="bold" fill="#0f172a">Flamingo: Few-Shot Visual Language Model</text>
-  <text x="440" y="46" text-anchor="middle" font-size="10" fill="#64748b">Alayrac et al. (2022) — Interleave visual tokens into frozen LLM via gated cross-attention</text>
+  <text x="440" y="28" text-anchor="middle" font-size="17" font-weight="bold" fill="#1a1a2e">Flamingo: Few-Shot Visual Language Model</text>
+  <text x="440" y="46" text-anchor="middle" font-size="11" fill="#7a7a8a">Alayrac et al. (2022) — Interleave visual tokens into frozen LLM via gated cross-attention</text>
 
   <!-- Architecture -->
-  <rect x="30" y="65" width="820" height="310" rx="10" fill="#f8fafc" stroke="#e2e8f0" stroke-width="2"/>
+  <rect x="30" y="65" width="820" height="310" rx="10" fill="#f5f5f8" stroke="#f5f5f8" stroke-width="2"/>
 
   <!-- Vision Encoder (frozen) -->
-  <rect x="50" y="90" width="150" height="265" rx="8" fill="#e2e8f0" stroke="#94a3b8" stroke-width="2"/>
-  <text x="125" y="115" text-anchor="middle" font-size="10" font-weight="bold" fill="#475569">Vision Encoder</text>
-  <text x="125" y="132" text-anchor="middle" font-size="8" fill="#94a3b8">🔒 frozen NFNet</text>
+  <rect x="50" y="90" width="150" height="265" rx="8" fill="#f5f5f8" stroke="#c0c0c8" stroke-width="2"/>
+  <text x="125" y="115" text-anchor="middle" font-size="11" font-weight="bold" fill="#4a4a5a">Vision Encoder</text>
+  <text x="125" y="132" text-anchor="middle" font-size="11" fill="#c0c0c8">🔒 frozen NFNet</text>
 
   <!-- Multiple images/frames -->
-  <rect x="65" y="145" width="45" height="35" rx="3" fill="#f1f5f9" stroke="#475569" stroke-width="1.5"/>
-  <text x="87" y="167" text-anchor="middle" font-size="7" fill="#0f172a">img₁</text>
-  <rect x="65" y="190" width="45" height="35" rx="3" fill="#f1f5f9" stroke="#475569" stroke-width="1.5"/>
-  <text x="87" y="212" text-anchor="middle" font-size="7" fill="#0f172a">img₂</text>
-  <rect x="65" y="235" width="45" height="35" rx="3" fill="#f1f5f9" stroke="#475569" stroke-width="1.5"/>
-  <text x="87" y="257" text-anchor="middle" font-size="7" fill="#0f172a">img₃</text>
+  <rect x="65" y="145" width="45" height="35" rx="3" fill="#f5f5f8" stroke="#4a4a5a" stroke-width="1.5"/>
+  <text x="87" y="167" text-anchor="middle" font-size="11" fill="#1a1a2e">img₁</text>
+  <rect x="65" y="190" width="45" height="35" rx="3" fill="#f5f5f8" stroke="#4a4a5a" stroke-width="1.5"/>
+  <text x="87" y="212" text-anchor="middle" font-size="11" fill="#1a1a2e">img₂</text>
+  <rect x="65" y="235" width="45" height="35" rx="3" fill="#f5f5f8" stroke="#4a4a5a" stroke-width="1.5"/>
+  <text x="87" y="257" text-anchor="middle" font-size="11" fill="#1a1a2e">img₃</text>
 
-  <text x="125" y="295" text-anchor="middle" font-size="8" fill="#94a3b8">Handles images</text>
-  <text x="125" y="310" text-anchor="middle" font-size="8" fill="#94a3b8">and video frames</text>
+  <text x="125" y="295" text-anchor="middle" font-size="11" fill="#c0c0c8">Handles images</text>
+  <text x="125" y="310" text-anchor="middle" font-size="11" fill="#c0c0c8">and video frames</text>
 
   <!-- Arrows from vision to Perceiver -->
-  <line x1="115" y1="162" x2="218" y2="162" stroke="#475569" stroke-width="1.5" marker-end="url(#a)"/>
-  <line x1="115" y1="207" x2="218" y2="207" stroke="#475569" stroke-width="1.5" marker-end="url(#a)"/>
-  <line x1="115" y1="252" x2="218" y2="252" stroke="#475569" stroke-width="1.5" marker-end="url(#a)"/>
+  <line x1="115" y1="162" x2="218" y2="162" stroke="#4a4a5a" stroke-width="1.5" marker-end="url(#a)"/>
+  <line x1="115" y1="207" x2="218" y2="207" stroke="#4a4a5a" stroke-width="1.5" marker-end="url(#a)"/>
+  <line x1="115" y1="252" x2="218" y2="252" stroke="#4a4a5a" stroke-width="1.5" marker-end="url(#a)"/>
 
   <!-- Perceiver Resampler -->
-  <rect x="220" y="90" width="130" height="265" rx="8" fill="#fef3c7" stroke="#d97706" stroke-width="2"/>
-  <text x="285" y="115" text-anchor="middle" font-size="10" font-weight="bold" fill="#78350f">Perceiver</text>
-  <text x="285" y="132" text-anchor="middle" font-size="10" font-weight="bold" fill="#78350f">Resampler</text>
-  <text x="285" y="150" text-anchor="middle" font-size="7" fill="#d97706">🔥 trainable</text>
+  <rect x="220" y="90" width="130" height="265" rx="8" fill="#f5ece0" stroke="#d4a03c" stroke-width="2"/>
+  <text x="285" y="115" text-anchor="middle" font-size="11" font-weight="bold" fill="#d4a03c">Perceiver</text>
+  <text x="285" y="132" text-anchor="middle" font-size="11" font-weight="bold" fill="#d4a03c">Resampler</text>
+  <text x="285" y="150" text-anchor="middle" font-size="11" fill="#d4a03c">🔥 trainable</text>
 
   <!-- Learned queries -->
-  <rect x="240" y="165" width="90" height="30" rx="4" fill="#fef3c7" stroke="#d97706" stroke-width="1.5"/>
-  <text x="285" y="184" text-anchor="middle" font-size="7" fill="#78350f">64 learned queries</text>
+  <rect x="240" y="165" width="90" height="30" rx="4" fill="#f5ece0" stroke="#d4a03c" stroke-width="1.5"/>
+  <text x="285" y="184" text-anchor="middle" font-size="11" fill="#d4a03c">64 learned queries</text>
 
-  <text x="285" y="215" text-anchor="middle" font-size="7" fill="#78350f">cross-attend to</text>
-  <text x="285" y="230" text-anchor="middle" font-size="7" fill="#78350f">vision features</text>
+  <text x="285" y="215" text-anchor="middle" font-size="11" fill="#d4a03c">cross-attend to</text>
+  <text x="285" y="230" text-anchor="middle" font-size="11" fill="#d4a03c">vision features</text>
 
   <!-- Output: fixed-length visual tokens -->
-  <rect x="240" y="250" width="90" height="30" rx="4" fill="#dcfce7" stroke="#16a34a" stroke-width="1.5"/>
-  <text x="285" y="269" text-anchor="middle" font-size="7" fill="#14532d">64 visual tokens</text>
+  <rect x="240" y="250" width="90" height="30" rx="4" fill="#dff0ed" stroke="#3a9e8f" stroke-width="1.5"/>
+  <text x="285" y="269" text-anchor="middle" font-size="11" fill="#3a9e8f">64 visual tokens</text>
 
-  <text x="285" y="305" text-anchor="middle" font-size="8" fill="#d97706">Variable input →</text>
-  <text x="285" y="320" text-anchor="middle" font-size="8" fill="#d97706">fixed 64 tokens</text>
+  <text x="285" y="305" text-anchor="middle" font-size="11" fill="#d4a03c">Variable input →</text>
+  <text x="285" y="320" text-anchor="middle" font-size="11" fill="#d4a03c">fixed 64 tokens</text>
 
   <!-- Arrows to LLM -->
-  <line x1="350" y1="200" x2="378" y2="200" stroke="#d97706" stroke-width="1.5" marker-end="url(#a)"/>
+  <line x1="350" y1="200" x2="378" y2="200" stroke="#d4a03c" stroke-width="1.5" marker-end="url(#a)"/>
 
   <!-- Frozen LLM with Gated Cross-Attention -->
-  <rect x="380" y="90" width="450" height="265" rx="8" fill="#f0f9ff" stroke="#0284c7" stroke-width="2"/>
-  <text x="605" y="115" text-anchor="middle" font-size="10" font-weight="bold" fill="#0c4a6e">Frozen LLM (Chinchilla 80B) + Gated Cross-Attention</text>
+  <rect x="380" y="90" width="450" height="265" rx="8" fill="#edf2f8" stroke="#4a7fb5" stroke-width="2"/>
+  <text x="605" y="115" text-anchor="middle" font-size="11" font-weight="bold" fill="#4a7fb5">Frozen LLM (Chinchilla 80B) + Gated Cross-Attention</text>
 
   <!-- LLM layers with interleaved cross-attention -->
   <!-- Layer block 1 -->
-  <rect x="400" y="135" width="180" height="35" rx="4" fill="#e2e8f0" stroke="#94a3b8" stroke-width="1.5"/>
-  <text x="490" y="157" text-anchor="middle" font-size="8" fill="#475569">Self-Attention + FFN 🔒</text>
+  <rect x="400" y="135" width="180" height="35" rx="4" fill="#f5f5f8" stroke="#c0c0c8" stroke-width="1.5"/>
+  <text x="490" y="157" text-anchor="middle" font-size="11" fill="#4a4a5a">Self-Attention + FFN 🔒</text>
 
   <!-- Gated cross-attention -->
-  <rect x="400" y="178" width="180" height="35" rx="4" fill="#fce7f3" stroke="#db2777" stroke-width="2"/>
-  <text x="490" y="195" text-anchor="middle" font-size="8" font-weight="bold" fill="#831843">Gated Cross-Attn 🔥</text>
-  <text x="490" y="208" text-anchor="middle" font-size="6" fill="#db2777">attend to visual tokens</text>
+  <rect x="400" y="178" width="180" height="35" rx="4" fill="#f6e4e3" stroke="#d4645c" stroke-width="2"/>
+  <text x="490" y="195" text-anchor="middle" font-size="11" font-weight="bold" fill="#d4645c">Gated Cross-Attn 🔥</text>
+  <text x="490" y="208" text-anchor="middle" font-size="11" fill="#d4645c">attend to visual tokens</text>
 
   <!-- Layer block 2 -->
-  <rect x="400" y="221" width="180" height="35" rx="4" fill="#e2e8f0" stroke="#94a3b8" stroke-width="1.5"/>
-  <text x="490" y="243" text-anchor="middle" font-size="8" fill="#475569">Self-Attention + FFN 🔒</text>
+  <rect x="400" y="221" width="180" height="35" rx="4" fill="#f5f5f8" stroke="#c0c0c8" stroke-width="1.5"/>
+  <text x="490" y="243" text-anchor="middle" font-size="11" fill="#4a4a5a">Self-Attention + FFN 🔒</text>
 
   <!-- Gated cross-attention 2 -->
-  <rect x="400" y="264" width="180" height="35" rx="4" fill="#fce7f3" stroke="#db2777" stroke-width="2"/>
-  <text x="490" y="281" text-anchor="middle" font-size="8" font-weight="bold" fill="#831843">Gated Cross-Attn 🔥</text>
+  <rect x="400" y="264" width="180" height="35" rx="4" fill="#f6e4e3" stroke="#d4645c" stroke-width="2"/>
+  <text x="490" y="281" text-anchor="middle" font-size="11" font-weight="bold" fill="#d4645c">Gated Cross-Attn 🔥</text>
 
-  <text x="490" y="320" text-anchor="middle" font-size="8" fill="#475569">⋮ (interleaved every other layer)</text>
+  <text x="490" y="320" text-anchor="middle" font-size="11" fill="#4a4a5a">⋮ (interleaved every other layer)</text>
 
   <!-- Gate mechanism detail -->
-  <rect x="610" y="140" width="200" height="90" rx="6" fill="#fce7f3" stroke="#db2777" stroke-width="1.5"/>
-  <text x="710" y="160" text-anchor="middle" font-size="9" font-weight="bold" fill="#831843">Gated Cross-Attention</text>
-  <text x="710" y="180" text-anchor="middle" font-size="7" fill="#334155" font-family="'SF Mono', Consolas, monospace">y = x + tanh(α) · xattn(x, v)</text>
-  <text x="710" y="198" text-anchor="middle" font-size="7" fill="#334155">α initialized to 0 → gate starts closed</text>
-  <text x="710" y="214" text-anchor="middle" font-size="7" fill="#334155">Gradually opens during training</text>
-  <text x="710" y="228" text-anchor="middle" font-size="7" fill="#db2777">Preserves LLM capabilities!</text>
+  <rect x="610" y="140" width="200" height="90" rx="6" fill="#f6e4e3" stroke="#d4645c" stroke-width="1.5"/>
+  <text x="710" y="160" text-anchor="middle" font-size="11" font-weight="bold" fill="#d4645c">Gated Cross-Attention</text>
+  <text x="710" y="180" text-anchor="middle" font-size="11" fill="#3a3a4a" font-family="'JetBrains Mono', 'Fira Code', monospace">y = x + tanh(α) · xattn(x, v)</text>
+  <text x="710" y="198" text-anchor="middle" font-size="11" fill="#3a3a4a">α initialized to 0 → gate starts closed</text>
+  <text x="710" y="214" text-anchor="middle" font-size="11" fill="#3a3a4a">Gradually opens during training</text>
+  <text x="710" y="228" text-anchor="middle" font-size="11" fill="#d4645c">Preserves LLM capabilities!</text>
 
   <!-- Few-shot capability -->
-  <rect x="610" y="245" width="200" height="90" rx="6" fill="#dcfce7" stroke="#16a34a" stroke-width="1.5"/>
-  <text x="710" y="265" text-anchor="middle" font-size="9" font-weight="bold" fill="#14532d">Few-Shot Capability</text>
-  <text x="710" y="285" text-anchor="middle" font-size="7" fill="#334155">Interleaved image-text input:</text>
-  <text x="710" y="300" text-anchor="middle" font-size="7" fill="#334155" font-family="'SF Mono', Consolas, monospace">[img₁] "cat" [img₂] "dog"</text>
-  <text x="710" y="315" text-anchor="middle" font-size="7" fill="#334155" font-family="'SF Mono', Consolas, monospace">[img₃] → "bird" (few-shot!)</text>
-  <text x="710" y="330" text-anchor="middle" font-size="7" fill="#16a34a">In-context learning with images</text>
+  <rect x="610" y="245" width="200" height="90" rx="6" fill="#dff0ed" stroke="#3a9e8f" stroke-width="1.5"/>
+  <text x="710" y="265" text-anchor="middle" font-size="11" font-weight="bold" fill="#3a9e8f">Few-Shot Capability</text>
+  <text x="710" y="285" text-anchor="middle" font-size="11" fill="#3a3a4a">Interleaved image-text input:</text>
+  <text x="710" y="300" text-anchor="middle" font-size="11" fill="#3a3a4a" font-family="'JetBrains Mono', 'Fira Code', monospace">[img₁] "cat" [img₂] "dog"</text>
+  <text x="710" y="315" text-anchor="middle" font-size="11" fill="#3a3a4a" font-family="'JetBrains Mono', 'Fira Code', monospace">[img₃] → "bird" (few-shot!)</text>
+  <text x="710" y="330" text-anchor="middle" font-size="11" fill="#3a9e8f">In-context learning with images</text>
 
   <!-- Training data -->
-  <rect x="30" y="395" width="400" height="95" rx="8" fill="#fef3c7" stroke="#d97706" stroke-width="1.5"/>
-  <text x="230" y="418" text-anchor="middle" font-size="10" font-weight="bold" fill="#78350f">What's Trainable?</text>
-  <text x="50" y="440" font-size="8" fill="#334155">🔒 Vision encoder: frozen NFNet (pre-trained)</text>
-  <text x="50" y="458" font-size="8" fill="#334155">🔒 LLM layers: frozen Chinchilla 80B</text>
-  <text x="50" y="476" font-size="8" fill="#d97706" font-weight="bold">🔥 Only: Perceiver Resampler + Gated Cross-Attn layers</text>
+  <rect x="30" y="395" width="400" height="95" rx="8" fill="#f5ece0" stroke="#d4a03c" stroke-width="1.5"/>
+  <text x="230" y="418" text-anchor="middle" font-size="11" font-weight="bold" fill="#d4a03c">What's Trainable?</text>
+  <text x="50" y="440" font-size="11" fill="#3a3a4a">🔒 Vision encoder: frozen NFNet (pre-trained)</text>
+  <text x="50" y="458" font-size="11" fill="#3a3a4a">🔒 LLM layers: frozen Chinchilla 80B</text>
+  <text x="50" y="476" font-size="11" fill="#d4a03c" font-weight="bold">🔥 Only: Perceiver Resampler + Gated Cross-Attn layers</text>
 
   <!-- Comparison -->
-  <rect x="450" y="395" width="400" height="95" rx="8" fill="#f0fdf4" stroke="#16a34a" stroke-width="1.5"/>
-  <text x="650" y="418" text-anchor="middle" font-size="10" font-weight="bold" fill="#14532d">Flamingo vs LLaVA</text>
-  <text x="470" y="438" font-size="8" fill="#334155">Flamingo: gated cross-attn, Perceiver, few-shot</text>
-  <text x="470" y="456" font-size="8" fill="#334155">LLaVA: simple linear proj, instruction-tuned</text>
-  <text x="470" y="474" font-size="8" fill="#334155">Both: freeze vision encoder, adapt LLM to vision</text>
-  <text x="470" y="490" font-size="8" fill="#16a34a">Flamingo: richer arch · LLaVA: simpler + open</text>
+  <rect x="450" y="395" width="400" height="95" rx="8" fill="#edf7f5" stroke="#3a9e8f" stroke-width="1.5"/>
+  <text x="650" y="418" text-anchor="middle" font-size="11" font-weight="bold" fill="#3a9e8f">Flamingo vs LLaVA</text>
+  <text x="470" y="438" font-size="11" fill="#3a3a4a">Flamingo: gated cross-attn, Perceiver, few-shot</text>
+  <text x="470" y="456" font-size="11" fill="#3a3a4a">LLaVA: simple linear proj, instruction-tuned</text>
+  <text x="470" y="474" font-size="11" fill="#3a3a4a">Both: freeze vision encoder, adapt LLM to vision</text>
+  <text x="470" y="488" font-size="11" fill="#3a9e8f">Flamingo: richer arch · LLaVA: simpler + open</text>
 </svg>

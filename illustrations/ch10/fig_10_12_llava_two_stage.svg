@@ -1,84 +1,84 @@
 <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 860 440" font-family="Inter, Helvetica, Arial, sans-serif">
   <defs>
-    <marker id="a" markerWidth="8" markerHeight="6" refX="8" refY="3" orient="auto"><path d="M0,0 L8,3 L0,6 Z" fill="#475569"/></marker>
+    <marker id="a" markerWidth="8" markerHeight="6" refX="8" refY="3" orient="auto"><path d="M0,0 L8,3 L0,6 Z" fill="#4a4a5a"/></marker>
   </defs>
 
-  <text x="430" y="28" text-anchor="middle" font-size="17" font-weight="bold" fill="#0f172a">LLaVA Two-Stage Training Detail</text>
-  <text x="430" y="46" text-anchor="middle" font-size="10" fill="#64748b">Stage 1: align vision-language features · Stage 2: instruction-tune the full system</text>
+  <text x="430" y="28" text-anchor="middle" font-size="17" font-weight="bold" fill="#1a1a2e">LLaVA Two-Stage Training Detail</text>
+  <text x="430" y="46" text-anchor="middle" font-size="11" fill="#7a7a8a">Stage 1: align vision-language features · Stage 2: instruction-tune the full system</text>
 
   <!-- Stage 1 -->
-  <rect x="30" y="65" width="800" height="160" rx="10" fill="#f0f9ff" stroke="#0284c7" stroke-width="2"/>
-  <text x="430" y="90" text-anchor="middle" font-size="12" font-weight="bold" fill="#0c4a6e">Stage 1: Vision-Language Feature Alignment</text>
+  <rect x="30" y="65" width="800" height="160" rx="10" fill="#edf2f8" stroke="#4a7fb5" stroke-width="2"/>
+  <text x="430" y="90" text-anchor="middle" font-size="12" font-weight="bold" fill="#4a7fb5">Stage 1: Vision-Language Feature Alignment</text>
 
   <!-- Components -->
-  <rect x="55" y="110" width="90" height="50" rx="6" fill="#e2e8f0" stroke="#94a3b8" stroke-width="2"/>
-  <text x="100" y="132" text-anchor="middle" font-size="8" font-weight="bold" fill="#475569">CLIP ViT-L</text>
-  <text x="100" y="148" text-anchor="middle" font-size="7" fill="#94a3b8">🔒 frozen</text>
+  <rect x="55" y="110" width="90" height="50" rx="6" fill="#f5f5f8" stroke="#c0c0c8" stroke-width="2"/>
+  <text x="100" y="132" text-anchor="middle" font-size="11" font-weight="bold" fill="#4a4a5a">CLIP ViT-L</text>
+  <text x="100" y="148" text-anchor="middle" font-size="11" fill="#c0c0c8">🔒 frozen</text>
 
-  <line x1="145" y1="135" x2="168" y2="135" stroke="#475569" stroke-width="1.5" marker-end="url(#a)"/>
+  <line x1="145" y1="135" x2="168" y2="135" stroke="#4a4a5a" stroke-width="1.5" marker-end="url(#a)"/>
 
-  <rect x="170" y="110" width="100" height="50" rx="6" fill="#dcfce7" stroke="#16a34a" stroke-width="2.5"/>
-  <text x="220" y="130" text-anchor="middle" font-size="8" font-weight="bold" fill="#14532d">Linear Proj W</text>
-  <text x="220" y="148" text-anchor="middle" font-size="7" fill="#16a34a">🔥 TRAINABLE</text>
+  <rect x="170" y="110" width="100" height="50" rx="6" fill="#dff0ed" stroke="#3a9e8f" stroke-width="2.5"/>
+  <text x="220" y="130" text-anchor="middle" font-size="11" font-weight="bold" fill="#3a9e8f">Linear Proj W</text>
+  <text x="220" y="148" text-anchor="middle" font-size="11" fill="#3a9e8f">🔥 TRAINABLE</text>
 
-  <line x1="270" y1="135" x2="293" y2="135" stroke="#475569" stroke-width="1.5" marker-end="url(#a)"/>
+  <line x1="270" y1="135" x2="293" y2="135" stroke="#4a4a5a" stroke-width="1.5" marker-end="url(#a)"/>
 
-  <rect x="295" y="110" width="90" height="50" rx="6" fill="#e2e8f0" stroke="#94a3b8" stroke-width="2"/>
-  <text x="340" y="132" text-anchor="middle" font-size="8" font-weight="bold" fill="#475569">Vicuna/LLaMA</text>
-  <text x="340" y="148" text-anchor="middle" font-size="7" fill="#94a3b8">🔒 frozen</text>
+  <rect x="295" y="110" width="90" height="50" rx="6" fill="#f5f5f8" stroke="#c0c0c8" stroke-width="2"/>
+  <text x="340" y="132" text-anchor="middle" font-size="11" font-weight="bold" fill="#4a4a5a">Vicuna/LLaMA</text>
+  <text x="340" y="148" text-anchor="middle" font-size="11" fill="#c0c0c8">🔒 frozen</text>
 
   <!-- Data -->
-  <rect x="430" y="108" width="180" height="55" rx="6" fill="#fef3c7" stroke="#d97706" stroke-width="1.5"/>
-  <text x="520" y="128" text-anchor="middle" font-size="8" font-weight="bold" fill="#78350f">Data: CC3M Filtered</text>
-  <text x="520" y="145" text-anchor="middle" font-size="7" fill="#334155">595K image-caption pairs</text>
-  <text x="520" y="158" text-anchor="middle" font-size="7" fill="#d97706">Simple captioning format</text>
+  <rect x="430" y="108" width="180" height="55" rx="6" fill="#f5ece0" stroke="#d4a03c" stroke-width="1.5"/>
+  <text x="520" y="128" text-anchor="middle" font-size="11" font-weight="bold" fill="#d4a03c">Data: CC3M Filtered</text>
+  <text x="520" y="145" text-anchor="middle" font-size="11" fill="#3a3a4a">595K image-caption pairs</text>
+  <text x="520" y="158" text-anchor="middle" font-size="11" fill="#d4a03c">Simple captioning format</text>
 
   <!-- Training details -->
-  <rect x="640" y="108" width="170" height="55" rx="6" fill="#f1f5f9" stroke="#475569" stroke-width="1.5"/>
-  <text x="725" y="128" text-anchor="middle" font-size="8" font-weight="bold" fill="#0f172a">Training Config</text>
-  <text x="655" y="145" font-size="7" fill="#334155">• 1 epoch, LR=2e-3</text>
-  <text x="655" y="158" font-size="7" fill="#334155">• ~4 hours on 8× A100</text>
+  <rect x="640" y="108" width="170" height="55" rx="6" fill="#f5f5f8" stroke="#4a4a5a" stroke-width="1.5"/>
+  <text x="725" y="128" text-anchor="middle" font-size="11" font-weight="bold" fill="#1a1a2e">Training Config</text>
+  <text x="655" y="145" font-size="11" fill="#3a3a4a">• 1 epoch, LR=2e-3</text>
+  <text x="655" y="158" font-size="11" fill="#3a3a4a">• ~4 hours on 8× A100</text>
 
-  <text x="430" y="200" text-anchor="middle" font-size="8" fill="#0284c7">Goal: Learn W such that CLIP visual tokens are understandable by the LLM</text>
-  <text x="430" y="215" text-anchor="middle" font-size="8" fill="#0284c7">Only ~4M parameters in W are trained — extremely efficient alignment</text>
+  <text x="430" y="200" text-anchor="middle" font-size="11" fill="#4a7fb5">Goal: Learn W such that CLIP visual tokens are understandable by the LLM</text>
+  <text x="430" y="215" text-anchor="middle" font-size="11" fill="#4a7fb5">Only ~4M parameters in W are trained — extremely efficient alignment</text>
 
   <!-- Stage 2 -->
-  <rect x="30" y="240" width="800" height="160" rx="10" fill="#f0fdf4" stroke="#16a34a" stroke-width="2"/>
-  <text x="430" y="265" text-anchor="middle" font-size="12" font-weight="bold" fill="#14532d">Stage 2: Visual Instruction Tuning</text>
+  <rect x="30" y="240" width="800" height="160" rx="10" fill="#edf7f5" stroke="#3a9e8f" stroke-width="2"/>
+  <text x="430" y="265" text-anchor="middle" font-size="12" font-weight="bold" fill="#3a9e8f">Stage 2: Visual Instruction Tuning</text>
 
   <!-- Components -->
-  <rect x="55" y="285" width="90" height="50" rx="6" fill="#e2e8f0" stroke="#94a3b8" stroke-width="2"/>
-  <text x="100" y="307" text-anchor="middle" font-size="8" font-weight="bold" fill="#475569">CLIP ViT-L</text>
-  <text x="100" y="323" text-anchor="middle" font-size="7" fill="#94a3b8">🔒 frozen</text>
+  <rect x="55" y="285" width="90" height="50" rx="6" fill="#f5f5f8" stroke="#c0c0c8" stroke-width="2"/>
+  <text x="100" y="307" text-anchor="middle" font-size="11" font-weight="bold" fill="#4a4a5a">CLIP ViT-L</text>
+  <text x="100" y="323" text-anchor="middle" font-size="11" fill="#c0c0c8">🔒 frozen</text>
 
-  <line x1="145" y1="310" x2="168" y2="310" stroke="#475569" stroke-width="1.5" marker-end="url(#a)"/>
+  <line x1="145" y1="310" x2="168" y2="310" stroke="#4a4a5a" stroke-width="1.5" marker-end="url(#a)"/>
 
-  <rect x="170" y="285" width="100" height="50" rx="6" fill="#dcfce7" stroke="#16a34a" stroke-width="2.5"/>
-  <text x="220" y="305" text-anchor="middle" font-size="8" font-weight="bold" fill="#14532d">Linear Proj W</text>
-  <text x="220" y="323" text-anchor="middle" font-size="7" fill="#16a34a">🔥 TRAINABLE</text>
+  <rect x="170" y="285" width="100" height="50" rx="6" fill="#dff0ed" stroke="#3a9e8f" stroke-width="2.5"/>
+  <text x="220" y="305" text-anchor="middle" font-size="11" font-weight="bold" fill="#3a9e8f">Linear Proj W</text>
+  <text x="220" y="323" text-anchor="middle" font-size="11" fill="#3a9e8f">🔥 TRAINABLE</text>
 
-  <line x1="270" y1="310" x2="293" y2="310" stroke="#475569" stroke-width="1.5" marker-end="url(#a)"/>
+  <line x1="270" y1="310" x2="293" y2="310" stroke="#4a4a5a" stroke-width="1.5" marker-end="url(#a)"/>
 
-  <rect x="295" y="285" width="90" height="50" rx="6" fill="#dcfce7" stroke="#16a34a" stroke-width="2.5"/>
-  <text x="340" y="305" text-anchor="middle" font-size="8" font-weight="bold" fill="#14532d">Vicuna/LLaMA</text>
-  <text x="340" y="323" text-anchor="middle" font-size="7" fill="#16a34a">🔥 FINE-TUNED</text>
+  <rect x="295" y="285" width="90" height="50" rx="6" fill="#dff0ed" stroke="#3a9e8f" stroke-width="2.5"/>
+  <text x="340" y="305" text-anchor="middle" font-size="11" font-weight="bold" fill="#3a9e8f">Vicuna/LLaMA</text>
+  <text x="340" y="323" text-anchor="middle" font-size="11" fill="#3a9e8f">🔥 FINE-TUNED</text>
 
   <!-- Data -->
-  <rect x="430" y="283" width="180" height="55" rx="6" fill="#fef3c7" stroke="#d97706" stroke-width="1.5"/>
-  <text x="520" y="303" text-anchor="middle" font-size="8" font-weight="bold" fill="#78350f">Data: Instruct-158K</text>
-  <text x="520" y="318" text-anchor="middle" font-size="7" fill="#334155">58K conversations, 23K detail</text>
-  <text x="520" y="331" text-anchor="middle" font-size="7" fill="#d97706">77K complex reasoning</text>
+  <rect x="430" y="283" width="180" height="55" rx="6" fill="#f5ece0" stroke="#d4a03c" stroke-width="1.5"/>
+  <text x="520" y="303" text-anchor="middle" font-size="11" font-weight="bold" fill="#d4a03c">Data: Instruct-158K</text>
+  <text x="520" y="318" text-anchor="middle" font-size="11" fill="#3a3a4a">58K conversations, 23K detail</text>
+  <text x="520" y="331" text-anchor="middle" font-size="11" fill="#d4a03c">77K complex reasoning</text>
 
   <!-- Training details -->
-  <rect x="640" y="283" width="170" height="55" rx="6" fill="#f1f5f9" stroke="#475569" stroke-width="1.5"/>
-  <text x="725" y="303" text-anchor="middle" font-size="8" font-weight="bold" fill="#0f172a">Training Config</text>
-  <text x="655" y="318" font-size="7" fill="#334155">• 1 epoch, LR=2e-5</text>
-  <text x="655" y="331" font-size="7" fill="#334155">• ~10 hours on 8× A100</text>
+  <rect x="640" y="283" width="170" height="55" rx="6" fill="#f5f5f8" stroke="#4a4a5a" stroke-width="1.5"/>
+  <text x="725" y="303" text-anchor="middle" font-size="11" font-weight="bold" fill="#1a1a2e">Training Config</text>
+  <text x="655" y="318" font-size="11" fill="#3a3a4a">• 1 epoch, LR=2e-5</text>
+  <text x="655" y="331" font-size="11" fill="#3a3a4a">• ~10 hours on 8× A100</text>
 
-  <text x="430" y="375" text-anchor="middle" font-size="8" fill="#16a34a">Goal: Teach the model to follow visual instructions — GPT-4 generated multimodal instruction data</text>
-  <text x="430" y="390" text-anchor="middle" font-size="8" fill="#16a34a">Both W and LLM weights updated — the LLM learns to reason about visual content</text>
+  <text x="430" y="375" text-anchor="middle" font-size="11" fill="#3a9e8f">Goal: Teach the model to follow visual instructions — GPT-4 generated multimodal instruction data</text>
+  <text x="430" y="390" text-anchor="middle" font-size="11" fill="#3a9e8f">Both W and LLM weights updated — the LLM learns to reason about visual content</text>
 
   <!-- Bottom key -->
-  <rect x="100" y="410" width="660" height="25" rx="5" fill="#fef3c7" stroke="#d97706" stroke-width="1"/>
-  <text x="430" y="427" text-anchor="middle" font-size="8" fill="#78350f">LLaVA-1.5: replaces Linear with 2-layer MLP projection, uses 336px CLIP, adds academic VQA data → matches GPT-4V on many benchmarks</text>
+  <rect x="100" y="410" width="660" height="25" rx="5" fill="#f5ece0" stroke="#d4a03c" stroke-width="1"/>
+  <text x="430" y="427" text-anchor="middle" font-size="11" fill="#d4a03c">LLaVA-1.5: replaces Linear with 2-layer MLP projection, uses 336px CLIP, adds academic VQA data → matches GPT-4V on many benchmarks</text>
 </svg>

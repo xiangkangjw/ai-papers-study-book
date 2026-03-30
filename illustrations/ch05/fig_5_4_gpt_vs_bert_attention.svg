@@ -1,137 +1,137 @@
 <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 820 420" font-family="Inter, Helvetica, Arial, sans-serif">
-  <text x="410" y="28" text-anchor="middle" font-size="17" font-weight="bold" fill="#0f172a">GPT vs. BERT Attention Patterns</text>
+  <text x="410" y="28" text-anchor="middle" font-size="17" font-weight="bold" fill="#1a1a2e">GPT vs. BERT Attention Patterns</text>
 
   <!-- ===== (a) GPT Causal ===== -->
-  <rect x="30" y="55" width="370" height="340" rx="10" fill="#fafafa" stroke="#cbd5e1" stroke-width="1.5"/>
-  <text x="215" y="80" text-anchor="middle" font-size="13" font-weight="bold" fill="#0f172a">(a) GPT — Causal (Left-to-Right)</text>
-  <text x="215" y="96" text-anchor="middle" font-size="9" fill="#64748b">Token i attends only to tokens ≤ i</text>
+  <rect x="30" y="55" width="370" height="340" rx="10" fill="#f5f5f8" stroke="#c0c0c8" stroke-width="1.5"/>
+  <text x="215" y="80" text-anchor="middle" font-size="13" font-weight="bold" fill="#1a1a2e">(a) GPT — Causal (Left-to-Right)</text>
+  <text x="215" y="96" text-anchor="middle" font-size="11" fill="#7a7a8a">Token i attends only to tokens ≤ i</text>
 
   <!-- Column headers -->
-  <text x="140" y="118" text-anchor="middle" font-size="8" fill="#64748b">The</text>
-  <text x="190" y="118" text-anchor="middle" font-size="8" fill="#64748b">cat</text>
-  <text x="240" y="118" text-anchor="middle" font-size="8" fill="#64748b">sat</text>
-  <text x="290" y="118" text-anchor="middle" font-size="8" fill="#64748b">on</text>
-  <text x="340" y="118" text-anchor="middle" font-size="8" fill="#64748b">the</text>
+  <text x="140" y="118" text-anchor="middle" font-size="11" fill="#7a7a8a">The</text>
+  <text x="190" y="118" text-anchor="middle" font-size="11" fill="#7a7a8a">cat</text>
+  <text x="240" y="118" text-anchor="middle" font-size="11" fill="#7a7a8a">sat</text>
+  <text x="290" y="118" text-anchor="middle" font-size="11" fill="#7a7a8a">on</text>
+  <text x="340" y="118" text-anchor="middle" font-size="11" fill="#7a7a8a">the</text>
 
   <!-- Row headers -->
-  <text x="98" y="148" text-anchor="end" font-size="8" fill="#64748b">The</text>
-  <text x="98" y="198" text-anchor="end" font-size="8" fill="#64748b">cat</text>
-  <text x="98" y="248" text-anchor="end" font-size="8" fill="#64748b">sat</text>
-  <text x="98" y="298" text-anchor="end" font-size="8" fill="#64748b">on</text>
-  <text x="98" y="348" text-anchor="end" font-size="8" fill="#64748b">the</text>
+  <text x="98" y="148" text-anchor="end" font-size="11" fill="#7a7a8a">The</text>
+  <text x="98" y="198" text-anchor="end" font-size="11" fill="#7a7a8a">cat</text>
+  <text x="98" y="248" text-anchor="end" font-size="11" fill="#7a7a8a">sat</text>
+  <text x="98" y="298" text-anchor="end" font-size="11" fill="#7a7a8a">on</text>
+  <text x="98" y="348" text-anchor="end" font-size="11" fill="#7a7a8a">the</text>
 
   <!-- GPT attention matrix (lower triangle only) -->
   <!-- Row 1 -->
-  <rect x="115" y="125" width="50" height="45" rx="3" fill="#16a34a" fill-opacity="0.7" stroke="#dcfce7" stroke-width="1"/>
-  <text x="140" y="152" text-anchor="middle" font-size="9" fill="white" font-weight="bold">1.0</text>
-  <rect x="165" y="125" width="50" height="45" rx="3" fill="white" stroke="#e2e8f0" stroke-width="1"/>
-  <rect x="215" y="125" width="50" height="45" rx="3" fill="white" stroke="#e2e8f0" stroke-width="1"/>
-  <rect x="265" y="125" width="50" height="45" rx="3" fill="white" stroke="#e2e8f0" stroke-width="1"/>
-  <rect x="315" y="125" width="50" height="45" rx="3" fill="white" stroke="#e2e8f0" stroke-width="1"/>
+  <rect x="115" y="125" width="50" height="45" rx="3" fill="#3a9e8f" fill-opacity="0.7" stroke="#dff0ed" stroke-width="1"/>
+  <text x="140" y="152" text-anchor="middle" font-size="11" fill="white" font-weight="bold">1.0</text>
+  <rect x="165" y="125" width="50" height="45" rx="3" fill="white" stroke="#f5f5f8" stroke-width="1"/>
+  <rect x="215" y="125" width="50" height="45" rx="3" fill="white" stroke="#f5f5f8" stroke-width="1"/>
+  <rect x="265" y="125" width="50" height="45" rx="3" fill="white" stroke="#f5f5f8" stroke-width="1"/>
+  <rect x="315" y="125" width="50" height="45" rx="3" fill="white" stroke="#f5f5f8" stroke-width="1"/>
 
   <!-- Row 2 -->
-  <rect x="115" y="175" width="50" height="45" rx="3" fill="#16a34a" fill-opacity="0.4" stroke="#dcfce7" stroke-width="1"/>
-  <text x="140" y="202" text-anchor="middle" font-size="9" fill="#14532d">.4</text>
-  <rect x="165" y="175" width="50" height="45" rx="3" fill="#16a34a" fill-opacity="0.6" stroke="#dcfce7" stroke-width="1"/>
-  <text x="190" y="202" text-anchor="middle" font-size="9" fill="#14532d">.6</text>
-  <rect x="215" y="175" width="50" height="45" rx="3" fill="white" stroke="#e2e8f0" stroke-width="1"/>
-  <rect x="265" y="175" width="50" height="45" rx="3" fill="white" stroke="#e2e8f0" stroke-width="1"/>
-  <rect x="315" y="175" width="50" height="45" rx="3" fill="white" stroke="#e2e8f0" stroke-width="1"/>
+  <rect x="115" y="175" width="50" height="45" rx="3" fill="#3a9e8f" fill-opacity="0.4" stroke="#dff0ed" stroke-width="1"/>
+  <text x="140" y="202" text-anchor="middle" font-size="11" fill="#3a9e8f">.4</text>
+  <rect x="165" y="175" width="50" height="45" rx="3" fill="#3a9e8f" fill-opacity="0.6" stroke="#dff0ed" stroke-width="1"/>
+  <text x="190" y="202" text-anchor="middle" font-size="11" fill="#3a9e8f">.6</text>
+  <rect x="215" y="175" width="50" height="45" rx="3" fill="white" stroke="#f5f5f8" stroke-width="1"/>
+  <rect x="265" y="175" width="50" height="45" rx="3" fill="white" stroke="#f5f5f8" stroke-width="1"/>
+  <rect x="315" y="175" width="50" height="45" rx="3" fill="white" stroke="#f5f5f8" stroke-width="1"/>
 
   <!-- Row 3 -->
-  <rect x="115" y="225" width="50" height="45" rx="3" fill="#16a34a" fill-opacity="0.2" stroke="#dcfce7" stroke-width="1"/>
-  <text x="140" y="252" text-anchor="middle" font-size="9" fill="#14532d">.2</text>
-  <rect x="165" y="225" width="50" height="45" rx="3" fill="#16a34a" fill-opacity="0.3" stroke="#dcfce7" stroke-width="1"/>
-  <text x="190" y="252" text-anchor="middle" font-size="9" fill="#14532d">.3</text>
-  <rect x="215" y="225" width="50" height="45" rx="3" fill="#16a34a" fill-opacity="0.5" stroke="#dcfce7" stroke-width="1"/>
-  <text x="240" y="252" text-anchor="middle" font-size="9" fill="#14532d">.5</text>
-  <rect x="265" y="225" width="50" height="45" rx="3" fill="white" stroke="#e2e8f0" stroke-width="1"/>
-  <rect x="315" y="225" width="50" height="45" rx="3" fill="white" stroke="#e2e8f0" stroke-width="1"/>
+  <rect x="115" y="225" width="50" height="45" rx="3" fill="#3a9e8f" fill-opacity="0.2" stroke="#dff0ed" stroke-width="1"/>
+  <text x="140" y="252" text-anchor="middle" font-size="11" fill="#3a9e8f">.2</text>
+  <rect x="165" y="225" width="50" height="45" rx="3" fill="#3a9e8f" fill-opacity="0.3" stroke="#dff0ed" stroke-width="1"/>
+  <text x="190" y="252" text-anchor="middle" font-size="11" fill="#3a9e8f">.3</text>
+  <rect x="215" y="225" width="50" height="45" rx="3" fill="#3a9e8f" fill-opacity="0.5" stroke="#dff0ed" stroke-width="1"/>
+  <text x="240" y="252" text-anchor="middle" font-size="11" fill="#3a9e8f">.5</text>
+  <rect x="265" y="225" width="50" height="45" rx="3" fill="white" stroke="#f5f5f8" stroke-width="1"/>
+  <rect x="315" y="225" width="50" height="45" rx="3" fill="white" stroke="#f5f5f8" stroke-width="1"/>
 
   <!-- Row 4 -->
-  <rect x="115" y="275" width="50" height="45" rx="3" fill="#16a34a" fill-opacity="0.15" stroke="#dcfce7" stroke-width="1"/>
-  <text x="140" y="302" text-anchor="middle" font-size="9" fill="#14532d">.1</text>
-  <rect x="165" y="275" width="50" height="45" rx="3" fill="#16a34a" fill-opacity="0.2" stroke="#dcfce7" stroke-width="1"/>
-  <text x="190" y="302" text-anchor="middle" font-size="9" fill="#14532d">.2</text>
-  <rect x="215" y="275" width="50" height="45" rx="3" fill="#16a34a" fill-opacity="0.3" stroke="#dcfce7" stroke-width="1"/>
-  <text x="240" y="302" text-anchor="middle" font-size="9" fill="#14532d">.3</text>
-  <rect x="265" y="275" width="50" height="45" rx="3" fill="#16a34a" fill-opacity="0.4" stroke="#dcfce7" stroke-width="1"/>
-  <text x="290" y="302" text-anchor="middle" font-size="9" fill="#14532d">.4</text>
-  <rect x="315" y="275" width="50" height="45" rx="3" fill="white" stroke="#e2e8f0" stroke-width="1"/>
+  <rect x="115" y="275" width="50" height="45" rx="3" fill="#3a9e8f" fill-opacity="0.15" stroke="#dff0ed" stroke-width="1"/>
+  <text x="140" y="302" text-anchor="middle" font-size="11" fill="#3a9e8f">.1</text>
+  <rect x="165" y="275" width="50" height="45" rx="3" fill="#3a9e8f" fill-opacity="0.2" stroke="#dff0ed" stroke-width="1"/>
+  <text x="190" y="302" text-anchor="middle" font-size="11" fill="#3a9e8f">.2</text>
+  <rect x="215" y="275" width="50" height="45" rx="3" fill="#3a9e8f" fill-opacity="0.3" stroke="#dff0ed" stroke-width="1"/>
+  <text x="240" y="302" text-anchor="middle" font-size="11" fill="#3a9e8f">.3</text>
+  <rect x="265" y="275" width="50" height="45" rx="3" fill="#3a9e8f" fill-opacity="0.4" stroke="#dff0ed" stroke-width="1"/>
+  <text x="290" y="302" text-anchor="middle" font-size="11" fill="#3a9e8f">.4</text>
+  <rect x="315" y="275" width="50" height="45" rx="3" fill="white" stroke="#f5f5f8" stroke-width="1"/>
 
   <!-- Row 5 -->
-  <rect x="115" y="325" width="50" height="45" rx="3" fill="#16a34a" fill-opacity="0.1" stroke="#dcfce7" stroke-width="1"/>
-  <text x="140" y="352" text-anchor="middle" font-size="9" fill="#14532d">.1</text>
-  <rect x="165" y="325" width="50" height="45" rx="3" fill="#16a34a" fill-opacity="0.15" stroke="#dcfce7" stroke-width="1"/>
-  <text x="190" y="352" text-anchor="middle" font-size="9" fill="#14532d">.1</text>
-  <rect x="215" y="325" width="50" height="45" rx="3" fill="#16a34a" fill-opacity="0.2" stroke="#dcfce7" stroke-width="1"/>
-  <text x="240" y="352" text-anchor="middle" font-size="9" fill="#14532d">.2</text>
-  <rect x="265" y="325" width="50" height="45" rx="3" fill="#16a34a" fill-opacity="0.3" stroke="#dcfce7" stroke-width="1"/>
-  <text x="290" y="352" text-anchor="middle" font-size="9" fill="#14532d">.3</text>
-  <rect x="315" y="325" width="50" height="45" rx="3" fill="#16a34a" fill-opacity="0.35" stroke="#dcfce7" stroke-width="1"/>
-  <text x="340" y="352" text-anchor="middle" font-size="9" fill="#14532d">.3</text>
+  <rect x="115" y="325" width="50" height="45" rx="3" fill="#3a9e8f" fill-opacity="0.1" stroke="#dff0ed" stroke-width="1"/>
+  <text x="140" y="352" text-anchor="middle" font-size="11" fill="#3a9e8f">.1</text>
+  <rect x="165" y="325" width="50" height="45" rx="3" fill="#3a9e8f" fill-opacity="0.15" stroke="#dff0ed" stroke-width="1"/>
+  <text x="190" y="352" text-anchor="middle" font-size="11" fill="#3a9e8f">.1</text>
+  <rect x="215" y="325" width="50" height="45" rx="3" fill="#3a9e8f" fill-opacity="0.2" stroke="#dff0ed" stroke-width="1"/>
+  <text x="240" y="352" text-anchor="middle" font-size="11" fill="#3a9e8f">.2</text>
+  <rect x="265" y="325" width="50" height="45" rx="3" fill="#3a9e8f" fill-opacity="0.3" stroke="#dff0ed" stroke-width="1"/>
+  <text x="290" y="352" text-anchor="middle" font-size="11" fill="#3a9e8f">.3</text>
+  <rect x="315" y="325" width="50" height="45" rx="3" fill="#3a9e8f" fill-opacity="0.35" stroke="#dff0ed" stroke-width="1"/>
+  <text x="340" y="352" text-anchor="middle" font-size="11" fill="#3a9e8f">.3</text>
 
   <!-- Diagonal line showing triangular shape -->
-  <line x1="113" y1="123" x2="367" y2="372" stroke="#ef4444" stroke-width="1.5" stroke-dasharray="4,3"/>
+  <line x1="113" y1="123" x2="367" y2="372" stroke="#d4645c" stroke-width="1.5" stroke-dasharray="4,3"/>
 
   <!-- ===== (b) BERT Bidirectional ===== -->
-  <rect x="420" y="55" width="370" height="340" rx="10" fill="#fafafa" stroke="#cbd5e1" stroke-width="1.5"/>
-  <text x="605" y="80" text-anchor="middle" font-size="13" font-weight="bold" fill="#0f172a">(b) BERT — Bidirectional</text>
-  <text x="605" y="96" text-anchor="middle" font-size="9" fill="#64748b">Every token attends to every other token</text>
+  <rect x="420" y="55" width="370" height="340" rx="10" fill="#f5f5f8" stroke="#c0c0c8" stroke-width="1.5"/>
+  <text x="605" y="80" text-anchor="middle" font-size="13" font-weight="bold" fill="#1a1a2e">(b) BERT — Bidirectional</text>
+  <text x="605" y="96" text-anchor="middle" font-size="11" fill="#7a7a8a">Every token attends to every other token</text>
 
   <!-- Column headers -->
-  <text x="530" y="118" text-anchor="middle" font-size="8" fill="#64748b">[CLS]</text>
-  <text x="580" y="118" text-anchor="middle" font-size="8" fill="#64748b">The</text>
-  <text x="630" y="118" text-anchor="middle" font-size="8" fill="#64748b">[M]</text>
-  <text x="680" y="118" text-anchor="middle" font-size="8" fill="#64748b">sat</text>
-  <text x="730" y="118" text-anchor="middle" font-size="8" fill="#64748b">[SEP]</text>
+  <text x="530" y="118" text-anchor="middle" font-size="11" fill="#7a7a8a">[CLS]</text>
+  <text x="580" y="118" text-anchor="middle" font-size="11" fill="#7a7a8a">The</text>
+  <text x="630" y="118" text-anchor="middle" font-size="11" fill="#7a7a8a">[M]</text>
+  <text x="680" y="118" text-anchor="middle" font-size="11" fill="#7a7a8a">sat</text>
+  <text x="730" y="118" text-anchor="middle" font-size="11" fill="#7a7a8a">[SEP]</text>
 
   <!-- Row headers -->
-  <text x="490" y="148" text-anchor="end" font-size="8" fill="#64748b">[CLS]</text>
-  <text x="490" y="198" text-anchor="end" font-size="8" fill="#64748b">The</text>
-  <text x="490" y="248" text-anchor="end" font-size="8" fill="#64748b">[MASK]</text>
-  <text x="490" y="298" text-anchor="end" font-size="8" fill="#64748b">sat</text>
-  <text x="490" y="348" text-anchor="end" font-size="8" fill="#64748b">[SEP]</text>
+  <text x="490" y="148" text-anchor="end" font-size="11" fill="#7a7a8a">[CLS]</text>
+  <text x="490" y="198" text-anchor="end" font-size="11" fill="#7a7a8a">The</text>
+  <text x="490" y="248" text-anchor="end" font-size="11" fill="#7a7a8a">[MASK]</text>
+  <text x="490" y="298" text-anchor="end" font-size="11" fill="#7a7a8a">sat</text>
+  <text x="490" y="348" text-anchor="end" font-size="11" fill="#7a7a8a">[SEP]</text>
 
   <!-- BERT attention matrix (FULL - all cells filled) -->
   <!-- Row 1 -->
-  <rect x="505" y="125" width="50" height="45" rx="3" fill="#0284c7" fill-opacity="0.3" stroke="#bfdbfe" stroke-width="1"/>
-  <text x="530" y="152" text-anchor="middle" font-size="9" fill="#0c4a6e">.2</text>
-  <rect x="555" y="125" width="50" height="45" rx="3" fill="#0284c7" fill-opacity="0.25" stroke="#bfdbfe" stroke-width="1"/>
-  <text x="580" y="152" text-anchor="middle" font-size="9" fill="#0c4a6e">.2</text>
-  <rect x="605" y="125" width="50" height="45" rx="3" fill="#0284c7" fill-opacity="0.2" stroke="#bfdbfe" stroke-width="1"/>
-  <text x="630" y="152" text-anchor="middle" font-size="9" fill="#0c4a6e">.2</text>
-  <rect x="655" y="125" width="50" height="45" rx="3" fill="#0284c7" fill-opacity="0.15" stroke="#bfdbfe" stroke-width="1"/>
-  <text x="680" y="152" text-anchor="middle" font-size="9" fill="#0c4a6e">.2</text>
-  <rect x="705" y="125" width="50" height="45" rx="3" fill="#0284c7" fill-opacity="0.2" stroke="#bfdbfe" stroke-width="1"/>
-  <text x="730" y="152" text-anchor="middle" font-size="9" fill="#0c4a6e">.2</text>
+  <rect x="505" y="125" width="50" height="45" rx="3" fill="#4a7fb5" fill-opacity="0.3" stroke="#c8d8e8" stroke-width="1"/>
+  <text x="530" y="152" text-anchor="middle" font-size="11" fill="#4a7fb5">.2</text>
+  <rect x="555" y="125" width="50" height="45" rx="3" fill="#4a7fb5" fill-opacity="0.25" stroke="#c8d8e8" stroke-width="1"/>
+  <text x="580" y="152" text-anchor="middle" font-size="11" fill="#4a7fb5">.2</text>
+  <rect x="605" y="125" width="50" height="45" rx="3" fill="#4a7fb5" fill-opacity="0.2" stroke="#c8d8e8" stroke-width="1"/>
+  <text x="630" y="152" text-anchor="middle" font-size="11" fill="#4a7fb5">.2</text>
+  <rect x="655" y="125" width="50" height="45" rx="3" fill="#4a7fb5" fill-opacity="0.15" stroke="#c8d8e8" stroke-width="1"/>
+  <text x="680" y="152" text-anchor="middle" font-size="11" fill="#4a7fb5">.2</text>
+  <rect x="705" y="125" width="50" height="45" rx="3" fill="#4a7fb5" fill-opacity="0.2" stroke="#c8d8e8" stroke-width="1"/>
+  <text x="730" y="152" text-anchor="middle" font-size="11" fill="#4a7fb5">.2</text>
 
   <!-- Row 2-5: all filled with varying blue opacities -->
-  <rect x="505" y="175" width="50" height="45" rx="3" fill="#0284c7" fill-opacity="0.2" stroke="#bfdbfe" stroke-width="1"/>
-  <rect x="555" y="175" width="50" height="45" rx="3" fill="#0284c7" fill-opacity="0.35" stroke="#bfdbfe" stroke-width="1"/>
-  <rect x="605" y="175" width="50" height="45" rx="3" fill="#0284c7" fill-opacity="0.15" stroke="#bfdbfe" stroke-width="1"/>
-  <rect x="655" y="175" width="50" height="45" rx="3" fill="#0284c7" fill-opacity="0.2" stroke="#bfdbfe" stroke-width="1"/>
-  <rect x="705" y="175" width="50" height="45" rx="3" fill="#0284c7" fill-opacity="0.1" stroke="#bfdbfe" stroke-width="1"/>
+  <rect x="505" y="175" width="50" height="45" rx="3" fill="#4a7fb5" fill-opacity="0.2" stroke="#c8d8e8" stroke-width="1"/>
+  <rect x="555" y="175" width="50" height="45" rx="3" fill="#4a7fb5" fill-opacity="0.35" stroke="#c8d8e8" stroke-width="1"/>
+  <rect x="605" y="175" width="50" height="45" rx="3" fill="#4a7fb5" fill-opacity="0.15" stroke="#c8d8e8" stroke-width="1"/>
+  <rect x="655" y="175" width="50" height="45" rx="3" fill="#4a7fb5" fill-opacity="0.2" stroke="#c8d8e8" stroke-width="1"/>
+  <rect x="705" y="175" width="50" height="45" rx="3" fill="#4a7fb5" fill-opacity="0.1" stroke="#c8d8e8" stroke-width="1"/>
 
-  <rect x="505" y="225" width="50" height="45" rx="3" fill="#0284c7" fill-opacity="0.15" stroke="#bfdbfe" stroke-width="1"/>
-  <rect x="555" y="225" width="50" height="45" rx="3" fill="#0284c7" fill-opacity="0.25" stroke="#bfdbfe" stroke-width="1"/>
-  <rect x="605" y="225" width="50" height="45" rx="3" fill="#0284c7" fill-opacity="0.4" stroke="#bfdbfe" stroke-width="1"/>
-  <rect x="655" y="225" width="50" height="45" rx="3" fill="#0284c7" fill-opacity="0.3" stroke="#bfdbfe" stroke-width="1"/>
-  <rect x="705" y="225" width="50" height="45" rx="3" fill="#0284c7" fill-opacity="0.1" stroke="#bfdbfe" stroke-width="1"/>
+  <rect x="505" y="225" width="50" height="45" rx="3" fill="#4a7fb5" fill-opacity="0.15" stroke="#c8d8e8" stroke-width="1"/>
+  <rect x="555" y="225" width="50" height="45" rx="3" fill="#4a7fb5" fill-opacity="0.25" stroke="#c8d8e8" stroke-width="1"/>
+  <rect x="605" y="225" width="50" height="45" rx="3" fill="#4a7fb5" fill-opacity="0.4" stroke="#c8d8e8" stroke-width="1"/>
+  <rect x="655" y="225" width="50" height="45" rx="3" fill="#4a7fb5" fill-opacity="0.3" stroke="#c8d8e8" stroke-width="1"/>
+  <rect x="705" y="225" width="50" height="45" rx="3" fill="#4a7fb5" fill-opacity="0.1" stroke="#c8d8e8" stroke-width="1"/>
 
-  <rect x="505" y="275" width="50" height="45" rx="3" fill="#0284c7" fill-opacity="0.1" stroke="#bfdbfe" stroke-width="1"/>
-  <rect x="555" y="275" width="50" height="45" rx="3" fill="#0284c7" fill-opacity="0.15" stroke="#bfdbfe" stroke-width="1"/>
-  <rect x="605" y="275" width="50" height="45" rx="3" fill="#0284c7" fill-opacity="0.3" stroke="#bfdbfe" stroke-width="1"/>
-  <rect x="655" y="275" width="50" height="45" rx="3" fill="#0284c7" fill-opacity="0.35" stroke="#bfdbfe" stroke-width="1"/>
-  <rect x="705" y="275" width="50" height="45" rx="3" fill="#0284c7" fill-opacity="0.1" stroke="#bfdbfe" stroke-width="1"/>
+  <rect x="505" y="275" width="50" height="45" rx="3" fill="#4a7fb5" fill-opacity="0.1" stroke="#c8d8e8" stroke-width="1"/>
+  <rect x="555" y="275" width="50" height="45" rx="3" fill="#4a7fb5" fill-opacity="0.15" stroke="#c8d8e8" stroke-width="1"/>
+  <rect x="605" y="275" width="50" height="45" rx="3" fill="#4a7fb5" fill-opacity="0.3" stroke="#c8d8e8" stroke-width="1"/>
+  <rect x="655" y="275" width="50" height="45" rx="3" fill="#4a7fb5" fill-opacity="0.35" stroke="#c8d8e8" stroke-width="1"/>
+  <rect x="705" y="275" width="50" height="45" rx="3" fill="#4a7fb5" fill-opacity="0.1" stroke="#c8d8e8" stroke-width="1"/>
 
-  <rect x="505" y="325" width="50" height="45" rx="3" fill="#0284c7" fill-opacity="0.2" stroke="#bfdbfe" stroke-width="1"/>
-  <rect x="555" y="325" width="50" height="45" rx="3" fill="#0284c7" fill-opacity="0.1" stroke="#bfdbfe" stroke-width="1"/>
-  <rect x="605" y="325" width="50" height="45" rx="3" fill="#0284c7" fill-opacity="0.15" stroke="#bfdbfe" stroke-width="1"/>
-  <rect x="655" y="325" width="50" height="45" rx="3" fill="#0284c7" fill-opacity="0.2" stroke="#bfdbfe" stroke-width="1"/>
-  <rect x="705" y="325" width="50" height="45" rx="3" fill="#0284c7" fill-opacity="0.35" stroke="#bfdbfe" stroke-width="1"/>
+  <rect x="505" y="325" width="50" height="45" rx="3" fill="#4a7fb5" fill-opacity="0.2" stroke="#c8d8e8" stroke-width="1"/>
+  <rect x="555" y="325" width="50" height="45" rx="3" fill="#4a7fb5" fill-opacity="0.1" stroke="#c8d8e8" stroke-width="1"/>
+  <rect x="605" y="325" width="50" height="45" rx="3" fill="#4a7fb5" fill-opacity="0.15" stroke="#c8d8e8" stroke-width="1"/>
+  <rect x="655" y="325" width="50" height="45" rx="3" fill="#4a7fb5" fill-opacity="0.2" stroke="#c8d8e8" stroke-width="1"/>
+  <rect x="705" y="325" width="50" height="45" rx="3" fill="#4a7fb5" fill-opacity="0.35" stroke="#c8d8e8" stroke-width="1"/>
 
   <!-- Labels -->
-  <text x="215" y="405" text-anchor="middle" font-size="9" font-weight="bold" fill="#db2777">Triangular → generation (next token)</text>
-  <text x="605" y="405" text-anchor="middle" font-size="9" font-weight="bold" fill="#0284c7">Full matrix → understanding (fill in blanks)</text>
+  <text x="215" y="405" text-anchor="middle" font-size="11" font-weight="bold" fill="#d4645c">Triangular → generation (next token)</text>
+  <text x="605" y="405" text-anchor="middle" font-size="11" font-weight="bold" fill="#4a7fb5">Full matrix → understanding (fill in blanks)</text>
 </svg>

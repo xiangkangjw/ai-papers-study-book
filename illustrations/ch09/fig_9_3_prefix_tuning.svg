@@ -1,95 +1,95 @@
 <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 860 420" font-family="Inter, Helvetica, Arial, sans-serif">
   <defs>
-    <marker id="a" markerWidth="8" markerHeight="6" refX="8" refY="3" orient="auto"><path d="M0,0 L8,3 L0,6 Z" fill="#475569"/></marker>
+    <marker id="a" markerWidth="8" markerHeight="6" refX="8" refY="3" orient="auto"><path d="M0,0 L8,3 L0,6 Z" fill="#4a4a5a"/></marker>
   </defs>
 
-  <text x="430" y="28" text-anchor="middle" font-size="17" font-weight="bold" fill="#0f172a">Prefix Tuning &amp; Prompt Tuning</text>
-  <text x="430" y="46" text-anchor="middle" font-size="10" fill="#64748b">Li &amp; Liang (2021) / Lester et al. (2021) — Prepend trainable tokens to the input</text>
+  <text x="430" y="28" text-anchor="middle" font-size="17" font-weight="bold" fill="#1a1a2e">Prefix Tuning &amp; Prompt Tuning</text>
+  <text x="430" y="46" text-anchor="middle" font-size="11" fill="#7a7a8a">Li &amp; Liang (2021) / Lester et al. (2021) — Prepend trainable tokens to the input</text>
 
   <!-- Prefix Tuning -->
-  <rect x="30" y="65" width="400" height="310" rx="10" fill="#f0f9ff" stroke="#0284c7" stroke-width="2"/>
-  <text x="230" y="90" text-anchor="middle" font-size="11" font-weight="bold" fill="#0c4a6e">Prefix Tuning (Li &amp; Liang)</text>
+  <rect x="30" y="65" width="400" height="310" rx="10" fill="#edf2f8" stroke="#4a7fb5" stroke-width="2"/>
+  <text x="230" y="90" text-anchor="middle" font-size="11" font-weight="bold" fill="#4a7fb5">Prefix Tuning (Li &amp; Liang)</text>
 
   <!-- Attention layer visualization -->
-  <rect x="50" y="110" width="360" height="140" rx="6" fill="#f8fafc" stroke="#e2e8f0" stroke-width="1.5"/>
-  <text x="230" y="130" text-anchor="middle" font-size="9" font-weight="bold" fill="#0f172a">Self-Attention Layer</text>
+  <rect x="50" y="110" width="360" height="140" rx="6" fill="#f5f5f8" stroke="#f5f5f8" stroke-width="1.5"/>
+  <text x="230" y="130" text-anchor="middle" font-size="11" font-weight="bold" fill="#1a1a2e">Self-Attention Layer</text>
 
   <!-- Prefix K,V (trainable) -->
-  <rect x="65" y="145" width="70" height="25" rx="3" fill="#dcfce7" stroke="#16a34a" stroke-width="2"/>
-  <text x="100" y="162" text-anchor="middle" font-size="7" font-weight="bold" fill="#14532d">P_K 🔥</text>
-  <rect x="65" y="175" width="70" height="25" rx="3" fill="#dcfce7" stroke="#16a34a" stroke-width="2"/>
-  <text x="100" y="192" text-anchor="middle" font-size="7" font-weight="bold" fill="#14532d">P_V 🔥</text>
-  <text x="100" y="218" text-anchor="middle" font-size="7" fill="#16a34a">prefix tokens</text>
-  <text x="100" y="232" text-anchor="middle" font-size="6" fill="#16a34a" font-family="'SF Mono', Consolas, monospace">L×d per layer</text>
+  <rect x="65" y="145" width="70" height="25" rx="3" fill="#dff0ed" stroke="#3a9e8f" stroke-width="2"/>
+  <text x="100" y="162" text-anchor="middle" font-size="11" font-weight="bold" fill="#3a9e8f">P_K 🔥</text>
+  <rect x="65" y="175" width="70" height="25" rx="3" fill="#dff0ed" stroke="#3a9e8f" stroke-width="2"/>
+  <text x="100" y="192" text-anchor="middle" font-size="11" font-weight="bold" fill="#3a9e8f">P_V 🔥</text>
+  <text x="100" y="218" text-anchor="middle" font-size="11" fill="#3a9e8f">prefix tokens</text>
+  <text x="100" y="232" text-anchor="middle" font-size="11" fill="#3a9e8f" font-family="'JetBrains Mono', 'Fira Code', monospace">L×d per layer</text>
 
   <!-- Separator -->
-  <line x1="145" y1="145" x2="145" y2="200" stroke="#e2e8f0" stroke-width="1.5" stroke-dasharray="4,2"/>
+  <line x1="145" y1="145" x2="145" y2="200" stroke="#f5f5f8" stroke-width="1.5" stroke-dasharray="4,2"/>
 
   <!-- Regular K,V (frozen) -->
-  <rect x="160" y="145" width="120" height="25" rx="3" fill="#e2e8f0" stroke="#94a3b8" stroke-width="1.5"/>
-  <text x="220" y="162" text-anchor="middle" font-size="7" fill="#475569">K (from input) 🔒</text>
-  <rect x="160" y="175" width="120" height="25" rx="3" fill="#e2e8f0" stroke="#94a3b8" stroke-width="1.5"/>
-  <text x="220" y="192" text-anchor="middle" font-size="7" fill="#475569">V (from input) 🔒</text>
+  <rect x="160" y="145" width="120" height="25" rx="3" fill="#f5f5f8" stroke="#c0c0c8" stroke-width="1.5"/>
+  <text x="220" y="162" text-anchor="middle" font-size="11" fill="#4a4a5a">K (from input) 🔒</text>
+  <rect x="160" y="175" width="120" height="25" rx="3" fill="#f5f5f8" stroke="#c0c0c8" stroke-width="1.5"/>
+  <text x="220" y="192" text-anchor="middle" font-size="11" fill="#4a4a5a">V (from input) 🔒</text>
 
   <!-- Q -->
-  <rect x="300" y="155" width="90" height="30" rx="3" fill="#e2e8f0" stroke="#94a3b8" stroke-width="1.5"/>
-  <text x="345" y="174" text-anchor="middle" font-size="7" fill="#475569">Q (from input) 🔒</text>
+  <rect x="300" y="155" width="90" height="30" rx="3" fill="#f5f5f8" stroke="#c0c0c8" stroke-width="1.5"/>
+  <text x="345" y="174" text-anchor="middle" font-size="11" fill="#4a4a5a">Q (from input) 🔒</text>
 
   <!-- Key insight -->
-  <text x="230" y="275" text-anchor="middle" font-size="8" fill="#0284c7" font-weight="bold">Prefix at every layer's K and V</text>
-  <text x="230" y="293" text-anchor="middle" font-size="8" fill="#334155">Q attends to both prefix + real tokens</text>
-  <text x="230" y="311" text-anchor="middle" font-size="8" fill="#334155">Reparameterized via MLP during training</text>
-  <text x="230" y="329" text-anchor="middle" font-size="8" fill="#334155">for stability, then discard MLP at inference</text>
+  <text x="230" y="275" text-anchor="middle" font-size="11" fill="#4a7fb5" font-weight="bold">Prefix at every layer's K and V</text>
+  <text x="230" y="293" text-anchor="middle" font-size="11" fill="#3a3a4a">Q attends to both prefix + real tokens</text>
+  <text x="230" y="311" text-anchor="middle" font-size="11" fill="#3a3a4a">Reparameterized via MLP during training</text>
+  <text x="230" y="329" text-anchor="middle" font-size="11" fill="#3a3a4a">for stability, then discard MLP at inference</text>
 
-  <text x="230" y="358" text-anchor="middle" font-size="8" fill="#0284c7" font-family="'SF Mono', Consolas, monospace">Params: L × d × 2 × num_layers</text>
-  <text x="230" y="373" text-anchor="middle" font-size="8" fill="#16a34a" font-weight="bold">~0.1% of model parameters</text>
+  <text x="230" y="358" text-anchor="middle" font-size="11" fill="#4a7fb5" font-family="'JetBrains Mono', 'Fira Code', monospace">Params: L × d × 2 × num_layers</text>
+  <text x="230" y="373" text-anchor="middle" font-size="11" fill="#3a9e8f" font-weight="bold">~0.1% of model parameters</text>
 
   <!-- Prompt Tuning -->
-  <rect x="450" y="65" width="380" height="310" rx="10" fill="#fef3c7" stroke="#d97706" stroke-width="2"/>
-  <text x="640" y="90" text-anchor="middle" font-size="11" font-weight="bold" fill="#78350f">Prompt Tuning (Lester et al.)</text>
+  <rect x="450" y="65" width="380" height="310" rx="10" fill="#f5ece0" stroke="#d4a03c" stroke-width="2"/>
+  <text x="640" y="90" text-anchor="middle" font-size="11" font-weight="bold" fill="#d4a03c">Prompt Tuning (Lester et al.)</text>
 
   <!-- Input layer only -->
-  <rect x="470" y="110" width="340" height="120" rx="6" fill="#f8fafc" stroke="#e2e8f0" stroke-width="1.5"/>
-  <text x="640" y="130" text-anchor="middle" font-size="9" font-weight="bold" fill="#0f172a">Input Embedding Layer Only</text>
+  <rect x="470" y="110" width="340" height="120" rx="6" fill="#f5f5f8" stroke="#f5f5f8" stroke-width="1.5"/>
+  <text x="640" y="130" text-anchor="middle" font-size="11" font-weight="bold" fill="#1a1a2e">Input Embedding Layer Only</text>
 
   <!-- Soft prompt tokens -->
-  <rect x="490" y="148" width="30" height="25" rx="3" fill="#dcfce7" stroke="#16a34a" stroke-width="2"/>
-  <text x="505" y="165" text-anchor="middle" font-size="6" font-weight="bold" fill="#14532d">s₁</text>
-  <rect x="525" y="148" width="30" height="25" rx="3" fill="#dcfce7" stroke="#16a34a" stroke-width="2"/>
-  <text x="540" y="165" text-anchor="middle" font-size="6" font-weight="bold" fill="#14532d">s₂</text>
-  <text x="565" y="165" font-size="8" fill="#16a34a">···</text>
-  <rect x="580" y="148" width="30" height="25" rx="3" fill="#dcfce7" stroke="#16a34a" stroke-width="2"/>
-  <text x="595" y="165" text-anchor="middle" font-size="6" font-weight="bold" fill="#14532d">s_L</text>
+  <rect x="490" y="148" width="30" height="25" rx="3" fill="#dff0ed" stroke="#3a9e8f" stroke-width="2"/>
+  <text x="505" y="165" text-anchor="middle" font-size="11" font-weight="bold" fill="#3a9e8f">s₁</text>
+  <rect x="525" y="148" width="30" height="25" rx="3" fill="#dff0ed" stroke="#3a9e8f" stroke-width="2"/>
+  <text x="540" y="165" text-anchor="middle" font-size="11" font-weight="bold" fill="#3a9e8f">s₂</text>
+  <text x="565" y="165" font-size="11" fill="#3a9e8f">···</text>
+  <rect x="580" y="148" width="30" height="25" rx="3" fill="#dff0ed" stroke="#3a9e8f" stroke-width="2"/>
+  <text x="595" y="165" text-anchor="middle" font-size="11" font-weight="bold" fill="#3a9e8f">s_L</text>
 
-  <line x1="618" y1="160" x2="625" y2="160" stroke="#e2e8f0" stroke-width="1.5"/>
+  <line x1="618" y1="160" x2="625" y2="160" stroke="#f5f5f8" stroke-width="1.5"/>
 
   <!-- Real input tokens -->
-  <rect x="630" y="148" width="30" height="25" rx="3" fill="#e2e8f0" stroke="#94a3b8" stroke-width="1.5"/>
-  <text x="645" y="165" text-anchor="middle" font-size="6" fill="#475569">x₁</text>
-  <rect x="665" y="148" width="30" height="25" rx="3" fill="#e2e8f0" stroke="#94a3b8" stroke-width="1.5"/>
-  <text x="680" y="165" text-anchor="middle" font-size="6" fill="#475569">x₂</text>
-  <text x="705" y="165" font-size="8" fill="#94a3b8">···</text>
-  <rect x="720" y="148" width="30" height="25" rx="3" fill="#e2e8f0" stroke="#94a3b8" stroke-width="1.5"/>
-  <text x="735" y="165" text-anchor="middle" font-size="6" fill="#475569">x_n</text>
+  <rect x="630" y="148" width="30" height="25" rx="3" fill="#f5f5f8" stroke="#c0c0c8" stroke-width="1.5"/>
+  <text x="645" y="165" text-anchor="middle" font-size="11" fill="#4a4a5a">x₁</text>
+  <rect x="665" y="148" width="30" height="25" rx="3" fill="#f5f5f8" stroke="#c0c0c8" stroke-width="1.5"/>
+  <text x="680" y="165" text-anchor="middle" font-size="11" fill="#4a4a5a">x₂</text>
+  <text x="705" y="165" font-size="11" fill="#c0c0c8">···</text>
+  <rect x="720" y="148" width="30" height="25" rx="3" fill="#f5f5f8" stroke="#c0c0c8" stroke-width="1.5"/>
+  <text x="735" y="165" text-anchor="middle" font-size="11" fill="#4a4a5a">x_n</text>
 
-  <text x="545" y="200" font-size="7" fill="#16a34a" font-weight="bold">🔥 trainable</text>
-  <text x="700" y="200" font-size="7" fill="#94a3b8">🔒 frozen</text>
+  <text x="545" y="200" font-size="11" fill="#3a9e8f" font-weight="bold">🔥 trainable</text>
+  <text x="700" y="200" font-size="11" fill="#c0c0c8">🔒 frozen</text>
 
   <!-- Arrow to frozen transformer -->
-  <line x1="640" y1="230" x2="640" y2="253" stroke="#475569" stroke-width="1.5" marker-end="url(#a)"/>
+  <line x1="640" y1="230" x2="640" y2="253" stroke="#4a4a5a" stroke-width="1.5" marker-end="url(#a)"/>
 
-  <rect x="530" y="255" width="220" height="35" rx="4" fill="#e2e8f0" stroke="#94a3b8" stroke-width="2"/>
-  <text x="640" y="277" text-anchor="middle" font-size="8" fill="#475569">Frozen Transformer (all layers) 🔒</text>
+  <rect x="530" y="255" width="220" height="35" rx="4" fill="#f5f5f8" stroke="#c0c0c8" stroke-width="2"/>
+  <text x="640" y="277" text-anchor="middle" font-size="11" fill="#4a4a5a">Frozen Transformer (all layers) 🔒</text>
 
   <!-- Key difference -->
-  <text x="640" y="315" text-anchor="middle" font-size="8" fill="#d97706" font-weight="bold">Only input embeddings — much simpler!</text>
-  <text x="640" y="333" text-anchor="middle" font-size="8" fill="#334155">No prefix in intermediate layers</text>
-  <text x="640" y="351" text-anchor="middle" font-size="8" fill="#334155">Scales to 11B+ models: matches fine-tune</text>
+  <text x="640" y="315" text-anchor="middle" font-size="11" fill="#d4a03c" font-weight="bold">Only input embeddings — much simpler!</text>
+  <text x="640" y="333" text-anchor="middle" font-size="11" fill="#3a3a4a">No prefix in intermediate layers</text>
+  <text x="640" y="351" text-anchor="middle" font-size="11" fill="#3a3a4a">Scales to 11B+ models: matches fine-tune</text>
 
-  <text x="640" y="375" text-anchor="middle" font-size="8" fill="#d97706" font-family="'SF Mono', Consolas, monospace">Params: L × d (input only)</text>
-  <text x="640" y="390" text-anchor="middle" font-size="8" fill="#16a34a" font-weight="bold">~0.01% of model parameters</text>
+  <text x="640" y="375" text-anchor="middle" font-size="11" fill="#d4a03c" font-family="'JetBrains Mono', 'Fira Code', monospace">Params: L × d (input only)</text>
+  <text x="640" y="390" text-anchor="middle" font-size="11" fill="#3a9e8f" font-weight="bold">~0.01% of model parameters</text>
 
   <!-- Comparison bar -->
-  <rect x="100" y="395" width="660" height="20" rx="4" fill="#f1f5f9" stroke="#475569" stroke-width="1"/>
-  <text x="430" y="410" text-anchor="middle" font-size="8" fill="#334155">Prefix Tuning: better for mid-size models · Prompt Tuning: closes gap at 11B+ scale (Lester et al. finding)</text>
+  <rect x="100" y="395" width="660" height="20" rx="4" fill="#f5f5f8" stroke="#4a4a5a" stroke-width="1"/>
+  <text x="430" y="410" text-anchor="middle" font-size="11" fill="#3a3a4a">Prefix Tuning: better for mid-size models · Prompt Tuning: closes gap at 11B+ scale (Lester et al. finding)</text>
 </svg>

@@ -32,6 +32,8 @@ In a traditional key-value store (a hash map, a database), you have a query $q$,
 
 Attention performs a *soft* lookup. Instead of finding one exact match, you compute a similarity score between your query and *every* key, normalize those scores into a probability distribution, and return the weighted sum of all values. Think of it as a fuzzy JOIN where every row contributes, weighted by relevance.
 
+![Figure 4.2: Attention as Database Lookup](illustrations/ch04/fig_4_2_attention_as_db_lookup.svg)
+
 ### 4.2.2 The Computation
 
 Given:
@@ -45,33 +47,7 @@ $$\text{Attention}(\mathbf{Q}, \mathbf{K}, \mathbf{V}) = \text{softmax}\!\left(\
 
 Step by step, with tensor shapes annotated:
 
-```mermaid
-graph TD
-    classDef io fill:#f1f5f9,stroke:#475569,stroke-width:2px,color:#0f172a,font-family:monospace
-    classDef op fill:#e0f2fe,stroke:#0284c7,stroke-width:2px,color:#0c4a6e
-    classDef opt fill:#fff7ed,stroke:#c2410c,stroke-width:2px,color:#9a3412,stroke-dasharray: 4 4
-
-    Q["Q<br/>[batch, n_q, d_k]"]:::io
-    K["K<br/>[batch, n_kv, d_k]"]:::io
-    V["V<br/>[batch, n_kv, d_v]"]:::io
-
-    MatMul1("MatMul<br/>(Q @ Kᵀ)"):::op
-    Scale("Scale<br/>( / √d_k)"):::op
-    Mask("Mask<br/>(Optional)"):::opt
-    Softmax("Softmax<br/>(dim=-1)"):::op
-    MatMul2("MatMul<br/>(weights @ V)"):::op
-    
-    Out["Output<br/>[batch, n_q, d_v]"]:::io
-
-    Q --> MatMul1
-    K --> MatMul1
-    MatMul1 -->|"[batch, n_q, n_kv]"| Scale
-    Scale --> Mask
-    Mask --> Softmax
-    Softmax -->|"weights<br/>[batch, n_q, n_kv]"| MatMul2
-    V --> MatMul2
-    MatMul2 --> Out
-```
+![Figure 4.1: Scaled Dot-Product Attention](illustrations/ch04/fig_4_1_scaled_dot_product_attention.svg)
 
 Each query position produces a weighted combination of all value positions, where the weights are determined by the query-key similarity. In self-attention, $\mathbf{Q}$, $\mathbf{K}$, and $\mathbf{V}$ all derive from the same input sequence, so every token attends to every other token (including itself).
 
@@ -109,55 +85,7 @@ with projection matrices:
 
 Vaswani et al. use $h = 8$ heads with $d_k = d_v = d_{\text{model}} / h = 64$ (for $d_{\text{model}} = 512$).
 
-```mermaid
-graph TD
-    classDef input fill:#f1f5f9,stroke:#475569,stroke-width:2px,color:#0f172a,font-weight:bold
-    classDef weight fill:#fef3c7,stroke:#d97706,stroke-width:2px,color:#78350f,font-family:monospace
-    classDef head fill:#e0f2fe,stroke:#0284c7,stroke-width:2px,color:#0c4a6e
-    classDef op fill:#cbd5e1,stroke:#334155,stroke-width:2px,color:#0f172a,font-weight:bold
-    classDef textNode fill:none,stroke:none
-
-    subgraph Inputs ["Inputs (Sequence Length T × d_model)"]
-        direction LR
-        V_in["V"]:::input
-        K_in["K"]:::input
-        Q_in["Q"]:::input
-    end
-
-    subgraph Projections ["Learned Linear Projections"]
-        direction LR
-        W_V["W_V (d_model × d_v)"]:::weight
-        W_K["W_K (d_model × d_k)"]:::weight
-        W_Q["W_Q (d_model × d_k)"]:::weight
-    end
-
-    subgraph Heads ["h Parallel Attention Heads"]
-        direction LR
-        H1["Head 1<br/>Output: T × d_v"]:::head
-        H2["Head 2<br/>Output: T × d_v"]:::head
-        H_dots["..."]:::textNode
-        Hh["Head h<br/>Output: T × d_v"]:::head
-    end
-
-    Concat(("Concat")):::op
-    W_O["W_O Projection<br/>(h·d_v × d_model)"]:::weight
-    Output["Multi-Head Output<br/>(T × d_model)"]:::input
-
-    V_in --> W_V
-    K_in --> W_K
-    Q_in --> W_Q
-
-    W_V --> H1 & H2 & Hh
-    W_K --> H1 & H2 & Hh
-    W_Q --> H1 & H2 & Hh
-
-    H1 --> Concat
-    H2 --> Concat
-    Hh --> Concat
-
-    Concat ==>|"Dimension: T × (h·d_v)"| W_O
-    W_O ==> Output
-```
+![Figure 4.3: Multi-Head Attention](illustrations/ch04/fig_4_3_multi_head_attention.svg)
 
 ### 4.3.1 Parameter Count Analysis
 
@@ -204,74 +132,7 @@ Each head learns to project queries, keys, and values into a different $d_k$-dim
 
 ## 4.4 The Full Transformer Architecture
 
-```mermaid
-graph BT
-    classDef io fill:#f1f5f9,stroke:#475569,stroke-width:2px,color:#0f172a
-    classDef attn fill:#fce7f3,stroke:#db2777,stroke-width:2px,color:#831843
-    classDef norm fill:#f3e8ff,stroke:#9333ea,stroke-width:2px,color:#3b0764
-    classDef ffn fill:#e0f2fe,stroke:#0284c7,stroke-width:2px,color:#0c4a6e
-
-    %% Inputs
-    In1("Inputs<br/>(Source sequence)"):::io
-    InEmb["Input Embedding"]
-    Pos1("Positional<br/>Encoding"):::io
-    
-    Out1("Outputs<br/>(Shifted Right)"):::io
-    OutEmb["Output Embedding"]
-    Pos2("Positional<br/>Encoding"):::io
-
-    In1 --> InEmb
-    InEmb --> Add1((+))
-    Pos1 --> Add1
-
-    Out1 --> OutEmb
-    OutEmb --> Add2((+))
-    Pos2 --> Add2
-
-    %% Encoder
-    subgraph Encoder ["Encoder Stack (N=6)"]
-        direction BT
-        E_MHA["Multi-Head<br/>Self-Attention"]:::attn
-        E_AddNorm1["Add & Norm"]:::norm
-        E_FFN["Feed Forward"]:::ffn
-        E_AddNorm2["Add & Norm"]:::norm
-        
-        E_MHA --> E_AddNorm1
-        E_AddNorm1 --> E_FFN
-        E_FFN --> E_AddNorm2
-    end
-    
-    Add1 --> E_MHA
-
-    %% Decoder
-    subgraph Decoder ["Decoder Stack (N=6)"]
-        direction BT
-        D_MHA1["Masked Multi-Head<br/>Self-Attention"]:::attn
-        D_AddNorm1["Add & Norm"]:::norm
-        D_MHA2["Multi-Head<br/>Cross-Attention"]:::attn
-        D_AddNorm2["Add & Norm"]:::norm
-        D_FFN["Feed Forward"]:::ffn
-        D_AddNorm3["Add & Norm"]:::norm
-        
-        D_MHA1 --> D_AddNorm1
-        D_AddNorm1 --> D_MHA2
-        D_MHA2 --> D_AddNorm2
-        D_AddNorm2 --> D_FFN
-        D_FFN --> D_AddNorm3
-    end
-    
-    Add2 --> D_MHA1
-    E_AddNorm2 -.->|K, V| D_MHA2
-
-    %% Output Output
-    Linear["Linear"]:::ffn
-    Softmax["Softmax"]:::norm
-    OutputProbs("Output Probabilities"):::io
-    
-    D_AddNorm3 --> Linear
-    Linear --> Softmax
-    Softmax --> OutputProbs
-```
+![Figure 4.4: The Full Transformer Architecture](illustrations/ch04/fig_4_4_full_transformer.svg)
 
 The Transformer follows the encoder-decoder structure standard in sequence-to-sequence models. Both encoder and decoder are stacks of identical layers, but with different attention patterns.
 
@@ -308,30 +169,7 @@ The decoder also has $N = 6$ identical layers, but each layer has three sublayer
 
 1. **Masked multi-head self-attention.** Tokens can only attend to previous positions (and themselves). This is enforced by setting the upper-triangular portion of the attention score matrix to $-\infty$ before softmax, producing zero weights for future positions. This preserves the autoregressive property: the prediction for position $t$ depends only on positions $1, \ldots, t$.
 
-```mermaid
-graph TD
-    classDef score fill:#f1f5f9,stroke:#475569,stroke-width:2px,color:#0f172a,font-family:monospace
-    classDef mask fill:#fee2e2,stroke:#ef4444,stroke-width:2px,color:#7f1d1d,font-family:monospace
-    classDef result fill:#dcfce7,stroke:#22c55e,stroke-width:2px,color:#14532d,font-family:monospace
-
-    subgraph Step1 ["1. Raw Attention Scores (Q × Kᵀ / √d_k)"]
-        direction TB
-        S1["[ s_11, s_12, s_13 ]<br/>[ s_21, s_22, s_23 ]<br/>[ s_31, s_32, s_33 ]"]:::score
-    end
-
-    subgraph Step2 ["2. Apply Causal Mask (Add -∞ to Upper Triangle)"]
-        direction TB
-        M["[ s_11, -∞, -∞ ]<br/>[ s_21, s_22, -∞ ]<br/>[ s_31, s_32, s_33 ]"]:::mask
-    end
-
-    subgraph Step3 ["3. Softmax (Probabilities sum to 1 per row)"]
-        direction TB
-        R["[ 1.0,   0,   0 ]<br/>[ w_21, w_22,  0 ]<br/>[ w_31, w_32, w_33 ]"]:::result
-    end
-
-    S1 ==>|"Apply Mask"| M
-    M ==>|"Compute Softmax"| R
-```
+![Figure 4.5: Causal Attention Mask](illustrations/ch04/fig_4_5_causal_attention_mask.svg)
 
 2. **Multi-head cross-attention.** Queries come from the decoder's previous sublayer; keys and values come from the encoder output. This is where the decoder "reads" the source sentence.
 
@@ -430,6 +268,8 @@ where $pos$ is the position index and $i$ is the dimension index. Each dimension
 
 The key property: for any fixed offset $k$, the mapping $PE_{pos} \mapsto PE_{pos+k}$ can be represented as a linear transformation. This means the model can learn to attend to relative positions through linear operations on these encodings. The sinusoidal choice also generalizes to sequence lengths longer than those seen during training, since the functions are defined for any $pos$.
 
+![Figure 4.6: Sinusoidal Positional Encoding](illustrations/ch04/fig_4_6_sinusoidal_pe.svg)
+
 ### 4.5.3 Learned Positional Embeddings
 
 An alternative: learn a position embedding matrix $\mathbf{E}_{\text{pos}} \in \mathbb{R}^{L_{\max} \times d_{\text{model}}}$ where $L_{\max}$ is the maximum sequence length. This is a standard embedding lookup. Vaswani et al. found nearly identical performance to sinusoidal encodings. GPT-2 and BERT both use learned positional embeddings.
@@ -449,6 +289,8 @@ $$(\mathbf{R}_m \mathbf{q})^\top (\mathbf{R}_n \mathbf{k}) = \mathbf{q}^\top \ma
 since rotation matrices satisfy $\mathbf{R}_m^\top \mathbf{R}_n = \mathbf{R}_{n-m}$.
 
 RoPE encodes *relative* position without requiring explicit relative position biases, applies naturally to any sequence length, and has become the standard in modern LLMs (LLaMA, PaLM, etc.).
+
+![Figure 4.7: Rotary Position Embeddings (RoPE)](illustrations/ch04/fig_4_7_rope.svg)
 
 ### 4.5.5 Relative Position Representations
 
@@ -502,38 +344,7 @@ Comparison with RNNs: a recurrent layer has $O(n \cdot d^2)$ computation and $O(
 
 **FlashAttention (Dao et al., 2022).** The $O(n^2)$ memory bottleneck is not inherent to the algorithm — it comes from materializing the full $n \times n$ attention matrix. FlashAttention computes attention in a *tiled* fashion, processing blocks of the attention matrix that fit in GPU SRAM (fast on-chip memory) rather than reading/writing the full matrix to HBM (slow off-chip memory).
 
-```mermaid
-graph TD
-    classDef hbm fill:#f1f5f9,stroke:#475569,stroke-width:2px,color:#0f172a
-    classDef sram fill:#e0f2fe,stroke:#0284c7,stroke-width:2px,color:#0c4a6e
-    classDef compute fill:#fef3c7,stroke:#d97706,stroke-width:2px,color:#78350f
-
-    subgraph HBM ["High Bandwidth Memory (HBM) — Slow, Large"]
-        Q["Q matrix"]:::hbm
-        K["K matrix"]:::hbm
-        V["V matrix"]:::hbm
-        O["Output matrix (O)"]:::hbm
-    end
-
-    subgraph SRAM ["GPU SRAM — Fast, Small (~20MB)"]
-        direction LR
-        Q_block["Q_block<br/>(Tiled)"]:::sram
-        K_block["K_block<br/>(Tiled)"]:::sram
-        V_block["V_block<br/>(Tiled)"]:::sram
-        
-        Compute["Online Softmax &<br/>Block MatMul"]:::compute
-        
-        Q_block --> Compute
-        K_block --> Compute
-        V_block --> Compute
-    end
-
-    Q -.->|"Load blocks"| Q_block
-    K -.->|"Load blocks"| K_block
-    V -.->|"Load blocks"| V_block
-    
-    Compute -.->|"Write O_block"| O
-```
+![Figure 4.8: FlashAttention Tiled Computation](illustrations/ch04/fig_4_8_flash_attention.svg)
 
 The core technique: for each block of queries, iterate over blocks of keys/values, computing partial softmax results and accumulating them using the *online softmax* trick (which avoids needing the full row of scores to compute the normalization constant). This reduces HBM reads/writes from $O(n^2)$ to $O(n^2 d / M)$ where $M$ is the SRAM size and $d$ is the head dimension. Although $O(n^2 d / M)$ appears to be *larger* than $O(n^2)$ at first glance, the key is that $d/M \ll 1$: typical head dimensions are $d = 64$ or $128$, while SRAM is tens of megabytes, so the factor $d/M$ can be on the order of $10^{-5}$. This achieves 2-4x wall-clock speedup for typical sequence lengths with *exact* attention (no approximation).
 
@@ -664,17 +475,7 @@ The selection mechanism has a critical consequence for computation: with input-d
 
 The Mamba architecture wraps the selective SSM in a simplified block design:
 
-```
-Input x: [batch, seq_len, d_model]
-    |-- Linear projection -> [batch, seq_len, d_inner]  (expand)
-    |       |-- 1D causal convolution (short kernel, e.g., k=4)
-    |       |-- SiLU activation
-    |       +-- Selective SSM
-    |-- Linear projection -> [batch, seq_len, d_inner]  (gate)
-    |       +-- SiLU activation
-    +-- Element-wise multiply (gated output)
-            +-- Linear projection -> [batch, seq_len, d_model]  (contract)
-```
+![Figure 4.9: Mamba Selective State Space Block](illustrations/ch04/fig_4_9_ssm_mamba.svg)
 
 There is no attention sublayer and no MLP sublayer in the traditional sense. The entire block combines gating, convolution, and the selective state space into a single fused unit. The 1D causal convolution with a short kernel (typically 4) captures local patterns, while the SSM handles long-range dependencies.
 
@@ -694,7 +495,11 @@ Pure SSM architectures and pure Transformer architectures each have distinct str
 
 Conversely, SSMs excel at tasks requiring *smooth integration* over long contexts: summarization, perplexity modeling over long documents, and tasks where the relevant information is distributed across the entire sequence rather than concentrated at specific positions. The $O(n)$ cost and constant-memory inference also make SSMs strictly superior for deployment at very long context lengths.
 
-This complementarity led to *hybrid* architectures that interleave attention and SSM layers. Jamba (Lieber et al., 2024) from AI21 Labs is the most prominent example. Jamba interleaves Mamba layers with Transformer attention layers in a ratio of approximately 7:1 (seven Mamba layers per one attention layer), and further incorporates mixture-of-experts (MoE) on the feed-forward components. The design rationale is explicit: use cheap Mamba layers for the bulk of the computation and insert sparse attention layers where in-context retrieval is needed.
+This complementarity led to *hybrid* architectures that interleave attention and SSM layers.
+
+![Figure 4.10: Jamba Hybrid Architecture](illustrations/ch04/fig_4_10_jamba.svg)
+
+Jamba (Lieber et al., 2024) from AI21 Labs is the most prominent example. Jamba interleaves Mamba layers with Transformer attention layers in a ratio of approximately 7:1 (seven Mamba layers per one attention layer), and further incorporates mixture-of-experts (MoE) on the feed-forward components. The design rationale is explicit: use cheap Mamba layers for the bulk of the computation and insert sparse attention layers where in-context retrieval is needed.
 
 At 52B total parameters (12B active due to MoE), Jamba fits on a single 80GB GPU while supporting context lengths up to 256K tokens — a regime where a pure Transformer of equivalent quality would require multiple GPUs for the KV cache alone. The hybrid approach captures the best of both worlds: the attention layers provide retrieval capability, and the Mamba layers provide efficient long-range modeling.
 

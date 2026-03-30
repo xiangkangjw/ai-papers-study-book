@@ -30,34 +30,7 @@ This is the **denoising diffusion probabilistic model** (DDPM) framework, formal
 
 ## 8.2 The Diffusion Framework (DDPM)
 
-```mermaid
-graph LR
-    classDef img fill:#f1f5f9,stroke:#475569,stroke-width:2px,color:#0f172a,font-family:monospace
-    classDef noise fill:#fef3c7,stroke:#d97706,stroke-width:2px,color:#78350f
-    classDef process fill:#ffffff,stroke:#9ca3af,stroke-width:1px,stroke-dasharray: 4 4
-
-    subgraph Forward ["Forward Process: q(x_t | x_{t-1}) — Adding Noise"]
-        direction LR
-        x0["x_0<br/>(Clean)"]:::img
-        x1["x_1"]:::img
-        xt["x_t"]:::img
-        xT["x_T<br/>(Noise)"]:::noise
-        x0 -->|"q(x_1|x_0)"| x1
-        x1 -.-> xt
-        xt -.-> xT
-    end
-
-    subgraph Reverse ["Reverse Process: p_θ(x_{t-1} | x_t) — Denoising"]
-        direction RL
-        yT["x_T<br/>(Noise)"]:::noise
-        yt["x_t"]:::img
-        y1["x_1"]:::img
-        y0["x_0<br/>(Clean)"]:::img
-        yT -.->|"p_θ"| yt
-        yt -.-> y1
-        y1 -->|"p_θ(x_0|x_1)"| y0
-    end
-```
+![Figure 8.1: The Diffusion Process — Forward and Reverse](illustrations/ch08/fig_8_1_diffusion_process.svg)
 
 ### 8.2.1 The Forward Process: Destroying Information Systematically
 
@@ -69,7 +42,9 @@ Here $\beta_t \in (0, 1)$ is a **noise schedule** — a small, carefully chosen 
 
 The noise schedule $\beta_t$ is typically small at early timesteps (gentle corruption) and larger at later timesteps (aggressive corruption). By $t = T$, $x_T$ is approximately pure Gaussian noise regardless of what $x_0$ was — all information about the original image has been destroyed.
 
-**The critical mathematical property** is that this Markov chain has a closed form for any arbitrary timestep $t$, skipping the intermediate steps entirely. Define:
+![Figure 8.2: Noise Schedules — Linear vs. Cosine](illustrations/ch08/fig_8_2_noise_schedule.svg)
+
+ᾱᾱ≈ᾱᾱ≈ᾱ≈ᾱ\nᾱ≈ᾱᾱ≈ᾱ**The critical mathematical property** is that this Markov chain has a closed form for any arbitrary timestep $t$, skipping the intermediate steps entirely. Define:
 
 $$\alpha_t = 1 - \beta_t, \quad \bar{\alpha}_t = \prod_{i=1}^{t} \alpha_i$$
 
@@ -146,45 +121,7 @@ The denoising network $\boldsymbol{\varepsilon}_\theta(\mathbf{x}_t, t)$ must ta
 
 The U-Net (Ronneberger et al., 2015, originally for medical image segmentation) uses an encoder that progressively downsamples the spatial resolution and a decoder that progressively upsamples, with **skip connections** passing feature maps from each encoder level to the corresponding decoder level.
 
-```mermaid
-graph TD
-    classDef io fill:#f1f5f9,stroke:#475569,stroke-width:2px,color:#0f172a,font-family:monospace
-    classDef conv fill:#e0f2fe,stroke:#0284c7,stroke-width:2px,color:#0c4a6e
-    classDef bn fill:#fef3c7,stroke:#d97706,stroke-width:2px,stroke-dasharray: 4 4
-
-    Input["Input: Noisy Image<br/>x_t"]:::io
-    
-    %% Encoder Path
-    E1["Conv Block<br/>[64]"]:::conv
-    E2["Conv Block<br/>[128]"]:::conv
-    E3["Conv Block<br/>[256]"]:::conv
-    
-    %% Bottleneck
-    BN["Bottleneck Block<br/>[512]"]:::bn
-    
-    %% Decoder Path
-    D3["Conv Block<br/>[256]"]:::conv
-    D2["Conv Block<br/>[128]"]:::conv
-    D1["Conv Block<br/>[64]"]:::conv
-    
-    Output["Output: Predicted Noise<br/>ε_predicted"]:::io
-    
-    %% Connections
-    Input --> E1
-    E1 -->|"Downsample"| E2
-    E2 -->|"Downsample"| E3
-    E3 -->|"Downsample"| BN
-    
-    BN -->|"Upsample"| D3
-    D3 -->|"Upsample"| D2
-    D2 -->|"Upsample"| D1
-    D1 --> Output
-    
-    %% Skip Connections
-    E1 -.->|"Skip Connection<br/>(Concat)"| D1
-    E2 -.->|"Skip Connection<br/>(Concat)"| D2
-    E3 -.->|"Skip Connection<br/>(Concat)"| D3
-```
+![Figure 8.3: U-Net Architecture for Diffusion Models](illustrations/ch08/fig_8_3_unet_architecture.svg)
 
 Why does this work for denoising? The encoder captures context at multiple scales — local textures at high resolution, global structure at low resolution. The decoder must reconstruct fine detail at full resolution, but instead of doing so from a compressed bottleneck alone, it can directly access the encoder's high-resolution features via skip connections. This is critical: fine-grained detail (where noise estimation matters most) is preserved through the skip connections rather than having to be regenerated from scratch.
 
@@ -211,6 +148,8 @@ Higher resolutions (64×64) remain purely convolutional for efficiency; lower re
 ---
 
 ## 8.4 Sampling and Speed Improvements
+
+![Figure 8.4: DDPM vs. DDIM Sampling](illustrations/ch08/fig_8_4_ddpm_vs_ddim.svg)
 
 ### 8.4.1 DDPM Sampling: The Baseline (and Its Problem)
 
@@ -264,31 +203,7 @@ $$\boldsymbol{\varepsilon}_{\text{guided}} = \boldsymbol{\varepsilon}_\theta(\ma
 
 This is vector extrapolation in noise-prediction space: start from the unconditional prediction and move further in the direction that the conditioning pushes you, scaled by guidance weight $w$.
 
-```mermaid
-graph TD
-    classDef origin fill:#f1f5f9,stroke:#475569,stroke-width:2px,color:#0f172a,font-weight:bold
-    classDef uncond fill:#fee2e2,stroke:#ef4444,stroke-width:2px,color:#7f1d1d
-    classDef cond fill:#dcfce7,stroke:#22c55e,stroke-width:2px,color:#14532d
-    classDef guided fill:#e0f2fe,stroke:#0284c7,stroke-width:3px,color:#0c4a6e,font-weight:bold
-
-    subgraph CFG ["Classifier-Free Guidance Geometry (Vector Extrapolation)"]
-        direction LR
-        Origin(("Latent State x_t")):::origin
-        
-        Uncond["Unconditional Prediction<br/>ε_uncond (null prompt ∅)"]:::uncond
-        Cond["Conditional Prediction<br/>ε_cond (text prompt c)"]:::cond
-        
-        Guided["Guided Prediction<br/>ε_guided"]:::guided
-
-        Origin -- "w = 0" --> Uncond
-        Origin -- "w = 1" --> Cond
-        
-        Uncond -.->|"Direction Vector:<br/>(ε_cond - ε_uncond)"| Cond
-        Cond -.->|"Scale by (w-1)"| Guided
-        
-        Origin == "w = 7.5<br/>ε_guided = ε_uncond + w(ε_cond - ε_uncond)" ==> Guided
-    end
-```
+![Figure 8.5: Classifier-Free Guidance Geometry](illustrations/ch08/fig_8_5_classifier_free_guidance.svg)
 
 - $w = 0$: pure unconditional generation (diverse, may not match prompt)
 - $w = 1$: pure conditional generation
@@ -403,6 +318,8 @@ The spatial dimensions are 8x smaller in each dimension (64×64 instead of 512×
 
 ### 8.5.3 Cross-Attention for Text Conditioning
 
+![Figure 8.7: Cross-Attention Detail in U-Net Text Conditioning](illustrations/ch08/fig_8_7_cross_attention_detail.svg)
+
 Text conditioning is injected into the U-Net via **cross-attention layers** inserted into every transformer block of the U-Net. This is where Chapter 4 machinery becomes directly relevant.
 
 The conditioning pipeline:
@@ -426,52 +343,7 @@ This is a direct connection to the VLM content in Chapter 6: CLIP is the "vision
 
 The full Stable Diffusion architecture:
 
-```mermaid
-graph TD
-    classDef io fill:#f1f5f9,stroke:#475569,stroke-width:2px,color:#0f172a,font-family:monospace
-    classDef frozen fill:#e0f2fe,stroke:#0284c7,stroke-width:2px,color:#0c4a6e,stroke-dasharray: 4 4
-    classDef unet fill:#fce7f3,stroke:#db2777,stroke-width:2px,color:#831843
-    classDef process fill:#ffffff,stroke:#9ca3af,stroke-width:2px
-
-    Prompt["Text Prompt"]:::io
-    CLIP["CLIP Text Encoder<br/>(Frozen)"]:::frozen
-    Tokens["Token Embeddings τ(y)<br/>[77 × 768]"]:::io
-    
-    Prompt --> CLIP
-    CLIP --> Tokens
-
-    Noisy["Input: Noisy Latent z_t<br/>[64 × 64 × 4]"]:::io
-    
-    subgraph UNet ["U-Net Denoising Network (Trainable)"]
-        direction TB
-        ResBlock["ResBlock<br/>(Time embedding via AdaIN)"]:::unet
-        CrossAttn["MultiHead Cross-Attention<br/>(Attends to text tokens)"]:::unet
-        SelfAttn["MultiHead Self-Attention<br/>(Spatial)"]:::unet
-        FFN["FeedForward"]:::unet
-        
-        ResBlock --> SelfAttn
-        SelfAttn --> CrossAttn
-        CrossAttn --> FFN
-    end
-    
-    Noisy --> UNet
-    Tokens -.->|"Cross-Attention<br/>(K, V)"| CrossAttn
-    
-    PredNoise["Output: Predicted Noise<br/>ε_θ(z_t, t, τ(y))"]:::io
-    UNet --> PredNoise
-    
-    DenoisingLoop{"Denoising Loop<br/>T → 1"}:::process
-    PredNoise --> DenoisingLoop
-    
-    CleanLatent["Clean Latent z_0<br/>[64 × 64 × 4]"]:::io
-    DenoisingLoop --> CleanLatent
-    
-    VAE["VAE Decoder D<br/>(Frozen)"]:::frozen
-    CleanLatent --> VAE
-    
-    OutImage["Final Image x̂<br/>[512 × 512 × 3]"]:::io
-    VAE --> OutImage
-```
+![Figure 8.6: Stable Diffusion — Latent Diffusion Model Architecture](illustrations/ch08/fig_8_6_stable_diffusion.svg)
 
 The transformer blocks in the U-Net each have three sub-layers: spatial self-attention (positions attend to each other), cross-attention to text (positions attend to tokens), and a feedforward network. This is the standard Transformer block structure, adapted for 2D spatial feature maps.
 
@@ -506,6 +378,8 @@ Stable Diffusion became an open-source platform that spawned a rich ecosystem of
 The zero initialization is crucial: at the start of training, ControlNet contributes nothing (zero weights), so the pretrained U-Net is not disturbed. The ControlNet gradually learns to modulate generation based on the spatial signal. The original U-Net weights are frozen; only ControlNet is trained.
 
 Architecturally: ControlNet duplicates the U-Net encoder, processes the spatial condition through it, and connects the outputs to the main decoder via trainable zero-convolutions. This is a clean surgical intervention on a frozen model — a pattern that appears repeatedly in the LLM fine-tuning literature (Chapter 9).
+
+![Figure 8.8: ControlNet Architecture](illustrations/ch08/fig_8_8_controlnet.svg)
 
 ### 8.7.2 IP-Adapter: Image Prompt Conditioning
 
@@ -546,6 +420,8 @@ Diffusion models are not a self-contained island — they are built from compone
 ---
 
 ## 8.9 Summary and Key Takeaways
+
+![Figure 8.9: Diffusion Model Taxonomy](illustrations/ch08/fig_8_9_diffusion_taxonomy.svg)
 
 Diffusion models reframe generation as iterative denoising. The key ideas:
 

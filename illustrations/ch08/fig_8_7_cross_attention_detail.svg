@@ -1,110 +1,111 @@
 <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 860 460" font-family="Inter, Helvetica, Arial, sans-serif">
   <defs>
-    <marker id="a" markerWidth="8" markerHeight="6" refX="8" refY="3" orient="auto"><path d="M0,0 L8,3 L0,6 Z" fill="#475569"/></marker>
+    <marker id="a" markerWidth="8" markerHeight="6" refX="8" refY="3" orient="auto"><path d="M0,0 L8,3 L0,6 Z" fill="#4a4a5a"/></marker>
   </defs>
 
-  <text x="430" y="28" text-anchor="middle" font-size="17" font-weight="bold" fill="#0f172a">Cross-Attention: How Text Conditions the U-Net</text>
-  <text x="430" y="46" text-anchor="middle" font-size="10" fill="#64748b">Text embeddings provide K,V — noisy image features provide Q</text>
+  <text x="430" y="28" text-anchor="middle" font-size="17" font-weight="bold" fill="#1a1a2e">Cross-Attention: How Text Conditions the U-Net</text>
+  <text x="430" y="46" text-anchor="middle" font-size="11" fill="#7a7a8a">Text embeddings provide K,V — noisy image features provide Q</text>
 
   <!-- Main diagram -->
-  <rect x="30" y="65" width="800" height="280" rx="10" fill="#f8fafc" stroke="#e2e8f0" stroke-width="2"/>
+  <rect x="30" y="65" width="800" height="280" rx="10" fill="#f5f5f8" stroke="#f5f5f8" stroke-width="2"/>
 
   <!-- Text side -->
-  <rect x="50" y="90" width="220" height="240" rx="8" fill="#fef3c7" stroke="#d97706" stroke-width="2"/>
-  <text x="160" y="115" text-anchor="middle" font-size="10" font-weight="bold" fill="#78350f">Text Conditioning Path</text>
+  <rect x="50" y="90" width="220" height="240" rx="8" fill="#f5ece0" stroke="#d4a03c" stroke-width="2"/>
+  <text x="160" y="115" text-anchor="middle" font-size="11" font-weight="bold" fill="#d4a03c">Text Conditioning Path</text>
 
-  <rect x="70" y="130" width="180" height="30" rx="4" fill="#fef3c7" stroke="#d97706" stroke-width="1"/>
-  <text x="160" y="150" text-anchor="middle" font-size="8" fill="#78350f">"a photo of a cat on a couch"</text>
+  <rect x="70" y="130" width="180" height="30" rx="4" fill="#f5ece0" stroke="#d4a03c" stroke-width="1"/>
+  <text x="160" y="150" text-anchor="middle" font-size="11" fill="#d4a03c">"a photo of a cat on a couch"</text>
 
-  <line x1="160" y1="160" x2="160" y2="178" stroke="#d97706" stroke-width="1.5" marker-end="url(#a)"/>
+  <line x1="160" y1="160" x2="160" y2="178" stroke="#d4a03c" stroke-width="1.5" marker-end="url(#a)"/>
 
-  <rect x="80" y="180" width="160" height="35" rx="4" fill="#d97706" stroke="#d97706" stroke-width="1"/>
-  <text x="160" y="200" text-anchor="middle" font-size="8" fill="#fff" font-weight="bold">CLIP Text Encoder</text>
+  <rect x="80" y="180" width="160" height="35" rx="4" fill="#d4a03c" stroke="#d4a03c" stroke-width="1"/>
+  <text x="160" y="200" text-anchor="middle" font-size="11" fill="#fff" font-weight="bold">CLIP Text Encoder</text>
 
-  <line x1="160" y1="215" x2="160" y2="233" stroke="#d97706" stroke-width="1.5" marker-end="url(#a)"/>
+  <line x1="160" y1="215" x2="160" y2="233" stroke="#d4a03c" stroke-width="1.5" marker-end="url(#a)"/>
 
-  <rect x="70" y="235" width="180" height="35" rx="4" fill="#fef3c7" stroke="#d97706" stroke-width="1.5"/>
-  <text x="160" y="250" text-anchor="middle" font-size="8" fill="#78350f" font-family="'SF Mono', Consolas, monospace">c ∈ ℝ^(77×768)</text>
-  <text x="160" y="265" text-anchor="middle" font-size="7" fill="#d97706">77 tokens × 768 dim</text>
+  <rect x="70" y="235" width="180" height="35" rx="4" fill="#f5ece0" stroke="#d4a03c" stroke-width="1.5"/>
+  <text x="160" y="250" text-anchor="middle" font-size="11" fill="#d4a03c" font-family="'JetBrains Mono', 'Fira Code', monospace">c ∈ ℝ^(77×768)</text>
+  <text x="160" y="265" text-anchor="middle" font-size="11" fill="#d4a03c">77 tokens × 768 dim</text>
 
   <!-- K and V projections -->
-  <line x1="160" y1="270" x2="160" y2="290" stroke="#d97706" stroke-width="1.5"/>
-  <line x1="160" y1="290" x2="120" y2="310" stroke="#d97706" stroke-width="1.5" marker-end="url(#a)"/>
-  <line x1="160" y1="290" x2="200" y2="310" stroke="#d97706" stroke-width="1.5" marker-end="url(#a)"/>
+  <line x1="160" y1="270" x2="160" y2="290" stroke="#d4a03c" stroke-width="1.5"/>
+  <line x1="160" y1="290" x2="120" y2="310" stroke="#d4a03c" stroke-width="1.5" marker-end="url(#a)"/>
+  <line x1="160" y1="290" x2="200" y2="310" stroke="#d4a03c" stroke-width="1.5" marker-end="url(#a)"/>
 
-  <rect x="90" y="312" width="55" height="25" rx="4" fill="#fef3c7" stroke="#d97706" stroke-width="2"/>
-  <text x="117" y="329" text-anchor="middle" font-size="9" font-weight="bold" fill="#78350f">K</text>
-  <text x="117" y="328" text-anchor="middle" font-size="6" fill="#d97706" dy="1em">W_k · c</text>
+  <rect x="90" y="312" width="55" height="25" rx="4" fill="#f5ece0" stroke="#d4a03c" stroke-width="2"/>
+  <text x="117" y="329" text-anchor="middle" font-size="11" font-weight="bold" fill="#d4a03c">K</text>
+  <text x="117" y="328" text-anchor="middle" font-size="11" fill="#d4a03c" dy="1em">W_k · c</text>
 
-  <rect x="175" y="312" width="55" height="25" rx="4" fill="#fef3c7" stroke="#d97706" stroke-width="2"/>
-  <text x="202" y="329" text-anchor="middle" font-size="9" font-weight="bold" fill="#78350f">V</text>
+  <rect x="175" y="312" width="55" height="25" rx="4" fill="#f5ece0" stroke="#d4a03c" stroke-width="2"/>
+  <text x="202" y="329" text-anchor="middle" font-size="11" font-weight="bold" fill="#d4a03c">V</text>
 
   <!-- Image side -->
-  <rect x="310" y="90" width="220" height="240" rx="8" fill="#e0f2fe" stroke="#0284c7" stroke-width="2"/>
-  <text x="420" y="115" text-anchor="middle" font-size="10" font-weight="bold" fill="#0c4a6e">Image Feature Path</text>
+  <rect x="310" y="90" width="220" height="240" rx="8" fill="#e1eaf3" stroke="#4a7fb5" stroke-width="2"/>
+  <text x="420" y="115" text-anchor="middle" font-size="11" font-weight="bold" fill="#4a7fb5">Image Feature Path</text>
 
-  <rect x="340" y="135" width="160" height="40" rx="4" fill="#e0f2fe" stroke="#0284c7" stroke-width="1.5"/>
-  <text x="420" y="152" text-anchor="middle" font-size="8" fill="#0c4a6e">U-Net feature map</text>
-  <text x="420" y="167" text-anchor="middle" font-size="7" fill="#0284c7" font-family="'SF Mono', Consolas, monospace">z_t ∈ ℝ^(h×w×d)</text>
+  <rect x="340" y="135" width="160" height="40" rx="4" fill="#e1eaf3" stroke="#4a7fb5" stroke-width="1.5"/>
+  <text x="420" y="152" text-anchor="middle" font-size="11" fill="#4a7fb5">U-Net feature map</text>
+  <text x="420" y="167" text-anchor="middle" font-size="11" fill="#4a7fb5" font-family="'JetBrains Mono', 'Fira Code', monospace">z_t ∈ ℝ^(h×w×d)</text>
 
-  <line x1="420" y1="175" x2="420" y2="193" stroke="#0284c7" stroke-width="1.5" marker-end="url(#a)"/>
+  <line x1="420" y1="175" x2="420" y2="193" stroke="#4a7fb5" stroke-width="1.5" marker-end="url(#a)"/>
 
-  <rect x="350" y="195" width="140" height="30" rx="4" fill="#e0f2fe" stroke="#0284c7" stroke-width="1.5"/>
-  <text x="420" y="214" text-anchor="middle" font-size="8" fill="#0c4a6e">Flatten to (h·w) × d</text>
+  <rect x="350" y="195" width="140" height="30" rx="4" fill="#e1eaf3" stroke="#4a7fb5" stroke-width="1.5"/>
+  <text x="420" y="214" text-anchor="middle" font-size="11" fill="#4a7fb5">Flatten to (h·w) × d</text>
 
-  <line x1="420" y1="225" x2="420" y2="243" stroke="#0284c7" stroke-width="1.5" marker-end="url(#a)"/>
+  <line x1="420" y1="225" x2="420" y2="243" stroke="#4a7fb5" stroke-width="1.5" marker-end="url(#a)"/>
 
-  <rect x="350" y="245" width="140" height="30" rx="4" fill="#e0f2fe" stroke="#0284c7" stroke-width="1.5"/>
-  <text x="420" y="264" text-anchor="middle" font-size="8" fill="#0c4a6e" font-family="'SF Mono', Consolas, monospace">φ ∈ ℝ^(hw×d)</text>
+  <rect x="350" y="245" width="140" height="30" rx="4" fill="#e1eaf3" stroke="#4a7fb5" stroke-width="1.5"/>
+  <text x="420" y="264" text-anchor="middle" font-size="11" fill="#4a7fb5" font-family="'JetBrains Mono', 'Fira Code', monospace">φ ∈ ℝ^(hw×d)</text>
 
   <!-- Q projection -->
-  <line x1="420" y1="275" x2="420" y2="310" stroke="#0284c7" stroke-width="1.5" marker-end="url(#a)"/>
+  <line x1="420" y1="275" x2="420" y2="310" stroke="#4a7fb5" stroke-width="1.5" marker-end="url(#a)"/>
 
-  <rect x="390" y="312" width="55" height="25" rx="4" fill="#e0f2fe" stroke="#0284c7" stroke-width="2"/>
-  <text x="417" y="329" text-anchor="middle" font-size="9" font-weight="bold" fill="#0c4a6e">Q</text>
+  <rect x="390" y="312" width="55" height="25" rx="4" fill="#e1eaf3" stroke="#4a7fb5" stroke-width="2"/>
+  <text x="417" y="329" text-anchor="middle" font-size="11" font-weight="bold" fill="#4a7fb5">Q</text>
 
   <!-- Cross-Attention computation -->
-  <rect x="560" y="90" width="250" height="250" rx="8" fill="#fce7f3" stroke="#db2777" stroke-width="2"/>
-  <text x="685" y="115" text-anchor="middle" font-size="10" font-weight="bold" fill="#831843">Cross-Attention</text>
+  <rect x="560" y="90" width="250" height="250" rx="8" fill="#f6e4e3" stroke="#d4645c" stroke-width="2"/>
+  <text x="685" y="115" text-anchor="middle" font-size="11" font-weight="bold" fill="#d4645c">Cross-Attention</text>
 
   <!-- Arrows into cross-attention -->
-  <line x1="145" y1="325" x2="575" y2="170" stroke="#d97706" stroke-width="1.5" marker-end="url(#a)"/>
-  <line x1="230" y1="325" x2="575" y2="210" stroke="#d97706" stroke-width="1.5" marker-end="url(#a)"/>
-  <line x1="445" y1="325" x2="575" y2="190" stroke="#0284c7" stroke-width="1.5" marker-end="url(#a)"/>
+  <line x1="145" y1="325" x2="575" y2="170" stroke="#d4a03c" stroke-width="1.5" marker-end="url(#a)"/>
+  <line x1="230" y1="325" x2="575" y2="210" stroke="#d4a03c" stroke-width="1.5" marker-end="url(#a)"/>
+  <line x1="445" y1="325" x2="575" y2="190" stroke="#4a7fb5" stroke-width="1.5" marker-end="url(#a)"/>
 
   <!-- Attention matrix -->
-  <rect x="585" y="140" width="200" height="80" rx="4" fill="#fce7f3" stroke="#db2777" stroke-width="1.5"/>
-  <text x="685" y="160" text-anchor="middle" font-size="8" font-weight="bold" fill="#831843">Attention Map</text>
-  <text x="685" y="178" text-anchor="middle" font-size="8" fill="#db2777" font-family="'SF Mono', Consolas, monospace">A = softmax(Q·Kᵀ/√d)</text>
-  <text x="685" y="198" text-anchor="middle" font-size="7" fill="#334155">(h·w) × 77</text>
-  <text x="685" y="212" text-anchor="middle" font-size="7" fill="#334155">Each pixel attends to each word</text>
+  <rect x="585" y="140" width="200" height="80" rx="4" fill="#f6e4e3" stroke="#d4645c" stroke-width="1.5"/>
+  <text x="685" y="160" text-anchor="middle" font-size="11" font-weight="bold" fill="#d4645c">Attention Map</text>
+  <text x="685" y="178" text-anchor="middle" font-size="11" fill="#d4645c" font-family="'JetBrains Mono', 'Fira Code', monospace">A = softmax(Q·Kᵀ/√d)</text>
+  <text x="685" y="198" text-anchor="middle" font-size="11" fill="#3a3a4a">(h·w) × 77</text>
+  <text x="685" y="212" text-anchor="middle" font-size="11" fill="#3a3a4a">Each pixel attends to each word</text>
 
   <!-- Output -->
-  <rect x="585" y="235" width="200" height="40" rx="4" fill="#dcfce7" stroke="#16a34a" stroke-width="2"/>
-  <text x="685" y="253" text-anchor="middle" font-size="8" font-weight="bold" fill="#14532d">Output = A · V</text>
-  <text x="685" y="268" text-anchor="middle" font-size="7" fill="#16a34a">(h·w) × d → reshape to h×w×d</text>
+  <rect x="585" y="235" width="200" height="40" rx="4" fill="#dff0ed" stroke="#3a9e8f" stroke-width="2"/>
+  <text x="685" y="253" text-anchor="middle" font-size="11" font-weight="bold" fill="#3a9e8f">Output = A · V</text>
+  <text x="685" y="268" text-anchor="middle" font-size="11" fill="#3a9e8f">(h·w) × d → reshape to h×w×d</text>
 
   <!-- Back to U-Net -->
-  <line x1="685" y1="275" x2="685" y2="310" stroke="#16a34a" stroke-width="1.5" marker-end="url(#a)"/>
-  <rect x="615" y="312" width="140" height="25" rx="4" fill="#dcfce7" stroke="#16a34a" stroke-width="1.5"/>
-  <text x="685" y="329" text-anchor="middle" font-size="8" fill="#14532d">→ back to U-Net residual</text>
+  <line x1="685" y1="275" x2="685" y2="310" stroke="#3a9e8f" stroke-width="1.5" marker-end="url(#a)"/>
+  <rect x="615" y="312" width="140" height="25" rx="4" fill="#dff0ed" stroke="#3a9e8f" stroke-width="1.5"/>
+  <text x="685" y="329" text-anchor="middle" font-size="11" fill="#3a9e8f">→ back to U-Net residual</text>
 
   <!-- Attention map visualization -->
-  <rect x="30" y="365" width="800" height="85" rx="8" fill="#fef3c7" stroke="#d97706" stroke-width="1.5"/>
-  <text x="430" y="388" text-anchor="middle" font-size="10" font-weight="bold" fill="#78350f">What Cross-Attention Maps Look Like</text>
+  <rect x="30" y="365" width="800" height="85" rx="8" fill="#f5ece0" stroke="#d4a03c" stroke-width="1.5"/>
+  <text x="430" y="388" text-anchor="middle" font-size="11" font-weight="bold" fill="#d4a03c">What Cross-Attention Maps Look Like</text>
 
-  <text x="80" y="412" font-size="8" fill="#334155" font-weight="bold">"cat"</text>
-  <rect x="105" y="400" width="40" height="30" rx="3" fill="#db2777" opacity="0.3" stroke="#db2777" stroke-width="1"/>
-  <text x="125" y="420" text-anchor="middle" font-size="6" fill="#831843">activates on cat region</text>
+  <text x="80" y="412" font-size="11" fill="#3a3a4a" font-weight="bold">"cat"</text>
+  <rect x="105" y="400" width="40" height="30" rx="3" fill="#d4645c" opacity="0.3" stroke="#d4645c" stroke-width="1"/>
+  <text x="125" y="420" text-anchor="middle" font-size="11" fill="#d4645c">activates on cat region</text>
 
-  <text x="210" y="412" font-size="8" fill="#334155" font-weight="bold">"couch"</text>
-  <rect x="248" y="400" width="40" height="30" rx="3" fill="#0284c7" opacity="0.3" stroke="#0284c7" stroke-width="1"/>
-  <text x="268" y="420" text-anchor="middle" font-size="6" fill="#0c4a6e">activates on couch</text>
+  <text x="210" y="412" font-size="11" fill="#3a3a4a" font-weight="bold">"couch"</text>
+  <rect x="248" y="400" width="40" height="30" rx="3" fill="#4a7fb5" opacity="0.3" stroke="#4a7fb5" stroke-width="1"/>
+  <text x="268" y="420" text-anchor="middle" font-size="11" fill="#4a7fb5">activates on couch</text>
 
-  <text x="350" y="412" font-size="8" fill="#334155" font-weight="bold">"photo"</text>
-  <rect x="390" y="400" width="40" height="30" rx="3" fill="#16a34a" opacity="0.2" stroke="#16a34a" stroke-width="1"/>
-  <text x="410" y="420" text-anchor="middle" font-size="6" fill="#14532d">diffuse, global</text>
+  <text x="350" y="412" font-size="11" fill="#3a3a4a" font-weight="bold">"photo"</text>
+  <rect x="390" y="400" width="40" height="30" rx="3" fill="#3a9e8f" opacity="0.2" stroke="#3a9e8f" stroke-width="1"/>
+  <text x="410" y="420" text-anchor="middle" font-size="11" fill="#3a9e8f">diffuse, global</text>
 
-  <text x="500" y="418" font-size="8" fill="#334155">→ Each word token spatially guides where its semantics appear in the image</text>
-  <text x="500" y="438" font-size="8" fill="#d97706">This is why prompt words directly control spatial composition in Stable Diffusion</text>
+  <text x="500" y="418" font-size="11" fill="#3a3a4a">→ Each word token spatially guides where its</text>
+  <text x="500" y="430" font-size="11" fill="#3a3a4a">semantics appear in the image</text>
+  <text x="500" y="445" font-size="11" fill="#d4a03c">Prompt words directly control spatial composition</text>
 </svg>

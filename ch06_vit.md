@@ -61,6 +61,8 @@ $$
 N = \frac{H \times W}{P^2} = \frac{224 \times 224}{16^2} = 196
 $$
 
+![Figure 6.1: ViT Patch Tokenization](illustrations/ch06/fig_6_1_vit_patch_tokenization.svg)
+
 Each patch is a $P \times P \times C$ block of pixels. The image is partitioned into $N$ such blocks, each of which becomes a token. Conceptually, this is exactly how text is tokenized — a sentence of 50,000 characters is tokenized into a few hundred subword units, and an image of 50,176 pixels is tokenized into 196 patch tokens.
 
 Each patch is a vector of size $P^2 \cdot C$ when flattened:
@@ -172,45 +174,7 @@ where $K$ is the number of classes. During pre-training, the MLP head is a two-l
 
 The full forward pass, summarized with shapes (ViT-Base/16, $224 \times 224$ input, 1000-class ImageNet):
 
-```mermaid
-graph TD
-    classDef input fill:#f1f5f9,stroke:#475569,stroke-width:2px,color:#0f172a,font-family:monospace
-    classDef proc fill:#e0f2fe,stroke:#0284c7,stroke-width:2px,color:#0c4a6e,font-weight:bold
-    classDef embed fill:#fef3c7,stroke:#d97706,stroke-width:2px,color:#78350f,font-family:monospace
-    classDef enc fill:#dcfce7,stroke:#22c55e,stroke-width:3px,color:#14532d,font-weight:bold
-
-    subgraph Stage1 ["1. Patch Embedding Stage"]
-        direction TB
-        IMG["Input Image"]:::input
-        PATCH["Extract Patches & Project"]:::proc
-        CLS["Prepend [CLS] Token"]:::embed
-        POS["Add Positional Embeddings"]:::embed
-        
-        IMG -->|"[B, 3, 224, 224]"| PATCH
-        PATCH -->|"[B, 196, 768]"| CLS
-        CLS -->|"[B, 197, 768]"| POS
-    end
-
-    subgraph Stage2 ["2. Transformer Architecture"]
-        direction TB
-        ENC["Transformer Encoder (×12 layers)<br/>MSA → FFN"]:::enc
-    end
-
-    subgraph Stage3 ["3. Classification Stage"]
-        direction TB
-        EXTRACT["Extract [CLS] State<br/>(index 0)"]:::proc
-        NORM["LayerNorm"]:::proc
-        MLP["MLP Classification Head"]:::proc
-        OUT["Predictions"]:::input
-        
-        EXTRACT -->|"[B, 768]"| NORM
-        NORM -->|"[B, 768]"| MLP
-        MLP -->|"[B, 1000]"| OUT
-    end
-
-    POS ==>|"[B, 197, 768]"| ENC
-    ENC ==>|"[B, 197, 768]"| EXTRACT
-```
+![Figure 6.2: ViT Full Architecture](illustrations/ch06/fig_6_2_vit_full_architecture.svg)
 
 ---
 
@@ -232,38 +196,7 @@ The interpretation is mechanistic: CNNs embed locality and translation equivaria
 
 This is the same tradeoff you see throughout machine learning: more assumptions (priors) → better sample efficiency, lower asymptotic performance. Fewer assumptions → worse sample efficiency, higher asymptotic performance. ViT is simply a more general model, and general models need more data to reach their potential.
 
-```mermaid
-graph TD
-    classDef vit fill:#e0f2fe,stroke:#0284c7,stroke-width:3px,font-weight:bold,color:#0c4a6e
-    classDef cnn fill:#fff7ed,stroke:#ea580c,stroke-width:3px,stroke-dasharray: 4 4,font-weight:bold,color:#7c2d12
-
-    subgraph Graph ["Performance Crossover: ViT vs CNN Data Efficiency"]
-        direction LR
-        
-        subgraph Stage1 ["Small Data (1M Images)<br/>ImageNet-1K"]
-            direction TB
-            CNN1["ResNet: ~79.1%"]:::cnn
-            VIT1["ViT: ~77.9%"]:::vit
-            CNN1 -.->|"CNN Inductive Priors Win"| VIT1
-        end
-        
-        subgraph Stage2 ["Medium Data (14M Images)<br/>ImageNet-21K"]
-            direction TB
-            VIT2["ViT: ~82%"]:::vit
-            CNN2["ResNet: ~82%"]:::cnn
-            VIT2 <==>|"Crossover Point"| CNN2
-        end
-
-        subgraph Stage3 ["Massive Data (300M Images)<br/>JFT-300M"]
-            direction TB
-            VIT3["ViT: ~88.5%"]:::vit
-            CNN3["ResNet: ~87%"]:::cnn
-            VIT3 ==>|"ViT Capacity Scales Better"| CNN3
-        end
-
-        Stage1 ==>|"Scale Data"| Stage2 ==>|"Scale Data"| Stage3
-    end
-```
+![Figure 6.3: ViT vs CNN Data Efficiency](illustrations/ch06/fig_6_3_vit_vs_cnn_data_efficiency.svg)
 
 ### 6.4.2 Training Details
 
@@ -282,6 +215,8 @@ graph TD
 ## 6.5 Analysis from the Paper
 
 ### 6.5.1 Attention Distance Analysis
+
+![Figure 6.4: Attention Distance Analysis](illustrations/ch06/fig_6_4_attention_distance.svg)
 
 One of the most informative analyses in the paper examines the "attention distance" — the average distance (in pixels) between a query token and the keys it attends to, weighted by attention weight.
 
@@ -311,6 +246,8 @@ ViT's publication created an immediate wave of follow-on work addressing its lim
 
 ### 6.6.1 DeiT: Data-Efficient Image Transformers (Touvron et al., 2021)
 
+![Figure 6.5: DeiT — Data-Efficient Image Transformers](illustrations/ch06/fig_6_5_deit.svg)
+
 The Achilles heel of the original ViT was the data requirement. DeiT (Data-efficient Image Transformers) addressed this directly: how do you train ViT competitively on ImageNet alone, without JFT-300M?
 
 The answer was knowledge distillation with a CNN teacher. DeiT adds a second special token — a "distillation token" (analogous to [CLS]) — and trains it to match the output of a pre-trained CNN teacher (RegNetY-16GF). The distillation token's output is trained to predict the teacher's hard label (argmax output), while the [CLS] token is trained with standard cross-entropy on the true labels.
@@ -318,6 +255,8 @@ The answer was knowledge distillation with a CNN teacher. DeiT adds a second spe
 This hybrid approach effectively transfers the CNN's inductive biases to the ViT through the distillation signal. DeiT-B (86M params) achieves 83.1% top-1 on ImageNet trained entirely on ImageNet — competitive with state-of-the-art CNNs. The data requirement barrier was broken within months of ViT's publication.
 
 ### 6.6.2 Swin Transformer: Hierarchical ViT (Liu et al., 2021)
+
+![Figure 6.6: Swin Transformer](illustrations/ch06/fig_6_6_swin_transformer.svg)
 
 The original ViT produces a single-scale feature map — all patches at the same resolution throughout the network. This is fine for classification but problematic for dense prediction tasks (detection, segmentation) that benefit from multi-scale feature hierarchies (like FPN over ResNet).
 
@@ -370,11 +309,15 @@ $$
 
 MAE ViT-L pre-trained on ImageNet-1K alone achieves 85.9% fine-tuned accuracy — better than supervised pre-training. This is a striking result: masked reconstruction of raw pixels, which seems like it should be much harder than supervised classification, turns out to be a better pre-training signal.
 
+![Figure 6.7: Masked Autoencoders (MAE)](illustrations/ch06/fig_6_7_mae.svg)
+
 The intuition is that to reconstruct a missing patch, the model must understand context, structure, and visual semantics. Classification requires only a coarse signal. Reconstruction requires deep understanding of spatial relationships — exactly the kind of representation that makes features transferable.
 
 MAE's 75% masking ratio also has an information-theoretic justification: images are highly redundant. Text is information-dense — masking 15% of words (as in BERT) is already challenging. Masking 15% of image patches is trivially recoverable from neighbors. You need to mask most of the image before reconstruction becomes a hard problem.
 
 ### 6.6.5 DINO and DINOv2: Self-Supervised ViT (Caron et al., 2021; Oquab et al., 2023)
+
+![Figure 6.8: DINO Self-Supervised ViT](illustrations/ch06/fig_6_8_dino.svg)
 
 DINO (self-DIstillation with NO labels) is a self-supervised method that trains ViT without any labels and without reconstruction. It uses self-distillation: a student network and a momentum-averaged teacher network process different augmented crops of the same image, and the student is trained to match the teacher's output distribution.
 
@@ -462,11 +405,15 @@ $$
 
 The total loss averages over all $2N$ positive pairs (each image contributes two, one from each view's perspective).
 
+![Figure 6.9: SimCLR Contrastive Learning](illustrations/ch06/fig_6_9_simclr.svg)
+
 Two findings from SimCLR shaped subsequent work. First, **the composition of augmentations matters more than any single augmentation.** Random crop combined with color distortion is essential; either alone is insufficient. The intuition is that the model must learn representations invariant to these transformations, and harder invariances (large crop differences, strong color shifts) force more abstract representations. Second, **larger batch sizes dramatically improve performance.** SimCLR used batch sizes of 4,096 to 8,192, giving 8,192 to 16,384 negative examples per positive pair. This is a direct consequence of the InfoNCE bound: more negatives yield a tighter mutual information estimate and a harder discrimination task.
 
 The batch size requirement was SimCLR's practical limitation. Training with batch size 8,192 requires significant GPU memory and multi-node distributed training. This motivated the next major method.
 
 ### 6.7.3 MoCo: Momentum Contrast (He et al., 2020)
+
+![Figure 6.10: MoCo — Momentum Contrast](illustrations/ch06/fig_6_10_moco.svg)
 
 MoCo (Momentum Contrast for Unsupervised Visual Representation Learning, He et al., 2020, Facebook AI — the same team behind ResNet and MAE) solved the batch size problem with two innovations: a **momentum encoder** and a **queue of negatives**.
 
@@ -527,37 +474,7 @@ Once vision and language share the same architecture, combining them is not a re
 
 CLIP (Radford et al., 2021, OpenAI) is the first large-scale demonstration of this unification. CLIP pre-trains a ViT image encoder and a Transformer text encoder jointly on 400 million (image, text) pairs scraped from the web.
 
-```mermaid
-graph LR
-    classDef io fill:#f1f5f9,stroke:#475569,stroke-width:2px,color:#0f172a,font-family:monospace
-    classDef encT fill:#e0f2fe,stroke:#0284c7,stroke-width:2px,color:#0c4a6e
-    classDef encI fill:#fce7f3,stroke:#db2777,stroke-width:2px,color:#831843
-    classDef embed fill:#f8fafc,stroke:#94a3b8,stroke-width:2px,stroke-dasharray: 4 4
-    classDef loss fill:#fef3c7,stroke:#d97706,stroke-width:2px,color:#78350f
-
-    Text["Text Batch<br/>[N]"]:::io
-    Image["Image Batch<br/>[N]"]:::io
-
-    TextEnc["Text Encoder<br/>(Transformer)"]:::encT
-    ImageEnc["Image Encoder<br/>(ViT)"]:::encI
-
-    Text --> TextEnc
-    Image --> ImageEnc
-
-    T_Embed["Text Embeddings<br/>T [N, D_e]"]:::embed
-    I_Embed["Image Embeddings<br/>I [N, D_e]"]:::embed
-
-    TextEnc --> T_Embed
-    ImageEnc --> I_Embed
-
-    Dot["Dot Product matrix<br/>S = (I · Tᵀ) / τ"]:::loss
-    
-    T_Embed --> Dot
-    I_Embed --> Dot
-
-    Loss["Contrastive Loss<br/>maximize diagonal,<br/>minimize off-diagonal"]:::loss
-    Dot --> Loss
-```
+![Figure 6.11: CLIP Dual Encoder Architecture](illustrations/ch06/fig_6_11_clip_dual_encoder.svg)
 
 The training objective is contrastive: for a batch of $N$ image-text pairs, the model is trained to maximize the cosine similarity of the $N$ correct pairs and minimize the similarity of the $N^2 - N$ incorrect pairs. Concretely, given image embeddings $\mathbf{I} = [\mathbf{i}_1, \ldots, \mathbf{i}_N]$ and text embeddings $\mathbf{T} = [\mathbf{t}_1, \ldots, \mathbf{t}_N]$ (each of dimension $D_e$), the similarity matrix and InfoNCE loss are:
 
@@ -622,6 +539,8 @@ print(f"\nPredicted class: {predicted}")
 
 ### 6.8.3 LLaVA and the VLM Blueprint (Liu et al., 2023)
 
+![Figure 6.12: LLaVA VLM Blueprint](illustrations/ch06/fig_6_12_llava.svg)
+
 LLaVA (Large Language and Vision Assistant) represents the blueprint of most current VLMs:
 
 ```
@@ -646,6 +565,8 @@ LLM output:           [B, T_text, 4096]   (autoregressive, predicts next text to
 Every visual token is a Transformer hidden state. It attends to other visual tokens and to text tokens via standard causal attention (with a modification: visual tokens can attend to each other and text can attend to visual tokens, but visual tokens do not attend to future text). The LLM "reads" the image the same way it reads text — by attending over a sequence of embeddings.
 
 ### 6.8.4 Flamingo and Cross-Modal Attention (Alayrac et al., 2022)
+
+![Figure 6.13: Flamingo Cross-Modal Attention](illustrations/ch06/fig_6_13_flamingo.svg)
 
 Flamingo (Alayrac et al., 2022, DeepMind) takes a different approach. Rather than concatenating visual and text tokens, Flamingo freezes a large language model and inserts cross-attention layers that allow the LLM to attend to visual features:
 

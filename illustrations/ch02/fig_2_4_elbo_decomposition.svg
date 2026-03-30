@@ -1,62 +1,62 @@
 <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 820 420" font-family="Inter, Helvetica, Arial, sans-serif">
-  <text x="410" y="28" text-anchor="middle" font-size="17" font-weight="bold" fill="#0f172a">ELBO Decomposition</text>
-  <text x="410" y="48" text-anchor="middle" font-size="11" fill="#64748b" font-family="'SF Mono', Consolas, monospace">log p(x) = ELBO + KL(q(z|x) ‖ p(z|x))</text>
+  <text x="410" y="28" text-anchor="middle" font-size="17" font-weight="bold" fill="#1a1a2e">ELBO Decomposition</text>
+  <text x="410" y="48" text-anchor="middle" font-size="11" fill="#7a7a8a" font-family="'JetBrains Mono', 'Fira Code', monospace">log p(x) = ELBO + KL(q(z|x) ‖ p(z|x))</text>
 
   <!-- ===== Top Bar: log p(x) ===== -->
-  <text x="50" y="90" font-size="11" font-weight="bold" fill="#0f172a">log p(x)</text>
-  <text x="50" y="105" font-size="9" fill="#64748b">(log evidence)</text>
+  <text x="50" y="90" font-size="11" font-weight="bold" fill="#1a1a2e">log p(x)</text>
+  <text x="50" y="105" font-size="11" fill="#7a7a8a">(log evidence)</text>
 
   <!-- Full bar -->
-  <rect x="160" y="78" width="600" height="35" rx="6" fill="#f1f5f9" stroke="#475569" stroke-width="2"/>
-  <text x="460" y="100" text-anchor="middle" font-size="10" font-weight="bold" fill="#0f172a">log p(x) — what we want to maximize (but intractable!)</text>
+  <rect x="160" y="78" width="600" height="35" rx="6" fill="#f5f5f8" stroke="#4a4a5a" stroke-width="2"/>
+  <text x="460" y="100" text-anchor="middle" font-size="11" font-weight="bold" fill="#1a1a2e">log p(x) — what we want to maximize (but intractable!)</text>
 
   <!-- ===== Split into ELBO + KL gap ===== -->
-  <text x="50" y="155" font-size="11" font-weight="bold" fill="#0f172a">Split</text>
+  <text x="50" y="155" font-size="11" font-weight="bold" fill="#1a1a2e">Split</text>
 
   <!-- ELBO portion (green, larger) -->
-  <rect x="160" y="138" width="480" height="35" rx="6 0 0 6" fill="#dcfce7" stroke="#16a34a" stroke-width="2"/>
-  <text x="400" y="160" text-anchor="middle" font-size="11" font-weight="bold" fill="#14532d">ELBO (Evidence Lower Bound)</text>
+  <rect x="160" y="138" width="480" height="35" rx="6 0 0 6" fill="#dff0ed" stroke="#3a9e8f" stroke-width="2"/>
+  <text x="400" y="160" text-anchor="middle" font-size="11" font-weight="bold" fill="#3a9e8f">ELBO (Evidence Lower Bound)</text>
 
   <!-- KL gap (purple, smaller) -->
-  <rect x="640" y="138" width="120" height="35" rx="0 6 6 0" fill="#f3e8ff" stroke="#9333ea" stroke-width="2"/>
-  <text x="700" y="155" text-anchor="middle" font-size="9" font-weight="bold" fill="#3b0764">KL gap</text>
-  <text x="700" y="168" text-anchor="middle" font-size="8" fill="#9333ea">≥ 0</text>
+  <rect x="640" y="138" width="120" height="35" rx="0 6 6 0" fill="#e8e4f1" stroke="#7b68a8" stroke-width="2"/>
+  <text x="700" y="155" text-anchor="middle" font-size="11" font-weight="bold" fill="#7b68a8">KL gap</text>
+  <text x="700" y="168" text-anchor="middle" font-size="11" fill="#7b68a8">≥ 0</text>
 
   <!-- Annotation arrows -->
-  <text x="400" y="188" text-anchor="middle" font-size="9" fill="#16a34a">↑ Maximize this (tractable)</text>
-  <text x="700" y="188" text-anchor="middle" font-size="9" fill="#9333ea">↑ This shrinks as q → p</text>
+  <text x="400" y="188" text-anchor="middle" font-size="11" fill="#3a9e8f">↑ Maximize this (tractable)</text>
+  <text x="700" y="188" text-anchor="middle" font-size="11" fill="#7b68a8">↑ This shrinks as q → p</text>
 
   <!-- ===== ELBO further decomposed ===== -->
-  <text x="50" y="235" font-size="11" font-weight="bold" fill="#0f172a">ELBO =</text>
+  <text x="50" y="235" font-size="11" font-weight="bold" fill="#1a1a2e">ELBO =</text>
 
   <!-- Reconstruction term (green) -->
-  <rect x="160" y="218" width="320" height="50" rx="8" fill="#dcfce7" stroke="#16a34a" stroke-width="2"/>
-  <text x="320" y="238" text-anchor="middle" font-size="10" font-weight="bold" fill="#14532d" font-family="'SF Mono', Consolas, monospace">E_q[log p(x|z)]</text>
-  <text x="320" y="258" text-anchor="middle" font-size="9" fill="#16a34a">Reconstruction quality (↑ better decoding)</text>
+  <rect x="160" y="218" width="320" height="50" rx="8" fill="#dff0ed" stroke="#3a9e8f" stroke-width="2"/>
+  <text x="320" y="238" text-anchor="middle" font-size="11" font-weight="bold" fill="#3a9e8f" font-family="'JetBrains Mono', 'Fira Code', monospace">E_q[log p(x|z)]</text>
+  <text x="320" y="258" text-anchor="middle" font-size="11" fill="#3a9e8f">Reconstruction quality (↑ better decoding)</text>
 
   <!-- Minus sign -->
-  <text x="500" y="248" text-anchor="middle" font-size="20" font-weight="bold" fill="#0f172a">−</text>
+  <text x="500" y="248" text-anchor="middle" font-size="20" font-weight="bold" fill="#1a1a2e">−</text>
 
   <!-- KL regularizer (purple) -->
-  <rect x="520" y="218" width="260" height="50" rx="8" fill="#f3e8ff" stroke="#9333ea" stroke-width="2"/>
-  <text x="650" y="238" text-anchor="middle" font-size="10" font-weight="bold" fill="#3b0764" font-family="'SF Mono', Consolas, monospace">KL(q(z|x) ‖ p(z))</text>
-  <text x="650" y="258" text-anchor="middle" font-size="9" fill="#9333ea">Regularizer (↓ stay close to prior)</text>
+  <rect x="520" y="218" width="260" height="50" rx="8" fill="#e8e4f1" stroke="#7b68a8" stroke-width="2"/>
+  <text x="650" y="238" text-anchor="middle" font-size="11" font-weight="bold" fill="#7b68a8" font-family="'JetBrains Mono', 'Fira Code', monospace">KL(q(z|x) ‖ p(z))</text>
+  <text x="650" y="258" text-anchor="middle" font-size="11" fill="#7b68a8">Regularizer (↓ stay close to prior)</text>
 
   <!-- ===== Intuition boxes ===== -->
-  <rect x="60" y="295" width="330" height="110" rx="8" fill="#f0fdf4" stroke="#bbf7d0" stroke-width="1.5"/>
-  <text x="225" y="315" text-anchor="middle" font-size="10" font-weight="bold" fill="#14532d">Reconstruction Term</text>
-  <text x="225" y="335" text-anchor="middle" font-size="9" fill="#334155">"How well can z reconstruct x?"</text>
-  <text x="225" y="355" text-anchor="middle" font-size="9" fill="#334155">Encourages z to capture enough info.</text>
-  <text x="225" y="375" text-anchor="middle" font-size="9" fill="#334155">Analogous to: compression quality.</text>
-  <text x="225" y="395" text-anchor="middle" font-size="8" fill="#64748b">If z ignores input → high reconstruction loss</text>
+  <rect x="60" y="295" width="330" height="110" rx="8" fill="#edf7f5" stroke="#c5e6e1" stroke-width="1.5"/>
+  <text x="225" y="315" text-anchor="middle" font-size="11" font-weight="bold" fill="#3a9e8f">Reconstruction Term</text>
+  <text x="225" y="335" text-anchor="middle" font-size="11" fill="#3a3a4a">"How well can z reconstruct x?"</text>
+  <text x="225" y="355" text-anchor="middle" font-size="11" fill="#3a3a4a">Encourages z to capture enough info.</text>
+  <text x="225" y="375" text-anchor="middle" font-size="11" fill="#3a3a4a">Analogous to: compression quality.</text>
+  <text x="225" y="395" text-anchor="middle" font-size="11" fill="#7a7a8a">If z ignores input → high reconstruction loss</text>
 
-  <rect x="430" y="295" width="330" height="110" rx="8" fill="#faf5ff" stroke="#e9d5ff" stroke-width="1.5"/>
-  <text x="595" y="315" text-anchor="middle" font-size="10" font-weight="bold" fill="#3b0764">KL Regularizer</text>
-  <text x="595" y="335" text-anchor="middle" font-size="9" fill="#334155">"How far is q(z|x) from the prior N(0,I)?"</text>
-  <text x="595" y="355" text-anchor="middle" font-size="9" fill="#334155">Forces smooth, organized latent space.</text>
-  <text x="595" y="375" text-anchor="middle" font-size="9" fill="#334155">Analogous to: bandwidth cost.</text>
-  <text x="595" y="395" text-anchor="middle" font-size="8" fill="#64748b">If KL=0 → posterior collapsed (ignores z)</text>
+  <rect x="430" y="295" width="330" height="110" rx="8" fill="#f0edf5" stroke="#e8e4f1" stroke-width="1.5"/>
+  <text x="595" y="315" text-anchor="middle" font-size="11" font-weight="bold" fill="#7b68a8">KL Regularizer</text>
+  <text x="595" y="335" text-anchor="middle" font-size="11" fill="#3a3a4a">"How far is q(z|x) from the prior N(0,I)?"</text>
+  <text x="595" y="355" text-anchor="middle" font-size="11" fill="#3a3a4a">Forces smooth, organized latent space.</text>
+  <text x="595" y="375" text-anchor="middle" font-size="11" fill="#3a3a4a">Analogous to: bandwidth cost.</text>
+  <text x="595" y="395" text-anchor="middle" font-size="11" fill="#7a7a8a">If KL=0 → posterior collapsed (ignores z)</text>
 
   <!-- Key insight -->
-  <text x="410" y="412" text-anchor="middle" font-size="10" font-weight="bold" fill="#475569">Maximizing ELBO simultaneously pushes up log p(x) AND closes the KL gap to the true posterior</text>
+  <text x="410" y="412" text-anchor="middle" font-size="11" font-weight="bold" fill="#4a4a5a">Maximizing ELBO simultaneously pushes up log p(x) AND closes the KL gap to the true posterior</text>
 </svg>

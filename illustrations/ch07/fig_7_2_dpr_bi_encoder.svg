@@ -1,98 +1,98 @@
 <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 860 460" font-family="Inter, Helvetica, Arial, sans-serif">
   <defs>
-    <marker id="a" markerWidth="8" markerHeight="6" refX="8" refY="3" orient="auto"><path d="M0,0 L8,3 L0,6 Z" fill="#475569"/></marker>
-    <marker id="ab" markerWidth="8" markerHeight="6" refX="8" refY="3" orient="auto"><path d="M0,0 L8,3 L0,6 Z" fill="#0284c7"/></marker>
-    <marker id="ag" markerWidth="8" markerHeight="6" refX="8" refY="3" orient="auto"><path d="M0,0 L8,3 L0,6 Z" fill="#16a34a"/></marker>
+    <marker id="a" markerWidth="8" markerHeight="6" refX="8" refY="3" orient="auto"><path d="M0,0 L8,3 L0,6 Z" fill="#4a4a5a"/></marker>
+    <marker id="ab" markerWidth="8" markerHeight="6" refX="8" refY="3" orient="auto"><path d="M0,0 L8,3 L0,6 Z" fill="#4a7fb5"/></marker>
+    <marker id="ag" markerWidth="8" markerHeight="6" refX="8" refY="3" orient="auto"><path d="M0,0 L8,3 L0,6 Z" fill="#3a9e8f"/></marker>
   </defs>
 
-  <text x="430" y="28" text-anchor="middle" font-size="17" font-weight="bold" fill="#0f172a">DPR: Dense Passage Retrieval (Bi-Encoder)</text>
-  <text x="430" y="46" text-anchor="middle" font-size="10" fill="#64748b">Karpukhin et al. (2020) — Separate encoders for query and document, dot-product similarity</text>
+  <text x="430" y="28" text-anchor="middle" font-size="17" font-weight="bold" fill="#1a1a2e">DPR: Dense Passage Retrieval (Bi-Encoder)</text>
+  <text x="430" y="46" text-anchor="middle" font-size="11" fill="#7a7a8a">Karpukhin et al. (2020) — Separate encoders for query and document, dot-product similarity</text>
 
   <!-- ===== Offline Indexing (Left) ===== -->
-  <rect x="20" y="65" width="380" height="290" rx="10" fill="#f0f9ff" stroke="#0284c7" stroke-width="2"/>
-  <text x="210" y="88" text-anchor="middle" font-size="12" font-weight="bold" fill="#0c4a6e">Offline Indexing (run once per corpus)</text>
+  <rect x="20" y="65" width="380" height="290" rx="10" fill="#edf2f8" stroke="#4a7fb5" stroke-width="2"/>
+  <text x="210" y="88" text-anchor="middle" font-size="12" font-weight="bold" fill="#4a7fb5">Offline Indexing (run once per corpus)</text>
 
   <!-- Document corpus -->
-  <rect x="40" y="105" width="140" height="45" rx="6" fill="#f1f5f9" stroke="#475569" stroke-width="1.5"/>
-  <text x="110" y="125" text-anchor="middle" font-size="9" font-weight="bold" fill="#0f172a">Document Corpus</text>
-  <text x="110" y="142" text-anchor="middle" font-size="7" fill="#64748b">e.g., Wikipedia (21M passages)</text>
+  <rect x="40" y="105" width="140" height="45" rx="6" fill="#f5f5f8" stroke="#4a4a5a" stroke-width="1.5"/>
+  <text x="110" y="125" text-anchor="middle" font-size="11" font-weight="bold" fill="#1a1a2e">Document Corpus</text>
+  <text x="110" y="142" text-anchor="middle" font-size="11" fill="#7a7a8a">e.g., Wikipedia (21M passages)</text>
 
-  <line x1="180" y1="127" x2="210" y2="127" stroke="#0284c7" stroke-width="1.5" marker-end="url(#ab)"/>
-  <text x="195" y="120" text-anchor="middle" font-size="7" fill="#0284c7">chunk</text>
+  <line x1="180" y1="127" x2="210" y2="127" stroke="#4a7fb5" stroke-width="1.5" marker-end="url(#ab)"/>
+  <text x="195" y="120" text-anchor="middle" font-size="11" fill="#4a7fb5">chunk</text>
 
   <!-- Document Encoder -->
-  <rect x="215" y="100" width="160" height="55" rx="8" fill="#e0f2fe" stroke="#0284c7" stroke-width="2"/>
-  <text x="295" y="122" text-anchor="middle" font-size="10" font-weight="bold" fill="#0c4a6e">Document Encoder</text>
-  <text x="295" y="140" text-anchor="middle" font-size="8" fill="#0284c7">E_D (BERT-base)</text>
-  <text x="295" y="152" text-anchor="middle" font-size="7" fill="#0284c7" font-family="'SF Mono', Consolas, monospace">[CLS] → d(z) ∈ ℝ^768</text>
+  <rect x="215" y="100" width="160" height="55" rx="8" fill="#e1eaf3" stroke="#4a7fb5" stroke-width="2"/>
+  <text x="295" y="122" text-anchor="middle" font-size="11" font-weight="bold" fill="#4a7fb5">Document Encoder</text>
+  <text x="295" y="140" text-anchor="middle" font-size="11" fill="#4a7fb5">E_D (BERT-base)</text>
+  <text x="295" y="152" text-anchor="middle" font-size="11" fill="#4a7fb5" font-family="'JetBrains Mono', 'Fira Code', monospace">[CLS] → d(z) ∈ ℝ^768</text>
 
-  <line x1="295" y1="155" x2="295" y2="185" stroke="#0284c7" stroke-width="1.5" marker-end="url(#ab)"/>
+  <line x1="295" y1="155" x2="295" y2="185" stroke="#4a7fb5" stroke-width="1.5" marker-end="url(#ab)"/>
 
   <!-- Document embeddings -->
-  <rect x="60" y="190" width="140" height="30" rx="4" fill="#e0f2fe" stroke="#0284c7" stroke-width="1"/>
-  <text x="130" y="209" text-anchor="middle" font-size="8" fill="#0c4a6e" font-family="'SF Mono', Consolas, monospace">d(z₁) ∈ ℝ^768</text>
-  <rect x="60" y="225" width="140" height="30" rx="4" fill="#e0f2fe" stroke="#0284c7" stroke-width="1"/>
-  <text x="130" y="244" text-anchor="middle" font-size="8" fill="#0c4a6e" font-family="'SF Mono', Consolas, monospace">d(z₂) ∈ ℝ^768</text>
-  <rect x="60" y="260" width="140" height="30" rx="4" fill="#e0f2fe" stroke="#0284c7" stroke-width="1"/>
-  <text x="130" y="280" text-anchor="middle" font-size="8" fill="#0c4a6e">...</text>
-  <rect x="60" y="295" width="140" height="30" rx="4" fill="#e0f2fe" stroke="#0284c7" stroke-width="1"/>
-  <text x="130" y="314" text-anchor="middle" font-size="8" fill="#0c4a6e" font-family="'SF Mono', Consolas, monospace">d(z_N) ∈ ℝ^768</text>
+  <rect x="60" y="190" width="140" height="30" rx="4" fill="#e1eaf3" stroke="#4a7fb5" stroke-width="1"/>
+  <text x="130" y="209" text-anchor="middle" font-size="11" fill="#4a7fb5" font-family="'JetBrains Mono', 'Fira Code', monospace">d(z₁) ∈ ℝ^768</text>
+  <rect x="60" y="225" width="140" height="30" rx="4" fill="#e1eaf3" stroke="#4a7fb5" stroke-width="1"/>
+  <text x="130" y="244" text-anchor="middle" font-size="11" fill="#4a7fb5" font-family="'JetBrains Mono', 'Fira Code', monospace">d(z₂) ∈ ℝ^768</text>
+  <rect x="60" y="260" width="140" height="30" rx="4" fill="#e1eaf3" stroke="#4a7fb5" stroke-width="1"/>
+  <text x="130" y="280" text-anchor="middle" font-size="11" fill="#4a7fb5">...</text>
+  <rect x="60" y="295" width="140" height="30" rx="4" fill="#e1eaf3" stroke="#4a7fb5" stroke-width="1"/>
+  <text x="130" y="314" text-anchor="middle" font-size="11" fill="#4a7fb5" font-family="'JetBrains Mono', 'Fira Code', monospace">d(z_N) ∈ ℝ^768</text>
 
   <!-- FAISS -->
-  <line x1="200" y1="275" x2="240" y2="275" stroke="#0284c7" stroke-width="1.5" marker-end="url(#ab)"/>
-  <rect x="245" y="220" width="140" height="80" rx="8" fill="#fef3c7" stroke="#d97706" stroke-width="2"/>
-  <text x="315" y="250" text-anchor="middle" font-size="10" font-weight="bold" fill="#78350f">FAISS Index</text>
-  <text x="315" y="268" text-anchor="middle" font-size="8" fill="#d97706">IVF or HNSW</text>
-  <text x="315" y="285" text-anchor="middle" font-size="7" fill="#d97706">Approximate NN search</text>
+  <line x1="200" y1="275" x2="240" y2="275" stroke="#4a7fb5" stroke-width="1.5" marker-end="url(#ab)"/>
+  <rect x="245" y="220" width="140" height="80" rx="8" fill="#f5ece0" stroke="#d4a03c" stroke-width="2"/>
+  <text x="315" y="250" text-anchor="middle" font-size="11" font-weight="bold" fill="#d4a03c">FAISS Index</text>
+  <text x="315" y="268" text-anchor="middle" font-size="11" fill="#d4a03c">IVF or HNSW</text>
+  <text x="315" y="285" text-anchor="middle" font-size="11" fill="#d4a03c">Approximate NN search</text>
 
   <!-- ===== Online Query (Right) ===== -->
-  <rect x="430" y="65" width="410" height="290" rx="10" fill="#f0fdf4" stroke="#16a34a" stroke-width="2"/>
-  <text x="635" y="88" text-anchor="middle" font-size="12" font-weight="bold" fill="#14532d">Online Querying (run per request)</text>
+  <rect x="430" y="65" width="410" height="290" rx="10" fill="#edf7f5" stroke="#3a9e8f" stroke-width="2"/>
+  <text x="635" y="88" text-anchor="middle" font-size="12" font-weight="bold" fill="#3a9e8f">Online Querying (run per request)</text>
 
   <!-- User query -->
-  <rect x="450" y="105" width="160" height="45" rx="6" fill="#f1f5f9" stroke="#475569" stroke-width="1.5"/>
-  <text x="530" y="125" text-anchor="middle" font-size="9" font-weight="bold" fill="#0f172a">User Query x</text>
-  <text x="530" y="142" text-anchor="middle" font-size="7" fill="#64748b">"Who discovered penicillin?"</text>
+  <rect x="450" y="105" width="160" height="45" rx="6" fill="#f5f5f8" stroke="#4a4a5a" stroke-width="1.5"/>
+  <text x="530" y="125" text-anchor="middle" font-size="11" font-weight="bold" fill="#1a1a2e">User Query x</text>
+  <text x="530" y="142" text-anchor="middle" font-size="11" fill="#7a7a8a">"Who discovered penicillin?"</text>
 
-  <line x1="610" y1="127" x2="640" y2="127" stroke="#16a34a" stroke-width="1.5" marker-end="url(#ag)"/>
+  <line x1="610" y1="127" x2="640" y2="127" stroke="#3a9e8f" stroke-width="1.5" marker-end="url(#ag)"/>
 
   <!-- Query Encoder -->
-  <rect x="645" y="100" width="170" height="55" rx="8" fill="#dcfce7" stroke="#16a34a" stroke-width="2"/>
-  <text x="730" y="122" text-anchor="middle" font-size="10" font-weight="bold" fill="#14532d">Query Encoder</text>
-  <text x="730" y="140" text-anchor="middle" font-size="8" fill="#16a34a">E_Q (BERT-base)</text>
-  <text x="730" y="152" text-anchor="middle" font-size="7" fill="#16a34a" font-family="'SF Mono', Consolas, monospace">[CLS] → q(x) ∈ ℝ^768</text>
+  <rect x="645" y="100" width="170" height="55" rx="8" fill="#dff0ed" stroke="#3a9e8f" stroke-width="2"/>
+  <text x="730" y="122" text-anchor="middle" font-size="11" font-weight="bold" fill="#3a9e8f">Query Encoder</text>
+  <text x="730" y="140" text-anchor="middle" font-size="11" fill="#3a9e8f">E_Q (BERT-base)</text>
+  <text x="730" y="152" text-anchor="middle" font-size="11" fill="#3a9e8f" font-family="'JetBrains Mono', 'Fira Code', monospace">[CLS] → q(x) ∈ ℝ^768</text>
 
-  <line x1="730" y1="155" x2="730" y2="190" stroke="#16a34a" stroke-width="1.5" marker-end="url(#ag)"/>
+  <line x1="730" y1="155" x2="730" y2="190" stroke="#3a9e8f" stroke-width="1.5" marker-end="url(#ag)"/>
 
   <!-- Query embedding -->
-  <rect x="650" y="195" width="160" height="35" rx="6" fill="#dcfce7" stroke="#16a34a" stroke-width="1.5"/>
-  <text x="730" y="217" text-anchor="middle" font-size="9" font-weight="bold" fill="#14532d" font-family="'SF Mono', Consolas, monospace">q(x) ∈ ℝ^768</text>
+  <rect x="650" y="195" width="160" height="35" rx="6" fill="#dff0ed" stroke="#3a9e8f" stroke-width="1.5"/>
+  <text x="730" y="217" text-anchor="middle" font-size="11" font-weight="bold" fill="#3a9e8f" font-family="'JetBrains Mono', 'Fira Code', monospace">q(x) ∈ ℝ^768</text>
 
   <!-- Dot product -->
-  <line x1="730" y1="230" x2="730" y2="260" stroke="#475569" stroke-width="1.5" marker-end="url(#a)"/>
+  <line x1="730" y1="230" x2="730" y2="260" stroke="#4a4a5a" stroke-width="1.5" marker-end="url(#a)"/>
   <!-- Line from FAISS to dot product -->
-  <line x1="385" y1="260" x2="660" y2="275" stroke="#d97706" stroke-width="1.5" stroke-dasharray="4,2"/>
+  <line x1="385" y1="260" x2="660" y2="275" stroke="#d4a03c" stroke-width="1.5" stroke-dasharray="4,2"/>
 
-  <rect x="660" y="265" width="140" height="40" rx="6" fill="#fef3c7" stroke="#d97706" stroke-width="1.5"/>
-  <text x="730" y="283" text-anchor="middle" font-size="9" font-weight="bold" fill="#78350f">Dot Product</text>
-  <text x="730" y="298" text-anchor="middle" font-size="7" fill="#d97706" font-family="'SF Mono', Consolas, monospace">s = q(x)ᵀ · d(z)</text>
+  <rect x="660" y="265" width="140" height="40" rx="6" fill="#f5ece0" stroke="#d4a03c" stroke-width="1.5"/>
+  <text x="730" y="283" text-anchor="middle" font-size="11" font-weight="bold" fill="#d4a03c">Dot Product</text>
+  <text x="730" y="298" text-anchor="middle" font-size="11" fill="#d4a03c" font-family="'JetBrains Mono', 'Fira Code', monospace">s = q(x)ᵀ · d(z)</text>
 
-  <line x1="730" y1="305" x2="730" y2="330" stroke="#16a34a" stroke-width="1.5" marker-end="url(#ag)"/>
+  <line x1="730" y1="305" x2="730" y2="330" stroke="#3a9e8f" stroke-width="1.5" marker-end="url(#ag)"/>
 
   <!-- Top-k results -->
-  <rect x="645" y="334" width="180" height="35" rx="8" fill="#dcfce7" stroke="#16a34a" stroke-width="2"/>
-  <text x="735" y="356" text-anchor="middle" font-size="10" font-weight="bold" fill="#14532d">Top-k Retrieved Passages</text>
+  <rect x="645" y="334" width="180" height="35" rx="8" fill="#dff0ed" stroke="#3a9e8f" stroke-width="2"/>
+  <text x="735" y="356" text-anchor="middle" font-size="11" font-weight="bold" fill="#3a9e8f">Top-k Retrieved Passages</text>
 
   <!-- ===== Training Loss ===== -->
-  <rect x="200" y="380" width="460" height="65" rx="8" fill="#f8fafc" stroke="#e2e8f0" stroke-width="1.5"/>
-  <text x="430" y="400" text-anchor="middle" font-size="10" font-weight="bold" fill="#0f172a">Contrastive Training Loss</text>
-  <text x="430" y="418" text-anchor="middle" font-size="9" fill="#334155" font-family="'SF Mono', Consolas, monospace">L = -log exp(s(x,z⁺)) / [exp(s(x,z⁺)) + Σ exp(s(x,z⁻ᵢ))]</text>
-  <text x="430" y="436" text-anchor="middle" font-size="8" fill="#64748b">In-batch negatives + BM25 hard negatives — trained on Natural Questions</text>
+  <rect x="200" y="380" width="460" height="65" rx="8" fill="#f5f5f8" stroke="#f5f5f8" stroke-width="1.5"/>
+  <text x="430" y="400" text-anchor="middle" font-size="11" font-weight="bold" fill="#1a1a2e">Contrastive Training Loss</text>
+  <text x="430" y="418" text-anchor="middle" font-size="11" fill="#3a3a4a" font-family="'JetBrains Mono', 'Fira Code', monospace">L = -log exp(s(x,z⁺)) / [exp(s(x,z⁺)) + Σ exp(s(x,z⁻ᵢ))]</text>
+  <text x="430" y="436" text-anchor="middle" font-size="11" fill="#7a7a8a">In-batch negatives + BM25 hard negatives — trained on Natural Questions</text>
 
   <!-- Key insight: independent encoders -->
-  <rect x="20" y="380" width="170" height="65" rx="6" fill="#fce7f3" stroke="#db2777" stroke-width="1.5"/>
-  <text x="105" y="400" text-anchor="middle" font-size="9" font-weight="bold" fill="#831843">Key: Bi-Encoder</text>
-  <text x="105" y="416" text-anchor="middle" font-size="7" fill="#db2777">E_Q and E_D are independent.</text>
-  <text x="105" y="430" text-anchor="middle" font-size="7" fill="#db2777">Docs encoded offline once.</text>
-  <text x="105" y="444" text-anchor="middle" font-size="7" fill="#db2777">Queries encoded at runtime.</text>
+  <rect x="20" y="380" width="170" height="65" rx="6" fill="#f6e4e3" stroke="#d4645c" stroke-width="1.5"/>
+  <text x="105" y="400" text-anchor="middle" font-size="11" font-weight="bold" fill="#d4645c">Key: Bi-Encoder</text>
+  <text x="105" y="416" text-anchor="middle" font-size="11" fill="#d4645c">E_Q and E_D are independent.</text>
+  <text x="105" y="430" text-anchor="middle" font-size="11" fill="#d4645c">Docs encoded offline once.</text>
+  <text x="105" y="444" text-anchor="middle" font-size="11" fill="#d4645c">Queries encoded at runtime.</text>
 </svg>

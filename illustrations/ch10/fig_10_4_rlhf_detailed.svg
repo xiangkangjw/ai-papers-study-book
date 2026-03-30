@@ -1,115 +1,115 @@
 <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 920 580" font-family="Inter, Helvetica, Arial, sans-serif">
   <defs>
-    <marker id="a" markerWidth="8" markerHeight="6" refX="8" refY="3" orient="auto"><path d="M0,0 L8,3 L0,6 Z" fill="#475569"/></marker>
+    <marker id="a" markerWidth="8" markerHeight="6" refX="8" refY="3" orient="auto"><path d="M0,0 L8,3 L0,6 Z" fill="#4a4a5a"/></marker>
   </defs>
 
-  <text x="460" y="28" text-anchor="middle" font-size="17" font-weight="bold" fill="#0f172a">RLHF Pipeline (Detailed) — Three Stages + Four Models</text>
-  <text x="460" y="46" text-anchor="middle" font-size="10" fill="#64748b">InstructGPT (Ouyang et al., 2022) — Align LLMs with human preferences via RL</text>
+  <text x="460" y="28" text-anchor="middle" font-size="17" font-weight="bold" fill="#1a1a2e">RLHF Pipeline (Detailed) — Three Stages + Four Models</text>
+  <text x="460" y="46" text-anchor="middle" font-size="11" fill="#7a7a8a">InstructGPT (Ouyang et al., 2022) — Align LLMs with human preferences via RL</text>
 
   <!-- ===== Stage 1: Pre-train → SFT ===== -->
-  <rect x="20" y="65" width="200" height="250" rx="10" fill="#f0f9ff" stroke="#0284c7" stroke-width="2"/>
-  <text x="120" y="88" text-anchor="middle" font-size="11" font-weight="bold" fill="#0c4a6e">Stage 1: SFT</text>
+  <rect x="20" y="65" width="200" height="250" rx="10" fill="#edf2f8" stroke="#4a7fb5" stroke-width="2"/>
+  <text x="120" y="88" text-anchor="middle" font-size="11" font-weight="bold" fill="#4a7fb5">Stage 1: SFT</text>
 
-  <rect x="40" y="100" width="160" height="40" rx="6" fill="#f1f5f9" stroke="#475569" stroke-width="1.5"/>
-  <text x="120" y="117" text-anchor="middle" font-size="8" font-weight="bold" fill="#0f172a">Base LLM</text>
-  <text x="120" y="133" text-anchor="middle" font-size="7" fill="#64748b">Pre-trained on internet text</text>
+  <rect x="40" y="100" width="160" height="40" rx="6" fill="#f5f5f8" stroke="#4a4a5a" stroke-width="1.5"/>
+  <text x="120" y="117" text-anchor="middle" font-size="11" font-weight="bold" fill="#1a1a2e">Base LLM</text>
+  <text x="120" y="133" text-anchor="middle" font-size="11" fill="#7a7a8a">Pre-trained on internet text</text>
 
-  <line x1="120" y1="140" x2="120" y2="158" stroke="#475569" stroke-width="1.5" marker-end="url(#a)"/>
+  <line x1="120" y1="140" x2="120" y2="158" stroke="#4a4a5a" stroke-width="1.5" marker-end="url(#a)"/>
 
-  <rect x="40" y="162" width="160" height="35" rx="4" fill="#e0f2fe" stroke="#0284c7" stroke-width="1.5"/>
-  <text x="120" y="178" text-anchor="middle" font-size="8" fill="#0c4a6e">~13K instruction demos</text>
-  <text x="120" y="192" text-anchor="middle" font-size="7" fill="#0284c7">(prompt, expert_response) pairs</text>
+  <rect x="40" y="162" width="160" height="35" rx="4" fill="#e1eaf3" stroke="#4a7fb5" stroke-width="1.5"/>
+  <text x="120" y="178" text-anchor="middle" font-size="11" fill="#4a7fb5">~13K instruction demos</text>
+  <text x="120" y="192" text-anchor="middle" font-size="11" fill="#4a7fb5">(prompt, expert_response) pairs</text>
 
-  <line x1="120" y1="197" x2="120" y2="215" stroke="#475569" stroke-width="1.5" marker-end="url(#a)"/>
+  <line x1="120" y1="197" x2="120" y2="215" stroke="#4a4a5a" stroke-width="1.5" marker-end="url(#a)"/>
 
-  <rect x="40" y="220" width="160" height="30" rx="4" fill="#e0f2fe" stroke="#0284c7" stroke-width="1.5"/>
-  <text x="120" y="240" text-anchor="middle" font-size="8" fill="#0c4a6e">Cross-entropy loss</text>
+  <rect x="40" y="220" width="160" height="30" rx="4" fill="#e1eaf3" stroke="#4a7fb5" stroke-width="1.5"/>
+  <text x="120" y="240" text-anchor="middle" font-size="11" fill="#4a7fb5">Cross-entropy loss</text>
 
-  <line x1="120" y1="250" x2="120" y2="268" stroke="#475569" stroke-width="1.5" marker-end="url(#a)"/>
+  <line x1="120" y1="250" x2="120" y2="268" stroke="#4a4a5a" stroke-width="1.5" marker-end="url(#a)"/>
 
-  <rect x="45" y="272" width="150" height="35" rx="8" fill="#dcfce7" stroke="#16a34a" stroke-width="2"/>
-  <text x="120" y="294" text-anchor="middle" font-size="10" font-weight="bold" fill="#14532d">π_SFT</text>
+  <rect x="45" y="272" width="150" height="35" rx="8" fill="#dff0ed" stroke="#3a9e8f" stroke-width="2"/>
+  <text x="120" y="294" text-anchor="middle" font-size="11" font-weight="bold" fill="#3a9e8f">π_SFT</text>
 
   <!-- ===== Stage 2: Reward Model ===== -->
-  <rect x="250" y="65" width="200" height="250" rx="10" fill="#fffbeb" stroke="#d97706" stroke-width="2"/>
-  <text x="350" y="88" text-anchor="middle" font-size="11" font-weight="bold" fill="#78350f">Stage 2: Reward Model</text>
+  <rect x="250" y="65" width="200" height="250" rx="10" fill="#faf5ee" stroke="#d4a03c" stroke-width="2"/>
+  <text x="350" y="88" text-anchor="middle" font-size="11" font-weight="bold" fill="#d4a03c">Stage 2: Reward Model</text>
 
-  <rect x="270" y="100" width="160" height="40" rx="6" fill="#fef3c7" stroke="#d97706" stroke-width="1.5"/>
-  <text x="350" y="117" text-anchor="middle" font-size="8" font-weight="bold" fill="#78350f">Comparison Data</text>
-  <text x="350" y="133" text-anchor="middle" font-size="7" fill="#d97706">~33K pairs: y_w ≻ y_l | x</text>
+  <rect x="270" y="100" width="160" height="40" rx="6" fill="#f5ece0" stroke="#d4a03c" stroke-width="1.5"/>
+  <text x="350" y="117" text-anchor="middle" font-size="11" font-weight="bold" fill="#d4a03c">Comparison Data</text>
+  <text x="350" y="133" text-anchor="middle" font-size="11" fill="#d4a03c">~33K pairs: y_w ≻ y_l | x</text>
 
-  <line x1="350" y1="140" x2="350" y2="158" stroke="#475569" stroke-width="1.5" marker-end="url(#a)"/>
+  <line x1="350" y1="140" x2="350" y2="158" stroke="#4a4a5a" stroke-width="1.5" marker-end="url(#a)"/>
 
-  <rect x="270" y="162" width="160" height="45" rx="6" fill="#fef3c7" stroke="#d97706" stroke-width="1.5"/>
-  <text x="350" y="178" text-anchor="middle" font-size="8" font-weight="bold" fill="#78350f">Bradley-Terry Loss</text>
-  <text x="350" y="195" text-anchor="middle" font-size="7" fill="#d97706" font-family="'SF Mono', Consolas, monospace">L = -log σ(R(x,y_w) - R(x,y_l))</text>
+  <rect x="270" y="162" width="160" height="45" rx="6" fill="#f5ece0" stroke="#d4a03c" stroke-width="1.5"/>
+  <text x="350" y="178" text-anchor="middle" font-size="11" font-weight="bold" fill="#d4a03c">Bradley-Terry Loss</text>
+  <text x="350" y="195" text-anchor="middle" font-size="11" fill="#d4a03c" font-family="'JetBrains Mono', 'Fira Code', monospace">L = -log σ(R(x,y_w) - R(x,y_l))</text>
 
-  <line x1="350" y1="207" x2="350" y2="225" stroke="#475569" stroke-width="1.5" marker-end="url(#a)"/>
+  <line x1="350" y1="207" x2="350" y2="225" stroke="#4a4a5a" stroke-width="1.5" marker-end="url(#a)"/>
 
-  <rect x="270" y="230" width="160" height="30" rx="4" fill="#fef3c7" stroke="#d97706" stroke-width="1.5"/>
-  <text x="350" y="250" text-anchor="middle" font-size="8" fill="#78350f">Init from π_SFT + scalar head</text>
+  <rect x="270" y="230" width="160" height="30" rx="4" fill="#f5ece0" stroke="#d4a03c" stroke-width="1.5"/>
+  <text x="350" y="250" text-anchor="middle" font-size="11" fill="#d4a03c">Init from π_SFT + scalar head</text>
 
-  <line x1="350" y1="260" x2="350" y2="278" stroke="#475569" stroke-width="1.5" marker-end="url(#a)"/>
+  <line x1="350" y1="260" x2="350" y2="278" stroke="#4a4a5a" stroke-width="1.5" marker-end="url(#a)"/>
 
-  <rect x="275" y="272" width="150" height="35" rx="8" fill="#dcfce7" stroke="#16a34a" stroke-width="2"/>
-  <text x="350" y="294" text-anchor="middle" font-size="10" font-weight="bold" fill="#14532d">R_ψ(x,y)</text>
+  <rect x="275" y="272" width="150" height="35" rx="8" fill="#dff0ed" stroke="#3a9e8f" stroke-width="2"/>
+  <text x="350" y="294" text-anchor="middle" font-size="11" font-weight="bold" fill="#3a9e8f">R_ψ(x,y)</text>
 
   <!-- ===== Stage 3: PPO ===== -->
-  <rect x="480" y="65" width="420" height="350" rx="10" fill="#f0fdf4" stroke="#16a34a" stroke-width="2"/>
-  <text x="690" y="88" text-anchor="middle" font-size="11" font-weight="bold" fill="#14532d">Stage 3: PPO Optimization (4 Models in Memory)</text>
+  <rect x="480" y="65" width="420" height="350" rx="10" fill="#edf7f5" stroke="#3a9e8f" stroke-width="2"/>
+  <text x="690" y="88" text-anchor="middle" font-size="11" font-weight="bold" fill="#3a9e8f">Stage 3: PPO Optimization (4 Models in Memory)</text>
 
   <!-- Actor -->
-  <rect x="500" y="105" width="170" height="55" rx="8" fill="#dcfce7" stroke="#16a34a" stroke-width="2"/>
-  <text x="585" y="125" text-anchor="middle" font-size="10" font-weight="bold" fill="#14532d">Actor π_θ</text>
-  <text x="585" y="143" text-anchor="middle" font-size="8" fill="#16a34a">Trainable policy</text>
-  <text x="585" y="155" text-anchor="middle" font-size="7" fill="#16a34a">Init from π_SFT</text>
+  <rect x="500" y="105" width="170" height="55" rx="8" fill="#dff0ed" stroke="#3a9e8f" stroke-width="2"/>
+  <text x="585" y="125" text-anchor="middle" font-size="11" font-weight="bold" fill="#3a9e8f">Actor π_θ</text>
+  <text x="585" y="143" text-anchor="middle" font-size="11" fill="#3a9e8f">Trainable policy</text>
+  <text x="585" y="155" text-anchor="middle" font-size="11" fill="#3a9e8f">Init from π_SFT</text>
 
   <!-- Reference -->
-  <rect x="710" y="105" width="170" height="55" rx="8" fill="#e0f2fe" stroke="#0284c7" stroke-width="1.5"/>
-  <text x="795" y="125" text-anchor="middle" font-size="10" font-weight="bold" fill="#0c4a6e">Reference π_ref</text>
-  <text x="795" y="143" text-anchor="middle" font-size="8" fill="#0284c7">Frozen copy of π_SFT</text>
-  <text x="795" y="155" text-anchor="middle" font-size="7" fill="#0284c7">For KL computation</text>
+  <rect x="710" y="105" width="170" height="55" rx="8" fill="#e1eaf3" stroke="#4a7fb5" stroke-width="1.5"/>
+  <text x="795" y="125" text-anchor="middle" font-size="11" font-weight="bold" fill="#4a7fb5">Reference π_ref</text>
+  <text x="795" y="143" text-anchor="middle" font-size="11" fill="#4a7fb5">Frozen copy of π_SFT</text>
+  <text x="795" y="155" text-anchor="middle" font-size="11" fill="#4a7fb5">For KL computation</text>
 
   <!-- Critic -->
-  <rect x="500" y="175" width="170" height="55" rx="8" fill="#fef3c7" stroke="#d97706" stroke-width="1.5"/>
-  <text x="585" y="195" text-anchor="middle" font-size="10" font-weight="bold" fill="#78350f">Critic V_φ</text>
-  <text x="585" y="213" text-anchor="middle" font-size="8" fill="#d97706">Trainable value estimator</text>
-  <text x="585" y="225" text-anchor="middle" font-size="7" fill="#d97706">Advantage baseline</text>
+  <rect x="500" y="175" width="170" height="55" rx="8" fill="#f5ece0" stroke="#d4a03c" stroke-width="1.5"/>
+  <text x="585" y="195" text-anchor="middle" font-size="11" font-weight="bold" fill="#d4a03c">Critic V_φ</text>
+  <text x="585" y="213" text-anchor="middle" font-size="11" fill="#d4a03c">Trainable value estimator</text>
+  <text x="585" y="225" text-anchor="middle" font-size="11" fill="#d4a03c">Advantage baseline</text>
 
   <!-- Reward Model -->
-  <rect x="710" y="175" width="170" height="55" rx="8" fill="#fce7f3" stroke="#db2777" stroke-width="1.5"/>
-  <text x="795" y="195" text-anchor="middle" font-size="10" font-weight="bold" fill="#831843">Reward R_ψ</text>
-  <text x="795" y="213" text-anchor="middle" font-size="8" fill="#db2777">Frozen (from Stage 2)</text>
-  <text x="795" y="225" text-anchor="middle" font-size="7" fill="#db2777">Scores complete responses</text>
+  <rect x="710" y="175" width="170" height="55" rx="8" fill="#f6e4e3" stroke="#d4645c" stroke-width="1.5"/>
+  <text x="795" y="195" text-anchor="middle" font-size="11" font-weight="bold" fill="#d4645c">Reward R_ψ</text>
+  <text x="795" y="213" text-anchor="middle" font-size="11" fill="#d4645c">Frozen (from Stage 2)</text>
+  <text x="795" y="225" text-anchor="middle" font-size="11" fill="#d4645c">Scores complete responses</text>
 
   <!-- PPO Loop -->
-  <rect x="510" y="250" width="370" height="70" rx="8" fill="#f8fafc" stroke="#94a3b8" stroke-width="1.5"/>
-  <text x="695" y="270" text-anchor="middle" font-size="9" font-weight="bold" fill="#0f172a">PPO Update Loop</text>
-  <text x="695" y="290" text-anchor="middle" font-size="8" fill="#334155">1. Sample: π_θ(prompt) → response y</text>
-  <text x="695" y="305" text-anchor="middle" font-size="8" fill="#334155">2. Score: R_ψ(x, y) → reward    3. Compute advantage via V_φ</text>
+  <rect x="510" y="250" width="370" height="70" rx="8" fill="#f5f5f8" stroke="#c0c0c8" stroke-width="1.5"/>
+  <text x="695" y="270" text-anchor="middle" font-size="11" font-weight="bold" fill="#1a1a2e">PPO Update Loop</text>
+  <text x="695" y="290" text-anchor="middle" font-size="11" fill="#3a3a4a">1. Sample: π_θ(prompt) → response y</text>
+  <text x="695" y="305" text-anchor="middle" font-size="11" fill="#3a3a4a">2. Score: R_ψ(x, y) → reward    3. Compute advantage via V_φ</text>
 
   <!-- Objective -->
-  <line x1="695" y1="320" x2="695" y2="345" stroke="#475569" stroke-width="1.5" marker-end="url(#a)"/>
-  <rect x="510" y="350" width="370" height="50" rx="8" fill="#dcfce7" stroke="#16a34a" stroke-width="2"/>
-  <text x="695" y="370" text-anchor="middle" font-size="9" font-weight="bold" fill="#14532d">Objective</text>
-  <text x="695" y="390" text-anchor="middle" font-size="8" fill="#16a34a" font-family="'SF Mono', Consolas, monospace">max E[R(x,y)] − β · KL(π_θ ‖ π_ref)</text>
+  <line x1="695" y1="320" x2="695" y2="345" stroke="#4a4a5a" stroke-width="1.5" marker-end="url(#a)"/>
+  <rect x="510" y="350" width="370" height="50" rx="8" fill="#dff0ed" stroke="#3a9e8f" stroke-width="2"/>
+  <text x="695" y="370" text-anchor="middle" font-size="11" font-weight="bold" fill="#3a9e8f">Objective</text>
+  <text x="695" y="390" text-anchor="middle" font-size="11" fill="#3a9e8f" font-family="'JetBrains Mono', 'Fira Code', monospace">max E[R(x,y)] − β · KL(π_θ ‖ π_ref)</text>
 
   <!-- Stage arrows -->
-  <line x1="220" y1="289" x2="248" y2="289" stroke="#475569" stroke-width="2" marker-end="url(#a)"/>
-  <line x1="450" y1="289" x2="478" y2="289" stroke="#475569" stroke-width="2" marker-end="url(#a)"/>
+  <line x1="220" y1="289" x2="248" y2="289" stroke="#4a4a5a" stroke-width="2" marker-end="url(#a)"/>
+  <line x1="450" y1="289" x2="478" y2="289" stroke="#4a4a5a" stroke-width="2" marker-end="url(#a)"/>
 
   <!-- Init arrows from SFT -->
-  <path d="M 195 289 C 195 340, 500 340, 500 135" fill="none" stroke="#94a3b8" stroke-width="1" stroke-dasharray="4,2"/>
-  <path d="M 195 289 C 195 360, 710 360, 710 135" fill="none" stroke="#94a3b8" stroke-width="1" stroke-dasharray="4,2"/>
+  <path d="M 195 289 C 195 340, 500 340, 500 135" fill="none" stroke="#c0c0c8" stroke-width="1" stroke-dasharray="4,2"/>
+  <path d="M 195 289 C 195 360, 710 360, 710 135" fill="none" stroke="#c0c0c8" stroke-width="1" stroke-dasharray="4,2"/>
 
   <!-- KL penalty explanation -->
-  <rect x="480" y="420" width="420" height="50" rx="6" fill="#fee2e2" stroke="#ef4444" stroke-width="1.5"/>
-  <text x="690" y="440" text-anchor="middle" font-size="9" font-weight="bold" fill="#7f1d1d">KL Penalty (β) prevents reward hacking</text>
-  <text x="690" y="458" text-anchor="middle" font-size="8" fill="#ef4444">Without it: policy exploits reward model quirks, quality degrades</text>
+  <rect x="480" y="420" width="420" height="50" rx="6" fill="#f6e4e3" stroke="#d4645c" stroke-width="1.5"/>
+  <text x="690" y="440" text-anchor="middle" font-size="11" font-weight="bold" fill="#b5454a">KL Penalty (β) prevents reward hacking</text>
+  <text x="690" y="458" text-anchor="middle" font-size="11" fill="#d4645c">Without it: policy exploits reward model quirks, quality degrades</text>
 
   <!-- Bottom summary -->
-  <rect x="20" y="490" width="880" height="75" rx="8" fill="#f8fafc" stroke="#e2e8f0" stroke-width="1.5"/>
-  <text x="460" y="512" text-anchor="middle" font-size="10" font-weight="bold" fill="#0f172a">Key Result (InstructGPT): 1.3B RLHF model preferred over unaligned 175B GPT-3</text>
-  <text x="460" y="532" text-anchor="middle" font-size="9" fill="#334155">Alignment via RLHF can be more impactful than scaling alone</text>
-  <text x="460" y="552" text-anchor="middle" font-size="8" fill="#64748b">DPO simplification: eliminates RM + RL loop, directly optimizes on preference pairs — fewer models, more stable</text>
+  <rect x="20" y="490" width="880" height="75" rx="8" fill="#f5f5f8" stroke="#f5f5f8" stroke-width="1.5"/>
+  <text x="460" y="512" text-anchor="middle" font-size="11" font-weight="bold" fill="#1a1a2e">Key Result (InstructGPT): 1.3B RLHF model preferred over unaligned 175B GPT-3</text>
+  <text x="460" y="532" text-anchor="middle" font-size="11" fill="#3a3a4a">Alignment via RLHF can be more impactful than scaling alone</text>
+  <text x="460" y="552" text-anchor="middle" font-size="11" fill="#7a7a8a">DPO simplification: eliminates RM + RL loop, directly optimizes on preference pairs — fewer models, more stable</text>
 </svg>

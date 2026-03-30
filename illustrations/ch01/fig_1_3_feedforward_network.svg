@@ -1,69 +1,69 @@
 <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 860 310" font-family="Inter, Helvetica, Arial, sans-serif">
   <defs>
-    <marker id="a" markerWidth="8" markerHeight="6" refX="8" refY="3" orient="auto"><path d="M0,0 L8,3 L0,6 Z" fill="#475569"/></marker>
+    <marker id="a" markerWidth="8" markerHeight="6" refX="8" refY="3" orient="auto"><path d="M0,0 L8,3 L0,6 Z" fill="#4a4a5a"/></marker>
   </defs>
 
-  <text x="430" y="24" text-anchor="middle" font-size="14" font-weight="bold" fill="#0f172a">Feedforward Network as Function Composition</text>
-  <text x="430" y="44" text-anchor="middle" font-size="11" fill="#64748b" font-family="'SF Mono', Consolas, monospace">f(x) = f_L ∘ f_{L-1} ∘ ··· ∘ f_2 ∘ f_1 (x)</text>
+  <text x="430" y="24" text-anchor="middle" font-size="14" font-weight="bold" fill="#1a1a2e">Feedforward Network as Function Composition</text>
+  <text x="430" y="44" text-anchor="middle" font-size="11" fill="#7a7a8a" font-family="'JetBrains Mono', 'Fira Code', monospace">f(x) = f_L ∘ f_{L-1} ∘ ··· ∘ f_2 ∘ f_1 (x)</text>
 
   <!-- Input -->
-  <rect x="15" y="100" width="100" height="55" rx="6" fill="#f1f5f9" stroke="#475569" stroke-width="2"/>
-  <text x="65" y="122" text-anchor="middle" font-size="11" font-weight="bold" fill="#0f172a">Input x</text>
-  <text x="65" y="142" text-anchor="middle" font-size="8" fill="#475569" font-family="'SF Mono', Consolas, monospace">[B, d_in]</text>
+  <rect x="15" y="100" width="100" height="55" rx="6" fill="#f5f5f8" stroke="#4a4a5a" stroke-width="2"/>
+  <text x="65" y="122" text-anchor="middle" font-size="11" font-weight="bold" fill="#1a1a2e">Input x</text>
+  <text x="65" y="142" text-anchor="middle" font-size="11" fill="#4a4a5a" font-family="'JetBrains Mono', 'Fira Code', monospace">[B, d_in]</text>
 
   <!-- Arrow -->
-  <line x1="115" y1="127" x2="148" y2="127" stroke="#475569" stroke-width="1.5" marker-end="url(#a)"/>
+  <line x1="115" y1="127" x2="148" y2="127" stroke="#4a4a5a" stroke-width="1.5" marker-end="url(#a)"/>
 
   <!-- Layer 1 -->
-  <rect x="155" y="85" width="120" height="85" rx="8" fill="#fef3c7" stroke="#d97706" stroke-width="2"/>
-  <text x="215" y="107" text-anchor="middle" font-size="10" font-weight="bold" fill="#78350f">Layer f₁</text>
-  <text x="215" y="124" text-anchor="middle" font-size="9" fill="#92400e" font-family="'SF Mono', Consolas, monospace">σ(W₁x + b₁)</text>
-  <text x="215" y="158" text-anchor="middle" font-size="8" fill="#d97706">Middleware 1</text>
+  <rect x="155" y="85" width="120" height="85" rx="8" fill="#f5ece0" stroke="#d4a03c" stroke-width="2"/>
+  <text x="215" y="107" text-anchor="middle" font-size="11" font-weight="bold" fill="#d4a03c">Layer f₁</text>
+  <text x="215" y="124" text-anchor="middle" font-size="11" fill="#d4a03c" font-family="'JetBrains Mono', 'Fira Code', monospace">σ(W₁x + b₁)</text>
+  <text x="215" y="158" text-anchor="middle" font-size="11" fill="#d4a03c">Middleware 1</text>
 
   <!-- Arrow + shape -->
-  <line x1="275" y1="127" x2="318" y2="127" stroke="#475569" stroke-width="1.5" marker-end="url(#a)"/>
-  <text x="297" y="118" text-anchor="middle" font-size="7" fill="#64748b" font-family="'SF Mono', Consolas, monospace">h₁</text>
-  <text x="297" y="145" text-anchor="middle" font-size="7" fill="#94a3b8" font-family="'SF Mono', Consolas, monospace">[B, d₁]</text>
+  <line x1="275" y1="127" x2="318" y2="127" stroke="#4a4a5a" stroke-width="1.5" marker-end="url(#a)"/>
+  <text x="297" y="118" text-anchor="middle" font-size="11" fill="#7a7a8a" font-family="'JetBrains Mono', 'Fira Code', monospace">h₁</text>
+  <text x="297" y="145" text-anchor="middle" font-size="11" fill="#c0c0c8" font-family="'JetBrains Mono', 'Fira Code', monospace">[B, d₁]</text>
 
   <!-- Layer 2 -->
-  <rect x="325" y="85" width="120" height="85" rx="8" fill="#fef3c7" stroke="#d97706" stroke-width="2"/>
-  <text x="385" y="107" text-anchor="middle" font-size="10" font-weight="bold" fill="#78350f">Layer f₂</text>
-  <text x="385" y="124" text-anchor="middle" font-size="9" fill="#92400e" font-family="'SF Mono', Consolas, monospace">σ(W₂h₁ + b₂)</text>
-  <text x="385" y="158" text-anchor="middle" font-size="8" fill="#d97706">Middleware 2</text>
+  <rect x="325" y="85" width="120" height="85" rx="8" fill="#f5ece0" stroke="#d4a03c" stroke-width="2"/>
+  <text x="385" y="107" text-anchor="middle" font-size="11" font-weight="bold" fill="#d4a03c">Layer f₂</text>
+  <text x="385" y="124" text-anchor="middle" font-size="11" fill="#d4a03c" font-family="'JetBrains Mono', 'Fira Code', monospace">σ(W₂h₁ + b₂)</text>
+  <text x="385" y="158" text-anchor="middle" font-size="11" fill="#d4a03c">Middleware 2</text>
 
   <!-- Arrow + shape -->
-  <line x1="445" y1="127" x2="478" y2="127" stroke="#475569" stroke-width="1.5" marker-end="url(#a)"/>
-  <text x="462" y="118" text-anchor="middle" font-size="7" fill="#64748b" font-family="'SF Mono', Consolas, monospace">h₂</text>
-  <text x="462" y="145" text-anchor="middle" font-size="7" fill="#94a3b8" font-family="'SF Mono', Consolas, monospace">[B, d₂]</text>
+  <line x1="445" y1="127" x2="478" y2="127" stroke="#4a4a5a" stroke-width="1.5" marker-end="url(#a)"/>
+  <text x="462" y="118" text-anchor="middle" font-size="11" fill="#7a7a8a" font-family="'JetBrains Mono', 'Fira Code', monospace">h₂</text>
+  <text x="462" y="145" text-anchor="middle" font-size="11" fill="#c0c0c8" font-family="'JetBrains Mono', 'Fira Code', monospace">[B, d₂]</text>
 
   <!-- Dots -->
-  <text x="505" y="132" text-anchor="middle" font-size="18" fill="#94a3b8">···</text>
+  <text x="505" y="132" text-anchor="middle" font-size="18" fill="#c0c0c8">···</text>
 
   <!-- Arrow -->
-  <line x1="525" y1="127" x2="558" y2="127" stroke="#475569" stroke-width="1.5" marker-end="url(#a)"/>
-  <text x="542" y="118" text-anchor="middle" font-size="7" fill="#64748b" font-family="'SF Mono', Consolas, monospace">h_{L-1}</text>
-  <text x="542" y="145" text-anchor="middle" font-size="7" fill="#94a3b8" font-family="'SF Mono', Consolas, monospace">[B, d_{L-1}]</text>
+  <line x1="525" y1="127" x2="558" y2="127" stroke="#4a4a5a" stroke-width="1.5" marker-end="url(#a)"/>
+  <text x="542" y="118" text-anchor="middle" font-size="11" fill="#7a7a8a" font-family="'JetBrains Mono', 'Fira Code', monospace">h_{L-1}</text>
+  <text x="542" y="145" text-anchor="middle" font-size="11" fill="#c0c0c8" font-family="'JetBrains Mono', 'Fira Code', monospace">[B, d_{L-1}]</text>
 
   <!-- Layer L -->
-  <rect x="565" y="85" width="120" height="85" rx="8" fill="#fef3c7" stroke="#d97706" stroke-width="2"/>
-  <text x="625" y="107" text-anchor="middle" font-size="10" font-weight="bold" fill="#78350f">Layer f_L</text>
-  <text x="625" y="124" text-anchor="middle" font-size="9" fill="#92400e" font-family="'SF Mono', Consolas, monospace">W_L h + b_L</text>
-  <text x="625" y="145" text-anchor="middle" font-size="8" fill="#92400e">(no activation)</text>
-  <text x="625" y="158" text-anchor="middle" font-size="8" fill="#d97706">Middleware L</text>
+  <rect x="565" y="85" width="120" height="85" rx="8" fill="#f5ece0" stroke="#d4a03c" stroke-width="2"/>
+  <text x="625" y="107" text-anchor="middle" font-size="11" font-weight="bold" fill="#d4a03c">Layer f_L</text>
+  <text x="625" y="124" text-anchor="middle" font-size="11" fill="#d4a03c" font-family="'JetBrains Mono', 'Fira Code', monospace">W_L h + b_L</text>
+  <text x="625" y="145" text-anchor="middle" font-size="11" fill="#d4a03c">(no activation)</text>
+  <text x="625" y="158" text-anchor="middle" font-size="11" fill="#d4a03c">Middleware L</text>
 
   <!-- Arrow -->
-  <line x1="685" y1="127" x2="718" y2="127" stroke="#475569" stroke-width="1.5" marker-end="url(#a)"/>
+  <line x1="685" y1="127" x2="718" y2="127" stroke="#4a4a5a" stroke-width="1.5" marker-end="url(#a)"/>
 
   <!-- Output -->
-  <rect x="725" y="100" width="120" height="55" rx="6" fill="#dcfce7" stroke="#16a34a" stroke-width="2"/>
-  <text x="785" y="122" text-anchor="middle" font-size="11" font-weight="bold" fill="#14532d">Output f(x)</text>
-  <text x="785" y="142" text-anchor="middle" font-size="8" fill="#16a34a" font-family="'SF Mono', Consolas, monospace">[B, d_out]</text>
+  <rect x="725" y="100" width="120" height="55" rx="6" fill="#dff0ed" stroke="#3a9e8f" stroke-width="2"/>
+  <text x="785" y="122" text-anchor="middle" font-size="11" font-weight="bold" fill="#3a9e8f">Output f(x)</text>
+  <text x="785" y="142" text-anchor="middle" font-size="11" fill="#3a9e8f" font-family="'JetBrains Mono', 'Fira Code', monospace">[B, d_out]</text>
 
   <!-- Bottom annotation -->
-  <rect x="100" y="210" width="660" height="48" rx="6" fill="#f8fafc" stroke="#e2e8f0" stroke-width="1"/>
-  <text x="430" y="230" text-anchor="middle" font-size="10" font-weight="bold" fill="#334155">Parameters: {W₁, b₁, W₂, b₂, ..., W_L, b_L}</text>
-  <text x="430" y="248" text-anchor="middle" font-size="9" fill="#64748b">Each layer is a learnable function. Training adjusts all parameters to minimize the loss. Depth = expressive power.</text>
+  <rect x="100" y="210" width="660" height="48" rx="6" fill="#f5f5f8" stroke="#f5f5f8" stroke-width="1"/>
+  <text x="430" y="230" text-anchor="middle" font-size="11" font-weight="bold" fill="#3a3a4a">Parameters: {W₁, b₁, W₂, b₂, ..., W_L, b_L}</text>
+  <text x="430" y="248" text-anchor="middle" font-size="11" fill="#7a7a8a">Each layer is a learnable function. Training adjusts all parameters to minimize the loss. Depth = expressive power.</text>
 
   <!-- Brace annotation for "composable" -->
-  <text x="430" y="290" text-anchor="middle" font-size="9" fill="#d97706">Think: Unix pipes  |  Express.js middleware chain  |  function composition in FP</text>
+  <text x="430" y="290" text-anchor="middle" font-size="11" fill="#d4a03c">Think: Unix pipes  |  Express.js middleware chain  |  function composition in FP</text>
 </svg>

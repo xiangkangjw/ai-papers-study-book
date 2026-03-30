@@ -43,28 +43,12 @@ Sennrich et al. (2016) adapted Byte Pair Encoding — originally a data compress
 3. Merge the most frequent pair into a single new symbol. Add it to the vocabulary.
 4. Repeat steps 2-3 until the vocabulary reaches the desired size $V$.
 
-```
-Training corpus (simplified): "low low low lower newest"
-
-Initial vocabulary: {l, o, w, e, r, n, s, t, _}
-
-Step 1: Most frequent pair: (l, o) → merge into "lo"
-        Corpus: "lo w  lo w  lo w  lo w e r  n e w e s t"
-Step 2: Most frequent pair: (lo, w) → merge into "low"
-        Corpus: "low  low  low  low e r  n e w e s t"
-Step 3: Most frequent pair: (e, s) → merge into "es"
-        Corpus: "low  low  low  low e r  n e w es t"
-Step 4: Most frequent pair: (es, t) → merge into "est"
-        ...
-Final vocabulary: {l, o, w, e, r, n, s, t, _, lo, low, es, est, ...}
-```
+![Figure 5.1: BPE Tokenization](illustrations/ch05/fig_5_1_bpe_tokenization.svg)
 
 **Inference (tokenizing new text):** Apply the learned merges in the order they were learned. Common words that appeared frequently in the training corpus will be represented as single tokens; rare words will be decomposed into subword pieces that the model has seen in other contexts:
 
 ```
 "lowest"  → ["low", "est"]       (both subwords learned as merges)
-"lowest"  is unseen as a whole word, but its parts are familiar
-
 "GPU"     → ["G", "P", "U"]     (rare token, decomposed to characters)
 "running" → ["running"]          (common enough to be a single token)
 ```
@@ -126,32 +110,7 @@ Radford et al. (2018) introduced GPT with a clean hypothesis: a single large lan
 
 GPT uses a **decoder-only Transformer** — the right half (decoder side) of the architecture from Vaswani et al. (2017), stripped of cross-attention. It consists of stacked Transformer blocks with causal (masked) self-attention:
 
-```mermaid
-graph BT
-    classDef io fill:#f1f5f9,stroke:#475569,stroke-width:2px,color:#0f172a,font-family:monospace
-    classDef embed fill:#f8fafc,stroke:#94a3b8,stroke-width:2px,color:#334155
-    classDef attn fill:#fce7f3,stroke:#db2777,stroke-width:2px,color:#831843
-    classDef ffn fill:#e0f2fe,stroke:#0284c7,stroke-width:2px,color:#0c4a6e
-
-    Tokens["Input tokens:<br/>[t_1, t_2, t_3, t_4, t_5]"]:::io
-    Embed["Embed + Positional Encoding"]:::embed
-    
-    Tokens --> Embed
-
-    subgraph Transformer["Transformer Block (x N layers)"]
-        direction BT
-        MHA["Masked Multi-Head<br/>Attention<br/>(causal mask)"]:::attn
-        FFN["Feed-Forward<br/>Network"]:::ffn
-        
-        MHA --> FFN
-    end
-
-    Embed --> MHA
-    
-    Logits["Output logits<br/>(vocabulary size)"]:::io
-    
-    FFN --> Logits
-```
+![Figure 5.2: GPT Architecture](illustrations/ch05/fig_5_2_gpt_architecture.svg)
 
 The **causal mask** is the critical structural choice. When processing token t_i, the attention mechanism can only attend to t_1 through t_i — never to future tokens. This is enforced by masking the attention score matrix:
 
@@ -239,32 +198,7 @@ BERT's central contribution is a pre-training strategy that enables bidirectiona
 
 BERT uses an **encoder-only Transformer** with full bidirectional attention — every token attends to every other token, no causal mask:
 
-```mermaid
-graph BT
-    classDef io fill:#f1f5f9,stroke:#475569,stroke-width:2px,color:#0f172a,font-family:monospace
-    classDef embed fill:#f8fafc,stroke:#94a3b8,stroke-width:2px,color:#334155
-    classDef attn fill:#fce7f3,stroke:#db2777,stroke-width:2px,color:#831843
-    classDef ffn fill:#e0f2fe,stroke:#0284c7,stroke-width:2px,color:#0c4a6e
-    
-    Tokens["Input tokens:<br/>[CLS] The bank can [MASK] deposits [SEP]"]:::io
-    Embed["Embed + Positional + Segment Embeddings"]:::embed
-    
-    Tokens --> Embed
-
-    subgraph Transformer["Transformer Block (x N layers)"]
-        direction BT
-        MHA["Full (Bidirectional)<br/>Multi-Head Attention"]:::attn
-        FFN["Feed-Forward<br/>Network"]:::ffn
-        
-        MHA --> FFN
-    end
-
-    Embed --> MHA
-    
-    Hidden["Hidden states<br/>H_1 ... H_n"]:::io
-    
-    FFN --> Hidden
-```
+![Figure 5.3: BERT Architecture](illustrations/ch05/fig_5_3_bert_architecture.svg)
 
 BERT-Base: 12 layers, 768 hidden, 12 heads — 110M parameters.
 BERT-Large: 24 layers, 1024 hidden, 16 heads — 340M parameters.
@@ -353,52 +287,7 @@ GPT and BERT represent a fundamental architectural fork that shaped the field fo
 | **Core Strength** | Text Generation | Text Understanding / Encoding |
 | **Fine-tuning** | Linear head on final token | Task-specific heads on [CLS] or tokens |
 
-```mermaid
-graph TD
-    classDef token fill:#f1f5f9,stroke:#475569,stroke-width:2px,color:#0f172a,font-family:monospace
-    classDef maskToken fill:#fee2e2,stroke:#ef4444,stroke-width:2px,stroke-dasharray: 4 4,color:#7f1d1d,font-family:monospace
-    classDef out fill:#e0f2fe,stroke:#0284c7,stroke-width:2px,color:#0c4a6e,font-weight:bold
-    classDef outBert fill:#dcfce7,stroke:#22c55e,stroke-width:2px,color:#14532d,font-weight:bold
-
-    subgraph GPT ["(a) GPT: Causal Attention (Left-to-Right)"]
-        direction TB
-        G1["t_1"]:::token
-        G2["t_2"]:::token
-        G3["t_3"]:::token
-        
-        O1["Out_1"]:::out
-        O2["Out_2"]:::out
-        O3["Out_3"]:::out
-        
-        %% Out_1 only sees t_1
-        G1 --> O1
-        
-        %% Out_2 sees t_1, t_2
-        G1 --> O2
-        G2 --> O2
-        
-        %% Out_3 sees t_1, t_2, t_3
-        G1 --> O3
-        G2 --> O3
-        G3 --> O3
-    end
-
-    subgraph BERT ["(b) BERT: Bidirectional Attention"]
-        direction TB
-        B1["t_1"]:::token
-        B2["[MASK]"]:::maskToken
-        B3["t_3"]:::token
-        
-        OB1["Out_1"]:::outBert
-        OB2["Out_mask"]:::outBert
-        OB3["Out_3"]:::outBert
-        
-        %% Every output sees every input
-        B1 --> OB1 & OB2 & OB3
-        B2 --> OB1 & OB2 & OB3
-        B3 --> OB1 & OB2 & OB3
-    end
-```
+![Figure 5.4: GPT vs BERT Attention Patterns](illustrations/ch05/fig_5_4_gpt_vs_bert_attention.svg)
 
 **The "read vs. write" framing**: BERT learns to read — its objective is reconstruction, filling in missing pieces given full context. GPT learns to write — its objective is continuation, producing coherent text given a prefix. Both require deep language understanding, but the computational structure biases them differently.
 
@@ -456,38 +345,7 @@ $$L(C) \sim \left(\frac{C_c}{C}\right)^{\alpha_C} \quad \text{performance vs com
 
 where $L$ is cross-entropy loss. The exponents $\alpha$ are empirically measured by Kaplan et al. as $\alpha_N \approx 0.076$, $\alpha_D \approx 0.095$, $\alpha_C \approx 0.050$. Note that Hoffmann et al. (2022, "Chinchilla") later found substantially different exponents (roughly $\alpha_N \approx 0.34$, $\alpha_D \approx 0.28$), implying data matters more than Kaplan et al. originally suggested. The qualitative picture — smooth power-law scaling — holds across both studies, but the quantitative exponents differ significantly. Key findings:
 
-```mermaid
-graph TD
-    classDef powerlaw fill:#e0f2fe,stroke:#0284c7,stroke-width:2px,color:#0c4a6e,font-weight:bold
-    classDef optimal fill:#dcfce7,stroke:#22c55e,stroke-width:3px,color:#14532d,font-weight:bold
-    classDef bad fill:#fee2e2,stroke:#ef4444,stroke-width:2px,stroke-dasharray: 4 4,color:#7f1d1d
-    classDef metric fill:#f8fafc,stroke:#94a3b8,stroke-width:2px,color:#334155
-
-    subgraph Predictability ["1. Power-Law Predictability (Log-Linear)"]
-        direction LR
-        N_scale["10x Parameters"]:::metric
-        D_scale["10x Data"]:::metric
-        C_scale["100x Compute"]:::metric
-        LossDrop["Predictable Constant Drop<br/>in Validation Loss"]:::powerlaw
-        
-        N_scale --> C_scale
-        D_scale --> C_scale
-        C_scale ==> LossDrop
-    end
-
-    subgraph Allocation ["2. Compute-Optimal Frontier (Hoffmann / Chinchilla)"]
-        direction TB
-        Budget["Fixed Compute Budget (FLOPs)"]:::metric
-        
-        Opt["Optimal Point:<br/>Scale Parameters and Data equally<br/>(~20 tokens per parameter)"]:::optimal
-        Kaplan["Kaplan regime:<br/>Over-parameterized, undertrained<br/>(Suboptimal loss for given compute)"]:::bad
-        Llama["Llama-3 regime:<br/>Small model, massively overtrained<br/>(Suboptimal for training, optimal for inference)"]:::metric
-        
-        Budget --> Opt
-        Budget -.->|"Waste of compute"| Kaplan
-        Budget -.->|"Inference-driven"| Llama
-    end
-```
+![Figure 5.5: Scaling Laws](illustrations/ch05/fig_5_5_scaling_laws.svg)
 
 1. **Smooth, predictable improvement**: Performance improves as a smooth power law across many orders of magnitude. There are no phase transitions at arbitrary scales (though see Section 5.7 on emergent abilities).
 
@@ -509,37 +367,13 @@ In a standard Transformer, every token passes through the same feed-forward netw
 
 $$G(x) = \text{TopK}\!\left(\text{softmax}(W_g x)\right)$$
 
-where $W_g \in \mathbb{R}^{E \times d}$ is a learned gating weight matrix, the softmax produces a probability distribution over all $E$ experts, and the TopK operation retains only the $K$ highest-scoring experts (zeroing the rest). The layer output is a weighted combination of the selected experts' outputs:
+where $W_g \in \mathbb{R}^{E \times d}$ is a learned gating weight matrix, the softmax produces a probability distribution over all $E$ experts, and the TopK operation retains only the $K$ highest-scoring experts (zeroing the rest). The layer oThis is **conditional computation**: only $K$ out of $E$ expert FFNs execute for each token, so the computational cost per token scales with $K$, not $E$. The total parameter count scales with $E$ (all expert weights exist in memory), but the active parameter count per token scales with $K$.
 
-$$y = \sum_{i \in \text{TopK}} G(x)_i \cdot \text{FFN}_i(x)$$
-
-This is **conditional computation**: only $K$ out of $E$ expert FFNs execute for each token, so the computational cost per token scales with $K$, not $E$. The total parameter count scales with $E$ (all expert weights exist in memory), but the active parameter count per token scales with $K$.
-
-```
-Token hidden state x
-        │
-   ┌────▼────┐
-   │  Gating  │   W_g x → softmax → TopK
-   │  Network │
-   └────┬────┘
-        │  routing weights (sparse: K of E nonzero)
-   ┌────┼─────────────────────────┐
-   ▼    ▼    ▼                    ▼
-┌─────┐┌─────┐┌─────┐      ┌─────┐
-│FFN_1││FFN_2││FFN_3│ ...  │FFN_E│
-│     ││ ✓   ││     │      │ ✓   │   (only K experts activated)
-└──┬──┘└──┬──┘└──┬──┘      └──┬──┘
-   │   ▼       │              ▼
-   │  w_2·out_2│         w_E·out_E
-   │      └────┴──────────┘
-   │              │
-   │         weighted sum
-   │              │
-   └──────────────▼
-              Layer output y
-```
+![Figure 5.6: Mixture of Experts Architecture](illustrations/ch05/fig_5_6_moe_architecture.svg)
 
 **Switch Transformer: Top-1 Routing**
+
+![Figure 5.7: Switch Transformer](illustrations/ch05/fig_5_7_switch_transformer.svg)
 
 Fedus et al. (2022) simplified MoE routing to its extreme: $K = 1$. Each token is sent to exactly one expert. This **Switch Transformer** design maximizes sparsity — if there are 128 experts, each token uses only $\frac{1}{128}$ of the expert parameters. The authors demonstrated that this simplification, combined with careful engineering, achieved 7x speedups over the dense T5-Base model at equivalent compute budgets.
 
@@ -561,32 +395,7 @@ Jiang et al. (2024) released Mixtral 8×7B, which made MoE legible to the broade
 
 This distinction is the crux of MoE's value proposition: Mixtral 8×7B achieves performance comparable to dense models in the 30-70B parameter range, while requiring only the inference compute of a ~13B dense model. The tradeoff is memory — all 47B parameters must reside in memory (or be loadable with sufficient bandwidth), even though most are idle for any given token.
 
-```
-Mixtral 8×7B: per-token compute flow
-
-All layers share attention parameters (~same for every token)
-     │
-     ▼
-┌──────────────────────────────────────────┐
-│  Self-Attention (shared, always active)  │
-└──────────────────┬───────────────────────┘
-                   │
-          Gating: pick 2 of 8 experts
-                   │
-     ┌─────────────┼─────────────┐
-     ▼             ▼             │
-  ┌───────┐   ┌───────┐         │  (6 experts idle)
-  │Expert3│   │Expert7│         │
-  │ ~7B   │   │ ~7B   │         │
-  └───┬───┘   └───┬───┘         │
-      └─────┬─────┘             │
-      weighted sum              │
-            │                   │
-            ▼                   │
-     Next layer ◄───────────────┘
-
-Total params: ~47B   Active params: ~13B   Compute: ~13B-equivalent
-```
+![Figure 5.8: Mixtral 8x7B Architecture](illustrations/ch05/fig_5_8_mixtral.svg)
 
 **DeepSeek-V2/V3: Fine-Grained and Shared Experts**
 
@@ -663,51 +472,7 @@ Pre-trained language models are capable but misaligned — they generate the mos
 
 Ouyang et al. (2022) introduced the InstructGPT training procedure, which connects directly to classical RL (the connection worth emphasizing for RL-interested readers):
 
-```mermaid
-graph TD
-    classDef init fill:#f1f5f9,stroke:#475569,stroke-width:2px,color:#0f172a
-    classDef s1 fill:#e0f2fe,stroke:#0284c7,stroke-width:2px,color:#0c4a6e
-    classDef s2 fill:#fffbeb,stroke:#fbbf24,stroke-width:2px,color:#92400e
-    classDef s3 fill:#fce7f3,stroke:#db2777,stroke-width:2px,color:#831843
-    classDef data fill:#ffffff,stroke:#9ca3af,stroke-width:1px,stroke-dasharray: 4 4
-
-    GPT3[Pretrained<br/>Language Model]:::init
-
-    subgraph Phase1 ["Stage 1: Supervised Fine-Tuning (SFT)"]
-        direction LR
-        D1[(Prompt +<br/>Demonstration)]:::data
-        SFT[SFT Model]:::s1
-        D1 -->|"Cross Entropy"| SFT
-    end
-
-    subgraph Phase2 ["Stage 2: Reward Model (RM) Training"]
-        direction LR
-        D2[(Prompt +<br/>Multiple Responses)]:::data
-        Rank[Human Ranking<br/>y_w > y_l]:::data
-        RM[Reward Model]:::s2
-        
-        D2 --> Rank
-        Rank -->|"Pairwise Ranking Loss"| RM
-    end
-
-    subgraph Phase3 ["Stage 3: PPO Fine-Tuning"]
-        direction TB
-        D3[(Prompts only)]:::data
-        PPO[RL Policy<br/>(Initialized from SFT)]:::s3
-        Response[Response y]:::data
-        RM_E[Frozen<br/>Reward Model]:::s2
-        
-        D3 --> PPO
-        PPO -.->|"Generate"| Response
-        Response --> RM_E
-        RM_E -.->|"Scalar Reward"| PPO
-    end
-
-    GPT3 --> SFT
-    SFT --> RM
-    SFT --> PPO
-    SFT -.->|"KL Divergence<br/>Penalty Baseline"| PPO
-```
+![Figure 5.9: RLHF Pipeline](illustrations/ch05/fig_5_9_rlhf_pipeline.svg)
 
 **Stage 1: Supervised Fine-Tuning (SFT)**
 Collect a dataset of (prompt, ideal response) pairs from human labelers. Fine-tune GPT-3 on this data with standard cross-entropy. This adapts the model's distribution toward instruction-following but is limited by the cost of collecting examples.

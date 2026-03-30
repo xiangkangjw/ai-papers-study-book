@@ -48,50 +48,7 @@ The model does not pick a single document and condition on it. It treats retriev
 
 ### Architecture Overview
 
-```mermaid
-graph TD
-    classDef io fill:#f1f5f9,stroke:#475569,stroke-width:2px,color:#0f172a,font-family:monospace
-    classDef enc fill:#e0f2fe,stroke:#0284c7,stroke-width:2px,color:#0c4a6e
-    classDef db fill:#fef3c7,stroke:#d97706,stroke-width:2px,color:#78350f
-    classDef gen fill:#fce7f3,stroke:#db2777,stroke-width:2px,color:#831843
-    classDef op fill:#ffffff,stroke:#9ca3af,stroke-width:2px,stroke-dasharray: 4 4
-
-    Input["INPUT QUERY (x)"]:::io
-    
-    Q_Enc["Query Encoder<br/>(BERT)"]:::enc
-    D_Enc["Document Encoder<br/>(BERT)"]:::enc
-
-    Input --> Q_Enc
-    
-    %% Offline Indexing is context
-    Docs["Document Corpus"]:::io -.-> D_Enc
-    FAISS[("Document Embeddings<br/>(FAISS Index)")]:::db
-    D_Enc -.->|"Offline Build"| FAISS
-    
-    MIPS{"Maximum Inner<br/>Product Search"}:::op
-    
-    Q_Enc -->|"q(x)"| MIPS
-    FAISS --> MIPS
-    
-    DocsRetrieved["top-k docs<br/>z₁ ... zₖ"]:::io
-    MIPS --> DocsRetrieved
-    
-    subgraph GenSub ["Generation Phase (for each z_i)"]
-        direction TB
-        Concat["concat(x, z_i)"]:::op
-        BART["BART Generator<br/>P(y | x, z_i)"]:::gen
-        Concat --> BART
-    end
-    
-    Input -->|x| Concat
-    DocsRetrieved -->|z_i| Concat
-    
-    Marginalize["Marginalize:<br/>Σ P(z_i|x) · P(y|x,z_i)"]:::op
-    BART --> Marginalize
-    
-    Output["OUTPUT (y)"]:::io
-    Marginalize --> Output
-```
+![Figure 7.1: RAG Pipeline](illustrations/ch07/fig_7_1_rag_pipeline.svg)
 
 ### The Retriever: Dense Passage Retrieval (DPR)
 
@@ -107,43 +64,7 @@ The two encoders are independent — no cross-attention between query and docume
 
 At indexing time, every document in the knowledge corpus is passed through $E_D$, producing a vector in $\mathbb{R}^d$. These vectors are stored in a FAISS index. At query time, the query is encoded with $E_Q$, and FAISS performs **Maximum Inner Product Search (MIPS)** to retrieve the top-$k$ documents by dot product similarity.
 
-```mermaid
-graph TD
-    classDef offline fill:#e0f2fe,stroke:#0284c7,stroke-width:2px,color:#0c4a6e
-    classDef online fill:#dcfce7,stroke:#22c55e,stroke-width:2px,color:#14532d
-    classDef embed fill:#fef3c7,stroke:#d97706,stroke-width:2px,color:#78350f,font-family:monospace
-    classDef db fill:#f1f5f9,stroke:#475569,stroke-width:2px,color:#0f172a,stroke-dasharray: 4 4
-    classDef op fill:#cbd5e1,stroke:#334155,stroke-width:2px,color:#0f172a,font-weight:bold
-
-    subgraph Offline ["Offline Indexing (Run once per corpus)"]
-        direction TB
-        Docs["Corpus Passages<br/>(e.g., Wikipedia)"]:::offline
-        EncD["Document Encoder E_D<br/>(BERT)"]:::offline
-        EmbD["Document Embeddings<br/>dz ∈ R^d"]:::embed
-        FAISS[(FAISS Vector Database)]:::db
-        
-        Docs ==>|"Chunk & Encode"| EncD ==>|"Batch Encode"| EmbD ==>|"Build Index"| FAISS
-    end
-
-    subgraph Online ["Online Querying (Run per user request)"]
-        direction TB
-        Q["User Query x"]:::online
-        EncQ["Question Encoder E_Q<br/>(BERT)"]:::online
-        EmbQ["Query Embedding<br/>dx ∈ R^d"]:::embed
-        
-        Q ==>|"Encode"| EncQ ==> EmbQ
-    end
-
-    DotProd(("Max Inner Product<br/>dxᵀ · dz")):::op
-    TopK["Retrieve Top-K Documents"]:::online
-
-    EmbQ -.->|"Query Vector"| DotProd
-    FAISS -.->|"Fast Approximate Search"| DotProd
-    DotProd ==> TopK
-    
-    linkStyle 6 stroke:#d97706,stroke-width:3px,stroke-dasharray: 5 5
-    linkStyle 7 stroke:#475569,stroke-width:3px,stroke-dasharray: 5 5
-```
+![Figure 7.2: DPR Bi-Encoder Architecture](illustrations/ch07/fig_7_2_dpr_bi_encoder.svg)
 
 DPR was trained on Natural Questions using in-batch negatives plus hard negatives (documents retrieved by BM25 that are not answers). The training loss is softmax cross-entropy over the positive passage and all negatives: for a query $x$ with positive document $z^+$ and negatives $z^-_1, \ldots, z^-_n$,
 
@@ -211,6 +132,8 @@ The tradeoff:
 Hybrid retrieval — BM25 for recall, dense reranking for precision — often outperforms either alone and is standard practice in production systems.
 
 ### FAISS and Approximate Nearest Neighbor Search
+
+![Figure 7.3: FAISS Vector Database and ANN Search](illustrations/ch07/fig_7_3_faiss_vector_db.svg)
 
 Once documents are embedded, retrieval is a nearest-neighbor problem in $\mathbb{R}^d$. Exact nearest-neighbor search over millions of vectors is $O(n \cdot d)$ per query — feasible for small corpora but impractical for Wikipedia (21 million passages in the DPR paper).
 
@@ -440,6 +363,8 @@ The two-stage pipeline:
 1. **Recall stage**: Bi-encoder retrieves top-100 candidates (fast, approximate)
 2. **Precision stage**: Cross-encoder reranks top-100 to top-5 (slow, accurate)
 
+![Figure 7.4: Two-Stage Retrieval Pipeline](illustrations/ch07/fig_7_4_two_stage_retrieval.svg)
+
 This is the standard industry pattern. Models like `cross-encoder/ms-marco-MiniLM-L-12-v2` (from sentence-transformers) are trained on MS MARCO passage ranking data and work well out-of-the-box. Cohere Rerank and Jina Reranker are hosted API alternatives.
 
 The quality gain from reranking is substantial: on typical RAG benchmarks, two-stage retrieval improves faithfulness and answer correctness by 15–25% over single-stage bi-encoder retrieval.
@@ -461,9 +386,13 @@ A core inefficiency in vanilla RAG: retrieval is triggered for every query, whet
 
 The model is fine-tuned to predict these tokens interleaved with its output. At inference, the model self-determines when to retrieve, evaluates retrieved passages, and criticizes its own generations. This turns RAG from a fixed pipeline into a **metacognitive loop**.
 
+![Figure 7.5: Self-RAG Adaptive Retrieval Loop](illustrations/ch07/fig_7_5_self_rag.svg)
+
 Self-RAG outperforms RAG on ASQA (long-form QA), PopQA, and other benchmarks, while reducing unnecessary retrieval calls by 30–40%.
 
 ### RETRO: Retrieval-Integrated Pre-Training (Borgeaud et al., 2022)
+
+![Figure 7.7: RETRO — Retrieval-Enhanced Transformer](illustrations/ch07/fig_7_7_retro.svg)
 
 RAG as described in Lewis et al. is a **post-training** addition — retrieval is bolted onto a pre-trained language model. RETRO (Retrieval-Enhanced Transformer) integrates retrieval into **pre-training** itself.
 
@@ -478,6 +407,8 @@ This has profound implications: retrieval is not just an inference-time patch �
 Bi-encoders are trained on (query, document) pairs, but the embedding spaces for queries and documents are not identical. A short natural language question is structurally different from a Wikipedia passage, which can create a distribution mismatch.
 
 **HyDE** addresses this asymmetry: instead of embedding the query directly, use the LLM to generate a **hypothetical document** that would answer the query, then embed that hypothetical document.
+
+![Figure 7.6: HyDE — Hypothetical Document Embeddings](illustrations/ch07/fig_7_6_hyde.svg)
 
 ```
 Query:   "What causes aurora borealis?"
@@ -500,6 +431,8 @@ The hypothetical document is in the same distribution as real documents — it i
 HyDE improves retrieval on low-resource domains where the retriever was not trained in-distribution. The cost: one LLM call per query just for retrieval.
 
 ### Multi-Hop Retrieval
+
+![Figure 7.8: Multi-Hop Retrieval](illustrations/ch07/fig_7_8_multi_hop.svg)
 
 Some questions require chaining evidence across multiple documents:
 

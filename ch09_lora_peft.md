@@ -37,47 +37,7 @@ Parameter-Efficient Fine-Tuning (PEFT) attacks all three. The core idea: freeze 
 
 Xu et al. (2023) survey over 40 PEFT methods and organize them into three families:
 
-```mermaid
-graph TD
-    classDef root fill:#f1f5f9,stroke:#475569,stroke-width:2px,color:#0f172a,font-weight:bold
-    classDef category fill:#e0f2fe,stroke:#0284c7,stroke-width:2px,color:#0c4a6e,font-weight:bold
-    classDef method fill:#ffffff,stroke:#9ca3af,stroke-width:1px,color:#374151
-
-    Root["PEFT Methods"]:::root
-    
-    Add["Additive Methods"]:::category
-    Sel["Selective Methods"]:::category
-    Rep["Reparameterization Methods"]:::category
-    
-    Root --> Add
-    Root --> Sel
-    Root --> Rep
-    
-    %% Additive Methods
-    A1["Adapters<br/>(Houlsby et al., 2019)"]:::method
-    A2["Prefix Tuning<br/>(Li & Liang, 2021)"]:::method
-    A3["Prompt Tuning<br/>(Lester et al., 2021)"]:::method
-    
-    Add --> A1
-    Add --> A2
-    Add --> A3
-    
-    %% Selective Methods
-    S1["BitFit<br/>(Ben Zaken et al., 2022)"]:::method
-    S2["Diff Pruning<br/>(Guo et al., 2021)"]:::method
-    
-    Sel --> S1
-    Sel --> S2
-    
-    %% Reparameterization Methods
-    R1["LoRA<br/>(Hu et al., 2021)"]:::method
-    R2["AdaLoRA<br/>(Zhang et al., 2023)"]:::method
-    R3["KronA<br/>(Edalati et al., 2022)"]:::method
-    
-    Rep --> R1
-    Rep --> R2
-    Rep --> R3
-```
+![Figure 9.1: PEFT Method Taxonomy](illustrations/ch09/fig_9_1_peft_taxonomy.svg)
 
 **Additive methods** insert new parameters into the model architecture or prepend learnable tokens to the input. The original weights remain frozen; only the new components are trained.
 
@@ -103,6 +63,8 @@ $$\text{where } \mathbf{W}_{\text{down}} \in \mathbb{R}^{m \times d},\ \mathbf{W
 
 The residual connection ensures that at initialization (if $\mathbf{W}_{\text{up}}$ is zero), the adapter is an identity function. Only $\mathbf{W}_{\text{down}}$ and $\mathbf{W}_{\text{up}}$ are trained.
 
+![Figure 9.2: Adapter Bottleneck Module](illustrations/ch09/fig_9_2_adapter_bottleneck.svg)
+
 **Parameter count**: $2dm$ per adapter. With $d = 768$ (BERT-base) and $m = 64$, that's 98,304 parameters per adapter. BERT-base has 12 transformer layers, each getting 2 adapters (one after self-attention, one after FFN), so total added parameters: $24 \times 98{,}304 \approx 2.4\text{M}$ out of BERT's 110M total — about 2%.
 
 **The problem**: Adapters add layers to the forward pass. At inference, you cannot remove them — unlike LoRA. This creates nonzero latency overhead, which matters at scale.
@@ -122,6 +84,8 @@ With prefix tuning, you prepend $L$ learnable prefix vectors to $\mathbf{K}$ and
 $$\mathbf{K}' = [\mathbf{P}_K;\ \mathbf{K}], \quad \mathbf{V}' = [\mathbf{P}_V;\ \mathbf{V}] \quad \text{where } \mathbf{P}_K, \mathbf{P}_V \in \mathbb{R}^{L \times d}$$
 
 $$\text{Attention}(\mathbf{Q}, \mathbf{K}', \mathbf{V}') = \text{softmax}\!\left(\frac{\mathbf{Q}[\mathbf{P}_K;\ \mathbf{K}]^\top}{\sqrt{d_k}}\right) [\mathbf{P}_V;\ \mathbf{V}]$$
+
+![Figure 9.3: Prefix Tuning — Learnable Key-Value Prefixes](illustrations/ch09/fig_9_3_prefix_tuning.svg)
 
 The prefix tokens attend to (and are attended to by) all input tokens, effectively steering the model's behavior through the key-value space. Think of it as **soft prompting in the activation space** — rather than modifying discrete input tokens, you're inserting continuous, differentiable "instructions" directly where attention operates.
 
@@ -181,35 +145,7 @@ where:
 
 At the start of training, $\mathbf{B}\mathbf{A} = \mathbf{0}$, so the modified model is identical to the pre-trained model. This is crucial: LoRA training starts from exactly the pre-trained behavior, not from some random perturbation.
 
-```mermaid
-graph TD
-    classDef frozen fill:#e0f2fe,stroke:#0284c7,stroke-width:2px,color:#0c4a6e
-    classDef trainable fill:#dcfce7,stroke:#22c55e,stroke-width:2px,color:#14532d
-    classDef io fill:#f1f5f9,stroke:#475569,stroke-width:2px,color:#0f172a,font-family:monospace
-    classDef op fill:#cbd5e1,stroke:#334155,stroke-width:2px,color:#0f172a,font-weight:bold
-
-    subgraph Architecture ["LoRA Decomposition (Training Forward Pass)"]
-        direction TB
-        X["Input x<br/>(Dimension: d)"]:::io
-        
-        W["Frozen Base Weights<br/>W ∈ R^(d×d)"]:::frozen
-        
-        A["Trainable Matrix A<br/>R^(r×d)<br/>Random Init"]:::trainable
-        B["Trainable Matrix B<br/>R^(d×r)<br/>Zero Init"]:::trainable
-        
-        Add(("Add")):::op
-        
-        X -->|"x"| W
-        X -.->|"x"| A
-        A -.->|"r-dimensional<br/>bottleneck"| B
-        
-        W ==>|"Wx"| Add
-        B -.->|"BAx"| Add
-        
-        H["Output h = Wx + BAx<br/>(Dimension: d)"]:::io
-        Add ==> H
-    end
-```
+![Figure 9.4: LoRA Low-Rank Decomposition](illustrations/ch09/fig_9_4_lora_decomposition.svg)
 
 **Scaling factor**: The LoRA output is scaled by $\alpha/r$ where $\alpha$ is a hyperparameter:
 
@@ -259,27 +195,7 @@ After merging, $\mathbf{B}$ and $\mathbf{A}$ are discarded. The inference graph 
 
 The merge is a single matrix addition per adapted layer. It's fast and exact. No approximation.
 
-```mermaid
-graph LR
-    classDef frozen fill:#e0f2fe,stroke:#0284c7,stroke-width:2px,color:#0c4a6e
-    classDef op fill:#cbd5e1,stroke:#334155,stroke-width:2px,color:#0f172a,font-weight:bold
-    classDef param fill:#dcfce7,stroke:#22c55e,stroke-width:2px,color:#14532d
-    classDef merge fill:#fef3c7,stroke:#d97706,stroke-width:3px,color:#78350f,font-weight:bold
-
-    subgraph Inference ["LoRA Merge at Inference (Zero Added Latency)"]
-        direction LR
-        W["Frozen Base Weights<br/>W_0 ∈ R^(d×d)"]:::frozen
-        AB["Trained Adapter<br/>B × A ∈ R^(d×d)"]:::param
-        
-        Add(("Merge<br/>(+)")):::op
-        
-        W_New["Merged Weights<br/>W' = W_0 + BA<br/>(Standard d×d matrix)"]:::merge
-
-        W --> Add
-        AB --> Add
-        Add ==> W_New
-    end
-```
+![Figure 9.5: LoRA Merge at Inference](illustrations/ch09/fig_9_5_lora_merge.svg)
 
 **Implication**: At serving time, you can either:
 1. **Pre-merge**: Merge adapters into a single model file. Zero overhead, but you need a separate model file per task.
@@ -292,6 +208,8 @@ Option 2 is what S-LoRA (Sheng et al., 2023) optimizes — more on this in Secti
 ## 9.5 LoRA Variants
 
 ### 9.5.1 QLoRA: Quantize the Base, LoRA the Updates
+
+![Figure 9.6: QLoRA — 4-Bit Quantized Base with LoRA Adapters](illustrations/ch09/fig_9_6_qlora.svg)
 
 Dettmers et al. (2023) observe that LoRA cuts the optimizer state memory, but the frozen base model still needs to fit in GPU memory. For a 65B-parameter model, that's ~130 GB in fp16 — requiring multiple high-end GPUs just to load.
 
@@ -316,6 +234,8 @@ LoRA+ uses a higher learning rate for $\mathbf{B}$ than for $\mathbf{A}$ — rou
 Empirically, LoRA+ achieves the same final performance as standard LoRA in fewer training steps, or better final performance with the same steps.
 
 ### 9.5.3 DoRA: Decompose Magnitude and Direction
+
+![Figure 9.7: DoRA — Weight-Decomposed Low-Rank Adaptation](illustrations/ch09/fig_9_7_dora.svg)
 
 Liu et al. (2024) note that a weight matrix $\mathbf{W}$ can be decomposed into magnitude and direction:
 
@@ -462,6 +382,8 @@ def route_and_generate(request, task_type):
 
 However, this naive approach requires loading and unloading adapter weights for each request, and the base model must be replicated in memory for each `PeftModel` instance (or handled carefully with shared references).
 
+![Figure 9.8: S-LoRA — Serving Thousands of Concurrent Adapters](illustrations/ch09/fig_9_8_slora.svg)
+
 **S-LoRA** (Sheng et al., 2023) solves this properly: it batches requests across different LoRA adapters, stores all adapter weights in a unified GPU memory pool, and computes LoRA outputs for multiple adapters simultaneously using custom CUDA kernels. It can serve thousands of LoRA adapters on a single GPU cluster with near-zero per-adapter memory overhead and minimal latency impact.
 
 ---
@@ -469,6 +391,8 @@ However, this naive approach requires loading and unloading adapter weights for 
 ## 9.7 Comparative Analysis
 
 ### 9.7.1 Performance vs. Parameter Efficiency
+
+![Figure 9.9: PEFT Methods — Performance vs. Parameter Efficiency Comparison](illustrations/ch09/fig_9_9_peft_comparison.svg)
 
 From the Xu et al. (2023) survey, aggregating across NLP benchmarks (GLUE, SuperGLUE, summarization, QA):
 

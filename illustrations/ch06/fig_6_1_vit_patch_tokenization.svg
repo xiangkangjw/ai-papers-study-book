@@ -1,18 +1,18 @@
 <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 860 370" font-family="Inter, Helvetica, Arial, sans-serif">
   <defs>
-    <marker id="a" markerWidth="8" markerHeight="6" refX="8" refY="3" orient="auto"><path d="M0,0 L8,3 L0,6 Z" fill="#475569"/></marker>
+    <marker id="a" markerWidth="8" markerHeight="6" refX="8" refY="3" orient="auto"><path d="M0,0 L8,3 L0,6 Z" fill="#4a4a5a"/></marker>
   </defs>
 
-  <text x="430" y="28" text-anchor="middle" font-size="17" font-weight="bold" fill="#0f172a">ViT: Image → Patch → Token Sequence</text>
+  <text x="430" y="28" text-anchor="middle" font-size="17" font-weight="bold" fill="#1a1a2e">ViT: Image → Patch → Token Sequence</text>
 
   <!-- ===== Input Image with Grid ===== -->
-  <text x="115" y="60" text-anchor="middle" font-size="11" font-weight="bold" fill="#0f172a">Input Image</text>
-  <text x="115" y="75" text-anchor="middle" font-size="9" fill="#64748b" font-family="'SF Mono', Consolas, monospace">224 × 224 × 3</text>
+  <text x="115" y="60" text-anchor="middle" font-size="11" font-weight="bold" fill="#1a1a2e">Input Image</text>
+  <text x="115" y="75" text-anchor="middle" font-size="11" fill="#7a7a8a" font-family="'JetBrains Mono', 'Fira Code', monospace">224 × 224 × 3</text>
 
   <!-- Image rectangle with grid overlay (14x14 = 196 patches) -->
-  <rect x="15" y="85" width="196" height="196" rx="4" fill="#e2e8f0" stroke="#475569" stroke-width="2"/>
+  <rect x="15" y="85" width="196" height="196" rx="4" fill="#f5f5f8" stroke="#4a4a5a" stroke-width="2"/>
   <!-- Grid lines (14x14) -->
-  <g stroke="#94a3b8" stroke-width="0.5">
+  <g stroke="#c0c0c8" stroke-width="0.5">
     <line x1="29" y1="85" x2="29" y2="281"/><line x1="43" y1="85" x2="43" y2="281"/>
     <line x1="57" y1="85" x2="57" y2="281"/><line x1="71" y1="85" x2="71" y2="281"/>
     <line x1="85" y1="85" x2="85" y2="281"/><line x1="99" y1="85" x2="99" y2="281"/>
@@ -30,65 +30,65 @@
   </g>
 
   <!-- Highlighted patch -->
-  <rect x="15" y="85" width="14" height="14" fill="#fef3c7" stroke="#d97706" stroke-width="2"/>
-  <text x="22" y="95" text-anchor="middle" font-size="5" fill="#78350f">P</text>
+  <rect x="15" y="85" width="14" height="14" fill="#f5ece0" stroke="#d4a03c" stroke-width="2"/>
+  <text x="22" y="95" text-anchor="middle" font-size="11" fill="#d4a03c">P</text>
 
-  <text x="115" y="305" text-anchor="middle" font-size="8" fill="#64748b">14×14 = 196 patches</text>
-  <text x="115" y="318" text-anchor="middle" font-size="8" fill="#64748b">each 16×16 pixels</text>
+  <text x="115" y="305" text-anchor="middle" font-size="11" fill="#7a7a8a">14×14 = 196 patches</text>
+  <text x="115" y="318" text-anchor="middle" font-size="11" fill="#7a7a8a">each 16×16 pixels</text>
 
   <!-- ===== Arrow: Flatten & Project ===== -->
-  <line x1="220" y1="183" x2="280" y2="183" stroke="#475569" stroke-width="2" marker-end="url(#a)"/>
-  <text x="250" y="170" text-anchor="middle" font-size="8" font-weight="bold" fill="#475569">Flatten</text>
-  <text x="250" y="195" text-anchor="middle" font-size="8" fill="#475569">&amp; Project</text>
+  <line x1="220" y1="183" x2="280" y2="183" stroke="#4a4a5a" stroke-width="2" marker-end="url(#a)"/>
+  <text x="250" y="170" text-anchor="middle" font-size="11" font-weight="bold" fill="#4a4a5a">Flatten</text>
+  <text x="250" y="195" text-anchor="middle" font-size="11" fill="#4a4a5a">&amp; Project</text>
 
   <!-- Linear projection annotation -->
-  <rect x="225" y="205" width="80" height="30" rx="4" fill="#fef3c7" stroke="#d97706" stroke-width="1"/>
-  <text x="265" y="218" text-anchor="middle" font-size="7" fill="#78350f" font-family="'SF Mono', Consolas, monospace">E ∈ ℝ^{768×768}</text>
-  <text x="265" y="230" text-anchor="middle" font-size="7" fill="#d97706">(16²·3 = 768)</text>
+  <rect x="225" y="205" width="80" height="30" rx="4" fill="#f5ece0" stroke="#d4a03c" stroke-width="1"/>
+  <text x="265" y="218" text-anchor="middle" font-size="11" fill="#d4a03c" font-family="'JetBrains Mono', 'Fira Code', monospace">E ∈ ℝ^{768×768}</text>
+  <text x="265" y="230" text-anchor="middle" font-size="11" fill="#d4a03c">(16²·3 = 768)</text>
 
   <!-- ===== Patch Embeddings Sequence ===== -->
-  <text x="530" y="60" text-anchor="middle" font-size="11" font-weight="bold" fill="#0f172a">Token Sequence</text>
+  <text x="530" y="60" text-anchor="middle" font-size="11" font-weight="bold" fill="#1a1a2e">Token Sequence</text>
 
   <!-- [CLS] token -->
-  <rect x="290" y="120" width="45" height="130" rx="4" fill="#fce7f3" stroke="#db2777" stroke-width="2"/>
-  <text x="312" y="180" text-anchor="middle" font-size="8" font-weight="bold" fill="#831843" transform="rotate(-90 312 180)">[CLS]</text>
+  <rect x="290" y="120" width="45" height="130" rx="4" fill="#f6e4e3" stroke="#d4645c" stroke-width="2"/>
+  <text x="312" y="180" text-anchor="middle" font-size="11" font-weight="bold" fill="#d4645c" transform="rotate(-90 312 180)">[CLS]</text>
 
   <!-- Patch tokens -->
-  <rect x="340" y="120" width="35" height="130" rx="3" fill="#e0f2fe" stroke="#0284c7" stroke-width="1.5"/>
-  <text x="357" y="190" text-anchor="middle" font-size="7" fill="#0c4a6e" transform="rotate(-90 357 190)">Patch 1</text>
+  <rect x="340" y="120" width="35" height="130" rx="3" fill="#e1eaf3" stroke="#4a7fb5" stroke-width="1.5"/>
+  <text x="357" y="190" text-anchor="middle" font-size="11" fill="#4a7fb5" transform="rotate(-90 357 190)">Patch 1</text>
 
-  <rect x="380" y="120" width="35" height="130" rx="3" fill="#e0f2fe" stroke="#0284c7" stroke-width="1.5"/>
-  <text x="397" y="190" text-anchor="middle" font-size="7" fill="#0c4a6e" transform="rotate(-90 397 190)">Patch 2</text>
+  <rect x="380" y="120" width="35" height="130" rx="3" fill="#e1eaf3" stroke="#4a7fb5" stroke-width="1.5"/>
+  <text x="397" y="190" text-anchor="middle" font-size="11" fill="#4a7fb5" transform="rotate(-90 397 190)">Patch 2</text>
 
-  <rect x="420" y="120" width="35" height="130" rx="3" fill="#e0f2fe" stroke="#0284c7" stroke-width="1.5"/>
-  <text x="437" y="190" text-anchor="middle" font-size="7" fill="#0c4a6e" transform="rotate(-90 437 190)">Patch 3</text>
+  <rect x="420" y="120" width="35" height="130" rx="3" fill="#e1eaf3" stroke="#4a7fb5" stroke-width="1.5"/>
+  <text x="437" y="190" text-anchor="middle" font-size="11" fill="#4a7fb5" transform="rotate(-90 437 190)">Patch 3</text>
 
-  <text x="475" y="190" text-anchor="middle" font-size="14" fill="#94a3b8">···</text>
+  <text x="475" y="190" text-anchor="middle" font-size="14" fill="#c0c0c8">···</text>
 
-  <rect x="500" y="120" width="35" height="130" rx="3" fill="#e0f2fe" stroke="#0284c7" stroke-width="1.5"/>
-  <text x="517" y="195" text-anchor="middle" font-size="6" fill="#0c4a6e" transform="rotate(-90 517 195)">Patch 195</text>
+  <rect x="500" y="120" width="35" height="130" rx="3" fill="#e1eaf3" stroke="#4a7fb5" stroke-width="1.5"/>
+  <text x="517" y="195" text-anchor="middle" font-size="11" fill="#4a7fb5" transform="rotate(-90 517 195)">Patch 195</text>
 
-  <rect x="540" y="120" width="35" height="130" rx="3" fill="#e0f2fe" stroke="#0284c7" stroke-width="1.5"/>
-  <text x="557" y="195" text-anchor="middle" font-size="6" fill="#0c4a6e" transform="rotate(-90 557 195)">Patch 196</text>
+  <rect x="540" y="120" width="35" height="130" rx="3" fill="#e1eaf3" stroke="#4a7fb5" stroke-width="1.5"/>
+  <text x="557" y="195" text-anchor="middle" font-size="11" fill="#4a7fb5" transform="rotate(-90 557 195)">Patch 196</text>
 
   <!-- Shape annotation -->
-  <text x="430" y="110" text-anchor="middle" font-size="8" fill="#64748b" font-family="'SF Mono', Consolas, monospace">[1 + 196 = 197 tokens, each 768-dim]</text>
+  <text x="430" y="110" text-anchor="middle" font-size="11" fill="#7a7a8a" font-family="'JetBrains Mono', 'Fira Code', monospace">[1 + 196 = 197 tokens, each 768-dim]</text>
 
   <!-- + Positional Embeddings -->
-  <text x="430" y="270" text-anchor="middle" font-size="10" font-weight="bold" fill="#d97706">+ Learnable Position Embeddings</text>
-  <text x="430" y="288" text-anchor="middle" font-size="8" fill="#d97706" font-family="'SF Mono', Consolas, monospace">E_pos ∈ ℝ^{197×768}</text>
+  <text x="430" y="270" text-anchor="middle" font-size="11" font-weight="bold" fill="#d4a03c">+ Learnable Position Embeddings</text>
+  <text x="430" y="288" text-anchor="middle" font-size="11" fill="#d4a03c" font-family="'JetBrains Mono', 'Fira Code', monospace">E_pos ∈ ℝ^{197×768}</text>
 
   <!-- Arrow to transformer -->
-  <line x1="430" y1="295" x2="430" y2="320" stroke="#475569" stroke-width="2" marker-end="url(#a)"/>
+  <line x1="430" y1="295" x2="430" y2="320" stroke="#4a4a5a" stroke-width="2" marker-end="url(#a)"/>
 
   <!-- Transformer input -->
-  <rect x="330" y="325" width="200" height="35" rx="8" fill="#f3e8ff" stroke="#9333ea" stroke-width="2"/>
-  <text x="430" y="347" text-anchor="middle" font-size="10" font-weight="bold" fill="#3b0764">→ Transformer Encoder</text>
+  <rect x="330" y="325" width="200" height="35" rx="8" fill="#e8e4f1" stroke="#7b68a8" stroke-width="2"/>
+  <text x="430" y="347" text-anchor="middle" font-size="11" font-weight="bold" fill="#7b68a8">→ Transformer Encoder</text>
 
   <!-- Key insight box -->
-  <rect x="620" y="120" width="220" height="80" rx="8" fill="#f8fafc" stroke="#e2e8f0" stroke-width="1.5"/>
-  <text x="730" y="140" text-anchor="middle" font-size="9" font-weight="bold" fill="#0f172a">Key Innovation</text>
-  <text x="730" y="158" text-anchor="middle" font-size="8" fill="#334155">Treat image patches exactly like</text>
-  <text x="730" y="172" text-anchor="middle" font-size="8" fill="#334155">text tokens — no convolutions.</text>
-  <text x="730" y="192" text-anchor="middle" font-size="8" fill="#64748b">Same Transformer architecture</text>
+  <rect x="620" y="120" width="220" height="80" rx="8" fill="#f5f5f8" stroke="#f5f5f8" stroke-width="1.5"/>
+  <text x="730" y="140" text-anchor="middle" font-size="11" font-weight="bold" fill="#1a1a2e">Key Innovation</text>
+  <text x="730" y="158" text-anchor="middle" font-size="11" fill="#3a3a4a">Treat image patches exactly like</text>
+  <text x="730" y="172" text-anchor="middle" font-size="11" fill="#3a3a4a">text tokens — no convolutions.</text>
+  <text x="730" y="192" text-anchor="middle" font-size="11" fill="#7a7a8a">Same Transformer architecture</text>
 </svg>

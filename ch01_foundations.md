@@ -182,30 +182,7 @@ $$f(\mathbf{x}) = f_L(f_{L-1}(\cdots f_2(f_1(\mathbf{x}))))$$
 
 Each $f_l$ is a layer. This is a pipeline — conceptually identical to a chain of middleware handlers or a Unix pipe. Each stage transforms its input and passes the result forward.
 
-```mermaid
-graph LR
-    classDef tensor fill:#f1f5f9,stroke:#475569,stroke-width:2px,color:#0f172a,font-family:monospace
-    classDef layer fill:#fef3c7,stroke:#d97706,stroke-width:2px,color:#78350f,font-weight:bold
-
-    X["Input x<br/>Shape: (B, d_in)"]:::tensor
-    
-    L1["Layer f_1<br/>σ(W₁x + b₁)"]:::layer
-    H1["Hidden h_1<br/>Shape: (B, d_1)"]:::tensor
-    
-    L2["Layer f_2<br/>σ(W₂h₁ + b₂)"]:::layer
-    H2["Hidden h_2<br/>Shape: (B, d_2)"]:::tensor
-    
-    Dots["..."]:::tensor
-    
-    H_Lm1["Hidden h_{L-1}<br/>Shape: (B, d_{L-1})"]:::tensor
-    LL["Layer f_L<br/>W_L h_{L-1} + b_L"]:::layer
-    Y["Output f(x)<br/>Shape: (B, d_out)"]:::tensor
-
-    X -->|"Middleware 1"| L1 --> H1
-    H1 -->|"Middleware 2"| L2 --> H2
-    H2 --> Dots --> H_Lm1
-    H_Lm1 -->|"Middleware L"| LL --> Y
-```
+![Figure 1.3: Feedforward Network](illustrations/ch01/fig_1_3_feedforward_network.svg)
 
 A standard dense (fully connected) layer computes:
 
@@ -213,33 +190,7 @@ $$\mathbf{h} = \sigma(\mathbf{W}\mathbf{x} + \mathbf{b})$$
 
 where $\mathbf{W}$ is a weight matrix, $\mathbf{b}$ is a bias vector, and $\sigma$ is a non-linear activation function. At the level of a **single neuron**, this is:
 
-```mermaid
-graph LR
-    classDef input fill:#f1f5f9,stroke:#475569,stroke-width:2px,color:#0f172a,font-family:monospace
-    classDef weight fill:#fef3c7,stroke:#d97706,stroke-width:2px,color:#78350f,font-style:italic
-    classDef sum fill:#e0f2fe,stroke:#0284c7,stroke-width:3px,color:#0c4a6e,font-weight:bold
-    classDef act fill:#dcfce7,stroke:#22c55e,stroke-width:2px,color:#14532d
-    classDef out fill:#f1f5f9,stroke:#475569,stroke-width:2px,color:#0f172a,font-weight:bold
-
-    X1["x₁"]:::input
-    X2["x₂"]:::input
-    X3["x₃"]:::input
-    B["Bias b"]:::weight
-
-    W1(["× w₁"]):::weight
-    W2(["× w₂"]):::weight
-    W3(["× w₃"]):::weight
-
-    Sum(["Σ\nw₁x₁ + w₂x₂\n+ w₃x₃ + b"]):::sum
-    Act["σ(z)\n(Activation)"]:::act
-    Out["Output h"]:::out
-
-    X1 --> W1 --> Sum
-    X2 --> W2 --> Sum
-    X3 --> W3 --> Sum
-    B --> Sum
-    Sum --> Act --> Out
-```
+![Figure 1.2: Single Neuron](illustrations/ch01/fig_1_2_single_neuron.svg)
 
 The forward pass in pseudocode:
 
@@ -263,42 +214,7 @@ A 100-layer linear network is equivalent to a single-layer linear network. Non-l
 
 Common choices:
 
-```mermaid
-graph TD
-    classDef card fill:#f1f5f9,stroke:#475569,stroke-width:2px,color:#0f172a,font-family:monospace
-    classDef highlight fill:#e0f2fe,stroke:#0284c7,stroke-width:2px,color:#0c4a6e
-    classDef dead fill:#fee2e2,stroke:#ef4444,stroke-width:2px,color:#7f1d1d,stroke-dasharray: 4 4
-
-    subgraph Classical ["Classical Activations (Vanishing Gradients)"]
-        direction TB
-        Sig["Sigmoid<br/>σ(x) = 1 / (1 + e⁻ˣ)<br/>Range: (0, 1)"]:::card
-        Tanh["Tanh<br/>tanh(x) = (eˣ - e⁻ˣ) / (eˣ + e⁻ˣ)<br/>Range: (-1, 1)"]:::card
-        S_Der["Deriv: σ(x)(1 - σ(x))<br/>Saturates at flat tails"]:::dead
-        T_Der["Deriv: 1 - tanh²(x)<br/>Saturates at flat tails"]:::dead
-        Sig --- S_Der
-        Tanh --- T_Der
-    end
-
-    subgraph Modern ["Modern Baselines (Piecewise Linear)"]
-        direction TB
-        ReLU["ReLU<br/>f(x) = max(0, x)<br/>Range: [0, ∞)"]:::card
-        LReLU["Leaky ReLU<br/>f(x) = max(αx, x)<br/>Range: (-∞, ∞)"]:::card
-        R_Der["Deriv: 1 if x>0 else 0<br/>'Dying ReLU' problem (x < 0)"]:::dead
-        LR_Der["Deriv: 1 if x>0 else α<br/>Fixes dead neurons"]:::highlight
-        ReLU --- R_Der
-        LReLU --- LR_Der
-    end
-
-    subgraph SOTA ["State-of-the-Art (Smooth & Non-monotonic)"]
-        direction TB
-        GELU["GELU<br/>f(x) = x · Φ(x)<br/>Smooth approximation"]:::highlight
-        Swish["Swish (SiLU)<br/>f(x) = x · σ(x)<br/>Self-gated"]:::highlight
-        G_Der["Deriv: Φ(x) + x·φ(x)<br/>Default in Transformers"]:::highlight
-        Sw_Der["Deriv: f(x) + σ(x)(1 - f(x))<br/>Default in Vision/Diffusion"]:::highlight
-        GELU --- G_Der
-        Swish --- Sw_Der
-    end
-```
+![Figure 1.1: Activation Functions](illustrations/ch01/fig_1_1_activation_functions.svg)
 
 - **ReLU**: $\max(0, x)$. Simple, cheap to compute, no vanishing gradient for positive inputs. The default choice for hidden layers. Downside: "dead neurons" — units stuck at zero if they enter the negative regime permanently.
 - **GELU**: $x \cdot \Phi(x)$ where $\Phi$ is the CDF of the standard normal distribution $\mathcal{N}(0,1)$. A smooth approximation to ReLU. Used in Transformers (BERT, GPT).
@@ -320,6 +236,8 @@ where $\mathbf{y}$ is the one-hot true label and $\mathbf{p}$ is the predicted p
 $$\mathcal{L} = \frac{1}{N} \sum_i (y_i - f(x_i))^2$$
 
 **The choice of loss function encodes your assumptions.** MSE assumes Gaussian noise. Cross-entropy assumes categorical outputs. Huber loss assumes you want robustness to outliers. Choosing a loss function is choosing what "good" means — it is one of the most consequential design decisions in any ML system.
+
+![Figure 1.5: Loss Landscape](illustrations/ch01/fig_1_5_loss_landscape.svg)
 
 ---
 
@@ -357,37 +275,7 @@ The per-parameter learning rate adaptation means that infrequent features get la
 
 **AdamW** (Loshchilov & Hutter, 2019) decouples weight decay from the adaptive learning rate. Standard L2 regularization interacts poorly with Adam's per-parameter scaling. AdamW fixes this by applying weight decay directly to the parameters rather than through the gradient. It is the standard optimizer for Transformer training.
 
-```mermaid
-graph TD
-    classDef sgd fill:#fee2e2,stroke:#ef4444,stroke-width:2px,color:#7f1d1d
-    classDef adam fill:#dcfce7,stroke:#22c55e,stroke-width:3px,color:#14532d,font-weight:bold
-    classDef note fill:#f1f5f9,stroke:#94a3b8,stroke-width:1px,color:#475569,font-style:italic
-
-    subgraph SGDP ["SGD (Vanilla / With Momentum)"]
-        direction TB
-        S1["Start: θ₀"]:::sgd
-        S2["Step 1: large oscillation\n(narrow valley)"]:::sgd
-        S3["Step 2: continues oscillating\nacross curvature"]:::sgd
-        S4["Step N: slow convergence\ndue to equal LR across dims"]:::sgd
-        SN["Saddle Point risk:\nmay get stuck"]:::sgd
-        S1 --> S2 --> S3 --> S4 --> SN
-    end
-
-    subgraph AdamP ["Adam / AdamW"]
-        direction TB
-        A1["Start: θ₀"]:::adam
-        A2["Step 1: adapts LR per-dim\n(large steps in sparse dims)"]:::adam
-        A3["Step 2: momentum smooths\nnoisy gradient directions"]:::adam
-        A4["Step N: converges faster\nbias correction stabilizes early"]:::adam
-        AN["Converges: less oscillation\nin narrow loss valleys"]:::adam
-        A1 --> A2 --> A3 --> A4 --> AN
-    end
-
-    NA["SGD: same LR for all dims\nOscillates in curved valleys"]:::note
-    NB["Adam: per-dim adaptive LR\n+ momentum = faster convergence"]:::note
-    SGDP -.-> NA
-    AdamP -.-> NB
-```
+![Figure 1.6: SGD vs Adam](illustrations/ch01/fig_1_6_sgd_vs_adam.svg)
 
 ### 1.4.2 Backpropagation *(Review)*
 
@@ -402,46 +290,7 @@ $$\frac{\partial \mathcal{L}}{\partial \mathbf{W}} = \frac{\partial \mathcal{L}}
 
 where $\delta$ is the gradient flowing back from subsequent layers. Each layer receives the gradient from above, multiplies by the local Jacobian, and passes it further back.
 
-```mermaid
-graph RL
-    classDef var fill:#f1f5f9,stroke:#475569,stroke-width:2px,color:#0f172a,font-family:monospace
-    classDef op fill:#e0f2fe,stroke:#0284c7,stroke-width:2px,color:#0c4a6e,font-weight:bold
-    classDef loss fill:#fef3c7,stroke:#d97706,stroke-width:2px,color:#78350f
-
-    %% Nodes
-    W["W"]:::var
-    X["x"]:::var
-    Mul["(W·x)"]:::op
-    Z["z"]:::var
-    Sig["σ(z)"]:::op
-    H["h"]:::var
-    L_op["Loss"]:::op
-    L["L"]:::loss
-
-    %% Forward Pass (Blue, Left-to-Right layout logic reversed since graph is RL)
-    W --> Mul
-    X --> Mul
-    Mul --> Z
-    Z --> Sig
-    Sig --> H
-    H --> L_op
-    L_op --> L
-
-    %% Backward Pass (Red Dashed)
-    L -.->|"∂L/∂L=1"| L_op
-    L_op -.->|"∂L/∂h"| H
-    H -.-> Sig
-    Sig -.->|"∂L/∂z = (∂L/∂h)·σ'(z)"| Z
-    Z -.-> Mul
-    Mul -.->|"∂L/∂W = ∂L/∂z · xᵀ"| W
-    Mul -.->|"∂L/∂x = Wᵀ · ∂L/∂z"| X
-
-    %% Styling Forward Pass Edges (Blue)
-    linkStyle 0,1,2,3,4,5,6 stroke:#0284c7,stroke-width:2px;
-    
-    %% Styling Backward Pass Edges (Red Dashed)
-    linkStyle 7,8,9,10,11,12,13 stroke:#ef4444,stroke-width:2px,stroke-dasharray: 4 4;
-```
+![Figure 1.4: Computation Graph and Backpropagation](illustrations/ch01/fig_1_4_computation_graph_backprop.svg)
 
 The computational cost of the backward pass is roughly 2–3× the forward pass (and can be higher for attention layers, where the backward pass involves additional matrix operations over the full sequence length). You store intermediate activations during the forward pass to reuse them during the backward pass. This memory cost is why training requires more GPU memory than inference — a practical constraint that shapes many architectural decisions.
 
@@ -501,35 +350,7 @@ CNNs (LeCun et al., 1998) exploit a structural prior: **translation equivariance
 
 $$\text{output}[i, j] = \sum_{m,\, n} \text{kernel}[m, n] \cdot \text{input}[i + m,\, j + n]$$
 
-```mermaid
-graph LR
-    classDef grid fill:#f1f5f9,stroke:#475569,stroke-width:2px,color:#0f172a,font-family:monospace
-    classDef kernel fill:#fef3c7,stroke:#d97706,stroke-width:2px,color:#78350f,font-family:monospace
-    classDef output fill:#e0f2fe,stroke:#0284c7,stroke-width:2px,color:#0c4a6e,font-family:monospace
-    classDef label fill:none,stroke:none,color:#0f172a,font-style:italic
-
-    subgraph Input ["Input Image (W × H)"]
-        direction TB
-        I["Grid of Pixels<br/>(e.g., 5×5 padded to 7×7)"]:::grid
-    end
-
-    subgraph Operation ["Convolution (Template Matching)"]
-        direction TB
-        K["Kernel (K × K)<br/>Slides over input computing<br/>sum of element-wise products"]:::kernel
-    end
-
-    subgraph FeatureMap ["Output Feature Map (W_out × H_out)"]
-        direction TB
-        O["Grid of Activations<br/>High value = template matched"]:::output
-    end
-    
-    Formula["Shape Formula:<br/>W_{out} = ⌊(W - K + 2P) / S⌋ + 1<br/>(S=Stride, P=Padding)"]:::label
-
-    I -->|"Stride (S)"| K
-    K -->|"1 output per patch"| O
-    
-    Operation -.-> Formula
-```
+![Figure 1.7: CNN Convolution Operation](illustrations/ch01/fig_1_7_cnn_convolution.svg)
 
 This has three consequences:
 
@@ -537,38 +358,7 @@ This has three consequences:
 2. **Local connectivity**: each output depends on a small spatial neighborhood, not the entire input.
 3. **Hierarchical feature extraction**: stacking convolutional layers with pooling creates a hierarchy — early layers detect edges, middle layers detect textures and parts, later layers detect objects. This hierarchy emerges from training, not from explicit engineering.
 
-```mermaid
-graph LR
-    classDef layer fill:#e0f2fe,stroke:#0284c7,stroke-width:2px,color:#0c4a6e,font-weight:bold
-    classDef pool fill:#f1f5f9,stroke:#94a3b8,stroke-width:1px,color:#475569,font-style:italic
-    classDef feature fill:#fef3c7,stroke:#d97706,stroke-width:2px,color:#78350f
-    classDef out fill:#dcfce7,stroke:#22c55e,stroke-width:2px,color:#14532d,font-weight:bold
-
-    Input["Input Image\n(224×224×3)"]:::layer
-
-    subgraph Stage1 ["Early Layers (Low-level)"]
-        C1["Conv Block 1\n(224×224×64)"]:::layer
-        F1["Features:\nEdges, Corners,\nColor Blobs"]:::feature
-        P1["Pool\n(112×112×64)"]:::pool
-    end
-
-    subgraph Stage2 ["Mid Layers (Mid-level)"]
-        C2["Conv Block 2\n(112×112×128)"]:::layer
-        F2["Features:\nTextures, Gradients,\nSimple Patterns"]:::feature
-        P2["Pool\n(56×56×128)"]:::pool
-    end
-
-    subgraph Stage3 ["Deep Layers (High-level)"]
-        C3["Conv Block 3\n(56×56×512)"]:::layer
-        F3["Features:\nParts (eyes, wheels),\nObject Components"]:::feature
-        P3["Pool\n(7×7×512)"]:::pool
-    end
-
-    FC["FC Layers +\nSoftmax"]:::layer
-    Out["Class Scores\n(e.g., 'dog': 0.92)"]:::out
-
-    Input --> C1 --> F1 --> P1 --> C2 --> F2 --> P2 --> C3 --> F3 --> P3 --> FC --> Out
-```
+![Figure 1.8: CNN Hierarchical Feature Extraction](illustrations/ch01/fig_1_8_cnn_hierarchical_features.svg)
 
 Pooling layers (max pooling, average pooling) reduce spatial dimensions and provide a degree of translation invariance on top of the equivariance from convolution.
 
@@ -588,53 +378,7 @@ $$\frac{\partial \mathcal{L}}{\partial \mathbf{h}_1} = \frac{\partial \mathcal{L
 
 Each Jacobian factor can shrink or amplify the gradient. Over long sequences, this product either vanishes (gradient goes to zero, killing learning of long-range dependencies) or explodes (gradient becomes enormous, destabilizing training).
 
-```mermaid
-graph RL
-    classDef state fill:#e0f2fe,stroke:#0284c7,stroke-width:2px,color:#0c4a6e,font-family:monospace
-    classDef input fill:#f1f5f9,stroke:#475569,stroke-width:2px,color:#0f172a,font-family:monospace
-    classDef loss fill:#fef3c7,stroke:#d97706,stroke-width:2px,color:#78350f,font-weight:bold
-
-    %% Nodes (drawn RL so time goes Left->Right when flipped)
-    L["Loss L_T"]:::loss
-    
-    HT["h_T"]:::state
-    H3["h_3"]:::state
-    H2["h_2"]:::state
-    H1["h_1"]:::state
-    H0(("h_0")):::state
-
-    XT["x_T"]:::input
-    X3["x_3"]:::input
-    X2["x_2"]:::input
-    X1["x_1"]:::input
-
-    %% Forward Pass (Time moves left to right, implemented in RL as child to parent)
-    L --- HT
-    HT ---|"W_hh"| H3
-    H3 ---|"W_hh"| H2
-    H2 ---|"W_hh"| H1
-    H1 ---|"W_hh"| H0
-
-    HT ---|"W_xh"| XT
-    H3 ---|"W_xh"| X3
-    H2 ---|"W_xh"| X2
-    H1 ---|"W_xh"| X1
-
-    %% Backward Pass Fading (from Loss back through Time)
-    L -->|"∂L/∂h_T (Strong)"| HT
-    HT -->|"∂L/∂h_3"| H3
-    H3 -->|"∂L/∂h_2"| H2
-    H2 -->|"∂L/∂h_1 (Vanished)"| H1
-
-    %% Fading Styles for Backward Pass Arrows
-    linkStyle 9 stroke:#ef4444,stroke-width:4px
-    linkStyle 10 stroke:#f87171,stroke-width:3px
-    linkStyle 11 stroke:#fca5a5,stroke-width:2px
-    linkStyle 12 stroke:#fee2e2,stroke-width:1px
-    
-    %% Forward paths are solid blue
-    linkStyle 0,1,2,3,4,5,6,7,8 stroke:#0284c7,stroke-width:2px
-```
+![Figure 1.9: RNN Unrolled Through Time](illustrations/ch01/fig_1_9_rnn_unrolled.svg)
 
 **LSTMs** (Hochreiter & Schmidhuber, 1997) address vanishing gradients with a gating mechanism. The key innovation is the **cell state** $\mathbf{c}_t$, which acts as a "highway" for gradient flow:
 
@@ -650,66 +394,7 @@ $$\mathbf{o}_t = \sigma(\mathbf{W}_o [\mathbf{h}_{t-1}, \mathbf{x}_t] + \mathbf{
 
 $$\mathbf{h}_t = \mathbf{o}_t \odot \tanh(\mathbf{c}_t) \quad \text{(hidden state)}$$
 
-```mermaid
-graph TD
-    classDef io fill:#f1f5f9,stroke:#475569,stroke-width:2px,color:#0f172a,font-family:monospace
-    classDef op fill:#e0f2fe,stroke:#0284c7,stroke-width:2px,color:#0c4a6e,font-weight:bold
-    classDef gate fill:#fef3c7,stroke:#d97706,stroke-width:2px,color:#78350f,font-family:monospace
-    classDef highway fill:#dcfce7,stroke:#22c55e,stroke-width:3px,color:#14532d,font-weight:bold
-
-    subgraph LSTM ["LSTM Cell (Time t)"]
-        direction TB
-        
-        %% Inputs
-        C_prev["Cell State c_{t-1}"]:::highway
-        H_prev["Hidden h_{t-1}"]:::io
-        X["Input x_t"]:::io
-        
-        %% Concat
-        Concat["Concat [h_{t-1}, x_t]"]:::op
-        
-        %% Gates
-        F_gate["Forget Gate (f_t)<br/>σ(W_f · [h, x])"]:::gate
-        I_gate["Input Gate (i_t)<br/>σ(W_i · [h, x])"]:::gate
-        C_cand["Candidate (c̃_t)<br/>tanh(W_c · [h, x])"]:::gate
-        O_gate["Output Gate (o_t)<br/>σ(W_o · [h, x])"]:::gate
-        
-        %% Pointwise Ops
-        Mul1(("⊗")):::op
-        Mul2(("⊗")):::op
-        Add1(("⊕")):::op
-        Tanh_op["tanh"]:::op
-        Mul3(("⊗")):::op
-        
-        %% Flow
-        H_prev --> Concat
-        X --> Concat
-        
-        Concat --> F_gate
-        Concat --> I_gate
-        Concat --> C_cand
-        Concat --> O_gate
-        
-        C_prev --> Mul1
-        F_gate --> Mul1
-        
-        I_gate --> Mul2
-        C_cand --> Mul2
-        
-        Mul1 ==> Add1
-        Mul2 ==> Add1
-        
-        Add1 ==>|"Cell State Update"| C_next["Cell State c_t"]:::highway
-        
-        C_next --> Tanh_op
-        Tanh_op --> Mul3
-        O_gate --> Mul3
-        
-        Mul3 --> H_next["Hidden h_t"]:::io
-    end
-    
-    Add1 -.->|"Gradient Highway"| C_prev
-```
+![Figure 1.10: LSTM Cell](illustrations/ch01/fig_1_10_lstm_cell.svg)
 
 The forget gate $\mathbf{f}_t$ controls what to discard from the cell state. The input gate $\mathbf{i}_t$ controls what new information to store. The cell state update $\mathbf{c}_t = \mathbf{f}_t \odot \mathbf{c}_{t-1} + \cdots$ is additive, not multiplicative — this creates a gradient highway that mitigates vanishing gradients.
 
@@ -724,53 +409,7 @@ Many tasks require mapping a variable-length input to a variable-length output: 
 
 In the original sequence-to-sequence framework (Sutskever et al., 2014), both encoder and decoder were LSTMs. The encoder's final hidden state served as the "context" for the decoder. The bottleneck of compressing an entire input sequence into a single vector motivated the **attention mechanism** — allowing the decoder to attend to all encoder hidden states at each generation step.
 
-```mermaid
-graph LR
-    classDef encoder fill:#e0f2fe,stroke:#0284c7,stroke-width:2px,color:#0c4a6e,font-family:monospace
-    classDef decoder fill:#fce7f3,stroke:#db2777,stroke-width:2px,color:#831843,font-family:monospace
-    classDef context fill:#fee2e2,stroke:#ef4444,stroke-width:4px,color:#7f1d1d,font-weight:bold
-    classDef token fill:#f1f5f9,stroke:#475569,stroke-width:2px,color:#0f172a,font-family:monospace
-
-    subgraph Input_Processing ["Encoder (e.g., LSTM)"]
-        direction LR
-        E1["Enc_1"]:::encoder
-        E2["Enc_2"]:::encoder
-        E3["Enc_3"]:::encoder
-        
-        X1["'I'"]:::token --> E1
-        X2["'love'"]:::token --> E2
-        X3["'ML'"]:::token --> E3
-        
-        E1 --> E2 --> E3
-    end
-
-    C(("Context Vector C<br/>(Information Bottleneck)")):::context
-    
-    E3 ==>|"Compresses entire sequence<br/>into fixed-size vector"| C
-    
-    subgraph Output_Generation ["Decoder (e.g., LSTM)"]
-        direction LR
-        D1["Dec_1"]:::decoder
-        D2["Dec_2"]:::decoder
-        D3["Dec_3"]:::decoder
-        
-        BOS["BOS"]:::token --> D1
-        Y1["'J'aime'"]:::token
-        D1 --> Y1
-        
-        Y1 -.->|"Auto-regressive<br/>Feed"| D2
-        Y2["'le'"]:::token
-        D2 --> Y2
-        
-        Y2 -.-> D3
-        Y3["'ML'"]:::token
-        D3 --> Y3
-        
-        D1 --> D2 --> D3
-    end
-    
-    C ==>|"Initializes decoder state"| D1
-```
+![Figure 1.11: Encoder-Decoder with Information Bottleneck](illustrations/ch01/fig_1_11_encoder_decoder_bottleneck.svg)
 
 This encoder-decoder structure with attention recurs throughout modern AI: in Transformers, in vision-language models, in diffusion models. It is a fundamental design pattern — know it well.
 

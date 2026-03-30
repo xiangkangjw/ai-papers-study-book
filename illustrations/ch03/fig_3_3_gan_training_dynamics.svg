@@ -1,58 +1,58 @@
 <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 900 340" font-family="Inter, Helvetica, Arial, sans-serif">
-  <text x="450" y="28" text-anchor="middle" font-size="17" font-weight="bold" fill="#0f172a">GAN Training Dynamics: Generator &amp; Discriminator Convergence</text>
-  <text x="450" y="46" text-anchor="middle" font-size="10" fill="#64748b">At convergence: p_g = p_data and D(x) = 1/2 everywhere</text>
+  <text x="450" y="28" text-anchor="middle" font-size="17" font-weight="bold" fill="#1a1a2e">GAN Training Dynamics: Generator &amp; Discriminator Convergence</text>
+  <text x="450" y="46" text-anchor="middle" font-size="11" fill="#7a7a8a">At convergence: p_g = p_data and D(x) = 1/2 everywhere</text>
 
   <!-- Panel 1: Initialization -->
-  <rect x="20" y="65" width="270" height="240" rx="8" fill="#f8fafc" stroke="#e2e8f0" stroke-width="1.5"/>
-  <text x="155" y="88" text-anchor="middle" font-size="10" font-weight="bold" fill="#0f172a">1. Initialization</text>
+  <rect x="20" y="65" width="270" height="240" rx="8" fill="#f5f5f8" stroke="#f5f5f8" stroke-width="1.5"/>
+  <text x="155" y="88" text-anchor="middle" font-size="11" font-weight="bold" fill="#1a1a2e">1. Initialization</text>
 
   <!-- Distributions -->
-  <path d="M 50 250 Q 90 250 110 200 Q 130 150 155 150 Q 180 150 200 200 Q 220 250 260 250" fill="none" stroke="#0284c7" stroke-width="2.5"/>
-  <path d="M 50 250 Q 80 250 90 230 Q 110 190 120 210 Q 130 240 150 250" fill="none" stroke="#16a34a" stroke-width="2.5" stroke-dasharray="6,3"/>
+  <path d="M 50 250 Q 90 250 110 200 Q 130 150 155 150 Q 180 150 200 200 Q 220 250 260 250" fill="none" stroke="#4a7fb5" stroke-width="2.5"/>
+  <path d="M 50 250 Q 80 250 90 230 Q 110 190 120 210 Q 130 240 150 250" fill="none" stroke="#3a9e8f" stroke-width="2.5" stroke-dasharray="6,3"/>
 
   <!-- D line -->
-  <path d="M 50 200 Q 100 120 155 180 Q 200 240 260 160" fill="none" stroke="#d97706" stroke-width="1.5"/>
+  <path d="M 50 200 Q 100 120 155 180 Q 200 240 260 160" fill="none" stroke="#d4a03c" stroke-width="1.5"/>
 
-  <text x="155" y="112" text-anchor="middle" font-size="8" fill="#64748b">G output far from data</text>
-  <text x="155" y="126" text-anchor="middle" font-size="8" fill="#64748b">D easily distinguishes</text>
+  <text x="155" y="112" text-anchor="middle" font-size="11" fill="#7a7a8a">G output far from data</text>
+  <text x="155" y="126" text-anchor="middle" font-size="11" fill="#7a7a8a">D easily distinguishes</text>
 
   <!-- Panel 2: Mid-training -->
-  <rect x="315" y="65" width="270" height="240" rx="8" fill="#f8fafc" stroke="#e2e8f0" stroke-width="1.5"/>
-  <text x="450" y="88" text-anchor="middle" font-size="10" font-weight="bold" fill="#0f172a">2. Mid-Training</text>
+  <rect x="315" y="65" width="270" height="240" rx="8" fill="#f5f5f8" stroke="#f5f5f8" stroke-width="1.5"/>
+  <text x="450" y="88" text-anchor="middle" font-size="11" font-weight="bold" fill="#1a1a2e">2. Mid-Training</text>
 
-  <path d="M 345 250 Q 385 250 405 200 Q 425 150 450 150 Q 475 150 495 200 Q 515 250 555 250" fill="none" stroke="#0284c7" stroke-width="2.5"/>
-  <path d="M 345 250 Q 375 250 400 210 Q 425 170 445 165 Q 465 160 485 190 Q 510 230 555 250" fill="none" stroke="#16a34a" stroke-width="2.5" stroke-dasharray="6,3"/>
+  <path d="M 345 250 Q 385 250 405 200 Q 425 150 450 150 Q 475 150 495 200 Q 515 250 555 250" fill="none" stroke="#4a7fb5" stroke-width="2.5"/>
+  <path d="M 345 250 Q 375 250 400 210 Q 425 170 445 165 Q 465 160 485 190 Q 510 230 555 250" fill="none" stroke="#3a9e8f" stroke-width="2.5" stroke-dasharray="6,3"/>
 
-  <path d="M 345 190 Q 400 175 450 195 Q 500 210 555 180" fill="none" stroke="#d97706" stroke-width="1.5"/>
+  <path d="M 345 190 Q 400 175 450 195 Q 500 210 555 180" fill="none" stroke="#d4a03c" stroke-width="1.5"/>
 
-  <text x="450" y="112" text-anchor="middle" font-size="8" fill="#64748b">G approaches p_data</text>
-  <text x="450" y="126" text-anchor="middle" font-size="8" fill="#64748b">D has harder time</text>
+  <text x="450" y="112" text-anchor="middle" font-size="11" fill="#7a7a8a">G approaches p_data</text>
+  <text x="450" y="126" text-anchor="middle" font-size="11" fill="#7a7a8a">D has harder time</text>
 
   <!-- Panel 3: Convergence -->
-  <rect x="610" y="65" width="270" height="240" rx="8" fill="#f0fdf4" stroke="#16a34a" stroke-width="1.5"/>
-  <text x="745" y="88" text-anchor="middle" font-size="10" font-weight="bold" fill="#14532d">3. Convergence (Nash Eq.)</text>
+  <rect x="610" y="65" width="270" height="240" rx="8" fill="#edf7f5" stroke="#3a9e8f" stroke-width="1.5"/>
+  <text x="745" y="88" text-anchor="middle" font-size="11" font-weight="bold" fill="#3a9e8f">3. Convergence (Nash Eq.)</text>
 
   <!-- Overlapping distributions -->
-  <path d="M 640 250 Q 680 250 700 200 Q 720 150 745 150 Q 770 150 790 200 Q 810 250 850 250" fill="none" stroke="#0284c7" stroke-width="2.5"/>
-  <path d="M 640 250 Q 680 250 700 200 Q 720 150 745 150 Q 770 150 790 200 Q 810 250 850 250" fill="none" stroke="#16a34a" stroke-width="2.5" stroke-dasharray="6,3"/>
+  <path d="M 640 250 Q 680 250 700 200 Q 720 150 745 150 Q 770 150 790 200 Q 810 250 850 250" fill="none" stroke="#4a7fb5" stroke-width="2.5"/>
+  <path d="M 640 250 Q 680 250 700 200 Q 720 150 745 150 Q 770 150 790 200 Q 810 250 850 250" fill="none" stroke="#3a9e8f" stroke-width="2.5" stroke-dasharray="6,3"/>
 
   <!-- D = 1/2 line -->
-  <line x1="640" y1="195" x2="850" y2="195" stroke="#d97706" stroke-width="1.5"/>
-  <text x="850" y="190" font-size="7" fill="#d97706">D = 1/2</text>
+  <line x1="640" y1="195" x2="850" y2="195" stroke="#d4a03c" stroke-width="1.5"/>
+  <text x="845" y="188" text-anchor="end" font-size="11" fill="#d4a03c">D = 1/2</text>
 
-  <text x="745" y="112" text-anchor="middle" font-size="8" fill="#14532d">p_g = p_data</text>
-  <text x="745" y="126" text-anchor="middle" font-size="8" fill="#14532d">D(x) = 1/2 ∀x</text>
+  <text x="745" y="112" text-anchor="middle" font-size="11" fill="#3a9e8f">p_g = p_data</text>
+  <text x="745" y="126" text-anchor="middle" font-size="11" fill="#3a9e8f">D(x) = 1/2 ∀x</text>
 
   <!-- Legend -->
-  <line x1="200" y1="315" x2="230" y2="315" stroke="#0284c7" stroke-width="2.5"/>
-  <text x="238" y="319" font-size="9" fill="#0284c7" font-weight="bold">p_data</text>
-  <text x="268" y="319" font-size="8" fill="#64748b">(real data)</text>
+  <line x1="200" y1="315" x2="230" y2="315" stroke="#4a7fb5" stroke-width="2.5"/>
+  <text x="238" y="319" font-size="11" fill="#4a7fb5" font-weight="bold">p_data</text>
+  <text x="268" y="319" font-size="11" fill="#7a7a8a">(real data)</text>
 
-  <line x1="370" y1="315" x2="400" y2="315" stroke="#16a34a" stroke-width="2.5" stroke-dasharray="6,3"/>
-  <text x="408" y="319" font-size="9" fill="#16a34a" font-weight="bold">p_g</text>
-  <text x="430" y="319" font-size="8" fill="#64748b">(generator)</text>
+  <line x1="370" y1="315" x2="400" y2="315" stroke="#3a9e8f" stroke-width="2.5" stroke-dasharray="6,3"/>
+  <text x="408" y="319" font-size="11" fill="#3a9e8f" font-weight="bold">p_g</text>
+  <text x="430" y="319" font-size="11" fill="#7a7a8a">(generator)</text>
 
-  <line x1="530" y1="315" x2="560" y2="315" stroke="#d97706" stroke-width="1.5"/>
-  <text x="568" y="319" font-size="9" fill="#d97706" font-weight="bold">D(x)</text>
-  <text x="608" y="319" font-size="8" fill="#64748b">(discriminator)</text>
+  <line x1="530" y1="315" x2="560" y2="315" stroke="#d4a03c" stroke-width="1.5"/>
+  <text x="568" y="319" font-size="11" fill="#d4a03c" font-weight="bold">D(x)</text>
+  <text x="608" y="319" font-size="11" fill="#7a7a8a">(discriminator)</text>
 </svg>

@@ -30,52 +30,7 @@ The goal: after reading this book, you should be able to pick up any current AI 
 
 Not all chapters depend on each other equally. The diagram below shows which chapters are prerequisites for which:
 
-```mermaid
-graph LR
-    %% Nodes
-    Ch1("<b>Ch 1: Foundations</b>")
-    Ch2("Ch 2: VAE")
-    Ch3("Ch 3: GAN")
-    Ch4("<b>Ch 4: Transformer</b>")
-    Ch5("<b>Ch 5: GPT / BERT</b>")
-    Ch6("Ch 6: ViT")
-    Ch7("Ch 7: RAG")
-    Ch8("Ch 8: Diffusion")
-    Ch9("Ch 9: LoRA / PEFT")
-    Ch10("Ch 10: RL & VLM")
-
-    %% Edges
-    Ch1 --> Ch2
-    Ch1 --> Ch3
-    Ch1 ==> Ch4
-    Ch1 -.-> Ch10
-
-    Ch2 --> Ch8
-    Ch3 --> Ch8
-    
-    Ch4 ==> Ch5
-    Ch4 --> Ch6
-    Ch4 --> Ch8
-    
-    Ch5 --> Ch7
-    Ch5 --> Ch9
-    Ch5 --> Ch10
-    
-    Ch6 --> Ch10
-
-    %% Domain Styling for Reading Paths
-    classDef core fill:#f1f5f9,stroke:#475569,stroke-width:2px,color:#0f172a
-    classDef llm fill:#f3e8ff,stroke:#9333ea,stroke-width:2px,color:#3b0764
-    classDef img fill:#e0f2fe,stroke:#0284c7,stroke-width:2px,color:#0c4a6e
-    classDef vit fill:#fce7f3,stroke:#db2777,stroke-width:2px,color:#831843
-    classDef rl fill:#dcfce7,stroke:#16a34a,stroke-width:2px,color:#14532d
-
-    class Ch1,Ch4,Ch5 core
-    class Ch7,Ch9 llm
-    class Ch2,Ch3,Ch8 img
-    class Ch6 vit
-    class Ch10 rl
-```
+![Figure F.1: Chapter Dependency Graph](illustrations/frontmatter/fig_F1_chapter_dependency_graph.svg)
 
 ### Reading Paths by Goal
 

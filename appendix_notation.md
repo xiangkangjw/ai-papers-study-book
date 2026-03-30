@@ -1,5 +1,7 @@
 # Appendix: Notation Reference
 
+![Figure A.1: Notation Reference](illustrations/appendix/fig_a_1_notation_reference.svg)
+
 The following table summarizes the mathematical notation used throughout this book. Symbols are grouped by category for easy reference.
 
 ---

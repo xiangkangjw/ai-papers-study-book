@@ -1,73 +1,73 @@
 <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 860 420" font-family="Inter, Helvetica, Arial, sans-serif">
   <defs>
-    <marker id="a" markerWidth="8" markerHeight="6" refX="8" refY="3" orient="auto"><path d="M0,0 L8,3 L0,6 Z" fill="#475569"/></marker>
+    <marker id="a" markerWidth="8" markerHeight="6" refX="8" refY="3" orient="auto"><path d="M0,0 L8,3 L0,6 Z" fill="#4a4a5a"/></marker>
   </defs>
 
-  <text x="430" y="28" text-anchor="middle" font-size="17" font-weight="bold" fill="#0f172a">Flamingo: Perceiver Resampler Detail</text>
-  <text x="430" y="46" text-anchor="middle" font-size="10" fill="#64748b">Converting variable-length vision features into fixed-length visual tokens</text>
+  <text x="430" y="28" text-anchor="middle" font-size="17" font-weight="bold" fill="#1a1a2e">Flamingo: Perceiver Resampler Detail</text>
+  <text x="430" y="46" text-anchor="middle" font-size="11" fill="#7a7a8a">Converting variable-length vision features into fixed-length visual tokens</text>
 
   <!-- Perceiver Resampler detail -->
-  <rect x="30" y="65" width="500" height="330" rx="10" fill="#fef3c7" stroke="#d97706" stroke-width="2"/>
-  <text x="280" y="92" text-anchor="middle" font-size="12" font-weight="bold" fill="#78350f">Perceiver Resampler</text>
+  <rect x="30" y="65" width="500" height="330" rx="10" fill="#f5ece0" stroke="#d4a03c" stroke-width="2"/>
+  <text x="280" y="92" text-anchor="middle" font-size="12" font-weight="bold" fill="#d4a03c">Perceiver Resampler</text>
 
   <!-- Vision features input -->
-  <rect x="55" y="115" width="200" height="40" rx="4" fill="#e0f2fe" stroke="#0284c7" stroke-width="1.5"/>
-  <text x="155" y="133" text-anchor="middle" font-size="8" fill="#0c4a6e">Vision features (variable length)</text>
-  <text x="155" y="148" text-anchor="middle" font-size="7" fill="#0284c7" font-family="'SF Mono', Consolas, monospace">from NFNet: N_v × d_v</text>
+  <rect x="55" y="115" width="200" height="40" rx="4" fill="#e1eaf3" stroke="#4a7fb5" stroke-width="1.5"/>
+  <text x="155" y="133" text-anchor="middle" font-size="11" fill="#4a7fb5">Vision features (variable length)</text>
+  <text x="155" y="148" text-anchor="middle" font-size="11" fill="#4a7fb5" font-family="'JetBrains Mono', 'Fira Code', monospace">from NFNet: N_v × d_v</text>
 
   <!-- Learned queries -->
-  <rect x="280" y="115" width="200" height="40" rx="4" fill="#dcfce7" stroke="#16a34a" stroke-width="2"/>
-  <text x="380" y="133" text-anchor="middle" font-size="8" font-weight="bold" fill="#14532d">Learned Queries (fixed)</text>
-  <text x="380" y="148" text-anchor="middle" font-size="7" fill="#16a34a" font-family="'SF Mono', Consolas, monospace">64 × d (trainable params)</text>
+  <rect x="280" y="115" width="200" height="40" rx="4" fill="#dff0ed" stroke="#3a9e8f" stroke-width="2"/>
+  <text x="380" y="133" text-anchor="middle" font-size="11" font-weight="bold" fill="#3a9e8f">Learned Queries (fixed)</text>
+  <text x="380" y="148" text-anchor="middle" font-size="11" fill="#3a9e8f" font-family="'JetBrains Mono', 'Fira Code', monospace">64 × d (trainable params)</text>
 
   <!-- Cross-attention layers -->
-  <line x1="155" y1="155" x2="155" y2="178" stroke="#475569" stroke-width="1.5"/>
-  <line x1="380" y1="155" x2="380" y2="178" stroke="#475569" stroke-width="1.5"/>
+  <line x1="155" y1="155" x2="155" y2="178" stroke="#4a4a5a" stroke-width="1.5"/>
+  <line x1="380" y1="155" x2="380" y2="178" stroke="#4a4a5a" stroke-width="1.5"/>
 
   <!-- Layer 1 -->
-  <rect x="55" y="180" width="430" height="50" rx="6" fill="#fce7f3" stroke="#db2777" stroke-width="1.5"/>
-  <text x="280" y="200" text-anchor="middle" font-size="9" font-weight="bold" fill="#831843">Cross-Attention Layer</text>
-  <text x="280" y="218" text-anchor="middle" font-size="7" fill="#db2777">Q = queries · W_q    K,V = vision_features · W_k, W_v</text>
+  <rect x="55" y="180" width="430" height="50" rx="6" fill="#f6e4e3" stroke="#d4645c" stroke-width="1.5"/>
+  <text x="280" y="200" text-anchor="middle" font-size="11" font-weight="bold" fill="#d4645c">Cross-Attention Layer</text>
+  <text x="280" y="218" text-anchor="middle" font-size="11" fill="#d4645c">Q = queries · W_q    K,V = vision_features · W_k, W_v</text>
 
-  <line x1="280" y1="230" x2="280" y2="245" stroke="#475569" stroke-width="1.5" marker-end="url(#a)"/>
+  <line x1="280" y1="230" x2="280" y2="245" stroke="#4a4a5a" stroke-width="1.5" marker-end="url(#a)"/>
 
   <!-- Self-attention -->
-  <rect x="55" y="248" width="430" height="35" rx="6" fill="#f3e8ff" stroke="#9333ea" stroke-width="1.5"/>
-  <text x="280" y="270" text-anchor="middle" font-size="9" fill="#581c87">Self-Attention among queries + FFN</text>
+  <rect x="55" y="248" width="430" height="35" rx="6" fill="#e8e4f1" stroke="#7b68a8" stroke-width="1.5"/>
+  <text x="280" y="270" text-anchor="middle" font-size="11" fill="#7b68a8">Self-Attention among queries + FFN</text>
 
-  <line x1="280" y1="283" x2="280" y2="298" stroke="#475569" stroke-width="1.5" marker-end="url(#a)"/>
+  <line x1="280" y1="283" x2="280" y2="298" stroke="#4a4a5a" stroke-width="1.5" marker-end="url(#a)"/>
 
-  <text x="280" y="310" text-anchor="middle" font-size="10" fill="#94a3b8">× N layers</text>
+  <text x="280" y="310" text-anchor="middle" font-size="11" fill="#c0c0c8">× N layers</text>
 
-  <line x1="280" y1="318" x2="280" y2="338" stroke="#475569" stroke-width="1.5" marker-end="url(#a)"/>
+  <line x1="280" y1="318" x2="280" y2="338" stroke="#4a4a5a" stroke-width="1.5" marker-end="url(#a)"/>
 
   <!-- Output -->
-  <rect x="180" y="340" width="200" height="35" rx="4" fill="#dcfce7" stroke="#16a34a" stroke-width="2"/>
-  <text x="280" y="358" text-anchor="middle" font-size="8" font-weight="bold" fill="#14532d">64 visual tokens</text>
-  <text x="280" y="373" text-anchor="middle" font-size="7" fill="#16a34a" font-family="'SF Mono', Consolas, monospace">fixed length, regardless of input</text>
+  <rect x="180" y="340" width="200" height="35" rx="4" fill="#dff0ed" stroke="#3a9e8f" stroke-width="2"/>
+  <text x="280" y="358" text-anchor="middle" font-size="11" font-weight="bold" fill="#3a9e8f">64 visual tokens</text>
+  <text x="280" y="373" text-anchor="middle" font-size="11" fill="#3a9e8f" font-family="'JetBrains Mono', 'Fira Code', monospace">fixed length, regardless of input</text>
 
   <!-- Gated cross-attention detail -->
-  <rect x="555" y="65" width="280" height="170" rx="10" fill="#fce7f3" stroke="#db2777" stroke-width="2"/>
-  <text x="695" y="90" text-anchor="middle" font-size="11" font-weight="bold" fill="#831843">Gated Cross-Attn Layer</text>
-  <text x="695" y="108" text-anchor="middle" font-size="8" fill="#db2777">(inserted into frozen LLM)</text>
+  <rect x="555" y="65" width="280" height="170" rx="10" fill="#f6e4e3" stroke="#d4645c" stroke-width="2"/>
+  <text x="695" y="90" text-anchor="middle" font-size="11" font-weight="bold" fill="#d4645c">Gated Cross-Attn Layer</text>
+  <text x="695" y="108" text-anchor="middle" font-size="11" fill="#d4645c">(inserted into frozen LLM)</text>
 
-  <text x="575" y="132" font-size="8" fill="#334155" font-family="'SF Mono', Consolas, monospace">x = text hidden states</text>
-  <text x="575" y="150" font-size="8" fill="#334155" font-family="'SF Mono', Consolas, monospace">v = 64 visual tokens</text>
-  <text x="575" y="172" font-size="8" fill="#831843" font-family="'SF Mono', Consolas, monospace">y = x + tanh(α) · xattn(x, v)</text>
-  <text x="575" y="194" font-size="8" fill="#334155">α = learned scalar, init 0</text>
-  <text x="575" y="212" font-size="8" fill="#db2777">At init: tanh(0)=0 → LLM unchanged</text>
-  <text x="575" y="228" font-size="8" fill="#db2777">Gradually opens gate during training</text>
+  <text x="575" y="132" font-size="11" fill="#3a3a4a" font-family="'JetBrains Mono', 'Fira Code', monospace">x = text hidden states</text>
+  <text x="575" y="150" font-size="11" fill="#3a3a4a" font-family="'JetBrains Mono', 'Fira Code', monospace">v = 64 visual tokens</text>
+  <text x="575" y="172" font-size="11" fill="#d4645c" font-family="'JetBrains Mono', 'Fira Code', monospace">y = x + tanh(α) · xattn(x, v)</text>
+  <text x="575" y="194" font-size="11" fill="#3a3a4a">α = learned scalar, init 0</text>
+  <text x="575" y="212" font-size="11" fill="#d4645c">At init: tanh(0)=0 → LLM unchanged</text>
+  <text x="575" y="228" font-size="11" fill="#d4645c">Gradually opens gate during training</text>
 
   <!-- Why Perceiver? -->
-  <rect x="555" y="250" width="280" height="80" rx="8" fill="#fef3c7" stroke="#d97706" stroke-width="1.5"/>
-  <text x="695" y="275" text-anchor="middle" font-size="10" font-weight="bold" fill="#78350f">Why Perceiver Resampler?</text>
-  <text x="575" y="298" font-size="8" fill="#334155">• Images: 256 tokens, Video: 1000s of tokens</text>
-  <text x="575" y="315" font-size="8" fill="#334155">• Compress to fixed 64 → manageable context</text>
-  <text x="575" y="330" font-size="8" fill="#d97706">• Variable input → fixed output = flexible</text>
+  <rect x="555" y="250" width="280" height="80" rx="8" fill="#f5ece0" stroke="#d4a03c" stroke-width="1.5"/>
+  <text x="695" y="275" text-anchor="middle" font-size="11" font-weight="bold" fill="#d4a03c">Why Perceiver Resampler?</text>
+  <text x="575" y="298" font-size="11" fill="#3a3a4a">• Images: 256 tokens, Video: 1000s of tokens</text>
+  <text x="575" y="315" font-size="11" fill="#3a3a4a">• Compress to fixed 64 → manageable context</text>
+  <text x="575" y="330" font-size="11" fill="#d4a03c">• Variable input → fixed output = flexible</text>
 
   <!-- Training data -->
-  <rect x="555" y="345" width="280" height="60" rx="8" fill="#f0fdf4" stroke="#16a34a" stroke-width="1.5"/>
-  <text x="695" y="368" text-anchor="middle" font-size="9" font-weight="bold" fill="#14532d">Training Data</text>
-  <text x="575" y="388" font-size="7" fill="#334155">• M3W: 185M image-text from web pages</text>
-  <text x="575" y="402" font-size="7" fill="#334155">• LTIP/VTP: 312M image/video-text pairs</text>
+  <rect x="555" y="345" width="280" height="60" rx="8" fill="#edf7f5" stroke="#3a9e8f" stroke-width="1.5"/>
+  <text x="695" y="368" text-anchor="middle" font-size="11" font-weight="bold" fill="#3a9e8f">Training Data</text>
+  <text x="575" y="388" font-size="11" fill="#3a3a4a">• M3W: 185M image-text from web pages</text>
+  <text x="575" y="402" font-size="11" fill="#3a3a4a">• LTIP/VTP: 312M image/video-text pairs</text>
 </svg>

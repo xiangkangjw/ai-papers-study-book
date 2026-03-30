@@ -1,75 +1,75 @@
 <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 860 420" font-family="Inter, Helvetica, Arial, sans-serif">
   <defs>
-    <marker id="a" markerWidth="8" markerHeight="6" refX="8" refY="3" orient="auto"><path d="M0,0 L8,3 L0,6 Z" fill="#475569"/></marker>
+    <marker id="a" markerWidth="8" markerHeight="6" refX="8" refY="3" orient="auto"><path d="M0,0 L8,3 L0,6 Z" fill="#4a4a5a"/></marker>
   </defs>
 
-  <text x="430" y="28" text-anchor="middle" font-size="17" font-weight="bold" fill="#0f172a">Diffusion Model Taxonomy</text>
-  <text x="430" y="46" text-anchor="middle" font-size="10" fill="#64748b">Organizing the diffusion model landscape by space and sampling strategy</text>
+  <text x="430" y="28" text-anchor="middle" font-size="17" font-weight="bold" fill="#1a1a2e">Diffusion Model Taxonomy</text>
+  <text x="430" y="46" text-anchor="middle" font-size="11" fill="#7a7a8a">Organizing the diffusion model landscape by space and sampling strategy</text>
 
   <!-- Root -->
-  <rect x="310" y="65" width="240" height="40" rx="8" fill="#fce7f3" stroke="#db2777" stroke-width="2.5"/>
-  <text x="430" y="90" text-anchor="middle" font-size="12" font-weight="bold" fill="#831843">Diffusion Models</text>
+  <rect x="310" y="65" width="240" height="40" rx="8" fill="#f6e4e3" stroke="#d4645c" stroke-width="2.5"/>
+  <text x="430" y="90" text-anchor="middle" font-size="12" font-weight="bold" fill="#d4645c">Diffusion Models</text>
 
   <!-- Branch: by space -->
-  <line x1="330" y1="105" x2="200" y2="140" stroke="#475569" stroke-width="2"/>
-  <line x1="530" y1="105" x2="660" y2="140" stroke="#475569" stroke-width="2"/>
+  <line x1="330" y1="105" x2="200" y2="140" stroke="#4a4a5a" stroke-width="2"/>
+  <line x1="530" y1="105" x2="660" y2="140" stroke="#4a4a5a" stroke-width="2"/>
 
   <!-- Pixel-space -->
-  <rect x="70" y="140" width="260" height="40" rx="8" fill="#e0f2fe" stroke="#0284c7" stroke-width="2"/>
-  <text x="200" y="165" text-anchor="middle" font-size="10" font-weight="bold" fill="#0c4a6e">Pixel-Space Diffusion</text>
+  <rect x="70" y="140" width="260" height="40" rx="8" fill="#e1eaf3" stroke="#4a7fb5" stroke-width="2"/>
+  <text x="200" y="165" text-anchor="middle" font-size="11" font-weight="bold" fill="#4a7fb5">Pixel-Space Diffusion</text>
 
-  <line x1="130" y1="180" x2="100" y2="210" stroke="#0284c7" stroke-width="1.5"/>
-  <line x1="270" y1="180" x2="300" y2="210" stroke="#0284c7" stroke-width="1.5"/>
+  <line x1="130" y1="180" x2="100" y2="210" stroke="#4a7fb5" stroke-width="1.5"/>
+  <line x1="270" y1="180" x2="300" y2="210" stroke="#4a7fb5" stroke-width="1.5"/>
 
-  <rect x="40" y="212" width="130" height="65" rx="6" fill="#e0f2fe" stroke="#0284c7" stroke-width="1.5"/>
-  <text x="105" y="232" text-anchor="middle" font-size="9" font-weight="bold" fill="#0c4a6e">DDPM</text>
-  <text x="105" y="248" text-anchor="middle" font-size="7" fill="#334155">Ho et al. (2020)</text>
-  <text x="105" y="264" text-anchor="middle" font-size="6" fill="#0284c7">1000-step stochastic</text>
+  <rect x="40" y="212" width="130" height="65" rx="6" fill="#e1eaf3" stroke="#4a7fb5" stroke-width="1.5"/>
+  <text x="105" y="232" text-anchor="middle" font-size="11" font-weight="bold" fill="#4a7fb5">DDPM</text>
+  <text x="105" y="248" text-anchor="middle" font-size="11" fill="#3a3a4a">Ho et al. (2020)</text>
+  <text x="105" y="264" text-anchor="middle" font-size="11" fill="#4a7fb5">1000-step stochastic</text>
 
-  <rect x="230" y="212" width="130" height="65" rx="6" fill="#e0f2fe" stroke="#0284c7" stroke-width="1.5"/>
-  <text x="295" y="232" text-anchor="middle" font-size="9" font-weight="bold" fill="#0c4a6e">Imagen</text>
-  <text x="295" y="248" text-anchor="middle" font-size="7" fill="#334155">Saharia et al. (2022)</text>
-  <text x="295" y="264" text-anchor="middle" font-size="6" fill="#0284c7">T5 text encoder + cascaded</text>
+  <rect x="230" y="212" width="130" height="65" rx="6" fill="#e1eaf3" stroke="#4a7fb5" stroke-width="1.5"/>
+  <text x="295" y="232" text-anchor="middle" font-size="11" font-weight="bold" fill="#4a7fb5">Imagen</text>
+  <text x="295" y="248" text-anchor="middle" font-size="11" fill="#3a3a4a">Saharia et al. (2022)</text>
+  <text x="295" y="264" text-anchor="middle" font-size="11" fill="#4a7fb5">T5 text encoder + cascaded</text>
 
   <!-- Latent-space -->
-  <rect x="530" y="140" width="260" height="40" rx="8" fill="#dcfce7" stroke="#16a34a" stroke-width="2"/>
-  <text x="660" y="165" text-anchor="middle" font-size="10" font-weight="bold" fill="#14532d">Latent-Space Diffusion</text>
+  <rect x="530" y="140" width="260" height="40" rx="8" fill="#dff0ed" stroke="#3a9e8f" stroke-width="2"/>
+  <text x="660" y="165" text-anchor="middle" font-size="11" font-weight="bold" fill="#3a9e8f">Latent-Space Diffusion</text>
 
-  <line x1="590" y1="180" x2="560" y2="210" stroke="#16a34a" stroke-width="1.5"/>
-  <line x1="730" y1="180" x2="760" y2="210" stroke="#16a34a" stroke-width="1.5"/>
+  <line x1="590" y1="180" x2="560" y2="210" stroke="#3a9e8f" stroke-width="1.5"/>
+  <line x1="730" y1="180" x2="760" y2="210" stroke="#3a9e8f" stroke-width="1.5"/>
 
-  <rect x="490" y="212" width="140" height="65" rx="6" fill="#dcfce7" stroke="#16a34a" stroke-width="1.5"/>
-  <text x="560" y="232" text-anchor="middle" font-size="9" font-weight="bold" fill="#14532d">LDM / Stable Diff.</text>
-  <text x="560" y="248" text-anchor="middle" font-size="7" fill="#334155">Rombach et al. (2022)</text>
-  <text x="560" y="264" text-anchor="middle" font-size="6" fill="#16a34a">VAE latent + CLIP text</text>
+  <rect x="490" y="212" width="140" height="65" rx="6" fill="#dff0ed" stroke="#3a9e8f" stroke-width="1.5"/>
+  <text x="560" y="232" text-anchor="middle" font-size="11" font-weight="bold" fill="#3a9e8f">LDM / Stable Diff.</text>
+  <text x="560" y="248" text-anchor="middle" font-size="11" fill="#3a3a4a">Rombach et al. (2022)</text>
+  <text x="560" y="264" text-anchor="middle" font-size="11" fill="#3a9e8f">VAE latent + CLIP text</text>
 
-  <rect x="690" y="212" width="140" height="65" rx="6" fill="#dcfce7" stroke="#16a34a" stroke-width="1.5"/>
-  <text x="760" y="232" text-anchor="middle" font-size="9" font-weight="bold" fill="#14532d">SDXL / SD3</text>
-  <text x="760" y="248" text-anchor="middle" font-size="7" fill="#334155">Podell et al. (2023)</text>
-  <text x="760" y="264" text-anchor="middle" font-size="6" fill="#16a34a">DiT / MMDiT backbone</text>
+  <rect x="690" y="212" width="140" height="65" rx="6" fill="#dff0ed" stroke="#3a9e8f" stroke-width="1.5"/>
+  <text x="760" y="232" text-anchor="middle" font-size="11" font-weight="bold" fill="#3a9e8f">SDXL / SD3</text>
+  <text x="760" y="248" text-anchor="middle" font-size="11" fill="#3a3a4a">Podell et al. (2023)</text>
+  <text x="760" y="264" text-anchor="middle" font-size="11" fill="#3a9e8f">DiT / MMDiT backbone</text>
 
   <!-- Sampling strategy branch -->
-  <text x="430" y="310" text-anchor="middle" font-size="12" font-weight="bold" fill="#0f172a">By Sampling Strategy</text>
-  <line x1="430" y1="316" x2="430" y2="316" stroke="#475569" stroke-width="1"/>
+  <text x="430" y="310" text-anchor="middle" font-size="12" font-weight="bold" fill="#1a1a2e">By Sampling Strategy</text>
+  <line x1="430" y1="316" x2="430" y2="316" stroke="#4a4a5a" stroke-width="1"/>
 
   <!-- Stochastic -->
-  <rect x="40" y="330" width="240" height="80" rx="8" fill="#fef3c7" stroke="#d97706" stroke-width="2"/>
-  <text x="160" y="355" text-anchor="middle" font-size="10" font-weight="bold" fill="#78350f">Stochastic (SDE)</text>
-  <text x="60" y="375" font-size="7" fill="#334155">DDPM: 1000 steps, noise re-injected</text>
-  <text x="60" y="390" font-size="7" fill="#334155">Ancestral sampling, score-based (NCSN)</text>
-  <text x="60" y="405" font-size="7" fill="#d97706">Higher diversity, slower generation</text>
+  <rect x="40" y="330" width="240" height="80" rx="8" fill="#f5ece0" stroke="#d4a03c" stroke-width="2"/>
+  <text x="160" y="355" text-anchor="middle" font-size="11" font-weight="bold" fill="#d4a03c">Stochastic (SDE)</text>
+  <text x="60" y="375" font-size="11" fill="#3a3a4a">DDPM: 1000 steps, noise re-injected</text>
+  <text x="60" y="390" font-size="11" fill="#3a3a4a">Ancestral sampling, score-based (NCSN)</text>
+  <text x="60" y="405" font-size="11" fill="#d4a03c">Higher diversity, slower generation</text>
 
   <!-- Deterministic -->
-  <rect x="310" y="330" width="240" height="80" rx="8" fill="#f3e8ff" stroke="#9333ea" stroke-width="2"/>
-  <text x="430" y="355" text-anchor="middle" font-size="10" font-weight="bold" fill="#581c87">Deterministic (ODE)</text>
-  <text x="330" y="375" font-size="7" fill="#334155">DDIM: 50 steps, no noise re-injection</text>
-  <text x="330" y="390" font-size="7" fill="#334155">Probability flow ODE, DPM-Solver</text>
-  <text x="330" y="405" font-size="7" fill="#9333ea">Faster, reproducible, interpolatable</text>
+  <rect x="310" y="330" width="240" height="80" rx="8" fill="#e8e4f1" stroke="#7b68a8" stroke-width="2"/>
+  <text x="430" y="355" text-anchor="middle" font-size="11" font-weight="bold" fill="#7b68a8">Deterministic (ODE)</text>
+  <text x="330" y="375" font-size="11" fill="#3a3a4a">DDIM: 50 steps, no noise re-injection</text>
+  <text x="330" y="390" font-size="11" fill="#3a3a4a">Probability flow ODE, DPM-Solver</text>
+  <text x="330" y="405" font-size="11" fill="#7b68a8">Faster, reproducible, interpolatable</text>
 
   <!-- Flow matching -->
-  <rect x="580" y="330" width="250" height="80" rx="8" fill="#fce7f3" stroke="#db2777" stroke-width="2"/>
-  <text x="705" y="355" text-anchor="middle" font-size="10" font-weight="bold" fill="#831843">Flow Matching (OT)</text>
-  <text x="600" y="375" font-size="7" fill="#334155">Lipman et al. (2023), SD3</text>
-  <text x="600" y="390" font-size="7" fill="#334155">Straight-line paths via optimal transport</text>
-  <text x="600" y="405" font-size="7" fill="#db2777">Simplest formulation, fastest convergence</text>
+  <rect x="580" y="330" width="250" height="80" rx="8" fill="#f6e4e3" stroke="#d4645c" stroke-width="2"/>
+  <text x="705" y="355" text-anchor="middle" font-size="11" font-weight="bold" fill="#d4645c">Flow Matching (OT)</text>
+  <text x="600" y="375" font-size="11" fill="#3a3a4a">Lipman et al. (2023), SD3</text>
+  <text x="600" y="390" font-size="11" fill="#3a3a4a">Straight-line paths via optimal transport</text>
+  <text x="600" y="405" font-size="11" fill="#d4645c">Simplest formulation, fastest convergence</text>
 </svg>

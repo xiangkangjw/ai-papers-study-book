@@ -1,136 +1,136 @@
 <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 900 560" font-family="Inter, Helvetica, Arial, sans-serif">
   <defs>
-    <marker id="a" markerWidth="8" markerHeight="6" refX="8" refY="3" orient="auto"><path d="M0,0 L8,3 L0,6 Z" fill="#475569"/></marker>
-    <marker id="ar" markerWidth="8" markerHeight="6" refX="8" refY="3" orient="auto"><path d="M0,0 L8,3 L0,6 Z" fill="#ef4444"/></marker>
+    <marker id="a" markerWidth="8" markerHeight="6" refX="8" refY="3" orient="auto"><path d="M0,0 L8,3 L0,6 Z" fill="#4a4a5a"/></marker>
+    <marker id="ar" markerWidth="8" markerHeight="6" refX="8" refY="3" orient="auto"><path d="M0,0 L8,3 L0,6 Z" fill="#d4645c"/></marker>
   </defs>
 
-  <text x="450" y="28" text-anchor="middle" font-size="17" font-weight="bold" fill="#0f172a">U-Net Architecture for Diffusion Models</text>
-  <text x="450" y="46" text-anchor="middle" font-size="10" fill="#64748b">Encoder-Decoder with skip connections, time conditioning, and self-attention</text>
+  <text x="450" y="28" text-anchor="middle" font-size="17" font-weight="bold" fill="#1a1a2e">U-Net Architecture for Diffusion Models</text>
+  <text x="450" y="46" text-anchor="middle" font-size="11" fill="#7a7a8a">Encoder-Decoder with skip connections, time conditioning, and self-attention</text>
 
   <!-- ===== U-Shape Layout ===== -->
 
   <!-- Input -->
-  <rect x="30" y="80" width="110" height="50" rx="6" fill="#f1f5f9" stroke="#475569" stroke-width="2"/>
-  <text x="85" y="102" text-anchor="middle" font-size="9" font-weight="bold" fill="#0f172a">Noisy Input</text>
-  <text x="85" y="120" text-anchor="middle" font-size="7" fill="#475569" font-family="'SF Mono', Consolas, monospace">x_t [256×256×3]</text>
+  <rect x="30" y="80" width="110" height="50" rx="6" fill="#f5f5f8" stroke="#4a4a5a" stroke-width="2"/>
+  <text x="85" y="102" text-anchor="middle" font-size="11" font-weight="bold" fill="#1a1a2e">Noisy Input</text>
+  <text x="85" y="120" text-anchor="middle" font-size="11" fill="#4a4a5a" font-family="'JetBrains Mono', 'Fira Code', monospace">x_t [256×256×3]</text>
 
   <!-- Encoder Level 1 -->
-  <line x1="140" y1="105" x2="168" y2="105" stroke="#0284c7" stroke-width="1.5" marker-end="url(#a)"/>
-  <rect x="170" y="75" width="120" height="60" rx="8" fill="#e0f2fe" stroke="#0284c7" stroke-width="2"/>
-  <text x="230" y="97" text-anchor="middle" font-size="9" font-weight="bold" fill="#0c4a6e">ResBlock × 2</text>
-  <text x="230" y="113" text-anchor="middle" font-size="7" fill="#0284c7" font-family="'SF Mono', Consolas, monospace">[256×256, 64]</text>
-  <text x="230" y="128" text-anchor="middle" font-size="6" fill="#0284c7">+ time emb</text>
+  <line x1="140" y1="105" x2="168" y2="105" stroke="#4a7fb5" stroke-width="1.5" marker-end="url(#a)"/>
+  <rect x="170" y="75" width="120" height="60" rx="8" fill="#e1eaf3" stroke="#4a7fb5" stroke-width="2"/>
+  <text x="230" y="97" text-anchor="middle" font-size="11" font-weight="bold" fill="#4a7fb5">ResBlock × 2</text>
+  <text x="230" y="113" text-anchor="middle" font-size="11" fill="#4a7fb5" font-family="'JetBrains Mono', 'Fira Code', monospace">[256×256, 64]</text>
+  <text x="230" y="128" text-anchor="middle" font-size="11" fill="#4a7fb5">+ time emb</text>
 
   <!-- Encoder Level 2 -->
-  <line x1="230" y1="135" x2="230" y2="165" stroke="#0284c7" stroke-width="1.5" marker-end="url(#a)"/>
-  <text x="245" y="155" font-size="7" fill="#0284c7">↓ downsample</text>
-  <rect x="170" y="170" width="120" height="60" rx="8" fill="#e0f2fe" stroke="#0284c7" stroke-width="2"/>
-  <text x="230" y="192" text-anchor="middle" font-size="9" font-weight="bold" fill="#0c4a6e">ResBlock × 2</text>
-  <text x="230" y="208" text-anchor="middle" font-size="7" fill="#0284c7" font-family="'SF Mono', Consolas, monospace">[128×128, 128]</text>
-  <text x="230" y="223" text-anchor="middle" font-size="6" fill="#0284c7">+ time emb</text>
+  <line x1="230" y1="135" x2="230" y2="165" stroke="#4a7fb5" stroke-width="1.5" marker-end="url(#a)"/>
+  <text x="245" y="155" font-size="11" fill="#4a7fb5">↓ downsample</text>
+  <rect x="170" y="170" width="120" height="60" rx="8" fill="#e1eaf3" stroke="#4a7fb5" stroke-width="2"/>
+  <text x="230" y="192" text-anchor="middle" font-size="11" font-weight="bold" fill="#4a7fb5">ResBlock × 2</text>
+  <text x="230" y="208" text-anchor="middle" font-size="11" fill="#4a7fb5" font-family="'JetBrains Mono', 'Fira Code', monospace">[128×128, 128]</text>
+  <text x="230" y="223" text-anchor="middle" font-size="11" fill="#4a7fb5">+ time emb</text>
 
   <!-- Encoder Level 3 -->
-  <line x1="230" y1="230" x2="230" y2="260" stroke="#0284c7" stroke-width="1.5" marker-end="url(#a)"/>
-  <text x="245" y="250" font-size="7" fill="#0284c7">↓ downsample</text>
-  <rect x="170" y="265" width="120" height="70" rx="8" fill="#e0f2fe" stroke="#0284c7" stroke-width="2"/>
-  <text x="230" y="287" text-anchor="middle" font-size="9" font-weight="bold" fill="#0c4a6e">ResBlock × 2</text>
-  <text x="230" y="303" text-anchor="middle" font-size="7" fill="#0284c7" font-family="'SF Mono', Consolas, monospace">[64×64, 256]</text>
-  <text x="230" y="318" text-anchor="middle" font-size="6" fill="#0284c7">+ time emb</text>
-  <text x="230" y="330" text-anchor="middle" font-size="6" fill="#db2777">+ self-attention</text>
+  <line x1="230" y1="230" x2="230" y2="260" stroke="#4a7fb5" stroke-width="1.5" marker-end="url(#a)"/>
+  <text x="245" y="250" font-size="11" fill="#4a7fb5">↓ downsample</text>
+  <rect x="170" y="265" width="120" height="70" rx="8" fill="#e1eaf3" stroke="#4a7fb5" stroke-width="2"/>
+  <text x="230" y="287" text-anchor="middle" font-size="11" font-weight="bold" fill="#4a7fb5">ResBlock × 2</text>
+  <text x="230" y="303" text-anchor="middle" font-size="11" fill="#4a7fb5" font-family="'JetBrains Mono', 'Fira Code', monospace">[64×64, 256]</text>
+  <text x="230" y="318" text-anchor="middle" font-size="11" fill="#4a7fb5">+ time emb</text>
+  <text x="230" y="330" text-anchor="middle" font-size="11" fill="#d4645c">+ self-attention</text>
 
   <!-- Encoder Level 4 -->
-  <line x1="230" y1="335" x2="230" y2="365" stroke="#0284c7" stroke-width="1.5" marker-end="url(#a)"/>
-  <text x="245" y="355" font-size="7" fill="#0284c7">↓ downsample</text>
-  <rect x="170" y="370" width="120" height="70" rx="8" fill="#e0f2fe" stroke="#0284c7" stroke-width="2"/>
-  <text x="230" y="392" text-anchor="middle" font-size="9" font-weight="bold" fill="#0c4a6e">ResBlock × 2</text>
-  <text x="230" y="408" text-anchor="middle" font-size="7" fill="#0284c7" font-family="'SF Mono', Consolas, monospace">[32×32, 512]</text>
-  <text x="230" y="423" text-anchor="middle" font-size="6" fill="#0284c7">+ time emb</text>
-  <text x="230" y="435" text-anchor="middle" font-size="6" fill="#db2777">+ self-attention</text>
+  <line x1="230" y1="335" x2="230" y2="365" stroke="#4a7fb5" stroke-width="1.5" marker-end="url(#a)"/>
+  <text x="245" y="355" font-size="11" fill="#4a7fb5">↓ downsample</text>
+  <rect x="170" y="370" width="120" height="70" rx="8" fill="#e1eaf3" stroke="#4a7fb5" stroke-width="2"/>
+  <text x="230" y="392" text-anchor="middle" font-size="11" font-weight="bold" fill="#4a7fb5">ResBlock × 2</text>
+  <text x="230" y="408" text-anchor="middle" font-size="11" fill="#4a7fb5" font-family="'JetBrains Mono', 'Fira Code', monospace">[32×32, 512]</text>
+  <text x="230" y="423" text-anchor="middle" font-size="11" fill="#4a7fb5">+ time emb</text>
+  <text x="230" y="435" text-anchor="middle" font-size="11" fill="#d4645c">+ self-attention</text>
 
   <!-- Bottleneck -->
-  <line x1="290" y1="405" x2="380" y2="405" stroke="#475569" stroke-width="2" marker-end="url(#a)"/>
-  <rect x="385" y="370" width="130" height="70" rx="8" fill="#fef3c7" stroke="#d97706" stroke-width="2.5"/>
-  <text x="450" y="392" text-anchor="middle" font-size="10" font-weight="bold" fill="#78350f">Bottleneck</text>
-  <text x="450" y="408" text-anchor="middle" font-size="7" fill="#d97706" font-family="'SF Mono', Consolas, monospace">[16×16, 512]</text>
-  <text x="450" y="423" text-anchor="middle" font-size="6" fill="#d97706">ResBlock + Attention</text>
-  <text x="450" y="435" text-anchor="middle" font-size="6" fill="#d97706">+ ResBlock</text>
+  <line x1="290" y1="405" x2="380" y2="405" stroke="#4a4a5a" stroke-width="2" marker-end="url(#a)"/>
+  <rect x="385" y="370" width="130" height="70" rx="8" fill="#f5ece0" stroke="#d4a03c" stroke-width="2.5"/>
+  <text x="450" y="392" text-anchor="middle" font-size="11" font-weight="bold" fill="#d4a03c">Bottleneck</text>
+  <text x="450" y="408" text-anchor="middle" font-size="11" fill="#d4a03c" font-family="'JetBrains Mono', 'Fira Code', monospace">[16×16, 512]</text>
+  <text x="450" y="423" text-anchor="middle" font-size="11" fill="#d4a03c">ResBlock + Attention</text>
+  <text x="450" y="435" text-anchor="middle" font-size="11" fill="#d4a03c">+ ResBlock</text>
 
   <!-- Decoder Level 4 -->
-  <line x1="515" y1="405" x2="600" y2="405" stroke="#475569" stroke-width="2" marker-end="url(#a)"/>
-  <rect x="605" y="370" width="120" height="70" rx="8" fill="#dcfce7" stroke="#16a34a" stroke-width="2"/>
-  <text x="665" y="392" text-anchor="middle" font-size="9" font-weight="bold" fill="#14532d">ResBlock × 2</text>
-  <text x="665" y="408" text-anchor="middle" font-size="7" fill="#16a34a" font-family="'SF Mono', Consolas, monospace">[32×32, 512]</text>
-  <text x="665" y="423" text-anchor="middle" font-size="6" fill="#16a34a">+ time emb</text>
-  <text x="665" y="435" text-anchor="middle" font-size="6" fill="#db2777">+ self-attention</text>
+  <line x1="515" y1="405" x2="600" y2="405" stroke="#4a4a5a" stroke-width="2" marker-end="url(#a)"/>
+  <rect x="605" y="370" width="120" height="70" rx="8" fill="#dff0ed" stroke="#3a9e8f" stroke-width="2"/>
+  <text x="665" y="392" text-anchor="middle" font-size="11" font-weight="bold" fill="#3a9e8f">ResBlock × 2</text>
+  <text x="665" y="408" text-anchor="middle" font-size="11" fill="#3a9e8f" font-family="'JetBrains Mono', 'Fira Code', monospace">[32×32, 512]</text>
+  <text x="665" y="423" text-anchor="middle" font-size="11" fill="#3a9e8f">+ time emb</text>
+  <text x="665" y="435" text-anchor="middle" font-size="11" fill="#d4645c">+ self-attention</text>
 
   <!-- Skip connection 4 -->
-  <path d="M 290 400 Q 310 400 310 395 L 310 395 Q 310 390 330 390" fill="none" stroke="#ef4444" stroke-width="0" />
-  <line x1="290" y1="395" x2="603" y2="395" stroke="#ef4444" stroke-width="1.5" stroke-dasharray="5,3" marker-end="url(#ar)"/>
-  <text x="445" y="388" text-anchor="middle" font-size="6" fill="#ef4444">skip (concat)</text>
+  <path d="M 290 400 Q 310 400 310 395 L 310 395 Q 310 390 330 390" fill="none" stroke="#d4645c" stroke-width="0" />
+  <line x1="290" y1="395" x2="603" y2="395" stroke="#d4645c" stroke-width="1.5" stroke-dasharray="5,3" marker-end="url(#ar)"/>
+  <text x="445" y="388" text-anchor="middle" font-size="11" fill="#d4645c">skip (concat)</text>
 
   <!-- Decoder Level 3 -->
-  <line x1="665" y1="370" x2="665" y2="340" stroke="#16a34a" stroke-width="1.5" marker-end="url(#a)"/>
-  <text x="680" y="355" font-size="7" fill="#16a34a">↑ upsample</text>
-  <rect x="605" y="265" width="120" height="70" rx="8" fill="#dcfce7" stroke="#16a34a" stroke-width="2"/>
-  <text x="665" y="287" text-anchor="middle" font-size="9" font-weight="bold" fill="#14532d">ResBlock × 2</text>
-  <text x="665" y="303" text-anchor="middle" font-size="7" fill="#16a34a" font-family="'SF Mono', Consolas, monospace">[64×64, 256]</text>
-  <text x="665" y="318" text-anchor="middle" font-size="6" fill="#16a34a">+ time emb</text>
-  <text x="665" y="330" text-anchor="middle" font-size="6" fill="#db2777">+ self-attention</text>
+  <line x1="665" y1="370" x2="665" y2="340" stroke="#3a9e8f" stroke-width="1.5" marker-end="url(#a)"/>
+  <text x="680" y="355" font-size="11" fill="#3a9e8f">↑ upsample</text>
+  <rect x="605" y="265" width="120" height="70" rx="8" fill="#dff0ed" stroke="#3a9e8f" stroke-width="2"/>
+  <text x="665" y="287" text-anchor="middle" font-size="11" font-weight="bold" fill="#3a9e8f">ResBlock × 2</text>
+  <text x="665" y="303" text-anchor="middle" font-size="11" fill="#3a9e8f" font-family="'JetBrains Mono', 'Fira Code', monospace">[64×64, 256]</text>
+  <text x="665" y="318" text-anchor="middle" font-size="11" fill="#3a9e8f">+ time emb</text>
+  <text x="665" y="330" text-anchor="middle" font-size="11" fill="#d4645c">+ self-attention</text>
 
   <!-- Skip connection 3 -->
-  <line x1="290" y1="300" x2="603" y2="300" stroke="#ef4444" stroke-width="1.5" stroke-dasharray="5,3" marker-end="url(#ar)"/>
-  <text x="445" y="293" text-anchor="middle" font-size="6" fill="#ef4444">skip (concat)</text>
+  <line x1="290" y1="300" x2="603" y2="300" stroke="#d4645c" stroke-width="1.5" stroke-dasharray="5,3" marker-end="url(#ar)"/>
+  <text x="445" y="293" text-anchor="middle" font-size="11" fill="#d4645c">skip (concat)</text>
 
   <!-- Decoder Level 2 -->
-  <line x1="665" y1="265" x2="665" y2="235" stroke="#16a34a" stroke-width="1.5" marker-end="url(#a)"/>
-  <text x="680" y="250" font-size="7" fill="#16a34a">↑ upsample</text>
-  <rect x="605" y="170" width="120" height="60" rx="8" fill="#dcfce7" stroke="#16a34a" stroke-width="2"/>
-  <text x="665" y="192" text-anchor="middle" font-size="9" font-weight="bold" fill="#14532d">ResBlock × 2</text>
-  <text x="665" y="208" text-anchor="middle" font-size="7" fill="#16a34a" font-family="'SF Mono', Consolas, monospace">[128×128, 128]</text>
-  <text x="665" y="223" text-anchor="middle" font-size="6" fill="#16a34a">+ time emb</text>
+  <line x1="665" y1="265" x2="665" y2="235" stroke="#3a9e8f" stroke-width="1.5" marker-end="url(#a)"/>
+  <text x="680" y="250" font-size="11" fill="#3a9e8f">↑ upsample</text>
+  <rect x="605" y="170" width="120" height="60" rx="8" fill="#dff0ed" stroke="#3a9e8f" stroke-width="2"/>
+  <text x="665" y="192" text-anchor="middle" font-size="11" font-weight="bold" fill="#3a9e8f">ResBlock × 2</text>
+  <text x="665" y="208" text-anchor="middle" font-size="11" fill="#3a9e8f" font-family="'JetBrains Mono', 'Fira Code', monospace">[128×128, 128]</text>
+  <text x="665" y="223" text-anchor="middle" font-size="11" fill="#3a9e8f">+ time emb</text>
 
   <!-- Skip connection 2 -->
-  <line x1="290" y1="200" x2="603" y2="200" stroke="#ef4444" stroke-width="1.5" stroke-dasharray="5,3" marker-end="url(#ar)"/>
-  <text x="445" y="193" text-anchor="middle" font-size="6" fill="#ef4444">skip (concat)</text>
+  <line x1="290" y1="200" x2="603" y2="200" stroke="#d4645c" stroke-width="1.5" stroke-dasharray="5,3" marker-end="url(#ar)"/>
+  <text x="445" y="193" text-anchor="middle" font-size="11" fill="#d4645c">skip (concat)</text>
 
   <!-- Decoder Level 1 -->
-  <line x1="665" y1="170" x2="665" y2="140" stroke="#16a34a" stroke-width="1.5" marker-end="url(#a)"/>
-  <text x="680" y="155" font-size="7" fill="#16a34a">↑ upsample</text>
-  <rect x="605" y="75" width="120" height="60" rx="8" fill="#dcfce7" stroke="#16a34a" stroke-width="2"/>
-  <text x="665" y="97" text-anchor="middle" font-size="9" font-weight="bold" fill="#14532d">ResBlock × 2</text>
-  <text x="665" y="113" text-anchor="middle" font-size="7" fill="#16a34a" font-family="'SF Mono', Consolas, monospace">[256×256, 64]</text>
-  <text x="665" y="128" text-anchor="middle" font-size="6" fill="#16a34a">+ time emb</text>
+  <line x1="665" y1="170" x2="665" y2="140" stroke="#3a9e8f" stroke-width="1.5" marker-end="url(#a)"/>
+  <text x="680" y="155" font-size="11" fill="#3a9e8f">↑ upsample</text>
+  <rect x="605" y="75" width="120" height="60" rx="8" fill="#dff0ed" stroke="#3a9e8f" stroke-width="2"/>
+  <text x="665" y="97" text-anchor="middle" font-size="11" font-weight="bold" fill="#3a9e8f">ResBlock × 2</text>
+  <text x="665" y="113" text-anchor="middle" font-size="11" fill="#3a9e8f" font-family="'JetBrains Mono', 'Fira Code', monospace">[256×256, 64]</text>
+  <text x="665" y="128" text-anchor="middle" font-size="11" fill="#3a9e8f">+ time emb</text>
 
   <!-- Skip connection 1 -->
-  <line x1="290" y1="105" x2="603" y2="105" stroke="#ef4444" stroke-width="1.5" stroke-dasharray="5,3" marker-end="url(#ar)"/>
-  <text x="445" y="98" text-anchor="middle" font-size="6" fill="#ef4444">skip (concat)</text>
+  <line x1="290" y1="105" x2="603" y2="105" stroke="#d4645c" stroke-width="1.5" stroke-dasharray="5,3" marker-end="url(#ar)"/>
+  <text x="445" y="98" text-anchor="middle" font-size="11" fill="#d4645c">skip (concat)</text>
 
   <!-- Output -->
-  <line x1="725" y1="105" x2="760" y2="105" stroke="#475569" stroke-width="1.5" marker-end="url(#a)"/>
-  <rect x="762" y="80" width="120" height="50" rx="6" fill="#f1f5f9" stroke="#475569" stroke-width="2"/>
-  <text x="822" y="102" text-anchor="middle" font-size="9" font-weight="bold" fill="#0f172a">Predicted Noise</text>
-  <text x="822" y="120" text-anchor="middle" font-size="7" fill="#475569" font-family="'SF Mono', Consolas, monospace">ε_θ [256×256×3]</text>
+  <line x1="725" y1="105" x2="760" y2="105" stroke="#4a4a5a" stroke-width="1.5" marker-end="url(#a)"/>
+  <rect x="762" y="80" width="120" height="50" rx="6" fill="#f5f5f8" stroke="#4a4a5a" stroke-width="2"/>
+  <text x="822" y="102" text-anchor="middle" font-size="11" font-weight="bold" fill="#1a1a2e">Predicted Noise</text>
+  <text x="822" y="120" text-anchor="middle" font-size="11" fill="#4a4a5a" font-family="'JetBrains Mono', 'Fira Code', monospace">ε_θ [256×256×3]</text>
 
   <!-- ===== Time Embedding (bottom center) ===== -->
-  <rect x="350" y="480" width="200" height="65" rx="8" fill="#fef3c7" stroke="#d97706" stroke-width="2"/>
-  <text x="450" y="500" text-anchor="middle" font-size="10" font-weight="bold" fill="#78350f">Time Embedding</text>
-  <text x="450" y="518" text-anchor="middle" font-size="8" fill="#d97706">Sinusoidal → MLP → scale+shift</text>
-  <text x="450" y="534" text-anchor="middle" font-size="7" fill="#d97706" font-family="'SF Mono', Consolas, monospace">emb(t) ∈ ℝ^d (injected into every ResBlock)</text>
+  <rect x="350" y="480" width="200" height="65" rx="8" fill="#f5ece0" stroke="#d4a03c" stroke-width="2"/>
+  <text x="450" y="500" text-anchor="middle" font-size="11" font-weight="bold" fill="#d4a03c">Time Embedding</text>
+  <text x="450" y="518" text-anchor="middle" font-size="11" fill="#d4a03c">Sinusoidal → MLP → scale+shift</text>
+  <text x="450" y="534" text-anchor="middle" font-size="11" fill="#d4a03c" font-family="'JetBrains Mono', 'Fira Code', monospace">emb(t) ∈ ℝ^d (injected into every ResBlock)</text>
 
   <!-- Time arrows to all levels -->
-  <line x1="400" y1="480" x2="230" y2="440" stroke="#d97706" stroke-width="1" stroke-dasharray="3,2"/>
-  <line x1="420" y1="480" x2="230" y2="335" stroke="#d97706" stroke-width="1" stroke-dasharray="3,2"/>
-  <line x1="450" y1="480" x2="450" y2="442" stroke="#d97706" stroke-width="1" stroke-dasharray="3,2"/>
-  <line x1="480" y1="480" x2="665" y2="335" stroke="#d97706" stroke-width="1" stroke-dasharray="3,2"/>
-  <line x1="500" y1="480" x2="665" y2="440" stroke="#d97706" stroke-width="1" stroke-dasharray="3,2"/>
+  <line x1="400" y1="480" x2="230" y2="440" stroke="#d4a03c" stroke-width="1" stroke-dasharray="3,2"/>
+  <line x1="420" y1="480" x2="230" y2="335" stroke="#d4a03c" stroke-width="1" stroke-dasharray="3,2"/>
+  <line x1="450" y1="480" x2="450" y2="442" stroke="#d4a03c" stroke-width="1" stroke-dasharray="3,2"/>
+  <line x1="480" y1="480" x2="665" y2="335" stroke="#d4a03c" stroke-width="1" stroke-dasharray="3,2"/>
+  <line x1="500" y1="480" x2="665" y2="440" stroke="#d4a03c" stroke-width="1" stroke-dasharray="3,2"/>
 
   <!-- Legend -->
-  <rect x="30" y="480" width="280" height="65" rx="6" fill="#f8fafc" stroke="#e2e8f0" stroke-width="1"/>
-  <text x="170" y="498" text-anchor="middle" font-size="9" font-weight="bold" fill="#0f172a">Legend</text>
-  <rect x="45" y="508" width="12" height="12" rx="2" fill="#e0f2fe" stroke="#0284c7" stroke-width="1.5"/>
-  <text x="65" y="518" font-size="8" fill="#0c4a6e">Encoder (downsample)</text>
-  <rect x="160" y="508" width="12" height="12" rx="2" fill="#dcfce7" stroke="#16a34a" stroke-width="1.5"/>
-  <text x="180" y="518" font-size="8" fill="#14532d">Decoder (upsample)</text>
-  <line x1="45" y1="535" x2="75" y2="535" stroke="#ef4444" stroke-width="1.5" stroke-dasharray="5,3"/>
-  <text x="83" y="538" font-size="8" fill="#ef4444">Skip connections (concat)</text>
+  <rect x="30" y="480" width="280" height="65" rx="6" fill="#f5f5f8" stroke="#f5f5f8" stroke-width="1"/>
+  <text x="170" y="498" text-anchor="middle" font-size="11" font-weight="bold" fill="#1a1a2e">Legend</text>
+  <rect x="45" y="508" width="12" height="12" rx="2" fill="#e1eaf3" stroke="#4a7fb5" stroke-width="1.5"/>
+  <text x="65" y="518" font-size="11" fill="#4a7fb5">Encoder (downsample)</text>
+  <rect x="160" y="508" width="12" height="12" rx="2" fill="#dff0ed" stroke="#3a9e8f" stroke-width="1.5"/>
+  <text x="180" y="518" font-size="11" fill="#3a9e8f">Decoder (upsample)</text>
+  <line x1="45" y1="535" x2="75" y2="535" stroke="#d4645c" stroke-width="1.5" stroke-dasharray="5,3"/>
+  <text x="83" y="538" font-size="11" fill="#d4645c">Skip connections (concat)</text>
 </svg>

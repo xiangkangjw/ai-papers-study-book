@@ -1,140 +1,140 @@
 <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 900 560" font-family="Inter, Helvetica, Arial, sans-serif">
   <defs>
-    <marker id="a" markerWidth="8" markerHeight="6" refX="8" refY="3" orient="auto"><path d="M0,0 L8,3 L0,6 Z" fill="#475569"/></marker>
+    <marker id="a" markerWidth="8" markerHeight="6" refX="8" refY="3" orient="auto"><path d="M0,0 L8,3 L0,6 Z" fill="#4a4a5a"/></marker>
   </defs>
 
-  <text x="450" y="28" text-anchor="middle" font-size="17" font-weight="bold" fill="#0f172a">CLIP: Contrastive Language-Image Pre-training (Detailed)</text>
-  <text x="450" y="46" text-anchor="middle" font-size="10" fill="#64748b">Radford et al. (2021) — 400M image-text pairs, shared embedding space</text>
+  <text x="450" y="28" text-anchor="middle" font-size="17" font-weight="bold" fill="#1a1a2e">CLIP: Contrastive Language-Image Pre-training (Detailed)</text>
+  <text x="450" y="46" text-anchor="middle" font-size="11" fill="#7a7a8a">Radford et al. (2021) — 400M image-text pairs, shared embedding space</text>
 
   <!-- ===== Image Encoder ===== -->
-  <rect x="30" y="70" width="230" height="310" rx="10" fill="#f0f9ff" stroke="#0284c7" stroke-width="2"/>
-  <text x="145" y="95" text-anchor="middle" font-size="12" font-weight="bold" fill="#0c4a6e">Image Encoder (ViT)</text>
+  <rect x="30" y="70" width="230" height="310" rx="10" fill="#edf2f8" stroke="#4a7fb5" stroke-width="2"/>
+  <text x="145" y="95" text-anchor="middle" font-size="12" font-weight="bold" fill="#4a7fb5">Image Encoder (ViT)</text>
 
-  <rect x="55" y="110" width="180" height="30" rx="4" fill="#f1f5f9" stroke="#475569" stroke-width="1.5"/>
-  <text x="145" y="130" text-anchor="middle" font-size="9" fill="#0f172a">Image I_i (224×224)</text>
+  <rect x="55" y="110" width="180" height="30" rx="4" fill="#f5f5f8" stroke="#4a4a5a" stroke-width="1.5"/>
+  <text x="145" y="130" text-anchor="middle" font-size="11" fill="#1a1a2e">Image I_i (224×224)</text>
 
-  <line x1="145" y1="140" x2="145" y2="158" stroke="#475569" stroke-width="1.5" marker-end="url(#a)"/>
+  <line x1="145" y1="140" x2="145" y2="158" stroke="#4a4a5a" stroke-width="1.5" marker-end="url(#a)"/>
 
-  <rect x="55" y="162" width="180" height="28" rx="4" fill="#e0f2fe" stroke="#0284c7" stroke-width="1.5"/>
-  <text x="145" y="181" text-anchor="middle" font-size="8" fill="#0c4a6e">Patch Embeddings (16×16)</text>
+  <rect x="55" y="162" width="180" height="28" rx="4" fill="#e1eaf3" stroke="#4a7fb5" stroke-width="1.5"/>
+  <text x="145" y="181" text-anchor="middle" font-size="11" fill="#4a7fb5">Patch Embeddings (16×16)</text>
 
-  <line x1="145" y1="190" x2="145" y2="208" stroke="#475569" stroke-width="1.5" marker-end="url(#a)"/>
+  <line x1="145" y1="190" x2="145" y2="208" stroke="#4a4a5a" stroke-width="1.5" marker-end="url(#a)"/>
 
-  <rect x="55" y="212" width="180" height="40" rx="6" fill="#e0f2fe" stroke="#0284c7" stroke-width="2"/>
-  <text x="145" y="232" text-anchor="middle" font-size="10" font-weight="bold" fill="#0c4a6e">ViT Transformer</text>
-  <text x="145" y="248" text-anchor="middle" font-size="7" fill="#0284c7">ViT-B/32 or ViT-L/14</text>
+  <rect x="55" y="212" width="180" height="40" rx="6" fill="#e1eaf3" stroke="#4a7fb5" stroke-width="2"/>
+  <text x="145" y="232" text-anchor="middle" font-size="11" font-weight="bold" fill="#4a7fb5">ViT Transformer</text>
+  <text x="145" y="248" text-anchor="middle" font-size="11" fill="#4a7fb5">ViT-B/32 or ViT-L/14</text>
 
-  <line x1="145" y1="252" x2="145" y2="270" stroke="#475569" stroke-width="1.5" marker-end="url(#a)"/>
+  <line x1="145" y1="252" x2="145" y2="270" stroke="#4a4a5a" stroke-width="1.5" marker-end="url(#a)"/>
 
-  <rect x="55" y="274" width="180" height="28" rx="4" fill="#fef3c7" stroke="#d97706" stroke-width="1.5"/>
-  <text x="145" y="293" text-anchor="middle" font-size="8" fill="#78350f">Linear Projection → ℝ^d</text>
+  <rect x="55" y="274" width="180" height="28" rx="4" fill="#f5ece0" stroke="#d4a03c" stroke-width="1.5"/>
+  <text x="145" y="293" text-anchor="middle" font-size="11" fill="#d4a03c">Linear Projection → ℝ^d</text>
 
-  <line x1="145" y1="302" x2="145" y2="320" stroke="#475569" stroke-width="1.5" marker-end="url(#a)"/>
+  <line x1="145" y1="302" x2="145" y2="320" stroke="#4a4a5a" stroke-width="1.5" marker-end="url(#a)"/>
 
-  <rect x="55" y="324" width="180" height="30" rx="6" fill="#dcfce7" stroke="#16a34a" stroke-width="2"/>
-  <text x="145" y="344" text-anchor="middle" font-size="9" font-weight="bold" fill="#14532d" font-family="'SF Mono', Consolas, monospace">i_i = I_i / ‖I_i‖</text>
+  <rect x="55" y="324" width="180" height="30" rx="6" fill="#dff0ed" stroke="#3a9e8f" stroke-width="2"/>
+  <text x="145" y="344" text-anchor="middle" font-size="11" font-weight="bold" fill="#3a9e8f" font-family="'JetBrains Mono', 'Fira Code', monospace">i_i = I_i / ‖I_i‖</text>
 
   <!-- ===== Text Encoder ===== -->
-  <rect x="640" y="70" width="230" height="310" rx="10" fill="#faf5ff" stroke="#9333ea" stroke-width="2"/>
-  <text x="755" y="95" text-anchor="middle" font-size="12" font-weight="bold" fill="#3b0764">Text Encoder</text>
+  <rect x="640" y="70" width="230" height="310" rx="10" fill="#f0edf5" stroke="#7b68a8" stroke-width="2"/>
+  <text x="755" y="95" text-anchor="middle" font-size="12" font-weight="bold" fill="#7b68a8">Text Encoder</text>
 
-  <rect x="665" y="110" width="180" height="30" rx="4" fill="#f1f5f9" stroke="#475569" stroke-width="1.5"/>
-  <text x="755" y="130" text-anchor="middle" font-size="9" fill="#0f172a">Text T_j (tokenized)</text>
+  <rect x="665" y="110" width="180" height="30" rx="4" fill="#f5f5f8" stroke="#4a4a5a" stroke-width="1.5"/>
+  <text x="755" y="130" text-anchor="middle" font-size="11" fill="#1a1a2e">Text T_j (tokenized)</text>
 
-  <line x1="755" y1="140" x2="755" y2="158" stroke="#475569" stroke-width="1.5" marker-end="url(#a)"/>
+  <line x1="755" y1="140" x2="755" y2="158" stroke="#4a4a5a" stroke-width="1.5" marker-end="url(#a)"/>
 
-  <rect x="665" y="162" width="180" height="28" rx="4" fill="#f3e8ff" stroke="#9333ea" stroke-width="1.5"/>
-  <text x="755" y="181" text-anchor="middle" font-size="8" fill="#3b0764">Token + Position Embeddings</text>
+  <rect x="665" y="162" width="180" height="28" rx="4" fill="#e8e4f1" stroke="#7b68a8" stroke-width="1.5"/>
+  <text x="755" y="181" text-anchor="middle" font-size="11" fill="#7b68a8">Token + Position Embeddings</text>
 
-  <line x1="755" y1="190" x2="755" y2="208" stroke="#475569" stroke-width="1.5" marker-end="url(#a)"/>
+  <line x1="755" y1="190" x2="755" y2="208" stroke="#4a4a5a" stroke-width="1.5" marker-end="url(#a)"/>
 
-  <rect x="665" y="212" width="180" height="40" rx="6" fill="#f3e8ff" stroke="#9333ea" stroke-width="2"/>
-  <text x="755" y="232" text-anchor="middle" font-size="10" font-weight="bold" fill="#3b0764">Transformer</text>
-  <text x="755" y="248" text-anchor="middle" font-size="7" fill="#9333ea">12-layer, 512-dim</text>
+  <rect x="665" y="212" width="180" height="40" rx="6" fill="#e8e4f1" stroke="#7b68a8" stroke-width="2"/>
+  <text x="755" y="232" text-anchor="middle" font-size="11" font-weight="bold" fill="#7b68a8">Transformer</text>
+  <text x="755" y="248" text-anchor="middle" font-size="11" fill="#7b68a8">12-layer, 512-dim</text>
 
-  <line x1="755" y1="252" x2="755" y2="270" stroke="#475569" stroke-width="1.5" marker-end="url(#a)"/>
+  <line x1="755" y1="252" x2="755" y2="270" stroke="#4a4a5a" stroke-width="1.5" marker-end="url(#a)"/>
 
-  <rect x="665" y="274" width="180" height="28" rx="4" fill="#fef3c7" stroke="#d97706" stroke-width="1.5"/>
-  <text x="755" y="293" text-anchor="middle" font-size="8" fill="#78350f">Linear Projection → ℝ^d</text>
+  <rect x="665" y="274" width="180" height="28" rx="4" fill="#f5ece0" stroke="#d4a03c" stroke-width="1.5"/>
+  <text x="755" y="293" text-anchor="middle" font-size="11" fill="#d4a03c">Linear Projection → ℝ^d</text>
 
-  <line x1="755" y1="302" x2="755" y2="320" stroke="#475569" stroke-width="1.5" marker-end="url(#a)"/>
+  <line x1="755" y1="302" x2="755" y2="320" stroke="#4a4a5a" stroke-width="1.5" marker-end="url(#a)"/>
 
-  <rect x="665" y="324" width="180" height="30" rx="6" fill="#dcfce7" stroke="#16a34a" stroke-width="2"/>
-  <text x="755" y="344" text-anchor="middle" font-size="9" font-weight="bold" fill="#14532d" font-family="'SF Mono', Consolas, monospace">t_j = T_j / ‖T_j‖</text>
+  <rect x="665" y="324" width="180" height="30" rx="6" fill="#dff0ed" stroke="#3a9e8f" stroke-width="2"/>
+  <text x="755" y="344" text-anchor="middle" font-size="11" font-weight="bold" fill="#3a9e8f" font-family="'JetBrains Mono', 'Fira Code', monospace">t_j = T_j / ‖T_j‖</text>
 
   <!-- ===== N×N Similarity Matrix (Center) ===== -->
-  <text x="450" y="88" text-anchor="middle" font-size="10" font-weight="bold" fill="#0f172a">N×N Cosine Similarity</text>
+  <text x="450" y="88" text-anchor="middle" font-size="11" font-weight="bold" fill="#1a1a2e">N×N Cosine Similarity</text>
 
   <g transform="translate(310, 105)">
     <!-- Column headers -->
-    <text x="35" y="-5" text-anchor="middle" font-size="7" fill="#9333ea">T₁</text>
-    <text x="70" y="-5" text-anchor="middle" font-size="7" fill="#9333ea">T₂</text>
-    <text x="105" y="-5" text-anchor="middle" font-size="7" fill="#9333ea">T₃</text>
-    <text x="140" y="-5" text-anchor="middle" font-size="7" fill="#9333ea">T₄</text>
-    <text x="175" y="-5" text-anchor="middle" font-size="7" fill="#9333ea">T₅</text>
-    <text x="210" y="-5" text-anchor="middle" font-size="7" fill="#9333ea">T₆</text>
+    <text x="35" y="-5" text-anchor="middle" font-size="11" fill="#7b68a8">T₁</text>
+    <text x="70" y="-5" text-anchor="middle" font-size="11" fill="#7b68a8">T₂</text>
+    <text x="105" y="-5" text-anchor="middle" font-size="11" fill="#7b68a8">T₃</text>
+    <text x="140" y="-5" text-anchor="middle" font-size="11" fill="#7b68a8">T₄</text>
+    <text x="175" y="-5" text-anchor="middle" font-size="11" fill="#7b68a8">T₅</text>
+    <text x="210" y="-5" text-anchor="middle" font-size="11" fill="#7b68a8">T₆</text>
 
     <!-- Row headers -->
-    <text x="-5" y="20" text-anchor="end" font-size="7" fill="#0284c7">I₁</text>
-    <text x="-5" y="52" text-anchor="end" font-size="7" fill="#0284c7">I₂</text>
-    <text x="-5" y="84" text-anchor="end" font-size="7" fill="#0284c7">I₃</text>
-    <text x="-5" y="116" text-anchor="end" font-size="7" fill="#0284c7">I₄</text>
-    <text x="-5" y="148" text-anchor="end" font-size="7" fill="#0284c7">I₅</text>
-    <text x="-5" y="180" text-anchor="end" font-size="7" fill="#0284c7">I₆</text>
+    <text x="-5" y="20" text-anchor="end" font-size="11" fill="#4a7fb5">I₁</text>
+    <text x="-5" y="52" text-anchor="end" font-size="11" fill="#4a7fb5">I₂</text>
+    <text x="-5" y="84" text-anchor="end" font-size="11" fill="#4a7fb5">I₃</text>
+    <text x="-5" y="116" text-anchor="end" font-size="11" fill="#4a7fb5">I₄</text>
+    <text x="-5" y="148" text-anchor="end" font-size="11" fill="#4a7fb5">I₅</text>
+    <text x="-5" y="180" text-anchor="end" font-size="11" fill="#4a7fb5">I₆</text>
 
     <!-- Diagonal (positives - green) -->
-    <rect x="10" y="5" width="50" height="27" rx="3" fill="#dcfce7" stroke="#16a34a" stroke-width="2"/>
-    <text x="35" y="23" text-anchor="middle" font-size="8" font-weight="bold" fill="#14532d">.93</text>
-    <rect x="45" y="37" width="50" height="27" rx="3" fill="#dcfce7" stroke="#16a34a" stroke-width="2"/>
-    <text x="70" y="55" text-anchor="middle" font-size="8" font-weight="bold" fill="#14532d">.89</text>
-    <rect x="80" y="69" width="50" height="27" rx="3" fill="#dcfce7" stroke="#16a34a" stroke-width="2"/>
-    <text x="105" y="87" text-anchor="middle" font-size="8" font-weight="bold" fill="#14532d">.95</text>
-    <rect x="115" y="101" width="50" height="27" rx="3" fill="#dcfce7" stroke="#16a34a" stroke-width="2"/>
-    <text x="140" y="119" text-anchor="middle" font-size="8" font-weight="bold" fill="#14532d">.87</text>
-    <rect x="150" y="133" width="50" height="27" rx="3" fill="#dcfce7" stroke="#16a34a" stroke-width="2"/>
-    <text x="175" y="151" text-anchor="middle" font-size="8" font-weight="bold" fill="#14532d">.91</text>
-    <rect x="185" y="165" width="50" height="27" rx="3" fill="#dcfce7" stroke="#16a34a" stroke-width="2"/>
-    <text x="210" y="183" text-anchor="middle" font-size="8" font-weight="bold" fill="#14532d">.90</text>
+    <rect x="10" y="5" width="50" height="27" rx="3" fill="#dff0ed" stroke="#3a9e8f" stroke-width="2"/>
+    <text x="35" y="23" text-anchor="middle" font-size="11" font-weight="bold" fill="#3a9e8f">.93</text>
+    <rect x="45" y="37" width="50" height="27" rx="3" fill="#dff0ed" stroke="#3a9e8f" stroke-width="2"/>
+    <text x="70" y="55" text-anchor="middle" font-size="11" font-weight="bold" fill="#3a9e8f">.89</text>
+    <rect x="80" y="69" width="50" height="27" rx="3" fill="#dff0ed" stroke="#3a9e8f" stroke-width="2"/>
+    <text x="105" y="87" text-anchor="middle" font-size="11" font-weight="bold" fill="#3a9e8f">.95</text>
+    <rect x="115" y="101" width="50" height="27" rx="3" fill="#dff0ed" stroke="#3a9e8f" stroke-width="2"/>
+    <text x="140" y="119" text-anchor="middle" font-size="11" font-weight="bold" fill="#3a9e8f">.87</text>
+    <rect x="150" y="133" width="50" height="27" rx="3" fill="#dff0ed" stroke="#3a9e8f" stroke-width="2"/>
+    <text x="175" y="151" text-anchor="middle" font-size="11" font-weight="bold" fill="#3a9e8f">.91</text>
+    <rect x="185" y="165" width="50" height="27" rx="3" fill="#dff0ed" stroke="#3a9e8f" stroke-width="2"/>
+    <text x="210" y="183" text-anchor="middle" font-size="11" font-weight="bold" fill="#3a9e8f">.90</text>
 
     <!-- Off-diagonal (negatives - subtle) -->
     <g opacity="0.6">
-      <rect x="45" y="5" width="50" height="27" rx="3" fill="#fef2f2" stroke="#fca5a5" stroke-width="0.5"/>
-      <rect x="80" y="5" width="50" height="27" rx="3" fill="#fef2f2" stroke="#fca5a5" stroke-width="0.5"/>
-      <rect x="115" y="5" width="50" height="27" rx="3" fill="#fef2f2" stroke="#fca5a5" stroke-width="0.5"/>
-      <rect x="150" y="5" width="50" height="27" rx="3" fill="#fef2f2" stroke="#fca5a5" stroke-width="0.5"/>
-      <rect x="185" y="5" width="50" height="27" rx="3" fill="#fef2f2" stroke="#fca5a5" stroke-width="0.5"/>
-      <rect x="10" y="37" width="50" height="27" rx="3" fill="#fef2f2" stroke="#fca5a5" stroke-width="0.5"/>
-      <rect x="80" y="37" width="50" height="27" rx="3" fill="#fef2f2" stroke="#fca5a5" stroke-width="0.5"/>
-      <rect x="115" y="37" width="50" height="27" rx="3" fill="#fef2f2" stroke="#fca5a5" stroke-width="0.5"/>
-      <rect x="150" y="37" width="50" height="27" rx="3" fill="#fef2f2" stroke="#fca5a5" stroke-width="0.5"/>
-      <rect x="185" y="37" width="50" height="27" rx="3" fill="#fef2f2" stroke="#fca5a5" stroke-width="0.5"/>
+      <rect x="45" y="5" width="50" height="27" rx="3" fill="#f6e4e3" stroke="#e4ada9" stroke-width="0.5"/>
+      <rect x="80" y="5" width="50" height="27" rx="3" fill="#f6e4e3" stroke="#e4ada9" stroke-width="0.5"/>
+      <rect x="115" y="5" width="50" height="27" rx="3" fill="#f6e4e3" stroke="#e4ada9" stroke-width="0.5"/>
+      <rect x="150" y="5" width="50" height="27" rx="3" fill="#f6e4e3" stroke="#e4ada9" stroke-width="0.5"/>
+      <rect x="185" y="5" width="50" height="27" rx="3" fill="#f6e4e3" stroke="#e4ada9" stroke-width="0.5"/>
+      <rect x="10" y="37" width="50" height="27" rx="3" fill="#f6e4e3" stroke="#e4ada9" stroke-width="0.5"/>
+      <rect x="80" y="37" width="50" height="27" rx="3" fill="#f6e4e3" stroke="#e4ada9" stroke-width="0.5"/>
+      <rect x="115" y="37" width="50" height="27" rx="3" fill="#f6e4e3" stroke="#e4ada9" stroke-width="0.5"/>
+      <rect x="150" y="37" width="50" height="27" rx="3" fill="#f6e4e3" stroke="#e4ada9" stroke-width="0.5"/>
+      <rect x="185" y="37" width="50" height="27" rx="3" fill="#f6e4e3" stroke="#e4ada9" stroke-width="0.5"/>
     </g>
   </g>
 
   <!-- Arrows to matrix -->
-  <line x1="235" y1="340" x2="320" y2="230" stroke="#0284c7" stroke-width="1.5" stroke-dasharray="4,2"/>
-  <line x1="665" y1="340" x2="560" y2="230" stroke="#9333ea" stroke-width="1.5" stroke-dasharray="4,2"/>
+  <line x1="235" y1="340" x2="320" y2="230" stroke="#4a7fb5" stroke-width="1.5" stroke-dasharray="4,2"/>
+  <line x1="665" y1="340" x2="560" y2="230" stroke="#7b68a8" stroke-width="1.5" stroke-dasharray="4,2"/>
 
   <!-- Legend -->
-  <rect x="325" y="310" width="70" height="18" rx="3" fill="#dcfce7" stroke="#16a34a" stroke-width="1.5"/>
-  <text x="360" y="323" text-anchor="middle" font-size="7" fill="#14532d">Maximize ↑</text>
-  <rect x="405" y="310" width="70" height="18" rx="3" fill="#fef2f2" stroke="#fca5a5" stroke-width="1"/>
-  <text x="440" y="323" text-anchor="middle" font-size="7" fill="#b91c1c">Minimize ↓</text>
+  <rect x="325" y="310" width="70" height="18" rx="3" fill="#dff0ed" stroke="#3a9e8f" stroke-width="1.5"/>
+  <text x="360" y="323" text-anchor="middle" font-size="11" fill="#3a9e8f">Maximize ↑</text>
+  <rect x="405" y="310" width="70" height="18" rx="3" fill="#f6e4e3" stroke="#e4ada9" stroke-width="1"/>
+  <text x="440" y="323" text-anchor="middle" font-size="11" fill="#b5454a">Minimize ↓</text>
 
   <!-- ===== Training Objective ===== -->
-  <rect x="130" y="400" width="640" height="70" rx="8" fill="#f8fafc" stroke="#e2e8f0" stroke-width="1.5"/>
-  <text x="450" y="420" text-anchor="middle" font-size="10" font-weight="bold" fill="#0f172a">Symmetric Cross-Entropy Loss (InfoNCE)</text>
-  <text x="450" y="440" text-anchor="middle" font-size="9" fill="#334155" font-family="'SF Mono', Consolas, monospace">L = (L_img→txt + L_txt→img) / 2</text>
-  <text x="450" y="458" text-anchor="middle" font-size="8" fill="#64748b" font-family="'SF Mono', Consolas, monospace">L_img→txt = -(1/N) Σ log[exp(sim(I_i,T_i)/τ) / Σ_j exp(sim(I_i,T_j)/τ)]</text>
+  <rect x="130" y="400" width="640" height="70" rx="8" fill="#f5f5f8" stroke="#f5f5f8" stroke-width="1.5"/>
+  <text x="450" y="420" text-anchor="middle" font-size="11" font-weight="bold" fill="#1a1a2e">Symmetric Cross-Entropy Loss (InfoNCE)</text>
+  <text x="450" y="440" text-anchor="middle" font-size="11" fill="#3a3a4a" font-family="'JetBrains Mono', 'Fira Code', monospace">L = (L_img→txt + L_txt→img) / 2</text>
+  <text x="450" y="458" text-anchor="middle" font-size="11" fill="#7a7a8a" font-family="'JetBrains Mono', 'Fira Code', monospace">L_img→txt = -(1/N) Σ log[exp(sim(I_i,T_i)/τ) / Σ_j exp(sim(I_i,T_j)/τ)]</text>
 
   <!-- ===== Zero-Shot and Impact ===== -->
-  <rect x="30" y="485" width="420" height="65" rx="8" fill="#f0f9ff" stroke="#0284c7" stroke-width="1.5"/>
-  <text x="240" y="505" text-anchor="middle" font-size="10" font-weight="bold" fill="#0c4a6e">Zero-Shot Classification</text>
-  <text x="240" y="522" text-anchor="middle" font-size="8" fill="#334155">Encode class labels as text ("a photo of a [class]")</text>
-  <text x="240" y="538" text-anchor="middle" font-size="8" fill="#334155">Pick highest cosine similarity — no task-specific training</text>
+  <rect x="30" y="485" width="420" height="65" rx="8" fill="#edf2f8" stroke="#4a7fb5" stroke-width="1.5"/>
+  <text x="240" y="505" text-anchor="middle" font-size="11" font-weight="bold" fill="#4a7fb5">Zero-Shot Classification</text>
+  <text x="240" y="522" text-anchor="middle" font-size="11" fill="#3a3a4a">Encode class labels as text ("a photo of a [class]")</text>
+  <text x="240" y="538" text-anchor="middle" font-size="11" fill="#3a3a4a">Pick highest cosine similarity — no task-specific training</text>
 
-  <rect x="470" y="485" width="400" height="65" rx="8" fill="#fffbeb" stroke="#d97706" stroke-width="1.5"/>
-  <text x="670" y="505" text-anchor="middle" font-size="10" font-weight="bold" fill="#78350f">Why CLIP Changed Everything</text>
-  <text x="670" y="522" text-anchor="middle" font-size="8" fill="#334155">Unified vision-language embedding space</text>
-  <text x="670" y="538" text-anchor="middle" font-size="8" fill="#334155">Vision encoder for nearly every VLM (LLaVA, GPT-4V, etc.)</text>
+  <rect x="470" y="485" width="400" height="65" rx="8" fill="#faf5ee" stroke="#d4a03c" stroke-width="1.5"/>
+  <text x="670" y="505" text-anchor="middle" font-size="11" font-weight="bold" fill="#d4a03c">Why CLIP Changed Everything</text>
+  <text x="670" y="522" text-anchor="middle" font-size="11" fill="#3a3a4a">Unified vision-language embedding space</text>
+  <text x="670" y="538" text-anchor="middle" font-size="11" fill="#3a3a4a">Vision encoder for nearly every VLM (LLaVA, GPT-4V, etc.)</text>
 </svg>

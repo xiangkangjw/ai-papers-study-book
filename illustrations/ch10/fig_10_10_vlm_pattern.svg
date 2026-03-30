@@ -1,113 +1,113 @@
 <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 900 520" font-family="Inter, Helvetica, Arial, sans-serif">
   <defs>
-    <marker id="a" markerWidth="8" markerHeight="6" refX="8" refY="3" orient="auto"><path d="M0,0 L8,3 L0,6 Z" fill="#475569"/></marker>
+    <marker id="a" markerWidth="8" markerHeight="6" refX="8" refY="3" orient="auto"><path d="M0,0 L8,3 L0,6 Z" fill="#4a4a5a"/></marker>
   </defs>
 
-  <text x="450" y="28" text-anchor="middle" font-size="17" font-weight="bold" fill="#0f172a">VLM Common Architecture Pattern</text>
-  <text x="450" y="46" text-anchor="middle" font-size="10" fill="#64748b">Vision Encoder → Adapter/Projection → LLM Backbone — the unifying design</text>
+  <text x="450" y="28" text-anchor="middle" font-size="17" font-weight="bold" fill="#1a1a2e">VLM Common Architecture Pattern</text>
+  <text x="450" y="46" text-anchor="middle" font-size="11" fill="#7a7a8a">Vision Encoder → Adapter/Projection → LLM Backbone — the unifying design</text>
 
   <!-- ===== Main Pipeline ===== -->
 
   <!-- Image Input -->
-  <rect x="20" y="100" width="130" height="90" rx="8" fill="#f1f5f9" stroke="#475569" stroke-width="2"/>
-  <rect x="35" y="110" width="100" height="60" rx="4" fill="#e2e8f0" stroke="#94a3b8" stroke-width="1"/>
-  <text x="85" y="145" text-anchor="middle" font-size="9" fill="#475569">Image</text>
-  <text x="85" y="185" text-anchor="middle" font-size="7" fill="#64748b">pixels</text>
+  <rect x="20" y="100" width="130" height="90" rx="8" fill="#f5f5f8" stroke="#4a4a5a" stroke-width="2"/>
+  <rect x="35" y="110" width="100" height="60" rx="4" fill="#f5f5f8" stroke="#c0c0c8" stroke-width="1"/>
+  <text x="85" y="145" text-anchor="middle" font-size="11" fill="#4a4a5a">Image</text>
+  <text x="85" y="185" text-anchor="middle" font-size="11" fill="#7a7a8a">pixels</text>
 
-  <line x1="150" y1="145" x2="188" y2="145" stroke="#475569" stroke-width="2" marker-end="url(#a)"/>
+  <line x1="150" y1="145" x2="188" y2="145" stroke="#4a4a5a" stroke-width="2" marker-end="url(#a)"/>
 
   <!-- 1. Vision Encoder -->
-  <rect x="192" y="80" width="180" height="130" rx="10" fill="#e0f2fe" stroke="#0284c7" stroke-width="2.5"/>
-  <text x="282" y="105" text-anchor="middle" font-size="12" font-weight="bold" fill="#0c4a6e">1. Vision Encoder</text>
+  <rect x="192" y="80" width="180" height="130" rx="10" fill="#e1eaf3" stroke="#4a7fb5" stroke-width="2.5"/>
+  <text x="282" y="105" text-anchor="middle" font-size="12" font-weight="bold" fill="#4a7fb5">1. Vision Encoder</text>
 
-  <rect x="210" y="115" width="144" height="30" rx="4" fill="#f0f9ff" stroke="#0284c7" stroke-width="1.5"/>
-  <text x="282" y="135" text-anchor="middle" font-size="9" fill="#0c4a6e">CLIP ViT-L/14</text>
+  <rect x="210" y="115" width="144" height="30" rx="4" fill="#edf2f8" stroke="#4a7fb5" stroke-width="1.5"/>
+  <text x="282" y="135" text-anchor="middle" font-size="11" fill="#4a7fb5">CLIP ViT-L/14</text>
 
-  <text x="282" y="165" text-anchor="middle" font-size="8" fill="#0284c7">Patches → visual tokens</text>
-  <text x="282" y="180" text-anchor="middle" font-size="7" fill="#0284c7" font-family="'SF Mono', Consolas, monospace">[N_patches, d_vision]</text>
+  <text x="282" y="165" text-anchor="middle" font-size="11" fill="#4a7fb5">Patches → visual tokens</text>
+  <text x="282" y="180" text-anchor="middle" font-size="11" fill="#4a7fb5" font-family="'JetBrains Mono', 'Fira Code', monospace">[N_patches, d_vision]</text>
 
-  <text x="282" y="202" text-anchor="middle" font-size="7" fill="#64748b">Often frozen (pre-trained)</text>
+  <text x="282" y="202" text-anchor="middle" font-size="11" fill="#7a7a8a">Often frozen (pre-trained)</text>
 
-  <line x1="372" y1="145" x2="418" y2="145" stroke="#475569" stroke-width="2" marker-end="url(#a)"/>
+  <line x1="372" y1="145" x2="418" y2="145" stroke="#4a4a5a" stroke-width="2" marker-end="url(#a)"/>
 
   <!-- 2. Projection / Adapter -->
-  <rect x="422" y="80" width="170" height="130" rx="10" fill="#fef3c7" stroke="#d97706" stroke-width="2.5"/>
-  <text x="507" y="105" text-anchor="middle" font-size="12" font-weight="bold" fill="#78350f">2. Adapter</text>
+  <rect x="422" y="80" width="170" height="130" rx="10" fill="#f5ece0" stroke="#d4a03c" stroke-width="2.5"/>
+  <text x="507" y="105" text-anchor="middle" font-size="12" font-weight="bold" fill="#d4a03c">2. Adapter</text>
 
-  <rect x="437" y="118" width="140" height="25" rx="3" fill="#fffbeb" stroke="#d97706" stroke-width="1"/>
-  <text x="507" y="135" text-anchor="middle" font-size="8" fill="#78350f">Linear / MLP</text>
-  <rect x="437" y="148" width="140" height="25" rx="3" fill="#fffbeb" stroke="#d97706" stroke-width="1"/>
-  <text x="507" y="165" text-anchor="middle" font-size="8" fill="#78350f">Perceiver Resampler</text>
-  <rect x="437" y="178" width="140" height="25" rx="3" fill="#fffbeb" stroke="#d97706" stroke-width="1"/>
-  <text x="507" y="195" text-anchor="middle" font-size="8" fill="#78350f">Cross-Attention</text>
+  <rect x="437" y="118" width="140" height="25" rx="3" fill="#faf5ee" stroke="#d4a03c" stroke-width="1"/>
+  <text x="507" y="135" text-anchor="middle" font-size="11" fill="#d4a03c">Linear / MLP</text>
+  <rect x="437" y="148" width="140" height="25" rx="3" fill="#faf5ee" stroke="#d4a03c" stroke-width="1"/>
+  <text x="507" y="165" text-anchor="middle" font-size="11" fill="#d4a03c">Perceiver Resampler</text>
+  <rect x="437" y="178" width="140" height="25" rx="3" fill="#faf5ee" stroke="#d4a03c" stroke-width="1"/>
+  <text x="507" y="195" text-anchor="middle" font-size="11" fill="#d4a03c">Cross-Attention</text>
 
-  <text x="507" y="202" text-anchor="middle" font-size="7" fill="#64748b"></text>
+  <text x="507" y="202" text-anchor="middle" font-size="11" fill="#7a7a8a"></text>
 
-  <line x1="592" y1="145" x2="628" y2="145" stroke="#475569" stroke-width="2" marker-end="url(#a)"/>
-  <text x="610" y="135" text-anchor="middle" font-size="7" fill="#d97706">visual tokens</text>
-  <text x="610" y="158" text-anchor="middle" font-size="7" fill="#d97706">in LLM space</text>
+  <line x1="592" y1="145" x2="628" y2="145" stroke="#4a4a5a" stroke-width="2" marker-end="url(#a)"/>
+  <text x="610" y="135" text-anchor="middle" font-size="11" fill="#d4a03c">visual tokens</text>
+  <text x="610" y="158" text-anchor="middle" font-size="11" fill="#d4a03c">in LLM space</text>
 
   <!-- 3. LLM Backbone -->
-  <rect x="632" y="70" width="245" height="160" rx="10" fill="#dcfce7" stroke="#16a34a" stroke-width="2.5"/>
-  <text x="754" y="95" text-anchor="middle" font-size="12" font-weight="bold" fill="#14532d">3. LLM Backbone</text>
+  <rect x="632" y="70" width="245" height="160" rx="10" fill="#dff0ed" stroke="#3a9e8f" stroke-width="2.5"/>
+  <text x="754" y="95" text-anchor="middle" font-size="12" font-weight="bold" fill="#3a9e8f">3. LLM Backbone</text>
 
   <!-- Token sequence inside LLM -->
   <g transform="translate(650, 108)">
-    <rect x="0" y="0" width="28" height="40" rx="3" fill="#e0f2fe" stroke="#0284c7" stroke-width="1.5"/>
-    <text x="14" y="25" text-anchor="middle" font-size="6" fill="#0c4a6e">V₁</text>
-    <rect x="32" y="0" width="28" height="40" rx="3" fill="#e0f2fe" stroke="#0284c7" stroke-width="1.5"/>
-    <text x="46" y="25" text-anchor="middle" font-size="6" fill="#0c4a6e">V₂</text>
-    <rect x="64" y="0" width="28" height="40" rx="3" fill="#e0f2fe" stroke="#0284c7" stroke-width="1.5"/>
-    <text x="78" y="25" text-anchor="middle" font-size="6" fill="#0c4a6e">...</text>
-    <rect x="96" y="0" width="28" height="40" rx="3" fill="#f3e8ff" stroke="#9333ea" stroke-width="1.5"/>
-    <text x="110" y="25" text-anchor="middle" font-size="5" fill="#3b0764">txt₁</text>
-    <rect x="128" y="0" width="28" height="40" rx="3" fill="#f3e8ff" stroke="#9333ea" stroke-width="1.5"/>
-    <text x="142" y="25" text-anchor="middle" font-size="5" fill="#3b0764">txt₂</text>
-    <rect x="160" y="0" width="28" height="40" rx="3" fill="#f3e8ff" stroke="#9333ea" stroke-width="1.5"/>
-    <text x="174" y="25" text-anchor="middle" font-size="5" fill="#3b0764">...</text>
-    <text x="95" y="55" text-anchor="middle" font-size="7" fill="#64748b">visual + text tokens interleaved</text>
+    <rect x="0" y="0" width="28" height="40" rx="3" fill="#e1eaf3" stroke="#4a7fb5" stroke-width="1.5"/>
+    <text x="14" y="25" text-anchor="middle" font-size="11" fill="#4a7fb5">V₁</text>
+    <rect x="32" y="0" width="28" height="40" rx="3" fill="#e1eaf3" stroke="#4a7fb5" stroke-width="1.5"/>
+    <text x="46" y="25" text-anchor="middle" font-size="11" fill="#4a7fb5">V₂</text>
+    <rect x="64" y="0" width="28" height="40" rx="3" fill="#e1eaf3" stroke="#4a7fb5" stroke-width="1.5"/>
+    <text x="78" y="25" text-anchor="middle" font-size="11" fill="#4a7fb5">...</text>
+    <rect x="96" y="0" width="28" height="40" rx="3" fill="#e8e4f1" stroke="#7b68a8" stroke-width="1.5"/>
+    <text x="110" y="25" text-anchor="middle" font-size="11" fill="#7b68a8">txt₁</text>
+    <rect x="128" y="0" width="28" height="40" rx="3" fill="#e8e4f1" stroke="#7b68a8" stroke-width="1.5"/>
+    <text x="142" y="25" text-anchor="middle" font-size="11" fill="#7b68a8">txt₂</text>
+    <rect x="160" y="0" width="28" height="40" rx="3" fill="#e8e4f1" stroke="#7b68a8" stroke-width="1.5"/>
+    <text x="174" y="25" text-anchor="middle" font-size="11" fill="#7b68a8">...</text>
+    <text x="95" y="55" text-anchor="middle" font-size="11" fill="#7a7a8a">visual + text tokens interleaved</text>
   </g>
 
-  <text x="754" y="182" text-anchor="middle" font-size="9" fill="#14532d">Autoregressive Decoder</text>
-  <text x="754" y="198" text-anchor="middle" font-size="8" fill="#16a34a">Generates text conditioned on</text>
-  <text x="754" y="212" text-anchor="middle" font-size="8" fill="#16a34a">both visual and text tokens</text>
+  <text x="754" y="182" text-anchor="middle" font-size="11" fill="#3a9e8f">Autoregressive Decoder</text>
+  <text x="754" y="198" text-anchor="middle" font-size="11" fill="#3a9e8f">Generates text conditioned on</text>
+  <text x="754" y="212" text-anchor="middle" font-size="11" fill="#3a9e8f">both visual and text tokens</text>
 
   <!-- Text input -->
-  <rect x="700" y="240" width="130" height="30" rx="4" fill="#f1f5f9" stroke="#475569" stroke-width="1.5"/>
-  <text x="765" y="260" text-anchor="middle" font-size="8" fill="#0f172a">Text Prompt</text>
-  <line x1="765" y1="240" x2="765" y2="232" stroke="#475569" stroke-width="1.5" marker-end="url(#a)"/>
+  <rect x="700" y="240" width="130" height="30" rx="4" fill="#f5f5f8" stroke="#4a4a5a" stroke-width="1.5"/>
+  <text x="765" y="260" text-anchor="middle" font-size="11" fill="#1a1a2e">Text Prompt</text>
+  <line x1="765" y1="240" x2="765" y2="232" stroke="#4a4a5a" stroke-width="1.5" marker-end="url(#a)"/>
 
   <!-- Output -->
-  <line x1="754" y1="230" x2="754" y2="248" stroke="#475569" stroke-width="0"/>
-  <rect x="632" y="280" width="245" height="30" rx="8" fill="#dcfce7" stroke="#16a34a" stroke-width="2"/>
-  <text x="754" y="300" text-anchor="middle" font-size="10" font-weight="bold" fill="#14532d">Text Output (Generated)</text>
+  <line x1="754" y1="230" x2="754" y2="248" stroke="#4a4a5a" stroke-width="0"/>
+  <rect x="632" y="280" width="245" height="30" rx="8" fill="#dff0ed" stroke="#3a9e8f" stroke-width="2"/>
+  <text x="754" y="300" text-anchor="middle" font-size="11" font-weight="bold" fill="#3a9e8f">Text Output (Generated)</text>
 
   <!-- ===== Concrete Models ===== -->
-  <text x="450" y="345" text-anchor="middle" font-size="12" font-weight="bold" fill="#0f172a">Concrete Instantiations</text>
+  <text x="450" y="345" text-anchor="middle" font-size="12" font-weight="bold" fill="#1a1a2e">Concrete Instantiations</text>
 
   <!-- Flamingo -->
-  <rect x="30" y="360" width="270" height="90" rx="8" fill="#f0f9ff" stroke="#0284c7" stroke-width="1.5"/>
-  <text x="165" y="382" text-anchor="middle" font-size="10" font-weight="bold" fill="#0c4a6e">Flamingo (Alayrac et al., 2022)</text>
-  <text x="165" y="400" text-anchor="middle" font-size="8" fill="#334155">Frozen ViT → Perceiver Resampler (64 latents)</text>
-  <text x="165" y="415" text-anchor="middle" font-size="8" fill="#334155">→ Gated cross-attention into frozen LLM</text>
-  <text x="165" y="435" text-anchor="middle" font-size="7" fill="#64748b">Only resampler + cross-attn layers trained</text>
+  <rect x="30" y="360" width="270" height="90" rx="8" fill="#edf2f8" stroke="#4a7fb5" stroke-width="1.5"/>
+  <text x="165" y="382" text-anchor="middle" font-size="11" font-weight="bold" fill="#4a7fb5">Flamingo (Alayrac et al., 2022)</text>
+  <text x="165" y="400" text-anchor="middle" font-size="11" fill="#3a3a4a">Frozen ViT → Perceiver Resampler (64 latents)</text>
+  <text x="165" y="415" text-anchor="middle" font-size="11" fill="#3a3a4a">→ Gated cross-attention into frozen LLM</text>
+  <text x="165" y="435" text-anchor="middle" font-size="11" fill="#7a7a8a">Only resampler + cross-attn layers trained</text>
 
   <!-- LLaVA -->
-  <rect x="315" y="360" width="270" height="90" rx="8" fill="#fffbeb" stroke="#d97706" stroke-width="1.5"/>
-  <text x="450" y="382" text-anchor="middle" font-size="10" font-weight="bold" fill="#78350f">LLaVA (Liu et al., 2023)</text>
-  <text x="450" y="400" text-anchor="middle" font-size="8" fill="#334155">CLIP ViT → Linear Projection</text>
-  <text x="450" y="415" text-anchor="middle" font-size="8" fill="#334155">→ Vicuna LLM (fine-tuned Llama)</text>
-  <text x="450" y="435" text-anchor="middle" font-size="7" fill="#64748b">Stage 1: align proj. Stage 2: tune proj + LLM</text>
+  <rect x="315" y="360" width="270" height="90" rx="8" fill="#faf5ee" stroke="#d4a03c" stroke-width="1.5"/>
+  <text x="450" y="382" text-anchor="middle" font-size="11" font-weight="bold" fill="#d4a03c">LLaVA (Liu et al., 2023)</text>
+  <text x="450" y="400" text-anchor="middle" font-size="11" fill="#3a3a4a">CLIP ViT → Linear Projection</text>
+  <text x="450" y="415" text-anchor="middle" font-size="11" fill="#3a3a4a">→ Vicuna LLM (fine-tuned Llama)</text>
+  <text x="450" y="435" text-anchor="middle" font-size="11" fill="#7a7a8a">Stage 1: align proj. Stage 2: tune proj + LLM</text>
 
   <!-- GPT-4V style -->
-  <rect x="600" y="360" width="270" height="90" rx="8" fill="#f0fdf4" stroke="#16a34a" stroke-width="1.5"/>
-  <text x="735" y="382" text-anchor="middle" font-size="10" font-weight="bold" fill="#14532d">GPT-4V / Gemini Style</text>
-  <text x="735" y="400" text-anchor="middle" font-size="8" fill="#334155">ViT → (proprietary adapter)</text>
-  <text x="735" y="415" text-anchor="middle" font-size="8" fill="#334155">→ Large Decoder-Only LLM</text>
-  <text x="735" y="435" text-anchor="middle" font-size="7" fill="#64748b">End-to-end trained, details undisclosed</text>
+  <rect x="600" y="360" width="270" height="90" rx="8" fill="#edf7f5" stroke="#3a9e8f" stroke-width="1.5"/>
+  <text x="735" y="382" text-anchor="middle" font-size="11" font-weight="bold" fill="#3a9e8f">GPT-4V / Gemini Style</text>
+  <text x="735" y="400" text-anchor="middle" font-size="11" fill="#3a3a4a">ViT → (proprietary adapter)</text>
+  <text x="735" y="415" text-anchor="middle" font-size="11" fill="#3a3a4a">→ Large Decoder-Only LLM</text>
+  <text x="735" y="435" text-anchor="middle" font-size="11" fill="#7a7a8a">End-to-end trained, details undisclosed</text>
 
   <!-- Design choices summary -->
-  <rect x="100" y="465" width="700" height="45" rx="6" fill="#f8fafc" stroke="#e2e8f0" stroke-width="1.5"/>
-  <text x="450" y="483" text-anchor="middle" font-size="9" font-weight="bold" fill="#0f172a">Three Design Choices at Each Stage</text>
-  <text x="450" y="500" text-anchor="middle" font-size="8" fill="#334155">Vision Encoder: ViT size, pre-training (CLIP vs DINOv2) | Adapter: linear vs resampler vs cross-attn | LLM: size, frozen vs tuned</text>
+  <rect x="100" y="465" width="700" height="45" rx="6" fill="#f5f5f8" stroke="#f5f5f8" stroke-width="1.5"/>
+  <text x="450" y="483" text-anchor="middle" font-size="11" font-weight="bold" fill="#1a1a2e">Three Design Choices at Each Stage</text>
+  <text x="450" y="500" text-anchor="middle" font-size="11" fill="#3a3a4a">Vision Encoder: ViT size, pre-training (CLIP vs DINOv2) | Adapter: linear vs resampler vs cross-attn | LLM: size, frozen vs tuned</text>
 </svg>

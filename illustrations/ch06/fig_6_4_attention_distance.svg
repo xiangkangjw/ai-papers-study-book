@@ -1,122 +1,122 @@
 <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 860 420" font-family="Inter, Helvetica, Arial, sans-serif">
   <defs>
-    <marker id="a" markerWidth="8" markerHeight="6" refX="8" refY="3" orient="auto"><path d="M0,0 L8,3 L0,6 Z" fill="#475569"/></marker>
+    <marker id="a" markerWidth="8" markerHeight="6" refX="8" refY="3" orient="auto"><path d="M0,0 L8,3 L0,6 Z" fill="#4a4a5a"/></marker>
   </defs>
 
-  <text x="430" y="28" text-anchor="middle" font-size="17" font-weight="bold" fill="#0f172a">Attention Distance Across Layers</text>
-  <text x="430" y="46" text-anchor="middle" font-size="10" fill="#64748b">Dosovitskiy et al. (2021) — ViT attention heads learn both local and global patterns</text>
+  <text x="430" y="28" text-anchor="middle" font-size="17" font-weight="bold" fill="#1a1a2e">Attention Distance Across Layers</text>
+  <text x="430" y="46" text-anchor="middle" font-size="11" fill="#7a7a8a">Dosovitskiy et al. (2021) — ViT attention heads learn both local and global patterns</text>
 
   <!-- Plot area -->
-  <rect x="50" y="65" width="480" height="300" rx="8" fill="#f8fafc" stroke="#e2e8f0" stroke-width="1.5"/>
+  <rect x="50" y="65" width="480" height="300" rx="8" fill="#f5f5f8" stroke="#f5f5f8" stroke-width="1.5"/>
 
   <!-- Axes -->
-  <line x1="90" y1="330" x2="500" y2="330" stroke="#475569" stroke-width="1.5" marker-end="url(#a)"/>
-  <line x1="90" y1="330" x2="90" y2="80" stroke="#475569" stroke-width="1.5" marker-end="url(#a)"/>
-  <text x="295" y="358" text-anchor="middle" font-size="10" fill="#475569">Network Depth (Layer) →</text>
-  <text x="55" y="205" text-anchor="middle" font-size="10" fill="#475569" transform="rotate(-90 55 205)">Mean Attention Distance (pixels) →</text>
+  <line x1="90" y1="330" x2="500" y2="330" stroke="#4a4a5a" stroke-width="1.5" marker-end="url(#a)"/>
+  <line x1="90" y1="330" x2="90" y2="80" stroke="#4a4a5a" stroke-width="1.5" marker-end="url(#a)"/>
+  <text x="295" y="358" text-anchor="middle" font-size="11" fill="#4a4a5a">Network Depth (Layer) →</text>
+  <text x="55" y="205" text-anchor="middle" font-size="11" fill="#4a4a5a" transform="rotate(-90 55 205)">Mean Attention Distance (pixels) →</text>
 
   <!-- Y-axis ticks -->
-  <text x="82" y="325" text-anchor="end" font-size="7" fill="#64748b">0</text>
-  <text x="82" y="268" text-anchor="end" font-size="7" fill="#64748b">Local</text>
-  <text x="82" y="155" text-anchor="end" font-size="7" fill="#64748b">Global</text>
-  <text x="82" y="95" text-anchor="end" font-size="7" fill="#64748b">Max</text>
+  <text x="82" y="325" text-anchor="end" font-size="11" fill="#7a7a8a">0</text>
+  <text x="82" y="268" text-anchor="end" font-size="11" fill="#7a7a8a">Local</text>
+  <text x="82" y="155" text-anchor="end" font-size="11" fill="#7a7a8a">Global</text>
+  <text x="82" y="95" text-anchor="end" font-size="11" fill="#7a7a8a">Max</text>
 
   <!-- X-axis ticks -->
-  <text x="120" y="345" text-anchor="middle" font-size="7" fill="#64748b">1</text>
-  <text x="190" y="345" text-anchor="middle" font-size="7" fill="#64748b">4</text>
-  <text x="290" y="345" text-anchor="middle" font-size="7" fill="#64748b">8</text>
-  <text x="470" y="345" text-anchor="middle" font-size="7" fill="#64748b">12</text>
+  <text x="120" y="345" text-anchor="middle" font-size="11" fill="#7a7a8a">1</text>
+  <text x="190" y="345" text-anchor="middle" font-size="11" fill="#7a7a8a">4</text>
+  <text x="290" y="345" text-anchor="middle" font-size="11" fill="#7a7a8a">8</text>
+  <text x="470" y="345" text-anchor="middle" font-size="11" fill="#7a7a8a">12</text>
 
   <!-- Scatter: each dot = one attention head. Early layers: spread. Late: mostly global -->
   <!-- Layer 1: some local, some global -->
-  <circle cx="120" cy="300" r="4" fill="#0284c7" opacity="0.6"/>
-  <circle cx="120" cy="280" r="4" fill="#0284c7" opacity="0.6"/>
-  <circle cx="120" cy="310" r="4" fill="#0284c7" opacity="0.6"/>
-  <circle cx="120" cy="250" r="4" fill="#0284c7" opacity="0.6"/>
-  <circle cx="120" cy="190" r="4" fill="#0284c7" opacity="0.6"/>
-  <circle cx="120" cy="160" r="4" fill="#0284c7" opacity="0.6"/>
+  <circle cx="120" cy="300" r="4" fill="#4a7fb5" opacity="0.6"/>
+  <circle cx="120" cy="280" r="4" fill="#4a7fb5" opacity="0.6"/>
+  <circle cx="120" cy="310" r="4" fill="#4a7fb5" opacity="0.6"/>
+  <circle cx="120" cy="250" r="4" fill="#4a7fb5" opacity="0.6"/>
+  <circle cx="120" cy="190" r="4" fill="#4a7fb5" opacity="0.6"/>
+  <circle cx="120" cy="160" r="4" fill="#4a7fb5" opacity="0.6"/>
 
   <!-- Layer 2 -->
-  <circle cx="150" cy="290" r="4" fill="#0284c7" opacity="0.6"/>
-  <circle cx="150" cy="305" r="4" fill="#0284c7" opacity="0.6"/>
-  <circle cx="150" cy="230" r="4" fill="#0284c7" opacity="0.6"/>
-  <circle cx="150" cy="175" r="4" fill="#0284c7" opacity="0.6"/>
-  <circle cx="150" cy="145" r="4" fill="#0284c7" opacity="0.6"/>
-  <circle cx="150" cy="270" r="4" fill="#0284c7" opacity="0.6"/>
+  <circle cx="150" cy="290" r="4" fill="#4a7fb5" opacity="0.6"/>
+  <circle cx="150" cy="305" r="4" fill="#4a7fb5" opacity="0.6"/>
+  <circle cx="150" cy="230" r="4" fill="#4a7fb5" opacity="0.6"/>
+  <circle cx="150" cy="175" r="4" fill="#4a7fb5" opacity="0.6"/>
+  <circle cx="150" cy="145" r="4" fill="#4a7fb5" opacity="0.6"/>
+  <circle cx="150" cy="270" r="4" fill="#4a7fb5" opacity="0.6"/>
 
   <!-- Layer 4 -->
-  <circle cx="190" cy="285" r="4" fill="#0284c7" opacity="0.6"/>
-  <circle cx="190" cy="240" r="4" fill="#0284c7" opacity="0.6"/>
-  <circle cx="190" cy="200" r="4" fill="#0284c7" opacity="0.6"/>
-  <circle cx="190" cy="155" r="4" fill="#0284c7" opacity="0.6"/>
-  <circle cx="190" cy="135" r="4" fill="#0284c7" opacity="0.6"/>
-  <circle cx="190" cy="310" r="4" fill="#0284c7" opacity="0.6"/>
+  <circle cx="190" cy="285" r="4" fill="#4a7fb5" opacity="0.6"/>
+  <circle cx="190" cy="240" r="4" fill="#4a7fb5" opacity="0.6"/>
+  <circle cx="190" cy="200" r="4" fill="#4a7fb5" opacity="0.6"/>
+  <circle cx="190" cy="155" r="4" fill="#4a7fb5" opacity="0.6"/>
+  <circle cx="190" cy="135" r="4" fill="#4a7fb5" opacity="0.6"/>
+  <circle cx="190" cy="310" r="4" fill="#4a7fb5" opacity="0.6"/>
 
   <!-- Layer 6 -->
-  <circle cx="240" cy="260" r="4" fill="#0284c7" opacity="0.6"/>
-  <circle cx="240" cy="200" r="4" fill="#0284c7" opacity="0.6"/>
-  <circle cx="240" cy="165" r="4" fill="#0284c7" opacity="0.6"/>
-  <circle cx="240" cy="140" r="4" fill="#0284c7" opacity="0.6"/>
-  <circle cx="240" cy="125" r="4" fill="#0284c7" opacity="0.6"/>
-  <circle cx="240" cy="290" r="4" fill="#0284c7" opacity="0.6"/>
+  <circle cx="240" cy="260" r="4" fill="#4a7fb5" opacity="0.6"/>
+  <circle cx="240" cy="200" r="4" fill="#4a7fb5" opacity="0.6"/>
+  <circle cx="240" cy="165" r="4" fill="#4a7fb5" opacity="0.6"/>
+  <circle cx="240" cy="140" r="4" fill="#4a7fb5" opacity="0.6"/>
+  <circle cx="240" cy="125" r="4" fill="#4a7fb5" opacity="0.6"/>
+  <circle cx="240" cy="290" r="4" fill="#4a7fb5" opacity="0.6"/>
 
   <!-- Layer 8 -->
-  <circle cx="290" cy="200" r="4" fill="#0284c7" opacity="0.6"/>
-  <circle cx="290" cy="160" r="4" fill="#0284c7" opacity="0.6"/>
-  <circle cx="290" cy="140" r="4" fill="#0284c7" opacity="0.6"/>
-  <circle cx="290" cy="120" r="4" fill="#0284c7" opacity="0.6"/>
-  <circle cx="290" cy="300" r="4" fill="#0284c7" opacity="0.6"/>
-  <circle cx="290" cy="110" r="4" fill="#0284c7" opacity="0.6"/>
+  <circle cx="290" cy="200" r="4" fill="#4a7fb5" opacity="0.6"/>
+  <circle cx="290" cy="160" r="4" fill="#4a7fb5" opacity="0.6"/>
+  <circle cx="290" cy="140" r="4" fill="#4a7fb5" opacity="0.6"/>
+  <circle cx="290" cy="120" r="4" fill="#4a7fb5" opacity="0.6"/>
+  <circle cx="290" cy="300" r="4" fill="#4a7fb5" opacity="0.6"/>
+  <circle cx="290" cy="110" r="4" fill="#4a7fb5" opacity="0.6"/>
 
   <!-- Layer 10 -->
-  <circle cx="380" cy="150" r="4" fill="#0284c7" opacity="0.6"/>
-  <circle cx="380" cy="130" r="4" fill="#0284c7" opacity="0.6"/>
-  <circle cx="380" cy="115" r="4" fill="#0284c7" opacity="0.6"/>
-  <circle cx="380" cy="105" r="4" fill="#0284c7" opacity="0.6"/>
-  <circle cx="380" cy="170" r="4" fill="#0284c7" opacity="0.6"/>
-  <circle cx="380" cy="280" r="4" fill="#0284c7" opacity="0.6"/>
+  <circle cx="380" cy="150" r="4" fill="#4a7fb5" opacity="0.6"/>
+  <circle cx="380" cy="130" r="4" fill="#4a7fb5" opacity="0.6"/>
+  <circle cx="380" cy="115" r="4" fill="#4a7fb5" opacity="0.6"/>
+  <circle cx="380" cy="105" r="4" fill="#4a7fb5" opacity="0.6"/>
+  <circle cx="380" cy="170" r="4" fill="#4a7fb5" opacity="0.6"/>
+  <circle cx="380" cy="280" r="4" fill="#4a7fb5" opacity="0.6"/>
 
   <!-- Layer 12 -->
-  <circle cx="470" cy="130" r="4" fill="#0284c7" opacity="0.6"/>
-  <circle cx="470" cy="115" r="4" fill="#0284c7" opacity="0.6"/>
-  <circle cx="470" cy="105" r="4" fill="#0284c7" opacity="0.6"/>
-  <circle cx="470" cy="100" r="4" fill="#0284c7" opacity="0.6"/>
-  <circle cx="470" cy="140" r="4" fill="#0284c7" opacity="0.6"/>
-  <circle cx="470" cy="260" r="4" fill="#0284c7" opacity="0.6"/>
+  <circle cx="470" cy="130" r="4" fill="#4a7fb5" opacity="0.6"/>
+  <circle cx="470" cy="115" r="4" fill="#4a7fb5" opacity="0.6"/>
+  <circle cx="470" cy="105" r="4" fill="#4a7fb5" opacity="0.6"/>
+  <circle cx="470" cy="100" r="4" fill="#4a7fb5" opacity="0.6"/>
+  <circle cx="470" cy="140" r="4" fill="#4a7fb5" opacity="0.6"/>
+  <circle cx="470" cy="260" r="4" fill="#4a7fb5" opacity="0.6"/>
 
   <!-- Trend annotation: CNN equivalent receptive field -->
-  <path d="M 120 315 Q 200 310 290 290 Q 380 260 470 240" fill="none" stroke="#ef4444" stroke-width="1.5" stroke-dasharray="6,3"/>
-  <text x="400" y="255" font-size="7" fill="#ef4444">CNN receptive field growth</text>
+  <path d="M 120 315 Q 200 310 290 290 Q 380 260 470 240" fill="none" stroke="#d4645c" stroke-width="1.5" stroke-dasharray="6,3"/>
+  <text x="400" y="255" font-size="11" fill="#d4645c">CNN receptive field growth</text>
 
   <!-- Annotations -->
-  <text x="140" y="320" font-size="7" fill="#16a34a">← some heads attend locally</text>
-  <text x="350" y="95" font-size="7" fill="#0284c7">most heads attend globally →</text>
+  <text x="140" y="320" font-size="11" fill="#3a9e8f">← some heads attend locally</text>
+  <text x="350" y="95" font-size="11" fill="#4a7fb5">most heads attend globally →</text>
 
   <!-- Explanation panel -->
-  <rect x="555" y="65" width="280" height="300" rx="10" fill="#f8fafc" stroke="#e2e8f0" stroke-width="1.5"/>
-  <text x="695" y="90" text-anchor="middle" font-size="11" font-weight="bold" fill="#0f172a">Key Observations</text>
+  <rect x="555" y="65" width="280" height="300" rx="10" fill="#f5f5f8" stroke="#f5f5f8" stroke-width="1.5"/>
+  <text x="695" y="90" text-anchor="middle" font-size="11" font-weight="bold" fill="#1a1a2e">Key Observations</text>
 
-  <rect x="570" y="105" width="250" height="55" rx="6" fill="#e0f2fe" stroke="#0284c7" stroke-width="1.5"/>
-  <text x="695" y="123" text-anchor="middle" font-size="9" font-weight="bold" fill="#0c4a6e">Wide Spread in Early Layers</text>
-  <text x="695" y="140" text-anchor="middle" font-size="7" fill="#334155">Some heads attend locally (like conv)</text>
-  <text x="695" y="153" text-anchor="middle" font-size="7" fill="#334155">Others already attend globally</text>
+  <rect x="570" y="105" width="250" height="55" rx="6" fill="#e1eaf3" stroke="#4a7fb5" stroke-width="1.5"/>
+  <text x="695" y="123" text-anchor="middle" font-size="11" font-weight="bold" fill="#4a7fb5">Wide Spread in Early Layers</text>
+  <text x="695" y="140" text-anchor="middle" font-size="11" fill="#3a3a4a">Some heads attend locally (like conv)</text>
+  <text x="695" y="153" text-anchor="middle" font-size="11" fill="#3a3a4a">Others already attend globally</text>
 
-  <rect x="570" y="170" width="250" height="55" rx="6" fill="#dcfce7" stroke="#16a34a" stroke-width="1.5"/>
-  <text x="695" y="188" text-anchor="middle" font-size="9" font-weight="bold" fill="#14532d">Mostly Global in Late Layers</text>
-  <text x="695" y="205" text-anchor="middle" font-size="7" fill="#334155">Most heads attend to full image</text>
-  <text x="695" y="218" text-anchor="middle" font-size="7" fill="#334155">1-2 heads remain local (useful!)</text>
+  <rect x="570" y="170" width="250" height="55" rx="6" fill="#dff0ed" stroke="#3a9e8f" stroke-width="1.5"/>
+  <text x="695" y="188" text-anchor="middle" font-size="11" font-weight="bold" fill="#3a9e8f">Mostly Global in Late Layers</text>
+  <text x="695" y="205" text-anchor="middle" font-size="11" fill="#3a3a4a">Most heads attend to full image</text>
+  <text x="695" y="218" text-anchor="middle" font-size="11" fill="#3a3a4a">1-2 heads remain local (useful!)</text>
 
-  <rect x="570" y="235" width="250" height="55" rx="6" fill="#fef3c7" stroke="#d97706" stroke-width="1.5"/>
-  <text x="695" y="253" text-anchor="middle" font-size="9" font-weight="bold" fill="#78350f">vs CNN</text>
-  <text x="695" y="270" text-anchor="middle" font-size="7" fill="#334155">CNN receptive field grows linearly</text>
-  <text x="695" y="283" text-anchor="middle" font-size="7" fill="#334155">ViT has global attention from layer 1</text>
+  <rect x="570" y="235" width="250" height="55" rx="6" fill="#f5ece0" stroke="#d4a03c" stroke-width="1.5"/>
+  <text x="695" y="253" text-anchor="middle" font-size="11" font-weight="bold" fill="#d4a03c">vs CNN</text>
+  <text x="695" y="270" text-anchor="middle" font-size="11" fill="#3a3a4a">CNN receptive field grows linearly</text>
+  <text x="695" y="283" text-anchor="middle" font-size="11" fill="#3a3a4a">ViT has global attention from layer 1</text>
 
-  <rect x="570" y="300" width="250" height="55" rx="6" fill="#fce7f3" stroke="#db2777" stroke-width="1.5"/>
-  <text x="695" y="318" text-anchor="middle" font-size="9" font-weight="bold" fill="#831843">Implication</text>
-  <text x="695" y="335" text-anchor="middle" font-size="7" fill="#334155">ViT learns both local and global features</text>
-  <text x="695" y="348" text-anchor="middle" font-size="7" fill="#334155">Hybrid local+global → CNN-like inductive bias</text>
+  <rect x="570" y="300" width="250" height="55" rx="6" fill="#f6e4e3" stroke="#d4645c" stroke-width="1.5"/>
+  <text x="695" y="318" text-anchor="middle" font-size="11" font-weight="bold" fill="#d4645c">Implication</text>
+  <text x="695" y="335" text-anchor="middle" font-size="11" fill="#3a3a4a">ViT learns both local and global features</text>
+  <text x="695" y="348" text-anchor="middle" font-size="11" fill="#3a3a4a">Hybrid local+global → CNN-like inductive bias</text>
 
   <!-- Bottom note -->
-  <rect x="100" y="385" width="660" height="25" rx="5" fill="#f1f5f9" stroke="#475569" stroke-width="1"/>
-  <text x="430" y="402" text-anchor="middle" font-size="8" fill="#64748b">Each dot = one attention head. ViT-L/16 on ImageNet. Mean attention distance = average distance between query and attended-to patches.</text>
+  <rect x="100" y="385" width="660" height="25" rx="5" fill="#f5f5f8" stroke="#4a4a5a" stroke-width="1"/>
+  <text x="430" y="402" text-anchor="middle" font-size="11" fill="#7a7a8a">Each dot = one attention head. ViT-L/16 on ImageNet. Mean attention distance = average distance between query and attended-to patches.</text>
 </svg>

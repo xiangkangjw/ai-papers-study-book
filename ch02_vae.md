@@ -23,6 +23,8 @@ This matters for several reasons that go beyond "make pretty pictures":
 
 The fundamental framing: given a dataset $\mathcal{D} = \{x_1, x_2, \ldots, x_n\}$ drawn i.i.d. from some unknown distribution $p_\text{data}(x)$, we want to learn a parametric model $p_\theta(x) \approx p_\text{data}(x)$. The challenge is that $x$ lives in a high-dimensional space (a $256 \times 256$ RGB image has ~200,000 dimensions), and interesting data occupies a tiny, highly structured manifold within that space.
 
+![Figure 2.2: Generative Model Taxonomy](illustrations/ch02/fig_2_2_generative_model_taxonomy.svg)
+
 ---
 
 ## 2.2 Autoencoders: Compression as Representation
@@ -66,31 +68,7 @@ More precisely, vanilla autoencoders have three compounding problems:
 
 **3. No way to measure the quality of generated samples.** Without a probability model, you cannot compute likelihoods or compare how well different models capture the data distribution.
 
-```mermaid
-graph TD
-    classDef space fill:#f8fafc,stroke:#cbd5e1,stroke-width:2px,stroke-dasharray: 4 4,color:#64748b,font-style:italic
-    classDef cluster fill:#e0f2fe,stroke:#0284c7,stroke-width:2px,color:#0c4a6e,font-weight:bold
-    classDef point fill:#fef3c7,stroke:#d97706,stroke-width:2px,color:#78350f
-    classDef interp fill:#dcfce7,stroke:#22c55e,stroke-width:2px,color:#14532d
-
-    subgraph AE ["(a) Standard Autoencoder Latent Space"]
-        direction LR
-        AE_C1["Tight Cluster A<br/>(e.g., Cats)"]:::cluster
-        AE_Gap["Uncharted Gap<br/>(Decodes to Garbage)"]:::space
-        AE_C2["Tight Cluster B<br/>(e.g., Dogs)"]:::cluster
-        
-        AE_C1 -.->|"Interpolation Path"| AE_Gap -.-> AE_C2
-    end
-
-    subgraph V_AE ["(b) VAE Latent Space (KL Regularized)"]
-        direction LR
-        VAE_C1["Distribution A<br/>p(z|x) ≈ N(μ, σ²)"]:::cluster
-        VAE_O["Overlapping Support<br/>Smooth transition boundary"]:::interp
-        VAE_C2["Distribution B<br/>p(z|x) ≈ N(μ, σ²)"]:::cluster
-        
-        VAE_C1 -->|"Interpolation Path<br/>(Decodes to Cat-Dog morph)"| VAE_O --> VAE_C2
-    end
-```
+![Figure 2.1: Autoencoder vs VAE Latent Space](illustrations/ch02/fig_2_1_ae_vs_vae_latent_space.svg)
 
 The Variational Autoencoder (Kingma & Welling, 2013) addresses all three by grounding the autoencoder in probabilistic latent variable models and approximating inference with a neural network.
 
@@ -160,32 +138,7 @@ The full model now has:
 - An **inference model** $q_\phi(z|x)$: the encoder / approximate posterior
 - Parameters $\theta$ (decoder) and $\phi$ (encoder) to learn jointly
 
-```mermaid
-graph TD
-    classDef observed fill:#94a3b8,stroke:#334155,stroke-width:2px,color:#fff,font-family:monospace
-    classDef latent fill:#f8fafc,stroke:#475569,stroke-width:2px,color:#0f172a,stroke-dasharray: 4 4,font-family:monospace
-    classDef param fill:none,stroke:none,color:#0284c7,font-weight:bold,font-size:18px
-
-    subgraph Generative ["Generative Model (Decoder)"]
-        direction TB
-        Theta["θ"]:::param
-        Z_gen(("z")):::latent
-        X_gen(("x")):::observed
-        
-        Z_gen -->|"p_θ(x|z)"| X_gen
-        Theta -.->|"parameterizes"| X_gen
-    end
-    
-    subgraph Inference ["Inference Model (Encoder)"]
-        direction BT
-        Phi["φ"]:::param
-        X_inf(("x")):::observed
-        Z_inf(("z")):::latent
-        
-        X_inf -->|"q_φ(z|x)"| Z_inf
-        Phi -.->|"parameterizes"| Z_inf
-    end
-```
+![Figure 2.3: VAE Graphical Model](illustrations/ch02/fig_2_3_vae_graphical_model.svg)
 
 ### 2.4.5 Deriving the ELBO
 
@@ -221,36 +174,7 @@ This is the **Evidence Lower Bound (ELBO)**, often denoted $\mathcal{L}(\theta, 
 
 **KL term:** $\text{KL}(q_\phi(z|x) \| p(z))$ measures how much the approximate posterior deviates from the prior. Minimizing this term (the negative sign means we subtract it) pushes the encoder to produce codes consistent with the prior $\mathcal{N}(0, I)$. This regularizes the latent space.
 
-```mermaid
-graph TD
-    classDef target fill:#1e293b,stroke:#0f172a,stroke-width:2px,color:#fff,font-weight:bold
-    classDef elbo fill:#dcfce7,stroke:#22c55e,stroke-width:2px,color:#14532d
-    classDef gap fill:#fee2e2,stroke:#ef4444,stroke-width:2px,color:#7f1d1d,stroke-dasharray: 4 4
-    classDef recon fill:#e0f2fe,stroke:#0284c7,stroke-width:2px,color:#0c4a6e
-    classDef reg fill:#fef3c7,stroke:#d97706,stroke-width:2px,color:#78350f
-
-    %% Decomposition 1: Log Evidence = ELBO + Gap
-    LogP["Marginal Log Likelihood<br/>log p_θ(x)"]:::target
-    
-    subgraph Decomp1 ["Fundamental Identity"]
-        direction LR
-        ELBO["Evidence Lower Bound (ELBO)<br/>Tractable Target"]:::elbo
-        Gap["Approximation Gap ≥ 0<br/>KL( q_φ(z|x) || p_θ(z|x) )"]:::gap
-        ELBO --- Gap
-    end
-    
-    LogP -.->|"Is strictly equal to"| Decomp1
-    
-    %% Decomposition 2: ELBO = Recon - KL
-    subgraph Decomp2 ["ELBO Optimization Objective"]
-        direction LR
-        Recon["Expected Log Likelihood<br/>(Reconstruction / Distortion)<br/>E_q [ log p_θ(x|z) ]"]:::recon
-        Reg["Prior Divergence<br/>(Regularization / Rate)<br/>- KL( q_φ(z|x) || p(z) )"]:::reg
-        Recon --- Reg
-    end
-    
-    ELBO ==>|"Tractable components"| Decomp2
-```
+![Figure 2.4: ELBO Decomposition](illustrations/ch02/fig_2_4_elbo_decomposition.svg)
 
 The gap between $\log p_\theta(x)$ and the ELBO is exactly $\text{KL}(q_\phi(z|x) \| p_\theta(z|x)) \geq 0$. Maximizing the ELBO simultaneously:
 1. Maximizes $\log p_\theta(x)$ (tightens the bound from below)
@@ -282,61 +206,7 @@ where $\odot$ denotes elementwise multiplication.
 
 Now $z$ is a *deterministic* function of $\phi$ (through $\mu_\phi$ and $\sigma_\phi$) and $\varepsilon$ (which has no parameters). The stochasticity is "pushed outside" the computation graph. Gradients flow cleanly from the loss through $z$ back to $\mu_\phi$ and $\sigma_\phi$.
 
-```mermaid
-graph TD
-    classDef param fill:#e0f2fe,stroke:#0284c7,stroke-width:2px,color:#0c4a6e,font-weight:bold
-    classDef sample fill:#fef3c7,stroke:#d97706,stroke-width:2px,color:#78350f,stroke-dasharray: 4 4
-    classDef var fill:#f1f5f9,stroke:#475569,stroke-width:2px,color:#0f172a
-    classDef op fill:#cbd5e1,stroke:#475569,stroke-width:2px,color:#0f172a,font-weight:bold
-
-    subgraph Blocked ["(a) Original Form: Gradients Blocked"]
-        direction TB
-        Mu1["μ"]:::param
-        Sig1["σ"]:::param
-        Samp1{{"Sampling<br/>z ~ N(μ, σ²)"}}:::sample
-        Z1["z"]:::var
-        L1["Loss"]:::var
-        
-        Mu1 --> Samp1
-        Sig1 --> Samp1
-        Samp1 --> Z1
-        Z1 --> L1
-        
-        %% Red gradients blocked
-        L1 -.->|"∂L/∂z"| Z1
-        Z1 -.->|"Stochastic Node<br/>(No backprop)"| X(("blocked")):::sample
-        style X fill:#ef4444,stroke:#7f1d1d,color:#fff
-        X -.-> Samp1
-    end
-
-    subgraph Reparam ["(b) Reparameterized Form: Gradients Flow"]
-        direction TB
-        Mu2["μ"]:::param
-        Sig2["σ"]:::param
-        Eps2{{"Noise ε<br/>ε ~ N(0, 1)"}}:::sample
-        
-        Mul(("×")):::op
-        Add(("o")):::op
-        
-        Z2["z"]:::var
-        L2["Loss"]:::var
-        
-        Eps2 --> Mul
-        Sig2 --> Mul
-        Mul --> Add
-        Mu2 --> Add
-        Add --> Z2
-        Z2 --> L2
-        
-        %% Green/Red gradients flow smoothly
-        L2 -.->|"∂L/∂z"| Z2
-        Z2 -.->|"∂z/∂μ = 1"| Add -.->|"∂L/∂μ"| Mu2
-        Z2 -.->|"∂z/∂σ = ε"| Add -.-> Mul -.->|"∂L/∂σ"| Sig2
-    end
-    
-    linkStyle 4,5,6 stroke:#ef4444,stroke-width:2px,stroke-dasharray: 4 4
-    linkStyle 13,14,15,16,17,18 stroke:#22c55e,stroke-width:2px,stroke-dasharray: 4 4
-```
+![Figure 2.5: Reparameterization Trick](illustrations/ch02/fig_2_5_reparameterization_trick.svg)
 
 This is the key technical innovation that makes VAEs trainable end-to-end. The expectation becomes:
 
@@ -390,6 +260,8 @@ Both terms are differentiable with respect to $\theta$ and $\phi$. Standard grad
 
 ### 2.5.5 β-VAE and KL Annealing
 
+![Figure 2.7: Beta-VAE Tradeoff](illustrations/ch02/fig_2_7_beta_vae_tradeoff.svg)
+
 **β-VAE** (Higgins et al., 2017) introduces a weight $\beta$ on the KL term:
 
 $$\mathcal{L}_\beta = \mathbb{E}\!\left[\log p_\theta(x|z)\right] - \beta \cdot \text{KL}\!\left(q_\phi(z|x) \| p(z)\right)$$
@@ -401,6 +273,8 @@ Higgins et al. found that $\beta > 1$ encourages **disentanglement**: different 
 **KL annealing** is a training trick: start $\beta$ at $0$ (pure reconstruction) and increase it to $1$ (or beyond) over training. This prevents the model from collapsing to the prior at initialization before the decoder has learned anything useful.
 
 ### 2.5.6 Posterior Collapse
+
+![Figure 2.6: Posterior Collapse](illustrations/ch02/fig_2_6_posterior_collapse.svg)
 
 **Posterior collapse** is a failure mode where, for some latent dimensions, the encoder's posterior $q_\phi(z|x)$ collapses to the prior $p(z) = \mathcal{N}(0, I)$. The KL for that dimension goes to zero. The decoder simply ignores that dimension.
 
@@ -482,6 +356,8 @@ $$\text{Prior: } p(z|y)$$
 The ELBO extends naturally. CVAEs can generate samples of a specific class, fill in missing data conditioned on observed data, or perform structured prediction. The framework is identical to the unconditional VAE with $y$ concatenated to the inputs.
 
 ### 2.7.3 VQ-VAE
+
+![Figure 2.8: VQ-VAE Codebook](illustrations/ch02/fig_2_8_vqvae_codebook.svg)
 
 The **Vector Quantized VAE (VQ-VAE)** (van den Oord et al., 2017) replaces the continuous Gaussian latent space with a discrete codebook. The encoder maps $x$ to a continuous vector, which is then replaced by the nearest entry in a learned discrete codebook $\mathcal{C} = \{e_1, e_2, \ldots, e_n\}$.
 

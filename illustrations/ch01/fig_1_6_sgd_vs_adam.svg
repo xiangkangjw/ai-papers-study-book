@@ -1,4 +1,4 @@
-<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 820 380" font-family="Inter, Helvetica, Arial, sans-serif">
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 860 380" font-family="Inter, Helvetica, Arial, sans-serif">
   <defs>
     <marker id="ab" markerWidth="6" markerHeight="5" refX="6" refY="2.5" orient="auto"><path d="M0,0 L6,2.5 L0,5 Z" fill="#4a7fb5"/></marker>
     <marker id="ar" markerWidth="6" markerHeight="5" refX="6" refY="2.5" orient="auto"><path d="M0,0 L6,2.5 L0,5 Z" fill="#d4645c"/></marker>
@@ -8,28 +8,28 @@
   <text x="410" y="46" text-anchor="middle" font-size="11" fill="#7a7a8a">2D contour plot — SGD oscillates in narrow valleys, Adam takes a more direct path</text>
 
   <!-- Contour plot background -->
-  <rect x="100" y="65" width="620" height="260" rx="10" fill="#f5f5f8" stroke="#f5f5f8" stroke-width="1.5"/>
+  <rect x="90" y="65" width="650" height="260" rx="10" fill="#f5f5f8" stroke="#ececf3" stroke-width="1.5"/>
 
   <!-- Elongated contour ellipses (narrow valley) -->
-  <ellipse cx="550" cy="195" rx="30" ry="15" fill="#dff0ed" stroke="#3a9e8f" stroke-width="1.5"/>
-  <ellipse cx="550" cy="195" rx="60" ry="30" fill="none" stroke="#f5f5f8" stroke-width="1.5"/>
-  <ellipse cx="550" cy="195" rx="100" ry="45" fill="none" stroke="#f5f5f8" stroke-width="1.5"/>
-  <ellipse cx="550" cy="195" rx="150" ry="60" fill="none" stroke="#f5f5f8" stroke-width="1.5"/>
-  <ellipse cx="550" cy="195" rx="210" ry="80" fill="none" stroke="#f5f5f8" stroke-width="1.5"/>
-  <ellipse cx="550" cy="195" rx="280" ry="100" fill="none" stroke="#f5f5f8" stroke-width="1.5"/>
-  <ellipse cx="550" cy="195" rx="360" ry="120" fill="none" stroke="#f5f5f8" stroke-width="1.5"/>
+  <ellipse cx="500" cy="195" rx="28" ry="14" fill="#dff0ed" stroke="#3a9e8f" stroke-width="1.5"/>
+  <ellipse cx="500" cy="195" rx="55" ry="25" fill="none" stroke="#e3e6f0" stroke-width="1.5"/>
+  <ellipse cx="500" cy="195" rx="90" ry="38" fill="none" stroke="#e3e6f0" stroke-width="1.5"/>
+  <ellipse cx="500" cy="195" rx="130" ry="52" fill="none" stroke="#e3e6f0" stroke-width="1.5"/>
+  <ellipse cx="500" cy="195" rx="175" ry="68" fill="none" stroke="#e3e6f0" stroke-width="1.5"/>
+  <ellipse cx="500" cy="195" rx="220" ry="84" fill="none" stroke="#e3e6f0" stroke-width="1.5"/>
+  <ellipse cx="500" cy="195" rx="265" ry="102" fill="none" stroke="#e3e6f0" stroke-width="1.5"/>
 
   <!-- Minimum -->
-  <circle cx="550" cy="195" r="4" fill="#3a9e8f"/>
-  <text x="550" y="215" text-anchor="middle" font-size="11" font-weight="bold" fill="#3a9e8f">optimum</text>
+  <circle cx="500" cy="195" r="4" fill="#3a9e8f"/>
+  <text x="500" y="215" text-anchor="middle" font-size="11" font-weight="bold" fill="#3a9e8f">optimum</text>
 
   <!-- SGD path (oscillating) -->
-  <polyline points="180,100 220,270 260,120 300,260 340,140 380,250 410,160 440,230 465,180 490,210 510,190 530,200 545,195"
+  <polyline points="180,100 220,265 260,118 300,258 338,140 372,248 405,162 432,228 455,182 474,208 488,192 496,198 500,195"
     fill="none" stroke="#4a7fb5" stroke-width="2.5" stroke-linejoin="round" opacity="0.8"/>
   <circle cx="180" cy="100" r="6" fill="#4a7fb5"/>
 
   <!-- Adam path (smooth, direct) -->
-  <path d="M 180 100 Q 250 130 320 155 Q 400 175 470 188 Q 510 193 545 195"
+  <path d="M 180 100 Q 250 128 320 152 Q 390 172 445 184 Q 475 190 500 195"
     fill="none" stroke="#d4645c" stroke-width="2.5" stroke-linejoin="round"/>
   <circle cx="180" cy="100" r="6" fill="#d4645c" stroke="#fff" stroke-width="2"/>
 
@@ -37,16 +37,16 @@
   <text x="180" y="90" text-anchor="middle" font-size="11" font-weight="bold" fill="#1a1a2e">Start</text>
 
   <!-- Axes -->
-  <text x="410" y="340" text-anchor="middle" font-size="11" fill="#4a4a5a">w₁ (flat direction — slow gradient)</text>
+  <text x="415" y="340" text-anchor="middle" font-size="11" fill="#4a4a5a">w₁ (flat direction — slow gradient)</text>
   <text x="88" y="195" text-anchor="middle" font-size="11" fill="#4a4a5a" transform="rotate(-90 88 195)">w₂ (steep direction)</text>
 
   <!-- Legend and explanation -->
-  <rect x="140" y="342" width="540" height="30" rx="6" fill="#f5f5f8" stroke="#f5f5f8" stroke-width="1"/>
+  <rect x="120" y="342" width="620" height="30" rx="6" fill="#f5f5f8" stroke="#f5f5f8" stroke-width="1"/>
   <line x1="170" y1="357" x2="200" y2="357" stroke="#4a7fb5" stroke-width="2.5"/>
   <text x="208" y="361" font-size="11" font-weight="bold" fill="#4a7fb5">SGD</text>
   <text x="240" y="361" font-size="11" fill="#7a7a8a">— oscillates across narrow valley (same lr both dims)</text>
 
   <line x1="475" y1="357" x2="505" y2="357" stroke="#d4645c" stroke-width="2.5"/>
   <text x="513" y="361" font-size="11" font-weight="bold" fill="#d4645c">Adam</text>
-  <text x="545" y="361" font-size="11" fill="#7a7a8a">— per-param lr, smooth convergence</text>
+  <text x="548" y="361" font-size="11" fill="#7a7a8a">-- per-param lr, smooth convergence</text>
 </svg>

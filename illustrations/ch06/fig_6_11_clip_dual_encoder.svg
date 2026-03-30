@@ -1,0 +1,147 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 860 520" font-family="Inter, Helvetica, Arial, sans-serif">
+  <defs>
+    <marker id="a" markerWidth="8" markerHeight="6" refX="8" refY="3" orient="auto"><path d="M0,0 L8,3 L0,6 Z" fill="#475569"/></marker>
+  </defs>
+
+  <text x="430" y="28" text-anchor="middle" font-size="17" font-weight="bold" fill="#0f172a">CLIP: Contrastive Language-Image Pre-training</text>
+  <text x="430" y="46" text-anchor="middle" font-size="10" fill="#64748b">Learn a shared embedding space for images and text via contrastive learning</text>
+
+  <!-- ===== Image Encoder (Left) ===== -->
+  <rect x="30" y="70" width="200" height="310" rx="10" fill="#f0f9ff" stroke="#0284c7" stroke-width="2"/>
+  <text x="130" y="92" text-anchor="middle" font-size="12" font-weight="bold" fill="#0c4a6e">Image Encoder (ViT)</text>
+
+  <rect x="55" y="105" width="150" height="30" rx="4" fill="#f1f5f9" stroke="#475569" stroke-width="1.5"/>
+  <text x="130" y="125" text-anchor="middle" font-size="9" fill="#0f172a">Image I_i</text>
+
+  <line x1="130" y1="135" x2="130" y2="155" stroke="#475569" stroke-width="1.5" marker-end="url(#a)"/>
+
+  <rect x="55" y="160" width="150" height="30" rx="4" fill="#e0f2fe" stroke="#0284c7" stroke-width="1.5"/>
+  <text x="130" y="180" text-anchor="middle" font-size="9" fill="#0c4a6e">Patch Embeddings</text>
+
+  <line x1="130" y1="190" x2="130" y2="210" stroke="#475569" stroke-width="1.5" marker-end="url(#a)"/>
+
+  <rect x="55" y="215" width="150" height="40" rx="6" fill="#e0f2fe" stroke="#0284c7" stroke-width="2"/>
+  <text x="130" y="235" text-anchor="middle" font-size="10" font-weight="bold" fill="#0c4a6e">Transformer</text>
+  <text x="130" y="250" text-anchor="middle" font-size="8" fill="#0284c7">ViT-B/32 or ViT-L/14</text>
+
+  <line x1="130" y1="255" x2="130" y2="275" stroke="#475569" stroke-width="1.5" marker-end="url(#a)"/>
+
+  <rect x="55" y="280" width="150" height="30" rx="4" fill="#fef3c7" stroke="#d97706" stroke-width="1.5"/>
+  <text x="130" y="300" text-anchor="middle" font-size="9" fill="#78350f">Linear Projection</text>
+
+  <line x1="130" y1="310" x2="130" y2="330" stroke="#475569" stroke-width="1.5" marker-end="url(#a)"/>
+
+  <rect x="55" y="335" width="150" height="30" rx="6" fill="#dcfce7" stroke="#16a34a" stroke-width="2"/>
+  <text x="130" y="354" text-anchor="middle" font-size="9" font-weight="bold" fill="#14532d" font-family="'SF Mono', Consolas, monospace">i_i (normalized)</text>
+
+  <!-- ===== Text Encoder (Right) ===== -->
+  <rect x="630" y="70" width="200" height="310" rx="10" fill="#faf5ff" stroke="#9333ea" stroke-width="2"/>
+  <text x="730" y="92" text-anchor="middle" font-size="12" font-weight="bold" fill="#3b0764">Text Encoder</text>
+
+  <rect x="655" y="105" width="150" height="30" rx="4" fill="#f1f5f9" stroke="#475569" stroke-width="1.5"/>
+  <text x="730" y="125" text-anchor="middle" font-size="9" fill="#0f172a">Text T_j</text>
+
+  <line x1="730" y1="135" x2="730" y2="155" stroke="#475569" stroke-width="1.5" marker-end="url(#a)"/>
+
+  <rect x="655" y="160" width="150" height="30" rx="4" fill="#f3e8ff" stroke="#9333ea" stroke-width="1.5"/>
+  <text x="730" y="180" text-anchor="middle" font-size="9" fill="#3b0764">Token Embeddings</text>
+
+  <line x1="730" y1="190" x2="730" y2="210" stroke="#475569" stroke-width="1.5" marker-end="url(#a)"/>
+
+  <rect x="655" y="215" width="150" height="40" rx="6" fill="#f3e8ff" stroke="#9333ea" stroke-width="2"/>
+  <text x="730" y="235" text-anchor="middle" font-size="10" font-weight="bold" fill="#3b0764">Transformer</text>
+  <text x="730" y="250" text-anchor="middle" font-size="8" fill="#9333ea">12-layer, 512-dim</text>
+
+  <line x1="730" y1="255" x2="730" y2="275" stroke="#475569" stroke-width="1.5" marker-end="url(#a)"/>
+
+  <rect x="655" y="280" width="150" height="30" rx="4" fill="#fef3c7" stroke="#d97706" stroke-width="1.5"/>
+  <text x="730" y="300" text-anchor="middle" font-size="9" fill="#78350f">Linear Projection</text>
+
+  <line x1="730" y1="310" x2="730" y2="330" stroke="#475569" stroke-width="1.5" marker-end="url(#a)"/>
+
+  <rect x="655" y="335" width="150" height="30" rx="6" fill="#dcfce7" stroke="#16a34a" stroke-width="2"/>
+  <text x="730" y="354" text-anchor="middle" font-size="9" font-weight="bold" fill="#14532d" font-family="'SF Mono', Consolas, monospace">t_j (normalized)</text>
+
+  <!-- ===== N×N Contrastive Matrix (Center) ===== -->
+  <text x="430" y="92" text-anchor="middle" font-size="11" font-weight="bold" fill="#0f172a">Cosine Similarity Matrix</text>
+
+  <!-- Matrix -->
+  <g transform="translate(300, 105)">
+    <!-- Headers -->
+    <text x="35" y="-5" text-anchor="middle" font-size="7" fill="#9333ea">T₁</text>
+    <text x="75" y="-5" text-anchor="middle" font-size="7" fill="#9333ea">T₂</text>
+    <text x="115" y="-5" text-anchor="middle" font-size="7" fill="#9333ea">T₃</text>
+    <text x="155" y="-5" text-anchor="middle" font-size="7" fill="#9333ea">T₄</text>
+    <text x="195" y="-5" text-anchor="middle" font-size="7" fill="#9333ea">T₅</text>
+
+    <text x="-5" y="23" text-anchor="end" font-size="7" fill="#0284c7">I₁</text>
+    <text x="-5" y="63" text-anchor="end" font-size="7" fill="#0284c7">I₂</text>
+    <text x="-5" y="103" text-anchor="end" font-size="7" fill="#0284c7">I₃</text>
+    <text x="-5" y="143" text-anchor="end" font-size="7" fill="#0284c7">I₄</text>
+    <text x="-5" y="183" text-anchor="end" font-size="7" fill="#0284c7">I₅</text>
+
+    <!-- Diagonal (positive pairs - green) -->
+    <rect x="10" y="5" width="50" height="35" rx="3" fill="#dcfce7" stroke="#16a34a" stroke-width="2"/>
+    <text x="35" y="27" text-anchor="middle" font-size="9" font-weight="bold" fill="#14532d">0.92</text>
+    <rect x="50" y="45" width="50" height="35" rx="3" fill="#dcfce7" stroke="#16a34a" stroke-width="2"/>
+    <text x="75" y="67" text-anchor="middle" font-size="9" font-weight="bold" fill="#14532d">0.88</text>
+    <rect x="90" y="85" width="50" height="35" rx="3" fill="#dcfce7" stroke="#16a34a" stroke-width="2"/>
+    <text x="115" y="107" text-anchor="middle" font-size="9" font-weight="bold" fill="#14532d">0.95</text>
+    <rect x="130" y="125" width="50" height="35" rx="3" fill="#dcfce7" stroke="#16a34a" stroke-width="2"/>
+    <text x="155" y="147" text-anchor="middle" font-size="9" font-weight="bold" fill="#14532d">0.87</text>
+    <rect x="170" y="165" width="50" height="35" rx="3" fill="#dcfce7" stroke="#16a34a" stroke-width="2"/>
+    <text x="195" y="187" text-anchor="middle" font-size="9" font-weight="bold" fill="#14532d">0.91</text>
+
+    <!-- Off-diagonal (negative pairs - red/light) -->
+    <rect x="50" y="5" width="50" height="35" rx="3" fill="#fef2f2" stroke="#fca5a5" stroke-width="1"/>
+    <text x="75" y="27" text-anchor="middle" font-size="8" fill="#b91c1c">.12</text>
+    <rect x="90" y="5" width="50" height="35" rx="3" fill="#fef2f2" stroke="#fca5a5" stroke-width="1"/>
+    <text x="115" y="27" text-anchor="middle" font-size="8" fill="#b91c1c">.08</text>
+    <rect x="130" y="5" width="50" height="35" rx="3" fill="#fef2f2" stroke="#fca5a5" stroke-width="1"/>
+    <text x="155" y="27" text-anchor="middle" font-size="8" fill="#b91c1c">.05</text>
+    <rect x="170" y="5" width="50" height="35" rx="3" fill="#fef2f2" stroke="#fca5a5" stroke-width="1"/>
+    <text x="195" y="27" text-anchor="middle" font-size="8" fill="#b91c1c">.11</text>
+
+    <rect x="10" y="45" width="50" height="35" rx="3" fill="#fef2f2" stroke="#fca5a5" stroke-width="1"/>
+    <text x="35" y="67" text-anchor="middle" font-size="8" fill="#b91c1c">.15</text>
+    <rect x="90" y="45" width="50" height="35" rx="3" fill="#fef2f2" stroke="#fca5a5" stroke-width="1"/>
+    <text x="115" y="67" text-anchor="middle" font-size="8" fill="#b91c1c">.07</text>
+    <rect x="130" y="45" width="50" height="35" rx="3" fill="#fef2f2" stroke="#fca5a5" stroke-width="1"/>
+    <text x="155" y="67" text-anchor="middle" font-size="8" fill="#b91c1c">.09</text>
+    <rect x="170" y="45" width="50" height="35" rx="3" fill="#fef2f2" stroke="#fca5a5" stroke-width="1"/>
+    <text x="195" y="67" text-anchor="middle" font-size="8" fill="#b91c1c">.06</text>
+
+    <!-- Remaining off-diag (abbreviated) -->
+    <rect x="10" y="85" width="50" height="35" rx="3" fill="#fef2f2" stroke="#fca5a5" stroke-width="1"/>
+    <rect x="50" y="85" width="50" height="35" rx="3" fill="#fef2f2" stroke="#fca5a5" stroke-width="1"/>
+    <rect x="130" y="85" width="50" height="35" rx="3" fill="#fef2f2" stroke="#fca5a5" stroke-width="1"/>
+    <rect x="170" y="85" width="50" height="35" rx="3" fill="#fef2f2" stroke="#fca5a5" stroke-width="1"/>
+    <rect x="10" y="125" width="50" height="35" rx="3" fill="#fef2f2" stroke="#fca5a5" stroke-width="1"/>
+    <rect x="50" y="125" width="50" height="35" rx="3" fill="#fef2f2" stroke="#fca5a5" stroke-width="1"/>
+    <rect x="90" y="125" width="50" height="35" rx="3" fill="#fef2f2" stroke="#fca5a5" stroke-width="1"/>
+    <rect x="170" y="125" width="50" height="35" rx="3" fill="#fef2f2" stroke="#fca5a5" stroke-width="1"/>
+    <rect x="10" y="165" width="50" height="35" rx="3" fill="#fef2f2" stroke="#fca5a5" stroke-width="1"/>
+    <rect x="50" y="165" width="50" height="35" rx="3" fill="#fef2f2" stroke="#fca5a5" stroke-width="1"/>
+    <rect x="90" y="165" width="50" height="35" rx="3" fill="#fef2f2" stroke="#fca5a5" stroke-width="1"/>
+    <rect x="130" y="165" width="50" height="35" rx="3" fill="#fef2f2" stroke="#fca5a5" stroke-width="1"/>
+  </g>
+
+  <!-- Arrows from encoders to matrix -->
+  <line x1="205" y1="350" x2="310" y2="220" stroke="#0284c7" stroke-width="1.5" stroke-dasharray="4,2"/>
+  <line x1="655" y1="350" x2="540" y2="220" stroke="#9333ea" stroke-width="1.5" stroke-dasharray="4,2"/>
+
+  <!-- Legend -->
+  <rect x="310" y="320" width="80" height="20" rx="3" fill="#dcfce7" stroke="#16a34a" stroke-width="1.5"/>
+  <text x="350" y="334" text-anchor="middle" font-size="8" fill="#14532d">Maximize ↑</text>
+  <rect x="400" y="320" width="80" height="20" rx="3" fill="#fef2f2" stroke="#fca5a5" stroke-width="1"/>
+  <text x="440" y="334" text-anchor="middle" font-size="8" fill="#b91c1c">Minimize ↓</text>
+
+  <!-- Training objective -->
+  <rect x="170" y="400" width="520" height="55" rx="8" fill="#f8fafc" stroke="#e2e8f0" stroke-width="1.5"/>
+  <text x="430" y="420" text-anchor="middle" font-size="10" font-weight="bold" fill="#0f172a">Symmetric Cross-Entropy Loss</text>
+  <text x="430" y="438" text-anchor="middle" font-size="9" fill="#334155" font-family="'SF Mono', Consolas, monospace">L = (L_image→text + L_text→image) / 2</text>
+  <text x="430" y="452" text-anchor="middle" font-size="8" fill="#64748b">Trained on 400M (image, text) pairs from the internet</text>
+
+  <!-- Temperature -->
+  <text x="430" y="500" text-anchor="middle" font-size="8" fill="#64748b" font-family="'SF Mono', Consolas, monospace">sim(I_i, T_j) = cos(i_i, t_j) / τ    (τ = learned temperature)</text>
+</svg>

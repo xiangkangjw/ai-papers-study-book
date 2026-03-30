@@ -1,0 +1,101 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 860 500" font-family="Inter, Helvetica, Arial, sans-serif">
+  <defs>
+    <marker id="a" markerWidth="8" markerHeight="6" refX="8" refY="3" orient="auto"><path d="M0,0 L8,3 L0,6 Z" fill="#475569"/></marker>
+  </defs>
+
+  <text x="430" y="28" text-anchor="middle" font-size="17" font-weight="bold" fill="#0f172a">Mixture of Experts (MoE)</text>
+  <text x="430" y="46" text-anchor="middle" font-size="10" fill="#64748b">Shazeer et al. (2017) — Sparse activation: only top-k experts process each token</text>
+
+  <!-- Standard FFN vs MoE comparison -->
+  <rect x="30" y="65" width="350" height="200" rx="10" fill="#f8fafc" stroke="#e2e8f0" stroke-width="2"/>
+  <text x="205" y="90" text-anchor="middle" font-size="11" font-weight="bold" fill="#0f172a">Standard Transformer FFN</text>
+
+  <rect x="130" y="110" width="150" height="40" rx="6" fill="#e0f2fe" stroke="#0284c7" stroke-width="2"/>
+  <text x="205" y="135" text-anchor="middle" font-size="9" font-weight="bold" fill="#0c4a6e">Single FFN</text>
+
+  <text x="205" y="175" text-anchor="middle" font-size="8" fill="#334155">Every token uses same FFN</text>
+  <text x="205" y="195" text-anchor="middle" font-size="8" fill="#334155">Parameters: d × 4d × d</text>
+  <text x="205" y="215" text-anchor="middle" font-size="8" fill="#334155">All params active for all tokens</text>
+  <text x="205" y="240" text-anchor="middle" font-size="8" fill="#64748b" font-family="'SF Mono', Consolas, monospace">FLOPs ∝ total params</text>
+
+  <!-- MoE Layer -->
+  <rect x="420" y="65" width="420" height="340" rx="10" fill="#f0fdf4" stroke="#16a34a" stroke-width="2"/>
+  <text x="630" y="90" text-anchor="middle" font-size="11" font-weight="bold" fill="#14532d">MoE Layer (replaces FFN)</text>
+
+  <!-- Input token -->
+  <rect x="440" y="110" width="80" height="35" rx="5" fill="#f1f5f9" stroke="#475569" stroke-width="2"/>
+  <text x="480" y="132" text-anchor="middle" font-size="9" font-weight="bold" fill="#0f172a">Token x</text>
+
+  <!-- Router/Gate -->
+  <line x1="480" y1="145" x2="480" y2="168" stroke="#475569" stroke-width="1.5" marker-end="url(#a)"/>
+
+  <rect x="440" y="170" width="160" height="40" rx="6" fill="#fef3c7" stroke="#d97706" stroke-width="2"/>
+  <text x="520" y="190" text-anchor="middle" font-size="9" font-weight="bold" fill="#78350f">Router G(x) = softmax(W_g · x)</text>
+
+  <!-- Router outputs -->
+  <line x1="520" y1="210" x2="460" y2="238" stroke="#d97706" stroke-width="1.5" marker-end="url(#a)"/>
+  <line x1="520" y1="210" x2="520" y2="238" stroke="#94a3b8" stroke-width="1" stroke-dasharray="3,2"/>
+  <line x1="520" y1="210" x2="580" y2="238" stroke="#94a3b8" stroke-width="1" stroke-dasharray="3,2"/>
+  <line x1="520" y1="210" x2="640" y2="238" stroke="#94a3b8" stroke-width="1" stroke-dasharray="3,2"/>
+  <line x1="520" y1="210" x2="700" y2="238" stroke="#d97706" stroke-width="1.5" marker-end="url(#a)"/>
+  <line x1="520" y1="210" x2="760" y2="238" stroke="#94a3b8" stroke-width="1" stroke-dasharray="3,2"/>
+  <line x1="520" y1="210" x2="810" y2="238" stroke="#94a3b8" stroke-width="1" stroke-dasharray="3,2"/>
+
+  <!-- Experts -->
+  <rect x="435" y="240" width="55" height="45" rx="4" fill="#dcfce7" stroke="#16a34a" stroke-width="2"/>
+  <text x="462" y="258" text-anchor="middle" font-size="8" font-weight="bold" fill="#14532d">E₁</text>
+  <text x="462" y="275" text-anchor="middle" font-size="6" fill="#16a34a">g₁=0.7</text>
+
+  <rect x="497" y="240" width="50" height="45" rx="4" fill="#f1f5f9" stroke="#94a3b8" stroke-width="1" stroke-dasharray="3,2"/>
+  <text x="522" y="260" text-anchor="middle" font-size="8" fill="#94a3b8">E₂</text>
+  <text x="522" y="275" text-anchor="middle" font-size="6" fill="#94a3b8">0</text>
+
+  <rect x="554" y="240" width="50" height="45" rx="4" fill="#f1f5f9" stroke="#94a3b8" stroke-width="1" stroke-dasharray="3,2"/>
+  <text x="579" y="260" text-anchor="middle" font-size="8" fill="#94a3b8">E₃</text>
+  <text x="579" y="275" text-anchor="middle" font-size="6" fill="#94a3b8">0</text>
+
+  <rect x="611" y="240" width="50" height="45" rx="4" fill="#f1f5f9" stroke="#94a3b8" stroke-width="1" stroke-dasharray="3,2"/>
+  <text x="636" y="260" text-anchor="middle" font-size="8" fill="#94a3b8">E₄</text>
+  <text x="636" y="275" text-anchor="middle" font-size="6" fill="#94a3b8">0</text>
+
+  <rect x="668" y="240" width="55" height="45" rx="4" fill="#dcfce7" stroke="#16a34a" stroke-width="2"/>
+  <text x="695" y="258" text-anchor="middle" font-size="8" font-weight="bold" fill="#14532d">E₅</text>
+  <text x="695" y="275" text-anchor="middle" font-size="6" fill="#16a34a">g₅=0.3</text>
+
+  <rect x="730" y="240" width="50" height="45" rx="4" fill="#f1f5f9" stroke="#94a3b8" stroke-width="1" stroke-dasharray="3,2"/>
+  <text x="755" y="260" text-anchor="middle" font-size="8" fill="#94a3b8">E₆</text>
+
+  <rect x="787" y="240" width="50" height="45" rx="4" fill="#f1f5f9" stroke="#94a3b8" stroke-width="1" stroke-dasharray="3,2"/>
+  <text x="812" y="260" text-anchor="middle" font-size="8" fill="#94a3b8">...</text>
+
+  <!-- Weighted sum -->
+  <line x1="462" y1="285" x2="580" y2="310" stroke="#16a34a" stroke-width="1.5"/>
+  <line x1="695" y1="285" x2="580" y2="310" stroke="#16a34a" stroke-width="1.5"/>
+
+  <circle cx="580" cy="315" r="14" fill="#dcfce7" stroke="#16a34a" stroke-width="2"/>
+  <text x="580" y="319" text-anchor="middle" font-size="9" fill="#14532d">Σ</text>
+
+  <line x1="580" y1="329" x2="580" y2="352" stroke="#475569" stroke-width="1.5" marker-end="url(#a)"/>
+
+  <rect x="530" y="355" width="100" height="30" rx="5" fill="#dcfce7" stroke="#16a34a" stroke-width="2"/>
+  <text x="580" y="374" text-anchor="middle" font-size="8" font-weight="bold" fill="#14532d">y = Σ gᵢ·Eᵢ(x)</text>
+
+  <!-- Top-k annotation -->
+  <text x="630" y="325" font-size="8" fill="#d97706" font-weight="bold">Top-k=2 selected</text>
+  <text x="630" y="340" font-size="7" fill="#d97706">Only 2 of N experts compute</text>
+
+  <!-- Load balancing -->
+  <rect x="30" y="290" width="350" height="105" rx="8" fill="#fef3c7" stroke="#d97706" stroke-width="1.5"/>
+  <text x="205" y="315" text-anchor="middle" font-size="10" font-weight="bold" fill="#78350f">Load Balancing Loss</text>
+  <text x="50" y="338" font-size="8" fill="#334155">Without auxiliary loss, router may collapse</text>
+  <text x="50" y="355" font-size="8" fill="#334155">to always picking same experts.</text>
+  <text x="50" y="378" font-size="8" fill="#78350f" font-family="'SF Mono', Consolas, monospace">L_balance = α · N · Σ fᵢ · Pᵢ</text>
+  <text x="50" y="393" font-size="7" fill="#64748b">fᵢ = fraction of tokens routed to expert i</text>
+
+  <!-- Key numbers -->
+  <rect x="30" y="415" width="350" height="75" rx="8" fill="#f1f5f9" stroke="#475569" stroke-width="1.5"/>
+  <text x="205" y="438" text-anchor="middle" font-size="10" font-weight="bold" fill="#0f172a">Key Insight</text>
+  <text x="50" y="458" font-size="8" fill="#334155" font-family="'SF Mono', Consolas, monospace">Total params: N × expert_size (massive)</text>
+  <text x="50" y="475" font-size="8" fill="#334155" font-family="'SF Mono', Consolas, monospace">Active params: k × expert_size (small)</text>
+  <text x="50" y="490" font-size="8" fill="#16a34a" font-weight="bold">→ Scale capacity without scaling compute!</text>
+</svg>

@@ -1,0 +1,101 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 860 440" font-family="Inter, Helvetica, Arial, sans-serif">
+  <defs>
+    <marker id="a" markerWidth="8" markerHeight="6" refX="8" refY="3" orient="auto"><path d="M0,0 L8,3 L0,6 Z" fill="#475569"/></marker>
+  </defs>
+
+  <text x="430" y="28" text-anchor="middle" font-size="17" font-weight="bold" fill="#0f172a">MoCo: Momentum Contrast</text>
+  <text x="430" y="46" text-anchor="middle" font-size="10" fill="#64748b">He et al. (2020) — Contrastive learning with a momentum-updated key encoder and dynamic queue</text>
+
+  <!-- Main diagram -->
+  <rect x="30" y="65" width="530" height="355" rx="10" fill="#f8fafc" stroke="#e2e8f0" stroke-width="2"/>
+
+  <!-- Query path -->
+  <rect x="60" y="95" width="70" height="50" rx="6" fill="#e2e8f0" stroke="#94a3b8" stroke-width="1.5"/>
+  <text x="95" y="117" text-anchor="middle" font-size="7" fill="#475569">x_query</text>
+  <text x="95" y="132" text-anchor="middle" font-size="6" fill="#94a3b8">augmented</text>
+
+  <line x1="130" y1="120" x2="165" y2="120" stroke="#0284c7" stroke-width="1.5" marker-end="url(#a)"/>
+
+  <rect x="168" y="88" width="120" height="65" rx="8" fill="#e0f2fe" stroke="#0284c7" stroke-width="2.5"/>
+  <text x="228" y="112" text-anchor="middle" font-size="9" font-weight="bold" fill="#0c4a6e">Query Encoder</text>
+  <text x="228" y="128" text-anchor="middle" font-size="7" fill="#334155">f_q (ResNet)</text>
+  <text x="228" y="143" text-anchor="middle" font-size="7" fill="#0284c7">Updated by gradient</text>
+
+  <line x1="288" y1="120" x2="330" y2="120" stroke="#0284c7" stroke-width="1.5" marker-end="url(#a)"/>
+
+  <rect x="333" y="100" width="60" height="40" rx="4" fill="#e0f2fe" stroke="#0284c7" stroke-width="1.5"/>
+  <text x="363" y="118" text-anchor="middle" font-size="8" font-weight="bold" fill="#0c4a6e">q</text>
+  <text x="363" y="132" text-anchor="middle" font-size="6" fill="#0284c7">query</text>
+
+  <!-- Key path -->
+  <rect x="60" y="215" width="70" height="50" rx="6" fill="#e2e8f0" stroke="#94a3b8" stroke-width="1.5"/>
+  <text x="95" y="237" text-anchor="middle" font-size="7" fill="#475569">x_key</text>
+  <text x="95" y="252" text-anchor="middle" font-size="6" fill="#94a3b8">augmented</text>
+
+  <line x1="130" y1="240" x2="165" y2="240" stroke="#16a34a" stroke-width="1.5" marker-end="url(#a)"/>
+
+  <rect x="168" y="208" width="120" height="65" rx="8" fill="#dcfce7" stroke="#16a34a" stroke-width="2.5"/>
+  <text x="228" y="232" text-anchor="middle" font-size="9" font-weight="bold" fill="#14532d">Key Encoder</text>
+  <text x="228" y="248" text-anchor="middle" font-size="7" fill="#334155">f_k (ResNet)</text>
+  <text x="228" y="263" text-anchor="middle" font-size="7" fill="#16a34a">Momentum updated</text>
+
+  <!-- EMA arrow -->
+  <path d="M168,208 Q148,180 168,153" fill="none" stroke="#d97706" stroke-width="1.5" stroke-dasharray="4,3" marker-end="url(#a)"/>
+  <text x="120" y="178" font-size="6" fill="#d97706" font-weight="bold">EMA</text>
+  <text x="105" y="190" font-size="5" fill="#d97706" font-family="'SF Mono', Consolas, monospace">theta_k = m*theta_k</text>
+  <text x="105" y="199" font-size="5" fill="#d97706" font-family="'SF Mono', Consolas, monospace">      + (1-m)*theta_q</text>
+
+  <line x1="288" y1="240" x2="330" y2="240" stroke="#16a34a" stroke-width="1.5" marker-end="url(#a)"/>
+
+  <rect x="333" y="220" width="60" height="40" rx="4" fill="#dcfce7" stroke="#16a34a" stroke-width="1.5"/>
+  <text x="363" y="238" text-anchor="middle" font-size="8" font-weight="bold" fill="#14532d">k+</text>
+  <text x="363" y="252" text-anchor="middle" font-size="6" fill="#16a34a">pos key</text>
+
+  <!-- Queue -->
+  <rect x="333" y="290" width="180" height="65" rx="6" fill="#fef3c7" stroke="#d97706" stroke-width="2"/>
+  <text x="423" y="312" text-anchor="middle" font-size="9" font-weight="bold" fill="#78350f">Queue (dictionary)</text>
+  <text x="348" y="330" font-size="6" fill="#334155" font-family="'SF Mono', Consolas, monospace">k₁ k₂ k₃ ... k_K</text>
+  <text x="423" y="348" text-anchor="middle" font-size="6" fill="#d97706">K = 65536 negative keys (FIFO)</text>
+
+  <!-- Enqueue arrow -->
+  <line x1="363" y1="260" x2="363" y2="288" stroke="#d97706" stroke-width="1.5" marker-end="url(#a)"/>
+  <text x="380" y="278" font-size="5" fill="#d97706">enqueue</text>
+
+  <!-- Dequeue -->
+  <text x="520" y="348" font-size="5" fill="#d97706">oldest dequeued</text>
+
+  <!-- Contrastive loss -->
+  <line x1="393" y1="120" x2="440" y2="160" stroke="#0284c7" stroke-width="1.5"/>
+  <line x1="393" y1="240" x2="440" y2="200" stroke="#16a34a" stroke-width="1.5"/>
+  <line x1="423" y1="290" x2="440" y2="210" stroke="#d97706" stroke-width="1"/>
+
+  <rect x="420" y="155" width="120" height="65" rx="8" fill="#fce7f3" stroke="#db2777" stroke-width="2"/>
+  <text x="480" y="178" text-anchor="middle" font-size="9" font-weight="bold" fill="#831843">InfoNCE</text>
+  <text x="480" y="195" text-anchor="middle" font-size="6" fill="#db2777" font-family="'SF Mono', Consolas, monospace">-log exp(q·k+/tau)</text>
+  <text x="480" y="208" text-anchor="middle" font-size="6" fill="#db2777" font-family="'SF Mono', Consolas, monospace">  / sum(exp(q·k_i/tau))</text>
+
+  <!-- Gradient only to query encoder -->
+  <line x1="420" y1="178" x2="295" y2="128" stroke="#db2777" stroke-width="1.5" stroke-dasharray="4,2" marker-end="url(#a)"/>
+  <text x="340" y="145" font-size="5" fill="#db2777">gradient to query only</text>
+
+  <!-- Right: comparison and insights -->
+  <rect x="585" y="65" width="250" height="120" rx="10" fill="#e0f2fe" stroke="#0284c7" stroke-width="2"/>
+  <text x="710" y="90" text-anchor="middle" font-size="11" font-weight="bold" fill="#0c4a6e">Key Innovation: Queue</text>
+  <text x="605" y="112" font-size="8" fill="#334155">SimCLR: negatives = batch (limited by GPU)</text>
+  <text x="605" y="128" font-size="8" fill="#334155">MoCo: negatives = queue (decoupled)</text>
+  <text x="605" y="148" font-size="8" fill="#0284c7" font-weight="bold">65K negatives with batch size 256</text>
+  <text x="605" y="168" font-size="7" fill="#334155">Queue keys from recent mini-batches</text>
+
+  <rect x="585" y="200" width="250" height="100" rx="10" fill="#dcfce7" stroke="#16a34a" stroke-width="2"/>
+  <text x="710" y="225" text-anchor="middle" font-size="11" font-weight="bold" fill="#14532d">Momentum = Consistency</text>
+  <text x="605" y="248" font-size="8" fill="#334155">Queue keys encoded by different encoders</text>
+  <text x="605" y="265" font-size="8" fill="#334155">Momentum (m=0.999) keeps them consistent</text>
+  <text x="605" y="285" font-size="8" fill="#16a34a">Slowly evolving key encoder = stable dictionary</text>
+
+  <rect x="585" y="315" width="250" height="105" rx="10" fill="#fef3c7" stroke="#d97706" stroke-width="2"/>
+  <text x="710" y="340" text-anchor="middle" font-size="10" font-weight="bold" fill="#78350f">Evolution</text>
+  <text x="605" y="360" font-size="8" fill="#334155">MoCo v1: ResNet, memory bank</text>
+  <text x="605" y="377" font-size="8" fill="#334155">MoCo v2: + MLP head, augmentations</text>
+  <text x="605" y="394" font-size="8" fill="#334155">MoCo v3: ViT backbone, no queue needed</text>
+  <text x="605" y="411" font-size="7" fill="#d97706">Converges toward DINO-style self-distillation</text>
+</svg>

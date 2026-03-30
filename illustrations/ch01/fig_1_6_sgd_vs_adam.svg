@@ -1,0 +1,52 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 820 380" font-family="Inter, Helvetica, Arial, sans-serif">
+  <defs>
+    <marker id="ab" markerWidth="6" markerHeight="5" refX="6" refY="2.5" orient="auto"><path d="M0,0 L6,2.5 L0,5 Z" fill="#0284c7"/></marker>
+    <marker id="ar" markerWidth="6" markerHeight="5" refX="6" refY="2.5" orient="auto"><path d="M0,0 L6,2.5 L0,5 Z" fill="#ef4444"/></marker>
+  </defs>
+
+  <text x="410" y="28" text-anchor="middle" font-size="17" font-weight="bold" fill="#0f172a">SGD vs. Adam Optimization Paths</text>
+  <text x="410" y="46" text-anchor="middle" font-size="10" fill="#64748b">2D contour plot — SGD oscillates in narrow valleys, Adam takes a more direct path</text>
+
+  <!-- Contour plot background -->
+  <rect x="100" y="65" width="620" height="260" rx="10" fill="#f8fafc" stroke="#e2e8f0" stroke-width="1.5"/>
+
+  <!-- Elongated contour ellipses (narrow valley) -->
+  <ellipse cx="550" cy="195" rx="30" ry="15" fill="#dcfce7" stroke="#16a34a" stroke-width="1.5"/>
+  <ellipse cx="550" cy="195" rx="60" ry="30" fill="none" stroke="#e2e8f0" stroke-width="1.5"/>
+  <ellipse cx="550" cy="195" rx="100" ry="45" fill="none" stroke="#e2e8f0" stroke-width="1.5"/>
+  <ellipse cx="550" cy="195" rx="150" ry="60" fill="none" stroke="#e2e8f0" stroke-width="1.5"/>
+  <ellipse cx="550" cy="195" rx="210" ry="80" fill="none" stroke="#e2e8f0" stroke-width="1.5"/>
+  <ellipse cx="550" cy="195" rx="280" ry="100" fill="none" stroke="#e2e8f0" stroke-width="1.5"/>
+  <ellipse cx="550" cy="195" rx="360" ry="120" fill="none" stroke="#e2e8f0" stroke-width="1.5"/>
+
+  <!-- Minimum -->
+  <circle cx="550" cy="195" r="4" fill="#16a34a"/>
+  <text x="550" y="215" text-anchor="middle" font-size="8" font-weight="bold" fill="#16a34a">optimum</text>
+
+  <!-- SGD path (oscillating) -->
+  <polyline points="180,100 220,270 260,120 300,260 340,140 380,250 410,160 440,230 465,180 490,210 510,190 530,200 545,195"
+    fill="none" stroke="#0284c7" stroke-width="2.5" stroke-linejoin="round" opacity="0.8"/>
+  <circle cx="180" cy="100" r="6" fill="#0284c7"/>
+
+  <!-- Adam path (smooth, direct) -->
+  <path d="M 180 100 Q 250 130 320 155 Q 400 175 470 188 Q 510 193 545 195"
+    fill="none" stroke="#ef4444" stroke-width="2.5" stroke-linejoin="round"/>
+  <circle cx="180" cy="100" r="6" fill="#ef4444" stroke="#fff" stroke-width="2"/>
+
+  <!-- Start label -->
+  <text x="180" y="90" text-anchor="middle" font-size="9" font-weight="bold" fill="#0f172a">Start</text>
+
+  <!-- Axes -->
+  <text x="410" y="340" text-anchor="middle" font-size="9" fill="#475569">w₁ (flat direction — slow gradient)</text>
+  <text x="88" y="195" text-anchor="middle" font-size="9" fill="#475569" transform="rotate(-90 88 195)">w₂ (steep direction)</text>
+
+  <!-- Legend and explanation -->
+  <rect x="140" y="342" width="540" height="30" rx="6" fill="#f8fafc" stroke="#e2e8f0" stroke-width="1"/>
+  <line x1="170" y1="357" x2="200" y2="357" stroke="#0284c7" stroke-width="2.5"/>
+  <text x="208" y="361" font-size="9" font-weight="bold" fill="#0284c7">SGD</text>
+  <text x="240" y="361" font-size="8" fill="#64748b">— oscillates across narrow valley (same lr both dims)</text>
+
+  <line x1="475" y1="357" x2="505" y2="357" stroke="#ef4444" stroke-width="2.5"/>
+  <text x="513" y="361" font-size="9" font-weight="bold" fill="#ef4444">Adam</text>
+  <text x="545" y="361" font-size="8" fill="#64748b">— per-param lr, smooth convergence</text>
+</svg>

@@ -1,0 +1,64 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 760 380" font-family="Inter, Helvetica, Arial, sans-serif">
+  <defs>
+    <marker id="ax" markerWidth="8" markerHeight="6" refX="8" refY="3" orient="auto"><path d="M0,0 L8,3 L0,6 Z" fill="#475569"/></marker>
+  </defs>
+
+  <text x="380" y="28" text-anchor="middle" font-size="17" font-weight="bold" fill="#0f172a">β-VAE: Rate-Distortion Tradeoff</text>
+  <text x="380" y="46" text-anchor="middle" font-size="10" fill="#64748b">L = Reconstruction + β · KL — β controls the compression-quality tradeoff</text>
+
+  <!-- Plot -->
+  <rect x="60" y="65" width="440" height="280" rx="8" fill="#f8fafc" stroke="#e2e8f0" stroke-width="1.5"/>
+
+  <!-- Axes -->
+  <line x1="100" y1="310" x2="470" y2="310" stroke="#475569" stroke-width="1.5" marker-end="url(#ax)"/>
+  <line x1="100" y1="310" x2="100" y2="80" stroke="#475569" stroke-width="1.5" marker-end="url(#ax)"/>
+  <text x="285" y="340" text-anchor="middle" font-size="10" fill="#475569">Rate (KL divergence) →</text>
+  <text x="68" y="195" text-anchor="middle" font-size="10" fill="#475569" transform="rotate(-90 68 195)">Distortion (Recon loss) →</text>
+
+  <!-- Rate-distortion curve -->
+  <path d="M 130 110 Q 180 120 230 160 Q 300 220 400 280 Q 430 295 460 300" fill="none" stroke="#475569" stroke-width="2"/>
+
+  <!-- β > 1 point (high compression, high distortion) -->
+  <circle cx="170" cy="115" r="8" fill="#9333ea" stroke="#fff" stroke-width="2"/>
+  <text x="185" y="108" font-size="9" font-weight="bold" fill="#9333ea">β &gt; 1</text>
+  <text x="185" y="122" font-size="7" fill="#9333ea">Disentangled, blurry</text>
+
+  <!-- β = 1 point (standard VAE) -->
+  <circle cx="280" cy="185" r="8" fill="#16a34a" stroke="#fff" stroke-width="2"/>
+  <text x="295" y="178" font-size="9" font-weight="bold" fill="#16a34a">β = 1</text>
+  <text x="295" y="192" font-size="7" fill="#16a34a">Standard VAE</text>
+
+  <!-- β < 1 point (less compression, sharper) -->
+  <circle cx="410" cy="288" r="8" fill="#0284c7" stroke="#fff" stroke-width="2"/>
+  <text x="425" y="280" font-size="9" font-weight="bold" fill="#0284c7">β &lt; 1</text>
+  <text x="425" y="294" font-size="7" fill="#0284c7">Sharp, entangled</text>
+
+  <!-- Arrows showing effect -->
+  <text x="140" y="150" font-size="7" fill="#9333ea">↑ compression</text>
+  <text x="140" y="163" font-size="7" fill="#9333ea">↓ reconstruction</text>
+  <text x="380" y="260" font-size="7" fill="#0284c7">↓ compression</text>
+  <text x="380" y="273" font-size="7" fill="#0284c7">↑ reconstruction</text>
+
+  <!-- ===== Explanation Panel ===== -->
+  <rect x="520" y="65" width="220" height="280" rx="10" fill="#f8fafc" stroke="#e2e8f0" stroke-width="1.5"/>
+  <text x="630" y="90" text-anchor="middle" font-size="10" font-weight="bold" fill="#0f172a">β Controls</text>
+
+  <rect x="535" y="105" width="190" height="55" rx="6" fill="#faf5ff" stroke="#9333ea" stroke-width="1.5"/>
+  <text x="630" y="122" text-anchor="middle" font-size="9" font-weight="bold" fill="#9333ea">β &gt; 1 (Higgins et al.)</text>
+  <text x="630" y="138" text-anchor="middle" font-size="7" fill="#334155">Strong KL → disentangled z</text>
+  <text x="630" y="152" text-anchor="middle" font-size="7" fill="#334155">But: blurrier reconstructions</text>
+
+  <rect x="535" y="175" width="190" height="55" rx="6" fill="#f0fdf4" stroke="#16a34a" stroke-width="1.5"/>
+  <text x="630" y="192" text-anchor="middle" font-size="9" font-weight="bold" fill="#16a34a">β = 1 (Standard)</text>
+  <text x="630" y="208" text-anchor="middle" font-size="7" fill="#334155">Balanced ELBO objective</text>
+  <text x="630" y="222" text-anchor="middle" font-size="7" fill="#334155">Optimal bound on log p(x)</text>
+
+  <rect x="535" y="245" width="190" height="55" rx="6" fill="#f0f9ff" stroke="#0284c7" stroke-width="1.5"/>
+  <text x="630" y="262" text-anchor="middle" font-size="9" font-weight="bold" fill="#0284c7">β &lt; 1</text>
+  <text x="630" y="278" text-anchor="middle" font-size="7" fill="#334155">Weak KL → sharp samples</text>
+  <text x="630" y="292" text-anchor="middle" font-size="7" fill="#334155">But: entangled, irregular z</text>
+
+  <!-- Equation -->
+  <rect x="120" y="355" width="520" height="20" rx="4" fill="#fef3c7" stroke="#d97706" stroke-width="1"/>
+  <text x="380" y="370" text-anchor="middle" font-size="9" fill="#78350f" font-family="'SF Mono', Consolas, monospace">L_β = E[‖x - x̂‖²] + β · KL(q(z|x) ‖ p(z))</text>
+</svg>

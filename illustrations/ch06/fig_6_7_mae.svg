@@ -1,0 +1,137 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 880 420" font-family="Inter, Helvetica, Arial, sans-serif">
+  <defs>
+    <marker id="a" markerWidth="8" markerHeight="6" refX="8" refY="3" orient="auto"><path d="M0,0 L8,3 L0,6 Z" fill="#475569"/></marker>
+  </defs>
+
+  <text x="440" y="28" text-anchor="middle" font-size="17" font-weight="bold" fill="#0f172a">MAE: Masked Autoencoders Are Scalable Vision Learners</text>
+  <text x="440" y="46" text-anchor="middle" font-size="10" fill="#64748b">He et al. (2022) — Mask 75% of patches, reconstruct pixels with asymmetric encoder-decoder</text>
+
+  <!-- Pipeline -->
+  <rect x="30" y="65" width="820" height="260" rx="10" fill="#f8fafc" stroke="#e2e8f0" stroke-width="2"/>
+
+  <!-- Input image -->
+  <rect x="50" y="100" width="80" height="80" rx="4" fill="#f1f5f9" stroke="#475569" stroke-width="2"/>
+  <!-- Grid lines -->
+  <line x1="70" y1="100" x2="70" y2="180" stroke="#475569" stroke-width="0.5"/>
+  <line x1="90" y1="100" x2="90" y2="180" stroke="#475569" stroke-width="0.5"/>
+  <line x1="110" y1="100" x2="110" y2="180" stroke="#475569" stroke-width="0.5"/>
+  <line x1="50" y1="120" x2="130" y2="120" stroke="#475569" stroke-width="0.5"/>
+  <line x1="50" y1="140" x2="130" y2="140" stroke="#475569" stroke-width="0.5"/>
+  <line x1="50" y1="160" x2="130" y2="160" stroke="#475569" stroke-width="0.5"/>
+  <text x="90" y="198" text-anchor="middle" font-size="8" fill="#475569">Input (16 patches)</text>
+
+  <line x1="130" y1="140" x2="153" y2="140" stroke="#475569" stroke-width="1.5" marker-end="url(#a)"/>
+
+  <!-- Masking: 75% masked -->
+  <rect x="155" y="85" width="80" height="120" rx="4" fill="#fff" stroke="#475569" stroke-width="1.5"/>
+  <text x="195" y="82" text-anchor="middle" font-size="8" font-weight="bold" fill="#ef4444">Mask 75%</text>
+
+  <!-- Visible patches -->
+  <rect x="160" y="90" width="15" height="15" rx="1" fill="#e0f2fe" stroke="#0284c7" stroke-width="1"/>
+  <rect x="180" y="90" width="15" height="15" rx="1" fill="#94a3b8" stroke="#94a3b8" stroke-width="1"/>
+  <rect x="200" y="90" width="15" height="15" rx="1" fill="#94a3b8" stroke="#94a3b8" stroke-width="1"/>
+  <rect x="220" y="90" width="15" height="15" rx="1" fill="#94a3b8" stroke="#94a3b8" stroke-width="1"/>
+
+  <rect x="160" y="110" width="15" height="15" rx="1" fill="#94a3b8" stroke="#94a3b8" stroke-width="1"/>
+  <rect x="180" y="110" width="15" height="15" rx="1" fill="#e0f2fe" stroke="#0284c7" stroke-width="1"/>
+  <rect x="200" y="110" width="15" height="15" rx="1" fill="#94a3b8" stroke="#94a3b8" stroke-width="1"/>
+  <rect x="220" y="110" width="15" height="15" rx="1" fill="#94a3b8" stroke="#94a3b8" stroke-width="1"/>
+
+  <rect x="160" y="130" width="15" height="15" rx="1" fill="#94a3b8" stroke="#94a3b8" stroke-width="1"/>
+  <rect x="180" y="130" width="15" height="15" rx="1" fill="#94a3b8" stroke="#94a3b8" stroke-width="1"/>
+  <rect x="200" y="130" width="15" height="15" rx="1" fill="#94a3b8" stroke="#94a3b8" stroke-width="1"/>
+  <rect x="220" y="130" width="15" height="15" rx="1" fill="#e0f2fe" stroke="#0284c7" stroke-width="1"/>
+
+  <rect x="160" y="150" width="15" height="15" rx="1" fill="#94a3b8" stroke="#94a3b8" stroke-width="1"/>
+  <rect x="180" y="150" width="15" height="15" rx="1" fill="#94a3b8" stroke="#94a3b8" stroke-width="1"/>
+  <rect x="200" y="150" width="15" height="15" rx="1" fill="#e0f2fe" stroke="#0284c7" stroke-width="1"/>
+  <rect x="220" y="150" width="15" height="15" rx="1" fill="#94a3b8" stroke="#94a3b8" stroke-width="1"/>
+
+  <text x="195" y="180" text-anchor="middle" font-size="7" fill="#0284c7">4 visible</text>
+  <text x="195" y="192" text-anchor="middle" font-size="7" fill="#94a3b8">12 masked</text>
+
+  <line x1="235" y1="140" x2="258" y2="140" stroke="#475569" stroke-width="1.5" marker-end="url(#a)"/>
+
+  <!-- Encoder (only visible patches) -->
+  <rect x="260" y="85" width="140" height="130" rx="8" fill="#e0f2fe" stroke="#0284c7" stroke-width="2"/>
+  <text x="330" y="110" text-anchor="middle" font-size="10" font-weight="bold" fill="#0c4a6e">Encoder</text>
+  <text x="330" y="128" text-anchor="middle" font-size="8" fill="#0284c7">ViT-Large (24 layers)</text>
+
+  <!-- Only 4 tokens shown -->
+  <rect x="280" y="140" width="25" height="15" rx="2" fill="#0284c7" stroke="#0284c7" stroke-width="1"/>
+  <rect x="310" y="140" width="25" height="15" rx="2" fill="#0284c7" stroke="#0284c7" stroke-width="1"/>
+  <rect x="340" y="140" width="25" height="15" rx="2" fill="#0284c7" stroke="#0284c7" stroke-width="1"/>
+  <rect x="370" y="140" width="25" height="15" rx="2" fill="#0284c7" stroke="#0284c7" stroke-width="1"/>
+
+  <text x="330" y="175" text-anchor="middle" font-size="7" fill="#0c4a6e" font-weight="bold">Only 25% tokens!</text>
+  <text x="330" y="190" text-anchor="middle" font-size="7" fill="#0284c7">→ 3-4× faster training</text>
+  <text x="330" y="205" text-anchor="middle" font-size="7" fill="#64748b">Heavy encoder, few tokens</text>
+
+  <line x1="400" y1="140" x2="423" y2="140" stroke="#475569" stroke-width="1.5" marker-end="url(#a)"/>
+
+  <!-- Insert mask tokens + Decoder -->
+  <rect x="425" y="85" width="160" height="130" rx="8" fill="#fce7f3" stroke="#db2777" stroke-width="2"/>
+  <text x="505" y="108" text-anchor="middle" font-size="10" font-weight="bold" fill="#831843">Decoder</text>
+  <text x="505" y="125" text-anchor="middle" font-size="8" fill="#db2777">Lightweight (8 layers)</text>
+
+  <!-- All 16 tokens: visible + mask tokens -->
+  <rect x="440" y="140" width="14" height="12" rx="1" fill="#0284c7"/>
+  <rect x="457" y="140" width="14" height="12" rx="1" fill="#94a3b8"/>
+  <rect x="474" y="140" width="14" height="12" rx="1" fill="#94a3b8"/>
+  <rect x="491" y="140" width="14" height="12" rx="1" fill="#94a3b8"/>
+  <rect x="508" y="140" width="14" height="12" rx="1" fill="#0284c7"/>
+  <rect x="525" y="140" width="14" height="12" rx="1" fill="#94a3b8"/>
+  <rect x="542" y="140" width="14" height="12" rx="1" fill="#94a3b8"/>
+  <rect x="559" y="140" width="14" height="12" rx="1" fill="#94a3b8"/>
+
+  <rect x="440" y="155" width="14" height="12" rx="1" fill="#94a3b8"/>
+  <rect x="457" y="155" width="14" height="12" rx="1" fill="#94a3b8"/>
+  <rect x="474" y="155" width="14" height="12" rx="1" fill="#94a3b8"/>
+  <rect x="491" y="155" width="14" height="12" rx="1" fill="#0284c7"/>
+  <rect x="508" y="155" width="14" height="12" rx="1" fill="#94a3b8"/>
+  <rect x="525" y="155" width="14" height="12" rx="1" fill="#0284c7"/>
+  <rect x="542" y="155" width="14" height="12" rx="1" fill="#94a3b8"/>
+  <rect x="559" y="155" width="14" height="12" rx="1" fill="#94a3b8"/>
+
+  <text x="505" y="185" text-anchor="middle" font-size="7" fill="#db2777">Insert [MASK] tokens</text>
+  <text x="505" y="198" text-anchor="middle" font-size="7" fill="#db2777">for missing positions</text>
+  <text x="505" y="211" text-anchor="middle" font-size="7" fill="#64748b">Light decoder, all tokens</text>
+
+  <line x1="585" y1="140" x2="608" y2="140" stroke="#475569" stroke-width="1.5" marker-end="url(#a)"/>
+
+  <!-- Reconstruction -->
+  <rect x="610" y="100" width="80" height="80" rx="4" fill="#dcfce7" stroke="#16a34a" stroke-width="2"/>
+  <!-- Reconstructed grid -->
+  <line x1="630" y1="100" x2="630" y2="180" stroke="#16a34a" stroke-width="0.5"/>
+  <line x1="650" y1="100" x2="650" y2="180" stroke="#16a34a" stroke-width="0.5"/>
+  <line x1="670" y1="100" x2="670" y2="180" stroke="#16a34a" stroke-width="0.5"/>
+  <line x1="610" y1="120" x2="690" y2="120" stroke="#16a34a" stroke-width="0.5"/>
+  <line x1="610" y1="140" x2="690" y2="140" stroke="#16a34a" stroke-width="0.5"/>
+  <line x1="610" y1="160" x2="690" y2="160" stroke="#16a34a" stroke-width="0.5"/>
+  <text x="650" y="198" text-anchor="middle" font-size="8" fill="#14532d">Reconstructed pixels</text>
+
+  <!-- Loss annotation -->
+  <rect x="710" y="115" width="120" height="50" rx="6" fill="#fef3c7" stroke="#d97706" stroke-width="1.5"/>
+  <text x="770" y="135" text-anchor="middle" font-size="8" font-weight="bold" fill="#78350f">MSE Loss</text>
+  <text x="770" y="150" text-anchor="middle" font-size="7" fill="#d97706">Only on masked</text>
+  <text x="770" y="162" text-anchor="middle" font-size="7" fill="#d97706">patches (75%)</text>
+
+  <!-- Asymmetric design annotation -->
+  <rect x="260" y="225" width="325" height="35" rx="4" fill="#f0fdf4" stroke="#16a34a" stroke-width="1"/>
+  <text x="422" y="240" text-anchor="middle" font-size="8" font-weight="bold" fill="#14532d">Asymmetric Design: Heavy encoder (25% tokens) + Light decoder (100% tokens)</text>
+  <text x="422" y="255" text-anchor="middle" font-size="8" fill="#16a34a">Encoder sees only visible patches → massive compute savings</text>
+
+  <!-- Key results -->
+  <rect x="30" y="340" width="400" height="70" rx="8" fill="#dcfce7" stroke="#16a34a" stroke-width="1.5"/>
+  <text x="230" y="363" text-anchor="middle" font-size="10" font-weight="bold" fill="#14532d">Results</text>
+  <text x="50" y="383" font-size="8" fill="#334155">• ViT-H MAE: 87.8% ImageNet (SOTA at time)</text>
+  <text x="50" y="399" font-size="8" fill="#334155">• Pre-training: 1600 epochs, ~1 day on 128 GPUs</text>
+  <text x="50" y="415" font-size="8" fill="#334155">• Scales well: bigger model + more masking = better</text>
+
+  <!-- Comparison with NLP -->
+  <rect x="450" y="340" width="400" height="70" rx="8" fill="#fef3c7" stroke="#d97706" stroke-width="1.5"/>
+  <text x="650" y="363" text-anchor="middle" font-size="10" font-weight="bold" fill="#78350f">Why 75% Masking? (vs BERT's 15%)</text>
+  <text x="470" y="383" font-size="8" fill="#334155">• Images have heavy spatial redundancy</text>
+  <text x="470" y="399" font-size="8" fill="#334155">• Low masking → trivial interpolation, no learning</text>
+  <text x="470" y="415" font-size="8" fill="#334155">• 75% forces holistic understanding of scene</text>
+</svg>

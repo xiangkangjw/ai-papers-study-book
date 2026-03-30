@@ -1,0 +1,90 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 700 720" font-family="Inter, Helvetica, Arial, sans-serif">
+  <defs>
+    <marker id="arr" markerWidth="8" markerHeight="6" refX="8" refY="3" orient="auto">
+      <path d="M0,0 L8,3 L0,6 Z" fill="#475569"/>
+    </marker>
+    <marker id="arr-b" markerWidth="8" markerHeight="6" refX="8" refY="3" orient="auto">
+      <path d="M0,0 L8,3 L0,6 Z" fill="#0284c7"/>
+    </marker>
+  </defs>
+
+  <!-- Title -->
+  <text x="350" y="30" text-anchor="middle" font-size="17" font-weight="bold" fill="#0f172a">Scaled Dot-Product Attention</text>
+  <text x="350" y="52" text-anchor="middle" font-size="11" fill="#475569" font-family="'SF Mono', 'Fira Code', Consolas, monospace">Attention(Q, K, V) = softmax(QKᵀ / √d_k) · V</text>
+
+  <!-- Q input -->
+  <rect x="80" y="80" width="150" height="50" rx="6" fill="#f1f5f9" stroke="#475569" stroke-width="2"/>
+  <text x="155" y="102" text-anchor="middle" font-size="13" font-weight="bold" fill="#0f172a">Q</text>
+  <text x="155" y="120" text-anchor="middle" font-size="9" fill="#475569" font-family="'SF Mono', Consolas, monospace">[B, n_q, d_k]</text>
+
+  <!-- K input -->
+  <rect x="470" y="80" width="150" height="50" rx="6" fill="#f1f5f9" stroke="#475569" stroke-width="2"/>
+  <text x="545" y="102" text-anchor="middle" font-size="13" font-weight="bold" fill="#0f172a">K</text>
+  <text x="545" y="120" text-anchor="middle" font-size="9" fill="#475569" font-family="'SF Mono', Consolas, monospace">[B, n_kv, d_k]</text>
+
+  <!-- V input (positioned to the right, feeds into second MatMul) -->
+  <rect x="470" y="380" width="150" height="50" rx="6" fill="#f1f5f9" stroke="#475569" stroke-width="2"/>
+  <text x="545" y="402" text-anchor="middle" font-size="13" font-weight="bold" fill="#0f172a">V</text>
+  <text x="545" y="420" text-anchor="middle" font-size="9" fill="#475569" font-family="'SF Mono', Consolas, monospace">[B, n_kv, d_v]</text>
+
+  <!-- MatMul 1 -->
+  <rect x="240" y="180" width="160" height="44" rx="8" fill="#e0f2fe" stroke="#0284c7" stroke-width="2"/>
+  <text x="320" y="200" text-anchor="middle" font-size="12" font-weight="bold" fill="#0c4a6e">MatMul</text>
+  <text x="320" y="216" text-anchor="middle" font-size="10" fill="#0284c7">Q × Kᵀ</text>
+
+  <!-- Scale -->
+  <rect x="240" y="270" width="160" height="44" rx="8" fill="#e0f2fe" stroke="#0284c7" stroke-width="2"/>
+  <text x="320" y="290" text-anchor="middle" font-size="12" font-weight="bold" fill="#0c4a6e">Scale</text>
+  <text x="320" y="306" text-anchor="middle" font-size="10" fill="#0284c7">÷ √d_k</text>
+
+  <!-- Mask (optional, dashed) -->
+  <rect x="240" y="360" width="160" height="44" rx="8" fill="#fff7ed" stroke="#c2410c" stroke-width="2" stroke-dasharray="6,3"/>
+  <text x="320" y="380" text-anchor="middle" font-size="12" font-weight="bold" fill="#9a3412">Mask</text>
+  <text x="320" y="396" text-anchor="middle" font-size="10" fill="#c2410c">(optional)</text>
+
+  <!-- Softmax -->
+  <rect x="240" y="450" width="160" height="44" rx="8" fill="#e0f2fe" stroke="#0284c7" stroke-width="2"/>
+  <text x="320" y="470" text-anchor="middle" font-size="12" font-weight="bold" fill="#0c4a6e">Softmax</text>
+  <text x="320" y="486" text-anchor="middle" font-size="10" fill="#0284c7">dim = −1</text>
+
+  <!-- MatMul 2 -->
+  <rect x="240" y="550" width="160" height="44" rx="8" fill="#e0f2fe" stroke="#0284c7" stroke-width="2"/>
+  <text x="320" y="570" text-anchor="middle" font-size="12" font-weight="bold" fill="#0c4a6e">MatMul</text>
+  <text x="320" y="586" text-anchor="middle" font-size="10" fill="#0284c7">weights × V</text>
+
+  <!-- Output -->
+  <rect x="240" y="640" width="160" height="50" rx="6" fill="#f1f5f9" stroke="#475569" stroke-width="2"/>
+  <text x="320" y="660" text-anchor="middle" font-size="13" font-weight="bold" fill="#0f172a">Output</text>
+  <text x="320" y="678" text-anchor="middle" font-size="9" fill="#475569" font-family="'SF Mono', Consolas, monospace">[B, n_q, d_v]</text>
+
+  <!-- Arrows: Q → MatMul1 -->
+  <line x1="155" y1="130" x2="155" y2="170" stroke="#475569" stroke-width="1.5"/>
+  <line x1="155" y1="170" x2="260" y2="170" stroke="#475569" stroke-width="1.5"/>
+  <line x1="260" y1="170" x2="260" y2="178" stroke="#475569" stroke-width="1.5" marker-end="url(#arr)"/>
+
+  <!-- K → MatMul1 -->
+  <line x1="545" y1="130" x2="545" y2="170" stroke="#475569" stroke-width="1.5"/>
+  <line x1="545" y1="170" x2="380" y2="170" stroke="#475569" stroke-width="1.5"/>
+  <line x1="380" y1="170" x2="380" y2="178" stroke="#475569" stroke-width="1.5" marker-end="url(#arr)"/>
+
+  <!-- MatMul1 → Scale -->
+  <line x1="320" y1="224" x2="320" y2="268" stroke="#0284c7" stroke-width="1.5" marker-end="url(#arr-b)"/>
+  <text x="415" y="250" font-size="9" fill="#475569" font-family="'SF Mono', Consolas, monospace">[B, n_q, n_kv]</text>
+
+  <!-- Scale → Mask -->
+  <line x1="320" y1="314" x2="320" y2="358" stroke="#0284c7" stroke-width="1.5" marker-end="url(#arr-b)"/>
+
+  <!-- Mask → Softmax -->
+  <line x1="320" y1="404" x2="320" y2="448" stroke="#0284c7" stroke-width="1.5" marker-end="url(#arr-b)"/>
+
+  <!-- Softmax → MatMul2 -->
+  <line x1="320" y1="494" x2="320" y2="548" stroke="#0284c7" stroke-width="1.5" marker-end="url(#arr-b)"/>
+  <text x="180" y="525" font-size="9" fill="#475569" font-family="'SF Mono', Consolas, monospace">weights [B, n_q, n_kv]</text>
+
+  <!-- V → MatMul2 -->
+  <line x1="545" y1="430" x2="545" y2="572" stroke="#475569" stroke-width="1.5"/>
+  <line x1="545" y1="572" x2="402" y2="572" stroke="#475569" stroke-width="1.5" marker-end="url(#arr)"/>
+
+  <!-- MatMul2 → Output -->
+  <line x1="320" y1="594" x2="320" y2="638" stroke="#0284c7" stroke-width="1.5" marker-end="url(#arr-b)"/>
+</svg>

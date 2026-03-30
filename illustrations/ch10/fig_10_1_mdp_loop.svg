@@ -1,0 +1,69 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 820 450" font-family="Inter, Helvetica, Arial, sans-serif">
+  <defs>
+    <marker id="a" markerWidth="8" markerHeight="6" refX="8" refY="3" orient="auto"><path d="M0,0 L8,3 L0,6 Z" fill="#475569"/></marker>
+    <marker id="ab" markerWidth="8" markerHeight="6" refX="8" refY="3" orient="auto"><path d="M0,0 L8,3 L0,6 Z" fill="#0284c7"/></marker>
+    <marker id="ag" markerWidth="8" markerHeight="6" refX="8" refY="3" orient="auto"><path d="M0,0 L8,3 L0,6 Z" fill="#16a34a"/></marker>
+  </defs>
+
+  <text x="410" y="28" text-anchor="middle" font-size="17" font-weight="bold" fill="#0f172a">Markov Decision Process (MDP): Agent-Environment Loop</text>
+  <text x="410" y="46" text-anchor="middle" font-size="10" fill="#64748b">(S, A, P, R, γ) — The foundation of reinforcement learning</text>
+
+  <!-- ===== Agent ===== -->
+  <rect x="80" y="90" width="260" height="160" rx="14" fill="#e0f2fe" stroke="#0284c7" stroke-width="2.5"/>
+  <text x="210" y="118" text-anchor="middle" font-size="14" font-weight="bold" fill="#0c4a6e">Agent</text>
+
+  <!-- Policy -->
+  <rect x="105" y="130" width="210" height="40" rx="6" fill="#f0f9ff" stroke="#0284c7" stroke-width="1.5"/>
+  <text x="210" y="148" text-anchor="middle" font-size="10" font-weight="bold" fill="#0c4a6e">Policy π(a|s)</text>
+  <text x="210" y="164" text-anchor="middle" font-size="8" fill="#0284c7">Maps states to action probabilities</text>
+
+  <!-- Value function -->
+  <rect x="105" y="180" width="100" height="35" rx="6" fill="#f0f9ff" stroke="#0284c7" stroke-width="1"/>
+  <text x="155" y="198" text-anchor="middle" font-size="8" font-weight="bold" fill="#0c4a6e">V^π(s)</text>
+  <text x="155" y="212" text-anchor="middle" font-size="7" fill="#0284c7">State value</text>
+
+  <rect x="215" y="180" width="100" height="35" rx="6" fill="#f0f9ff" stroke="#0284c7" stroke-width="1"/>
+  <text x="265" y="198" text-anchor="middle" font-size="8" font-weight="bold" fill="#0c4a6e">Q^π(s,a)</text>
+  <text x="265" y="212" text-anchor="middle" font-size="7" fill="#0284c7">Action value</text>
+
+  <!-- ===== Environment ===== -->
+  <rect x="480" y="90" width="260" height="160" rx="14" fill="#dcfce7" stroke="#16a34a" stroke-width="2.5"/>
+  <text x="610" y="118" text-anchor="middle" font-size="14" font-weight="bold" fill="#14532d">Environment</text>
+
+  <!-- State space -->
+  <rect x="505" y="130" width="210" height="40" rx="6" fill="#f0fdf4" stroke="#16a34a" stroke-width="1.5"/>
+  <text x="610" y="148" text-anchor="middle" font-size="10" font-weight="bold" fill="#14532d">State Space S</text>
+  <text x="610" y="164" text-anchor="middle" font-size="8" fill="#16a34a">Current observation s_t</text>
+
+  <!-- Transition & Reward -->
+  <rect x="505" y="180" width="100" height="35" rx="6" fill="#f0fdf4" stroke="#16a34a" stroke-width="1"/>
+  <text x="555" y="198" text-anchor="middle" font-size="8" font-weight="bold" fill="#14532d">P(s'|s,a)</text>
+  <text x="555" y="212" text-anchor="middle" font-size="7" fill="#16a34a">Transition</text>
+
+  <rect x="615" y="180" width="100" height="35" rx="6" fill="#f0fdf4" stroke="#16a34a" stroke-width="1"/>
+  <text x="665" y="198" text-anchor="middle" font-size="8" font-weight="bold" fill="#14532d">R(s,a)</text>
+  <text x="665" y="212" text-anchor="middle" font-size="7" fill="#16a34a">Reward</text>
+
+  <!-- ===== Action arrow (Agent → Environment) ===== -->
+  <path d="M 340 150 Q 410 80 480 150" fill="none" stroke="#0284c7" stroke-width="2.5" marker-end="url(#ab)"/>
+  <rect x="370" y="70" width="80" height="30" rx="6" fill="#e0f2fe" stroke="#0284c7" stroke-width="1.5"/>
+  <text x="410" y="85" text-anchor="middle" font-size="9" font-weight="bold" fill="#0c4a6e">Action a_t</text>
+  <text x="410" y="62" text-anchor="middle" font-size="7" fill="#0284c7">a_t ∈ A</text>
+
+  <!-- ===== State + Reward arrow (Environment → Agent) ===== -->
+  <path d="M 480 230 Q 410 310 340 230" fill="none" stroke="#16a34a" stroke-width="2.5" marker-end="url(#ag)"/>
+  <rect x="350" y="275" width="120" height="40" rx="6" fill="#dcfce7" stroke="#16a34a" stroke-width="1.5"/>
+  <text x="410" y="292" text-anchor="middle" font-size="9" font-weight="bold" fill="#14532d">s_{t+1}, r_{t+1}</text>
+  <text x="410" y="308" text-anchor="middle" font-size="7" fill="#16a34a">next state + reward</text>
+
+  <!-- ===== MDP Tuple Definition ===== -->
+  <rect x="80" y="335" width="660" height="100" rx="10" fill="#f8fafc" stroke="#e2e8f0" stroke-width="1.5"/>
+  <text x="410" y="358" text-anchor="middle" font-size="11" font-weight="bold" fill="#0f172a">MDP Tuple: (S, A, P, R, γ)</text>
+
+  <text x="120" y="382" font-size="9" fill="#334155"><tspan font-weight="bold" fill="#0c4a6e">S</tspan> — State space (all possible states)</text>
+  <text x="120" y="400" font-size="9" fill="#334155"><tspan font-weight="bold" fill="#0c4a6e">A</tspan> — Action space (available actions)</text>
+  <text x="120" y="418" font-size="9" fill="#334155"><tspan font-weight="bold" fill="#0c4a6e">P(s'|s,a)</tspan> — Transition dynamics</text>
+  <text x="470" y="382" font-size="9" fill="#334155"><tspan font-weight="bold" fill="#14532d">R(s,a)</tspan> — Reward function</text>
+  <text x="470" y="400" font-size="9" fill="#334155"><tspan font-weight="bold" fill="#14532d">γ ∈ [0,1)</tspan> — Discount factor</text>
+  <text x="470" y="418" font-size="9" fill="#64748b" font-family="'SF Mono', Consolas, monospace">V^π(s) = E[Σ γ^t R(s_t,a_t) | s₀=s]</text>
+</svg>

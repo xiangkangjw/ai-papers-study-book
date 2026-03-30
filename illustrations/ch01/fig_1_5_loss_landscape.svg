@@ -1,0 +1,85 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 820 420" font-family="Inter, Helvetica, Arial, sans-serif">
+  <defs>
+    <marker id="a" markerWidth="8" markerHeight="6" refX="8" refY="3" orient="auto"><path d="M0,0 L8,3 L0,6 Z" fill="#475569"/></marker>
+  </defs>
+
+  <text x="410" y="28" text-anchor="middle" font-size="17" font-weight="bold" fill="#0f172a">Loss Landscape with SGD Trajectory</text>
+  <text x="410" y="46" text-anchor="middle" font-size="10" fill="#64748b">Noisy SGD path vs. smooth gradient descent on a loss surface</text>
+
+  <!-- ===== 2D Contour Plot ===== -->
+  <rect x="40" y="65" width="440" height="330" rx="10" fill="#f8fafc" stroke="#e2e8f0" stroke-width="1.5"/>
+
+  <!-- Contour ellipses (loss surface) -->
+  <ellipse cx="300" cy="280" rx="160" ry="120" fill="none" stroke="#e2e8f0" stroke-width="1.5"/>
+  <ellipse cx="300" cy="280" rx="130" ry="95" fill="none" stroke="#e2e8f0" stroke-width="1.5"/>
+  <ellipse cx="300" cy="280" rx="100" ry="70" fill="none" stroke="#e2e8f0" stroke-width="1.5"/>
+  <ellipse cx="300" cy="280" rx="70" ry="48" fill="none" stroke="#e2e8f0" stroke-width="1.5"/>
+  <ellipse cx="300" cy="280" rx="40" ry="25" fill="none" stroke="#e2e8f0" stroke-width="1.5"/>
+  <ellipse cx="300" cy="280" rx="15" ry="8" fill="#dcfce7" stroke="#16a34a" stroke-width="1.5"/>
+
+  <!-- Global minimum -->
+  <circle cx="300" cy="280" r="4" fill="#16a34a"/>
+  <text x="300" y="300" text-anchor="middle" font-size="8" font-weight="bold" fill="#16a34a">Global Min</text>
+
+  <!-- Saddle point -->
+  <circle cx="190" cy="200" r="4" fill="#d97706"/>
+  <text x="190" y="192" text-anchor="middle" font-size="7" fill="#d97706">Saddle Point</text>
+
+  <!-- Local minimum -->
+  <circle cx="140" cy="310" r="4" fill="#ef4444"/>
+  <text x="140" y="330" text-anchor="middle" font-size="7" fill="#ef4444">Local Min</text>
+
+  <!-- SGD path (noisy) -->
+  <polyline points="100,120 115,135 105,150 125,165 118,180 135,190 128,210 145,220 140,235 155,245 148,258 170,268 178,275 195,270 210,278 225,272 240,280 258,276 275,282 290,278 298,280"
+    fill="none" stroke="#0284c7" stroke-width="2" stroke-linejoin="round"/>
+  <circle cx="100" cy="120" r="5" fill="#0284c7"/>
+  <text x="100" y="110" text-anchor="middle" font-size="8" font-weight="bold" fill="#0284c7">Start</text>
+
+  <!-- GD path (smooth, hypothetical) -->
+  <path d="M 100 120 Q 150 160 180 200 Q 210 240 260 270 Q 280 278 298 280"
+    fill="none" stroke="#94a3b8" stroke-width="1.5" stroke-dasharray="5,3"/>
+
+  <!-- Labels -->
+  <text x="60" y="88" font-size="9" font-weight="bold" fill="#0f172a">Loss Contours (bird's eye)</text>
+
+  <!-- Axes -->
+  <line x1="60" y1="375" x2="450" y2="375" stroke="#475569" stroke-width="1" marker-end="url(#a)"/>
+  <line x1="60" y1="375" x2="60" y2="85" stroke="#475569" stroke-width="1" marker-end="url(#a)"/>
+  <text x="255" y="395" text-anchor="middle" font-size="8" fill="#475569">w₁</text>
+  <text x="48" y="230" text-anchor="middle" font-size="8" fill="#475569" transform="rotate(-90 48 230)">w₂</text>
+
+  <!-- ===== Side View (Right) ===== -->
+  <rect x="510" y="65" width="290" height="330" rx="10" fill="#f8fafc" stroke="#e2e8f0" stroke-width="1.5"/>
+  <text x="655" y="88" text-anchor="middle" font-size="9" font-weight="bold" fill="#0f172a">Loss Surface (side view)</text>
+
+  <!-- Loss curve: high loss → local min → saddle → global min → slight rise -->
+  <path d="M 545 120 C 555 140 570 200 585 270 C 592 300 598 310 605 300 C 618 268 635 200 650 170 C 665 140 680 150 695 200 C 710 260 720 320 730 340 C 738 350 748 348 755 340"
+    fill="none" stroke="#475569" stroke-width="2"/>
+
+  <!-- Local min -->
+  <circle cx="585" cy="270" r="4" fill="#ef4444"/>
+  <text x="585" y="260" text-anchor="middle" font-size="6" fill="#ef4444">local min</text>
+
+  <!-- Saddle -->
+  <circle cx="650" cy="170" r="4" fill="#d97706"/>
+  <text x="650" y="158" text-anchor="middle" font-size="6" fill="#d97706">saddle</text>
+
+  <!-- Global min -->
+  <circle cx="730" cy="340" r="4" fill="#16a34a"/>
+  <text x="748" y="348" font-size="6" fill="#16a34a">global min</text>
+
+  <!-- Y axis -->
+  <line x1="535" y1="370" x2="535" y2="95" stroke="#475569" stroke-width="1" marker-end="url(#a)"/>
+  <text x="527" y="230" text-anchor="middle" font-size="8" fill="#475569" transform="rotate(-90 527 230)">Loss L</text>
+
+  <!-- X axis -->
+  <line x1="535" y1="370" x2="775" y2="370" stroke="#475569" stroke-width="1" marker-end="url(#a)"/>
+  <text x="655" y="390" text-anchor="middle" font-size="8" fill="#475569">parameter space</text>
+
+  <!-- Legend -->
+  <rect x="625" y="98" width="165" height="50" rx="6" fill="#fff" stroke="#e2e8f0" stroke-width="1"/>
+  <line x1="635" y1="116" x2="660" y2="116" stroke="#0284c7" stroke-width="2"/>
+  <text x="668" y="120" font-size="7" fill="#0284c7">SGD (noisy, escapes saddles)</text>
+  <line x1="635" y1="134" x2="660" y2="134" stroke="#94a3b8" stroke-width="1.5" stroke-dasharray="5,3"/>
+  <text x="668" y="138" font-size="7" fill="#94a3b8">Full-batch GD (smooth)</text>
+</svg>

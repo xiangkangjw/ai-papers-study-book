@@ -1,0 +1,98 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 860 480" font-family="Inter, Helvetica, Arial, sans-serif">
+  <defs>
+    <marker id="a" markerWidth="8" markerHeight="6" refX="8" refY="3" orient="auto"><path d="M0,0 L8,3 L0,6 Z" fill="#475569"/></marker>
+  </defs>
+
+  <text x="430" y="28" text-anchor="middle" font-size="17" font-weight="bold" fill="#0f172a">QLoRA: Quantized Low-Rank Adaptation</text>
+  <text x="430" y="46" text-anchor="middle" font-size="10" fill="#64748b">Dettmers et al. (2023) — Fine-tune 65B models on a single 48GB GPU</text>
+
+  <!-- Architecture -->
+  <rect x="30" y="65" width="500" height="260" rx="10" fill="#f8fafc" stroke="#e2e8f0" stroke-width="2"/>
+  <text x="280" y="90" text-anchor="middle" font-size="12" font-weight="bold" fill="#0f172a">QLoRA Forward Pass</text>
+
+  <!-- Input -->
+  <rect x="55" y="140" width="60" height="35" rx="4" fill="#f1f5f9" stroke="#475569" stroke-width="1.5"/>
+  <text x="85" y="162" text-anchor="middle" font-size="9" fill="#0f172a">x</text>
+
+  <!-- Frozen quantized path -->
+  <line x1="115" y1="150" x2="150" y2="130" stroke="#475569" stroke-width="1.5"/>
+  <line x1="115" y1="165" x2="150" y2="185" stroke="#475569" stroke-width="1.5"/>
+
+  <!-- NF4 Quantized weights (main path) -->
+  <rect x="155" y="105" width="180" height="55" rx="6" fill="#e2e8f0" stroke="#94a3b8" stroke-width="2"/>
+  <text x="245" y="125" text-anchor="middle" font-size="9" font-weight="bold" fill="#475569">W (NF4 Quantized)</text>
+  <text x="245" y="140" text-anchor="middle" font-size="7" fill="#94a3b8">🔒 frozen, 4-bit storage</text>
+  <text x="245" y="153" text-anchor="middle" font-size="6" fill="#94a3b8" font-family="'SF Mono', Consolas, monospace">Dequant to BF16 for compute</text>
+
+  <!-- LoRA path -->
+  <rect x="155" y="175" width="80" height="40" rx="4" fill="#dcfce7" stroke="#16a34a" stroke-width="2"/>
+  <text x="195" y="193" text-anchor="middle" font-size="8" font-weight="bold" fill="#14532d">B · A</text>
+  <text x="195" y="208" text-anchor="middle" font-size="7" fill="#16a34a">🔥 BF16</text>
+
+  <!-- Merge -->
+  <line x1="335" y1="132" x2="370" y2="160" stroke="#475569" stroke-width="1.5"/>
+  <line x1="235" y1="195" x2="370" y2="165" stroke="#16a34a" stroke-width="1.5"/>
+
+  <circle cx="375" cy="162" r="12" fill="#dcfce7" stroke="#16a34a" stroke-width="2"/>
+  <text x="375" y="166" text-anchor="middle" font-size="10" fill="#14532d">+</text>
+
+  <line x1="387" y1="162" x2="420" y2="162" stroke="#475569" stroke-width="1.5" marker-end="url(#a)"/>
+
+  <rect x="422" y="145" width="60" height="35" rx="4" fill="#dcfce7" stroke="#16a34a" stroke-width="2"/>
+  <text x="452" y="167" text-anchor="middle" font-size="9" font-weight="bold" fill="#14532d">y</text>
+
+  <!-- Equation -->
+  <text x="280" y="250" text-anchor="middle" font-size="9" fill="#0f172a" font-family="'SF Mono', Consolas, monospace">y = dequant(W_nf4)·x + B·A·x</text>
+  <text x="280" y="270" text-anchor="middle" font-size="8" fill="#64748b">W stored in NF4 (4-bit), dequantized to BF16 on-the-fly</text>
+  <text x="280" y="288" text-anchor="middle" font-size="8" fill="#64748b">Gradients only flow through LoRA (B, A) in BF16</text>
+
+  <!-- Three innovations -->
+  <rect x="555" y="65" width="280" height="260" rx="10" fill="#fef3c7" stroke="#d97706" stroke-width="2"/>
+  <text x="695" y="90" text-anchor="middle" font-size="11" font-weight="bold" fill="#78350f">Three Innovations</text>
+
+  <rect x="570" y="105" width="250" height="60" rx="6" fill="#fef3c7" stroke="#d97706" stroke-width="1.5"/>
+  <text x="695" y="123" text-anchor="middle" font-size="9" font-weight="bold" fill="#78350f">1. NF4 (4-bit NormalFloat)</text>
+  <text x="695" y="140" text-anchor="middle" font-size="7" fill="#334155">Information-theoretically optimal 4-bit</text>
+  <text x="695" y="153" text-anchor="middle" font-size="7" fill="#334155">quantization for normally distributed weights</text>
+
+  <rect x="570" y="175" width="250" height="60" rx="6" fill="#fef3c7" stroke="#d97706" stroke-width="1.5"/>
+  <text x="695" y="193" text-anchor="middle" font-size="9" font-weight="bold" fill="#78350f">2. Double Quantization</text>
+  <text x="695" y="210" text-anchor="middle" font-size="7" fill="#334155">Quantize the quantization constants too</text>
+  <text x="695" y="223" text-anchor="middle" font-size="7" fill="#334155">Saves ~0.37 bits/param (3GB for 65B)</text>
+
+  <rect x="570" y="245" width="250" height="60" rx="6" fill="#fef3c7" stroke="#d97706" stroke-width="1.5"/>
+  <text x="695" y="263" text-anchor="middle" font-size="9" font-weight="bold" fill="#78350f">3. Paged Optimizers</text>
+  <text x="695" y="280" text-anchor="middle" font-size="7" fill="#334155">CPU↔GPU memory paging for optimizer</text>
+  <text x="695" y="293" text-anchor="middle" font-size="7" fill="#334155">states — handles memory spikes gracefully</text>
+
+  <!-- Memory comparison -->
+  <rect x="30" y="345" width="800" height="125" rx="10" fill="#f0fdf4" stroke="#16a34a" stroke-width="2"/>
+  <text x="430" y="370" text-anchor="middle" font-size="11" font-weight="bold" fill="#14532d">Memory Savings: Fine-tuning LLaMA-65B</text>
+
+  <!-- Table -->
+  <text x="130" y="395" text-anchor="middle" font-size="8" font-weight="bold" fill="#475569">Method</text>
+  <text x="300" y="395" text-anchor="middle" font-size="8" font-weight="bold" fill="#475569">GPU Memory</text>
+  <text x="460" y="395" text-anchor="middle" font-size="8" font-weight="bold" fill="#475569">Precision</text>
+  <text x="620" y="395" text-anchor="middle" font-size="8" font-weight="bold" fill="#475569">Trainable Params</text>
+  <text x="770" y="395" text-anchor="middle" font-size="8" font-weight="bold" fill="#475569">GPUs Needed</text>
+
+  <line x1="50" y1="402" x2="810" y2="402" stroke="#e2e8f0" stroke-width="1"/>
+
+  <text x="130" y="418" text-anchor="middle" font-size="8" fill="#ef4444">Full Fine-tune</text>
+  <text x="300" y="418" text-anchor="middle" font-size="8" fill="#ef4444">>780 GB</text>
+  <text x="460" y="418" text-anchor="middle" font-size="8" fill="#334155">FP16</text>
+  <text x="620" y="418" text-anchor="middle" font-size="8" fill="#334155">65B (100%)</text>
+  <text x="770" y="418" text-anchor="middle" font-size="8" fill="#ef4444">10+ A100s</text>
+
+  <text x="130" y="438" text-anchor="middle" font-size="8" fill="#d97706">LoRA (16-bit)</text>
+  <text x="300" y="438" text-anchor="middle" font-size="8" fill="#d97706">~160 GB</text>
+  <text x="460" y="438" text-anchor="middle" font-size="8" fill="#334155">FP16</text>
+  <text x="620" y="438" text-anchor="middle" font-size="8" fill="#334155">~160M (0.25%)</text>
+  <text x="770" y="438" text-anchor="middle" font-size="8" fill="#d97706">2-3 A100s</text>
+
+  <text x="130" y="458" text-anchor="middle" font-size="8" fill="#16a34a" font-weight="bold">QLoRA (4-bit)</text>
+  <text x="300" y="458" text-anchor="middle" font-size="8" fill="#16a34a" font-weight="bold">~48 GB</text>
+  <text x="460" y="458" text-anchor="middle" font-size="8" fill="#16a34a" font-weight="bold">NF4 + BF16</text>
+  <text x="620" y="458" text-anchor="middle" font-size="8" fill="#334155">~160M (0.25%)</text>
+  <text x="770" y="458" text-anchor="middle" font-size="8" fill="#16a34a" font-weight="bold">1 A100!</text>
+</svg>

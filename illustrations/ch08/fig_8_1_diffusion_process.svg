@@ -1,0 +1,107 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 920 320" font-family="Inter, Helvetica, Arial, sans-serif">
+  <defs>
+    <marker id="ab" markerWidth="8" markerHeight="6" refX="8" refY="3" orient="auto"><path d="M0,0 L8,3 L0,6 Z" fill="#0284c7"/></marker>
+    <marker id="ar" markerWidth="8" markerHeight="6" refX="8" refY="3" orient="auto"><path d="M0,0 L8,3 L0,6 Z" fill="#ef4444"/></marker>
+  </defs>
+
+  <text x="460" y="28" text-anchor="middle" font-size="17" font-weight="bold" fill="#0f172a">Forward &amp; Reverse Diffusion Process</text>
+
+  <!-- ===== Forward Process (top row) ===== -->
+  <text x="460" y="58" text-anchor="middle" font-size="11" font-weight="bold" fill="#0284c7">→ Forward Process q(x_t | x_{t-1}): Gradually add Gaussian noise</text>
+
+  <!-- x_0 (clean) -->
+  <rect x="30" y="75" width="80" height="80" rx="8" fill="#dcfce7" stroke="#16a34a" stroke-width="2"/>
+  <text x="70" y="110" text-anchor="middle" font-size="10" font-weight="bold" fill="#14532d">x₀</text>
+  <text x="70" y="125" text-anchor="middle" font-size="7" fill="#16a34a">clean</text>
+  <!-- Noise dots: none -->
+
+  <!-- Forward arrow -->
+  <line x1="112" y1="115" x2="145" y2="115" stroke="#0284c7" stroke-width="2" marker-end="url(#ab)"/>
+  <text x="128" y="108" text-anchor="middle" font-size="7" fill="#0284c7">+ε</text>
+
+  <!-- x_1 (slight noise) -->
+  <rect x="148" y="75" width="80" height="80" rx="8" fill="#f0fdf4" stroke="#16a34a" stroke-width="1.5"/>
+  <text x="188" y="110" text-anchor="middle" font-size="10" font-weight="bold" fill="#334155">x₁</text>
+  <circle cx="165" cy="95" r="2" fill="#94a3b8" opacity="0.3"/>
+  <circle cx="200" cy="130" r="2" fill="#94a3b8" opacity="0.3"/>
+
+  <line x1="230" y1="115" x2="263" y2="115" stroke="#0284c7" stroke-width="2" marker-end="url(#ab)"/>
+
+  <!-- x_2 -->
+  <rect x="266" y="75" width="80" height="80" rx="8" fill="#f8fafc" stroke="#94a3b8" stroke-width="1.5"/>
+  <text x="306" y="110" text-anchor="middle" font-size="10" font-weight="bold" fill="#334155">x₂</text>
+  <circle cx="280" cy="90" r="2" fill="#94a3b8" opacity="0.4"/>
+  <circle cx="295" cy="100" r="2" fill="#94a3b8" opacity="0.4"/>
+  <circle cx="320" cy="130" r="2" fill="#94a3b8" opacity="0.4"/>
+  <circle cx="275" cy="140" r="2" fill="#94a3b8" opacity="0.4"/>
+
+  <!-- Dots -->
+  <text x="370" y="118" text-anchor="middle" font-size="16" fill="#94a3b8">···</text>
+
+  <!-- x_{T-1} -->
+  <rect x="400" y="75" width="80" height="80" rx="8" fill="#f1f5f9" stroke="#94a3b8" stroke-width="1.5"/>
+  <text x="440" y="108" text-anchor="middle" font-size="9" font-weight="bold" fill="#334155">x_{T-1}</text>
+  <g opacity="0.5">
+    <circle cx="415" cy="90" r="2" fill="#94a3b8"/><circle cx="430" cy="95" r="2" fill="#94a3b8"/>
+    <circle cx="450" cy="100" r="2" fill="#94a3b8"/><circle cx="420" cy="110" r="2" fill="#94a3b8"/>
+    <circle cx="440" cy="120" r="2" fill="#94a3b8"/><circle cx="460" cy="130" r="2" fill="#94a3b8"/>
+    <circle cx="410" cy="135" r="2" fill="#94a3b8"/><circle cx="455" cy="140" r="2" fill="#94a3b8"/>
+  </g>
+
+  <line x1="482" y1="115" x2="515" y2="115" stroke="#0284c7" stroke-width="2" marker-end="url(#ab)"/>
+
+  <!-- x_T (pure noise) -->
+  <rect x="518" y="75" width="80" height="80" rx="8" fill="#e2e8f0" stroke="#475569" stroke-width="2"/>
+  <text x="558" y="108" text-anchor="middle" font-size="10" font-weight="bold" fill="#0f172a">x_T</text>
+  <text x="558" y="123" text-anchor="middle" font-size="7" fill="#475569">pure noise</text>
+  <g opacity="0.7">
+    <circle cx="530" cy="88" r="2" fill="#64748b"/><circle cx="545" cy="92" r="2" fill="#64748b"/>
+    <circle cx="560" cy="85" r="2" fill="#64748b"/><circle cx="575" cy="95" r="2" fill="#64748b"/>
+    <circle cx="535" cy="100" r="2" fill="#64748b"/><circle cx="550" cy="105" r="2" fill="#64748b"/>
+    <circle cx="570" cy="110" r="2" fill="#64748b"/><circle cx="585" cy="100" r="2" fill="#64748b"/>
+    <circle cx="530" cy="115" r="2" fill="#64748b"/><circle cx="548" cy="120" r="2" fill="#64748b"/>
+    <circle cx="565" cy="125" r="2" fill="#64748b"/><circle cx="580" cy="118" r="2" fill="#64748b"/>
+    <circle cx="540" cy="135" r="2" fill="#64748b"/><circle cx="555" cy="140" r="2" fill="#64748b"/>
+    <circle cx="575" cy="138" r="2" fill="#64748b"/><circle cx="585" cy="145" r="2" fill="#64748b"/>
+  </g>
+
+  <!-- Noise schedule annotation -->
+  <text x="558" y="170" text-anchor="middle" font-size="8" fill="#475569" font-family="'SF Mono', Consolas, monospace">≈ N(0, I)</text>
+
+  <!-- ===== Reverse Process (bottom row) ===== -->
+  <text x="460" y="208" text-anchor="middle" font-size="11" font-weight="bold" fill="#ef4444">← Reverse Process p_θ(x_{t-1} | x_t): Learned denoising</text>
+
+  <!-- Same boxes but reversed arrows -->
+  <!-- x_T -->
+  <rect x="518" y="220" width="80" height="80" rx="8" fill="#e2e8f0" stroke="#475569" stroke-width="2"/>
+  <text x="558" y="255" text-anchor="middle" font-size="10" font-weight="bold" fill="#0f172a">x_T</text>
+  <text x="558" y="270" text-anchor="middle" font-size="7" fill="#475569">noise</text>
+
+  <line x1="516" y1="260" x2="483" y2="260" stroke="#ef4444" stroke-width="2" marker-end="url(#ar)"/>
+  <text x="500" y="253" text-anchor="middle" font-size="7" fill="#ef4444">−ε_θ</text>
+
+  <rect x="400" y="220" width="80" height="80" rx="8" fill="#f1f5f9" stroke="#94a3b8" stroke-width="1.5"/>
+  <text x="440" y="258" text-anchor="middle" font-size="9" font-weight="bold" fill="#334155">x_{T-1}</text>
+
+  <text x="380" y="263" text-anchor="middle" font-size="16" fill="#94a3b8">···</text>
+
+  <rect x="266" y="220" width="80" height="80" rx="8" fill="#f8fafc" stroke="#94a3b8" stroke-width="1.5"/>
+  <text x="306" y="258" text-anchor="middle" font-size="10" font-weight="bold" fill="#334155">x₂</text>
+
+  <line x1="264" y1="260" x2="231" y2="260" stroke="#ef4444" stroke-width="2" marker-end="url(#ar)"/>
+
+  <rect x="148" y="220" width="80" height="80" rx="8" fill="#f0fdf4" stroke="#16a34a" stroke-width="1.5"/>
+  <text x="188" y="258" text-anchor="middle" font-size="10" font-weight="bold" fill="#334155">x₁</text>
+
+  <line x1="146" y1="260" x2="113" y2="260" stroke="#ef4444" stroke-width="2" marker-end="url(#ar)"/>
+
+  <rect x="30" y="220" width="80" height="80" rx="8" fill="#dcfce7" stroke="#16a34a" stroke-width="2"/>
+  <text x="70" y="255" text-anchor="middle" font-size="10" font-weight="bold" fill="#14532d">x₀</text>
+  <text x="70" y="270" text-anchor="middle" font-size="7" fill="#16a34a">recovered!</text>
+
+  <!-- Neural network annotation -->
+  <rect x="630" y="230" width="260" height="60" rx="8" fill="#fef3c7" stroke="#d97706" stroke-width="1.5"/>
+  <text x="760" y="250" text-anchor="middle" font-size="9" font-weight="bold" fill="#78350f">U-Net ε_θ(x_t, t) predicts noise</text>
+  <text x="760" y="268" text-anchor="middle" font-size="8" fill="#d97706" font-family="'SF Mono', Consolas, monospace">L = E[‖ε − ε_θ(x_t, t)‖²]</text>
+  <text x="760" y="282" text-anchor="middle" font-size="8" fill="#d97706">Simple MSE loss on noise prediction</text>
+</svg>

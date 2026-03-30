@@ -1,0 +1,145 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 900 520" font-family="Inter, Helvetica, Arial, sans-serif">
+  <defs>
+    <marker id="ax" markerWidth="8" markerHeight="6" refX="8" refY="3" orient="auto"><path d="M0,0 L8,3 L0,6 Z" fill="#475569"/></marker>
+  </defs>
+
+  <text x="450" y="28" text-anchor="middle" font-size="17" font-weight="bold" fill="#0f172a">Neural Scaling Laws: Power-Law Relationships</text>
+  <text x="450" y="46" text-anchor="middle" font-size="10" fill="#64748b">Kaplan et al. (2020) &amp; Hoffmann et al. (2022, "Chinchilla")</text>
+
+  <!-- ===== Plot 1: Loss vs Parameters ===== -->
+  <g transform="translate(30, 70)">
+    <rect x="0" y="0" width="260" height="220" rx="8" fill="#f8fafc" stroke="#e2e8f0" stroke-width="1.5"/>
+    <text x="130" y="20" text-anchor="middle" font-size="10" font-weight="bold" fill="#0f172a">Loss vs. Parameters</text>
+
+    <!-- Axes -->
+    <line x1="45" y1="190" x2="240" y2="190" stroke="#475569" stroke-width="1.5" marker-end="url(#ax)"/>
+    <line x1="45" y1="190" x2="45" y2="35" stroke="#475569" stroke-width="1.5" marker-end="url(#ax)"/>
+    <text x="145" y="210" text-anchor="middle" font-size="8" fill="#475569">Parameters N (log scale)</text>
+    <text x="22" y="110" text-anchor="middle" font-size="8" fill="#475569" transform="rotate(-90 22 110)">Test Loss L</text>
+
+    <!-- Log scale ticks -->
+    <text x="60" y="202" text-anchor="middle" font-size="6" fill="#94a3b8" font-family="'SF Mono', Consolas, monospace">10⁷</text>
+    <text x="110" y="202" text-anchor="middle" font-size="6" fill="#94a3b8" font-family="'SF Mono', Consolas, monospace">10⁸</text>
+    <text x="160" y="202" text-anchor="middle" font-size="6" fill="#94a3b8" font-family="'SF Mono', Consolas, monospace">10⁹</text>
+    <text x="210" y="202" text-anchor="middle" font-size="6" fill="#94a3b8" font-family="'SF Mono', Consolas, monospace">10¹⁰</text>
+
+    <!-- Power law line (straight in log-log) -->
+    <polyline points="60,165 85,140 110,120 135,105 160,92 185,82 210,73" fill="none" stroke="#0284c7" stroke-width="2.5"/>
+    <!-- Data points -->
+    <circle cx="60" cy="165" r="3" fill="#0284c7"/>
+    <circle cx="85" cy="140" r="3" fill="#0284c7"/>
+    <circle cx="110" cy="120" r="3" fill="#0284c7"/>
+    <circle cx="135" cy="105" r="3" fill="#0284c7"/>
+    <circle cx="160" cy="92" r="3" fill="#0284c7"/>
+    <circle cx="185" cy="82" r="3" fill="#0284c7"/>
+    <circle cx="210" cy="73" r="3" fill="#0284c7"/>
+
+    <!-- Equation -->
+    <text x="170" y="160" text-anchor="middle" font-size="8" fill="#0284c7" font-family="'SF Mono', Consolas, monospace">L(N) ~ N^(-α_N)</text>
+  </g>
+
+  <!-- ===== Plot 2: Loss vs Data ===== -->
+  <g transform="translate(320, 70)">
+    <rect x="0" y="0" width="260" height="220" rx="8" fill="#f8fafc" stroke="#e2e8f0" stroke-width="1.5"/>
+    <text x="130" y="20" text-anchor="middle" font-size="10" font-weight="bold" fill="#0f172a">Loss vs. Data</text>
+
+    <!-- Axes -->
+    <line x1="45" y1="190" x2="240" y2="190" stroke="#475569" stroke-width="1.5" marker-end="url(#ax)"/>
+    <line x1="45" y1="190" x2="45" y2="35" stroke="#475569" stroke-width="1.5" marker-end="url(#ax)"/>
+    <text x="145" y="210" text-anchor="middle" font-size="8" fill="#475569">Tokens D (log scale)</text>
+    <text x="22" y="110" text-anchor="middle" font-size="8" fill="#475569" transform="rotate(-90 22 110)">Test Loss L</text>
+
+    <!-- Log scale ticks -->
+    <text x="60" y="202" text-anchor="middle" font-size="6" fill="#94a3b8" font-family="'SF Mono', Consolas, monospace">10⁸</text>
+    <text x="110" y="202" text-anchor="middle" font-size="6" fill="#94a3b8" font-family="'SF Mono', Consolas, monospace">10⁹</text>
+    <text x="160" y="202" text-anchor="middle" font-size="6" fill="#94a3b8" font-family="'SF Mono', Consolas, monospace">10¹⁰</text>
+    <text x="210" y="202" text-anchor="middle" font-size="6" fill="#94a3b8" font-family="'SF Mono', Consolas, monospace">10¹¹</text>
+
+    <!-- Power law line -->
+    <polyline points="60,160 85,138 110,118 135,103 160,90 185,80 210,72" fill="none" stroke="#16a34a" stroke-width="2.5"/>
+    <circle cx="60" cy="160" r="3" fill="#16a34a"/>
+    <circle cx="85" cy="138" r="3" fill="#16a34a"/>
+    <circle cx="110" cy="118" r="3" fill="#16a34a"/>
+    <circle cx="135" cy="103" r="3" fill="#16a34a"/>
+    <circle cx="160" cy="90" r="3" fill="#16a34a"/>
+    <circle cx="185" cy="80" r="3" fill="#16a34a"/>
+    <circle cx="210" cy="72" r="3" fill="#16a34a"/>
+
+    <text x="170" y="160" text-anchor="middle" font-size="8" fill="#16a34a" font-family="'SF Mono', Consolas, monospace">L(D) ~ D^(-α_D)</text>
+  </g>
+
+  <!-- ===== Plot 3: Loss vs Compute ===== -->
+  <g transform="translate(610, 70)">
+    <rect x="0" y="0" width="260" height="220" rx="8" fill="#f8fafc" stroke="#e2e8f0" stroke-width="1.5"/>
+    <text x="130" y="20" text-anchor="middle" font-size="10" font-weight="bold" fill="#0f172a">Loss vs. Compute</text>
+
+    <!-- Axes -->
+    <line x1="45" y1="190" x2="240" y2="190" stroke="#475569" stroke-width="1.5" marker-end="url(#ax)"/>
+    <line x1="45" y1="190" x2="45" y2="35" stroke="#475569" stroke-width="1.5" marker-end="url(#ax)"/>
+    <text x="145" y="210" text-anchor="middle" font-size="8" fill="#475569">Compute C in PF-days (log)</text>
+    <text x="22" y="110" text-anchor="middle" font-size="8" fill="#475569" transform="rotate(-90 22 110)">Test Loss L</text>
+
+    <!-- Log scale ticks -->
+    <text x="60" y="202" text-anchor="middle" font-size="6" fill="#94a3b8" font-family="'SF Mono', Consolas, monospace">10⁻²</text>
+    <text x="110" y="202" text-anchor="middle" font-size="6" fill="#94a3b8" font-family="'SF Mono', Consolas, monospace">10⁰</text>
+    <text x="160" y="202" text-anchor="middle" font-size="6" fill="#94a3b8" font-family="'SF Mono', Consolas, monospace">10²</text>
+    <text x="210" y="202" text-anchor="middle" font-size="6" fill="#94a3b8" font-family="'SF Mono', Consolas, monospace">10⁴</text>
+
+    <!-- Power law line -->
+    <polyline points="60,168 85,145 110,125 135,108 160,95 185,84 210,75" fill="none" stroke="#9333ea" stroke-width="2.5"/>
+    <circle cx="60" cy="168" r="3" fill="#9333ea"/>
+    <circle cx="85" cy="145" r="3" fill="#9333ea"/>
+    <circle cx="110" cy="125" r="3" fill="#9333ea"/>
+    <circle cx="135" cy="108" r="3" fill="#9333ea"/>
+    <circle cx="160" cy="95" r="3" fill="#9333ea"/>
+    <circle cx="185" cy="84" r="3" fill="#9333ea"/>
+    <circle cx="210" cy="75" r="3" fill="#9333ea"/>
+
+    <text x="170" y="160" text-anchor="middle" font-size="8" fill="#9333ea" font-family="'SF Mono', Consolas, monospace">L(C) ~ C^(-α_C)</text>
+  </g>
+
+  <!-- ===== Chinchilla Compute-Optimal Allocation ===== -->
+  <rect x="30" y="310" width="410" height="195" rx="10" fill="#f0fdf4" stroke="#16a34a" stroke-width="2"/>
+  <text x="235" y="335" text-anchor="middle" font-size="11" font-weight="bold" fill="#14532d">Compute-Optimal Frontier (Chinchilla)</text>
+
+  <!-- Schematic: N vs D for fixed compute -->
+  <line x1="70" y1="475" x2="280" y2="475" stroke="#475569" stroke-width="1.5" marker-end="url(#ax)"/>
+  <line x1="70" y1="475" x2="70" y2="350" stroke="#475569" stroke-width="1.5" marker-end="url(#ax)"/>
+  <text x="175" y="495" text-anchor="middle" font-size="8" fill="#475569">Parameters N →</text>
+  <text x="50" y="415" text-anchor="middle" font-size="8" fill="#475569" transform="rotate(-90 50 415)">Data D →</text>
+
+  <!-- Iso-compute curve -->
+  <path d="M 90,365 Q 140,370 170,400 Q 200,435 260,460" fill="none" stroke="#94a3b8" stroke-width="1.5" stroke-dasharray="4,2"/>
+  <text x="270" y="458" font-size="7" fill="#94a3b8">C = constant</text>
+
+  <!-- Optimal point -->
+  <circle cx="170" cy="400" r="6" fill="#16a34a" stroke="#fff" stroke-width="2"/>
+  <text x="185" y="395" font-size="8" font-weight="bold" fill="#14532d">Optimal</text>
+  <text x="185" y="408" font-size="7" fill="#16a34a">~20 tokens/param</text>
+
+  <!-- Kaplan regime (over-parameterized) -->
+  <circle cx="240" cy="375" r="5" fill="#ef4444" opacity="0.7"/>
+  <text x="255" y="372" font-size="7" fill="#ef4444">Kaplan regime</text>
+  <text x="255" y="383" font-size="6" fill="#ef4444">(undertrained)</text>
+
+  <!-- LLaMA regime (overtrained) -->
+  <circle cx="110" cy="445" r="5" fill="#d97706" opacity="0.7"/>
+  <text x="120" y="443" font-size="7" fill="#d97706">LLaMA regime</text>
+  <text x="120" y="454" font-size="6" fill="#d97706">(inference-optimal)</text>
+
+  <!-- ===== Key Findings ===== -->
+  <rect x="470" y="310" width="400" height="195" rx="10" fill="#fffbeb" stroke="#d97706" stroke-width="2"/>
+  <text x="670" y="335" text-anchor="middle" font-size="11" font-weight="bold" fill="#78350f">Key Findings</text>
+
+  <text x="490" y="362" font-size="9" font-weight="bold" fill="#0f172a">1. Power-law scaling</text>
+  <text x="490" y="378" font-size="8" fill="#334155">Loss decreases as a smooth power law across</text>
+  <text x="490" y="392" font-size="8" fill="#334155">many orders of magnitude in N, D, and C.</text>
+
+  <text x="490" y="416" font-size="9" font-weight="bold" fill="#0f172a">2. Chinchilla revision</text>
+  <text x="490" y="432" font-size="8" fill="#334155">Data matters more than Kaplan suggested.</text>
+  <text x="490" y="446" font-size="8" fill="#334155">Optimal: scale N and D equally (~20 tok/param).</text>
+
+  <text x="490" y="470" font-size="9" font-weight="bold" fill="#0f172a">3. Predictability</text>
+  <text x="490" y="486" font-size="8" fill="#334155">Performance at 10× scale is extrapolable from</text>
+  <text x="490" y="500" font-size="8" fill="#334155">smaller runs. AI scaling becomes engineering.</text>
+</svg>

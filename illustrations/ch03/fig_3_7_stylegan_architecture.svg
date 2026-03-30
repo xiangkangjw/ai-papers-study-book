@@ -1,0 +1,160 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 900 600" font-family="Inter, Helvetica, Arial, sans-serif">
+  <defs>
+    <marker id="a" markerWidth="8" markerHeight="6" refX="8" refY="3" orient="auto"><path d="M0,0 L8,3 L0,6 Z" fill="#475569"/></marker>
+  </defs>
+
+  <text x="450" y="28" text-anchor="middle" font-size="17" font-weight="bold" fill="#0f172a">StyleGAN: Style-Based Generator Architecture</text>
+  <text x="450" y="46" text-anchor="middle" font-size="10" fill="#64748b">Karras et al. (2019) — Mapping network + AdaIN style injection at each resolution</text>
+
+  <!-- Mapping Network -->
+  <rect x="30" y="70" width="130" height="340" rx="10" fill="#f3e8ff" stroke="#9333ea" stroke-width="2"/>
+  <text x="95" y="95" text-anchor="middle" font-size="11" font-weight="bold" fill="#581c87">Mapping</text>
+  <text x="95" y="112" text-anchor="middle" font-size="11" font-weight="bold" fill="#581c87">Network</text>
+
+  <!-- z input -->
+  <rect x="55" y="130" width="80" height="30" rx="4" fill="#f3e8ff" stroke="#9333ea" stroke-width="1.5"/>
+  <text x="95" y="150" text-anchor="middle" font-size="9" font-weight="bold" fill="#581c87">z ~ N(0,I)</text>
+
+  <!-- FC layers -->
+  <rect x="60" y="175" width="70" height="22" rx="3" fill="#ede9fe" stroke="#9333ea" stroke-width="1"/>
+  <text x="95" y="190" text-anchor="middle" font-size="7" fill="#581c87">FC + LReLU</text>
+  <rect x="60" y="202" width="70" height="22" rx="3" fill="#ede9fe" stroke="#9333ea" stroke-width="1"/>
+  <text x="95" y="217" text-anchor="middle" font-size="7" fill="#581c87">FC + LReLU</text>
+  <text x="95" y="240" text-anchor="middle" font-size="10" fill="#9333ea">⋮</text>
+  <rect x="60" y="250" width="70" height="22" rx="3" fill="#ede9fe" stroke="#9333ea" stroke-width="1"/>
+  <text x="95" y="265" text-anchor="middle" font-size="7" fill="#581c87">FC + LReLU</text>
+  <rect x="60" y="277" width="70" height="22" rx="3" fill="#ede9fe" stroke="#9333ea" stroke-width="1"/>
+  <text x="95" y="292" text-anchor="middle" font-size="7" fill="#581c87">FC + LReLU</text>
+
+  <!-- w output -->
+  <rect x="55" y="315" width="80" height="35" rx="4" fill="#ddd6fe" stroke="#7c3aed" stroke-width="2"/>
+  <text x="95" y="335" text-anchor="middle" font-size="9" font-weight="bold" fill="#581c87">w ∈ W</text>
+  <text x="95" y="350" text-anchor="middle" font-size="7" fill="#7c3aed">512-d</text>
+
+  <text x="95" y="385" text-anchor="middle" font-size="8" fill="#9333ea">8 FC layers</text>
+  <text x="95" y="400" text-anchor="middle" font-size="7" fill="#64748b">disentangles z → w</text>
+
+  <!-- Synthesis Network -->
+  <rect x="190" y="70" width="530" height="460" rx="10" fill="#f0fdf4" stroke="#16a34a" stroke-width="2"/>
+  <text x="455" y="95" text-anchor="middle" font-size="11" font-weight="bold" fill="#14532d">Synthesis Network (Progressive Growing)</text>
+
+  <!-- Learned constant -->
+  <rect x="370" y="115" width="100" height="35" rx="4" fill="#e0f2fe" stroke="#0284c7" stroke-width="2"/>
+  <text x="420" y="130" text-anchor="middle" font-size="8" font-weight="bold" fill="#0c4a6e">Constant</text>
+  <text x="420" y="142" text-anchor="middle" font-size="6" fill="#0284c7" font-family="'SF Mono', Consolas, monospace">4×4×512</text>
+
+  <!-- Style Block 1: 4×4 -->
+  <rect x="230" y="165" width="380" height="70" rx="6" fill="#fef3c7" stroke="#d97706" stroke-width="1.5"/>
+  <text x="250" y="185" font-size="8" font-weight="bold" fill="#78350f">4×4</text>
+
+  <!-- Noise inject -->
+  <rect x="290" y="175" width="50" height="22" rx="3" fill="#fee2e2" stroke="#ef4444" stroke-width="1"/>
+  <text x="315" y="190" text-anchor="middle" font-size="6" fill="#ef4444">+Noise</text>
+
+  <!-- AdaIN -->
+  <rect x="355" y="175" width="55" height="22" rx="3" fill="#ddd6fe" stroke="#7c3aed" stroke-width="1.5"/>
+  <text x="382" y="190" text-anchor="middle" font-size="7" font-weight="bold" fill="#581c87">AdaIN</text>
+
+  <!-- Conv -->
+  <rect x="425" y="175" width="55" height="22" rx="3" fill="#fef3c7" stroke="#d97706" stroke-width="1"/>
+  <text x="452" y="190" text-anchor="middle" font-size="7" fill="#78350f">Conv 3×3</text>
+
+  <!-- Noise inject 2 -->
+  <rect x="495" y="175" width="50" height="22" rx="3" fill="#fee2e2" stroke="#ef4444" stroke-width="1"/>
+  <text x="520" y="190" text-anchor="middle" font-size="6" fill="#ef4444">+Noise</text>
+
+  <!-- AdaIN 2 -->
+  <rect x="555" y="175" width="55" height="22" rx="3" fill="#ddd6fe" stroke="#7c3aed" stroke-width="1.5"/>
+  <text x="582" y="190" text-anchor="middle" font-size="7" font-weight="bold" fill="#581c87">AdaIN</text>
+
+  <!-- w → Affine → AdaIN arrows -->
+  <line x1="135" y1="332" x2="382" y2="190" stroke="#7c3aed" stroke-width="1.5" stroke-dasharray="4,2"/>
+  <line x1="135" y1="332" x2="582" y2="190" stroke="#7c3aed" stroke-width="1.5" stroke-dasharray="4,2"/>
+
+  <!-- Upsample arrow -->
+  <line x1="420" y1="235" x2="420" y2="258" stroke="#16a34a" stroke-width="1.5" marker-end="url(#a)"/>
+  <text x="445" y="252" font-size="7" fill="#16a34a">↑ Upsample</text>
+
+  <!-- Style Block 2: 8×8 -->
+  <rect x="230" y="260" width="380" height="55" rx="6" fill="#fef3c7" stroke="#d97706" stroke-width="1.5"/>
+  <text x="250" y="280" font-size="8" font-weight="bold" fill="#78350f">8×8</text>
+  <rect x="290" y="272" width="50" height="22" rx="3" fill="#fee2e2" stroke="#ef4444" stroke-width="1"/>
+  <text x="315" y="287" text-anchor="middle" font-size="6" fill="#ef4444">+Noise</text>
+  <rect x="355" y="272" width="55" height="22" rx="3" fill="#ddd6fe" stroke="#7c3aed" stroke-width="1.5"/>
+  <text x="382" y="287" text-anchor="middle" font-size="7" font-weight="bold" fill="#581c87">AdaIN</text>
+  <rect x="425" y="272" width="55" height="22" rx="3" fill="#fef3c7" stroke="#d97706" stroke-width="1"/>
+  <text x="452" y="287" text-anchor="middle" font-size="7" fill="#78350f">Conv 3×3</text>
+  <rect x="495" y="272" width="50" height="22" rx="3" fill="#fee2e2" stroke="#ef4444" stroke-width="1"/>
+  <text x="520" y="287" text-anchor="middle" font-size="6" fill="#ef4444">+Noise</text>
+  <rect x="555" y="272" width="55" height="22" rx="3" fill="#ddd6fe" stroke="#7c3aed" stroke-width="1.5"/>
+  <text x="582" y="287" text-anchor="middle" font-size="7" font-weight="bold" fill="#581c87">AdaIN</text>
+
+  <line x1="135" y1="335" x2="382" y2="287" stroke="#7c3aed" stroke-width="1" stroke-dasharray="4,2" opacity="0.5"/>
+
+  <!-- Dots -->
+  <text x="420" y="335" text-anchor="middle" font-size="14" fill="#94a3b8">⋮</text>
+
+  <!-- Style Block N: 1024×1024 -->
+  <rect x="230" y="350" width="380" height="55" rx="6" fill="#fef3c7" stroke="#d97706" stroke-width="1.5"/>
+  <text x="250" y="370" font-size="8" font-weight="bold" fill="#78350f">1024²</text>
+  <rect x="300" y="362" width="50" height="22" rx="3" fill="#fee2e2" stroke="#ef4444" stroke-width="1"/>
+  <text x="325" y="377" text-anchor="middle" font-size="6" fill="#ef4444">+Noise</text>
+  <rect x="365" y="362" width="55" height="22" rx="3" fill="#ddd6fe" stroke="#7c3aed" stroke-width="1.5"/>
+  <text x="392" y="377" text-anchor="middle" font-size="7" font-weight="bold" fill="#581c87">AdaIN</text>
+  <rect x="435" y="362" width="55" height="22" rx="3" fill="#fef3c7" stroke="#d97706" stroke-width="1"/>
+  <text x="462" y="377" text-anchor="middle" font-size="7" fill="#78350f">Conv 3×3</text>
+  <rect x="505" y="362" width="50" height="22" rx="3" fill="#fee2e2" stroke="#ef4444" stroke-width="1"/>
+  <text x="530" y="377" text-anchor="middle" font-size="6" fill="#ef4444">+Noise</text>
+  <rect x="565" y="362" width="55" height="22" rx="3" fill="#ddd6fe" stroke="#7c3aed" stroke-width="1.5"/>
+  <text x="592" y="377" text-anchor="middle" font-size="7" font-weight="bold" fill="#581c87">AdaIN</text>
+
+  <line x1="135" y1="340" x2="392" y2="377" stroke="#7c3aed" stroke-width="1" stroke-dasharray="4,2" opacity="0.5"/>
+
+  <!-- Output -->
+  <line x1="420" y1="405" x2="420" y2="428" stroke="#475569" stroke-width="1.5" marker-end="url(#a)"/>
+  <rect x="370" y="430" width="100" height="35" rx="4" fill="#dcfce7" stroke="#16a34a" stroke-width="2"/>
+  <text x="420" y="448" text-anchor="middle" font-size="9" font-weight="bold" fill="#14532d">Output</text>
+  <text x="420" y="460" text-anchor="middle" font-size="6" fill="#16a34a" font-family="'SF Mono', Consolas, monospace">1024×1024×3</text>
+
+  <!-- Style control annotations -->
+  <rect x="230" y="480" width="380" height="40" rx="4" fill="#ede9fe" stroke="#7c3aed" stroke-width="1"/>
+  <text x="420" y="497" text-anchor="middle" font-size="8" fill="#581c87">Coarse styles (4²–8²): pose, shape · Mid styles (16²–32²): features, eyes</text>
+  <text x="420" y="512" text-anchor="middle" font-size="8" fill="#581c87">Fine styles (64²–1024²): color, micro-features</text>
+
+  <!-- Legend panel -->
+  <rect x="740" y="70" width="145" height="310" rx="8" fill="#f8fafc" stroke="#e2e8f0" stroke-width="1.5"/>
+  <text x="812" y="95" text-anchor="middle" font-size="10" font-weight="bold" fill="#0f172a">Key Ideas</text>
+
+  <rect x="752" y="110" width="12" height="12" rx="2" fill="#f3e8ff" stroke="#9333ea" stroke-width="1"/>
+  <text x="772" y="120" font-size="8" fill="#334155">Mapping z → w</text>
+
+  <rect x="752" y="135" width="12" height="12" rx="2" fill="#ddd6fe" stroke="#7c3aed" stroke-width="1"/>
+  <text x="772" y="145" font-size="8" fill="#334155">AdaIN injection</text>
+
+  <rect x="752" y="160" width="12" height="12" rx="2" fill="#fee2e2" stroke="#ef4444" stroke-width="1"/>
+  <text x="772" y="170" font-size="8" fill="#334155">Per-pixel noise</text>
+
+  <rect x="752" y="185" width="12" height="12" rx="2" fill="#fef3c7" stroke="#d97706" stroke-width="1"/>
+  <text x="772" y="195" font-size="8" fill="#334155">Conv layers</text>
+
+  <line x1="752" y1="215" x2="870" y2="215" stroke="#e2e8f0" stroke-width="1"/>
+
+  <text x="812" y="235" text-anchor="middle" font-size="8" font-weight="bold" fill="#0f172a">AdaIN</text>
+  <text x="812" y="255" text-anchor="middle" font-size="7" fill="#334155" font-family="'SF Mono', Consolas, monospace">AdaIN(x, y) =</text>
+  <text x="812" y="270" text-anchor="middle" font-size="7" fill="#334155" font-family="'SF Mono', Consolas, monospace">y_s · (x-μ)/σ + y_b</text>
+
+  <line x1="752" y1="285" x2="870" y2="285" stroke="#e2e8f0" stroke-width="1"/>
+
+  <text x="812" y="305" text-anchor="middle" font-size="8" font-weight="bold" fill="#0f172a">No z → G direct</text>
+  <text x="812" y="320" text-anchor="middle" font-size="7" fill="#64748b">z only enters via</text>
+  <text x="812" y="335" text-anchor="middle" font-size="7" fill="#64748b">mapping network</text>
+  <text x="812" y="355" text-anchor="middle" font-size="7" fill="#64748b">No input noise to</text>
+  <text x="812" y="370" text-anchor="middle" font-size="7" fill="#64748b">synthesis — uses</text>
+  <text x="812" y="385" text-anchor="middle" font-size="7" fill="#64748b">learned constant</text>
+
+  <!-- Noise annotation -->
+  <rect x="740" y="400" width="145" height="60" rx="6" fill="#fee2e2" stroke="#ef4444" stroke-width="1"/>
+  <text x="812" y="420" text-anchor="middle" font-size="8" font-weight="bold" fill="#ef4444">Stochastic Noise</text>
+  <text x="812" y="436" text-anchor="middle" font-size="7" fill="#334155">Per-pixel, per-layer</text>
+  <text x="812" y="450" text-anchor="middle" font-size="7" fill="#334155">Controls fine details</text>
+</svg>

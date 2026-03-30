@@ -1,0 +1,128 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 860 420" font-family="Inter, Helvetica, Arial, sans-serif">
+  <defs>
+    <marker id="a" markerWidth="8" markerHeight="6" refX="8" refY="3" orient="auto"><path d="M0,0 L8,3 L0,6 Z" fill="#475569"/></marker>
+  </defs>
+
+  <text x="430" y="28" text-anchor="middle" font-size="17" font-weight="bold" fill="#0f172a">2D Convolution Operation</text>
+  <text x="430" y="46" text-anchor="middle" font-size="10" fill="#64748b">Template matching with a learned kernel sliding over the input</text>
+
+  <!-- ===== Input Grid 5x5 ===== -->
+  <text x="130" y="75" text-anchor="middle" font-size="12" font-weight="bold" fill="#0f172a">Input (5×5)</text>
+  <g transform="translate(30, 85)">
+    <!-- 5x5 grid -->
+    <rect x="0" y="0" width="200" height="200" rx="4" fill="#f1f5f9" stroke="#475569" stroke-width="1.5"/>
+    <!-- Grid lines -->
+    <line x1="40" y1="0" x2="40" y2="200" stroke="#cbd5e1" stroke-width="0.5"/>
+    <line x1="80" y1="0" x2="80" y2="200" stroke="#cbd5e1" stroke-width="0.5"/>
+    <line x1="120" y1="0" x2="120" y2="200" stroke="#cbd5e1" stroke-width="0.5"/>
+    <line x1="160" y1="0" x2="160" y2="200" stroke="#cbd5e1" stroke-width="0.5"/>
+    <line x1="0" y1="40" x2="200" y2="40" stroke="#cbd5e1" stroke-width="0.5"/>
+    <line x1="0" y1="80" x2="200" y2="80" stroke="#cbd5e1" stroke-width="0.5"/>
+    <line x1="0" y1="120" x2="200" y2="120" stroke="#cbd5e1" stroke-width="0.5"/>
+    <line x1="0" y1="160" x2="200" y2="160" stroke="#cbd5e1" stroke-width="0.5"/>
+
+    <!-- Highlighted 3x3 receptive field -->
+    <rect x="0" y="0" width="120" height="120" rx="0" fill="#fef3c7" fill-opacity="0.5" stroke="#d97706" stroke-width="2.5"/>
+
+    <!-- Example pixel values -->
+    <text x="20" y="25" text-anchor="middle" font-size="9" fill="#475569">1</text>
+    <text x="60" y="25" text-anchor="middle" font-size="9" fill="#475569">0</text>
+    <text x="100" y="25" text-anchor="middle" font-size="9" fill="#475569">2</text>
+    <text x="140" y="25" text-anchor="middle" font-size="9" fill="#475569">1</text>
+    <text x="180" y="25" text-anchor="middle" font-size="9" fill="#475569">0</text>
+    <text x="20" y="65" text-anchor="middle" font-size="9" fill="#475569">0</text>
+    <text x="60" y="65" text-anchor="middle" font-size="9" fill="#475569">1</text>
+    <text x="100" y="65" text-anchor="middle" font-size="9" fill="#475569">3</text>
+    <text x="140" y="65" text-anchor="middle" font-size="9" fill="#475569">0</text>
+    <text x="180" y="65" text-anchor="middle" font-size="9" fill="#475569">1</text>
+    <text x="20" y="105" text-anchor="middle" font-size="9" fill="#475569">2</text>
+    <text x="60" y="105" text-anchor="middle" font-size="9" fill="#475569">1</text>
+    <text x="100" y="105" text-anchor="middle" font-size="9" fill="#475569">0</text>
+    <text x="140" y="105" text-anchor="middle" font-size="9" fill="#475569">2</text>
+    <text x="180" y="105" text-anchor="middle" font-size="9" fill="#475569">1</text>
+    <text x="20" y="145" text-anchor="middle" font-size="9" fill="#475569">1</text>
+    <text x="60" y="145" text-anchor="middle" font-size="9" fill="#475569">0</text>
+    <text x="100" y="145" text-anchor="middle" font-size="9" fill="#475569">1</text>
+    <text x="140" y="145" text-anchor="middle" font-size="9" fill="#475569">3</text>
+    <text x="180" y="145" text-anchor="middle" font-size="9" fill="#475569">0</text>
+    <text x="20" y="185" text-anchor="middle" font-size="9" fill="#475569">0</text>
+    <text x="60" y="185" text-anchor="middle" font-size="9" fill="#475569">2</text>
+    <text x="100" y="185" text-anchor="middle" font-size="9" fill="#475569">1</text>
+    <text x="140" y="185" text-anchor="middle" font-size="9" fill="#475569">0</text>
+    <text x="180" y="185" text-anchor="middle" font-size="9" fill="#475569">1</text>
+  </g>
+
+  <!-- Slide arrow -->
+  <text x="260" y="165" text-anchor="middle" font-size="9" fill="#d97706" font-weight="bold">slide →</text>
+  <text x="260" y="180" text-anchor="middle" font-size="8" fill="#d97706">stride = 1</text>
+
+  <!-- ===== Kernel 3x3 ===== -->
+  <text x="390" y="75" text-anchor="middle" font-size="12" font-weight="bold" fill="#0f172a">Kernel (3×3)</text>
+  <g transform="translate(300, 85)">
+    <rect x="0" y="0" width="180" height="120" rx="4" fill="none"/>
+
+    <!-- 3x3 kernel cells -->
+    <rect x="30" y="0" width="40" height="40" rx="3" fill="#fef3c7" stroke="#d97706" stroke-width="2"/>
+    <text x="50" y="25" text-anchor="middle" font-size="10" font-weight="bold" fill="#78350f">1</text>
+    <rect x="70" y="0" width="40" height="40" rx="3" fill="#fef3c7" stroke="#d97706" stroke-width="2"/>
+    <text x="90" y="25" text-anchor="middle" font-size="10" font-weight="bold" fill="#78350f">0</text>
+    <rect x="110" y="0" width="40" height="40" rx="3" fill="#fef3c7" stroke="#d97706" stroke-width="2"/>
+    <text x="130" y="25" text-anchor="middle" font-size="10" font-weight="bold" fill="#78350f">-1</text>
+
+    <rect x="30" y="40" width="40" height="40" rx="3" fill="#fef3c7" stroke="#d97706" stroke-width="2"/>
+    <text x="50" y="65" text-anchor="middle" font-size="10" font-weight="bold" fill="#78350f">1</text>
+    <rect x="70" y="40" width="40" height="40" rx="3" fill="#fef3c7" stroke="#d97706" stroke-width="2"/>
+    <text x="90" y="65" text-anchor="middle" font-size="10" font-weight="bold" fill="#78350f">0</text>
+    <rect x="110" y="40" width="40" height="40" rx="3" fill="#fef3c7" stroke="#d97706" stroke-width="2"/>
+    <text x="130" y="65" text-anchor="middle" font-size="10" font-weight="bold" fill="#78350f">-1</text>
+
+    <rect x="30" y="80" width="40" height="40" rx="3" fill="#fef3c7" stroke="#d97706" stroke-width="2"/>
+    <text x="50" y="105" text-anchor="middle" font-size="10" font-weight="bold" fill="#78350f">1</text>
+    <rect x="70" y="80" width="40" height="40" rx="3" fill="#fef3c7" stroke="#d97706" stroke-width="2"/>
+    <text x="90" y="105" text-anchor="middle" font-size="10" font-weight="bold" fill="#78350f">0</text>
+    <rect x="110" y="80" width="40" height="40" rx="3" fill="#fef3c7" stroke="#d97706" stroke-width="2"/>
+    <text x="130" y="105" text-anchor="middle" font-size="10" font-weight="bold" fill="#78350f">-1</text>
+
+    <text x="90" y="135" text-anchor="middle" font-size="8" fill="#d97706">(vertical edge detector)</text>
+  </g>
+
+  <!-- ===== Multiply Arrow ===== -->
+  <text x="520" y="150" text-anchor="middle" font-size="20" fill="#475569">⊛</text>
+  <text x="520" y="170" text-anchor="middle" font-size="8" fill="#64748b">element-wise</text>
+  <text x="520" y="182" text-anchor="middle" font-size="8" fill="#64748b">multiply &amp; sum</text>
+
+  <!-- ===== Output Feature Map 3x3 ===== -->
+  <text x="680" y="75" text-anchor="middle" font-size="12" font-weight="bold" fill="#0f172a">Feature Map (3×3)</text>
+  <g transform="translate(590, 85)">
+    <rect x="0" y="0" width="120" height="120" rx="4" fill="#e0f2fe" stroke="#0284c7" stroke-width="2"/>
+    <line x1="40" y1="0" x2="40" y2="120" stroke="#93c5fd" stroke-width="0.5"/>
+    <line x1="80" y1="0" x2="80" y2="120" stroke="#93c5fd" stroke-width="0.5"/>
+    <line x1="0" y1="40" x2="120" y2="40" stroke="#93c5fd" stroke-width="0.5"/>
+    <line x1="0" y1="80" x2="120" y2="80" stroke="#93c5fd" stroke-width="0.5"/>
+
+    <!-- Highlighted first output -->
+    <rect x="0" y="0" width="40" height="40" fill="#bfdbfe" stroke="#0284c7" stroke-width="2"/>
+    <text x="20" y="25" text-anchor="middle" font-size="10" font-weight="bold" fill="#0c4a6e">-2</text>
+
+    <text x="60" y="25" text-anchor="middle" font-size="10" fill="#0c4a6e">3</text>
+    <text x="100" y="25" text-anchor="middle" font-size="10" fill="#0c4a6e">-2</text>
+    <text x="20" y="65" text-anchor="middle" font-size="10" fill="#0c4a6e">2</text>
+    <text x="60" y="65" text-anchor="middle" font-size="10" fill="#0c4a6e">-1</text>
+    <text x="100" y="65" text-anchor="middle" font-size="10" fill="#0c4a6e">4</text>
+    <text x="20" y="105" text-anchor="middle" font-size="10" fill="#0c4a6e">0</text>
+    <text x="60" y="105" text-anchor="middle" font-size="10" fill="#0c4a6e">2</text>
+    <text x="100" y="105" text-anchor="middle" font-size="10" fill="#0c4a6e">-3</text>
+
+    <text x="60" y="140" text-anchor="middle" font-size="8" fill="#0284c7">High value = pattern match</text>
+  </g>
+
+  <!-- Computation example -->
+  <rect x="30" y="310" width="500" height="40" rx="6" fill="#f8fafc" stroke="#e2e8f0" stroke-width="1"/>
+  <text x="280" y="326" text-anchor="middle" font-size="9" fill="#334155" font-family="'SF Mono', Consolas, monospace">output[0,0] = 1·1 + 0·0 + 2·(-1) + 0·1 + 1·0 + 3·(-1) + 2·1 + 1·0 + 0·(-1) = -1</text>
+  <text x="280" y="344" text-anchor="middle" font-size="8" fill="#64748b">Each output = dot product of kernel with input patch (one multiply-accumulate)</text>
+
+  <!-- Shape formula -->
+  <rect x="80" y="365" width="700" height="45" rx="8" fill="#fef3c7" stroke="#d97706" stroke-width="1.5"/>
+  <text x="430" y="383" text-anchor="middle" font-size="11" font-weight="bold" fill="#78350f">Output Shape Formula</text>
+  <text x="430" y="400" text-anchor="middle" font-size="10" fill="#92400e" font-family="'SF Mono', Consolas, monospace">W_out = ⌊(W_in − K + 2P) / S⌋ + 1     Example: ⌊(5 − 3 + 0) / 1⌋ + 1 = 3</text>
+</svg>

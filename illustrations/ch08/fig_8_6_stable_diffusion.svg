@@ -1,0 +1,112 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 960 520" font-family="Inter, Helvetica, Arial, sans-serif">
+  <defs>
+    <marker id="a" markerWidth="8" markerHeight="6" refX="8" refY="3" orient="auto"><path d="M0,0 L8,3 L0,6 Z" fill="#475569"/></marker>
+    <marker id="ap" markerWidth="8" markerHeight="6" refX="8" refY="3" orient="auto"><path d="M0,0 L8,3 L0,6 Z" fill="#9333ea"/></marker>
+  </defs>
+
+  <text x="480" y="28" text-anchor="middle" font-size="17" font-weight="bold" fill="#0f172a">Stable Diffusion (Latent Diffusion Model)</text>
+  <text x="480" y="46" text-anchor="middle" font-size="10" fill="#64748b">Denoising happens in compressed latent space — 48× fewer pixels than pixel-space diffusion</text>
+
+  <!-- ===== CLIP Text Encoder (Left) ===== -->
+  <rect x="20" y="80" width="180" height="200" rx="10" fill="#faf5ff" stroke="#9333ea" stroke-width="2"/>
+  <text x="110" y="100" text-anchor="middle" font-size="11" font-weight="bold" fill="#3b0764">CLIP Text Encoder</text>
+
+  <rect x="40" y="115" width="140" height="30" rx="4" fill="#f1f5f9" stroke="#475569" stroke-width="1.5"/>
+  <text x="110" y="135" text-anchor="middle" font-size="9" fill="#0f172a">"a cat on a mat"</text>
+
+  <line x1="110" y1="145" x2="110" y2="168" stroke="#475569" stroke-width="1.5" marker-end="url(#a)"/>
+
+  <rect x="40" y="172" width="140" height="35" rx="6" fill="#f3e8ff" stroke="#9333ea" stroke-width="2"/>
+  <text x="110" y="194" text-anchor="middle" font-size="9" font-weight="bold" fill="#3b0764">Transformer</text>
+
+  <line x1="110" y1="207" x2="110" y2="228" stroke="#475569" stroke-width="1.5" marker-end="url(#a)"/>
+
+  <rect x="35" y="232" width="150" height="30" rx="4" fill="#f3e8ff" stroke="#9333ea" stroke-width="1.5"/>
+  <text x="110" y="251" text-anchor="middle" font-size="8" fill="#3b0764" font-family="'SF Mono', Consolas, monospace">text_emb [77, 768]</text>
+
+  <!-- ===== U-Net in Latent Space (Center) ===== -->
+  <rect x="230" y="65" width="440" height="330" rx="10" fill="#f0f9ff" stroke="#0284c7" stroke-width="2"/>
+  <text x="450" y="88" text-anchor="middle" font-size="12" font-weight="bold" fill="#0c4a6e">U-Net Denoiser (Latent Space)</text>
+
+  <!-- Iterative denoising chain -->
+  <rect x="250" y="110" width="60" height="50" rx="6" fill="#e2e8f0" stroke="#475569" stroke-width="1.5"/>
+  <text x="280" y="132" text-anchor="middle" font-size="8" font-weight="bold" fill="#0f172a">z_T</text>
+  <text x="280" y="148" text-anchor="middle" font-size="7" fill="#64748b">noise</text>
+
+  <line x1="310" y1="135" x2="335" y2="135" stroke="#ef4444" stroke-width="1.5" marker-end="url(#a)"/>
+
+  <rect x="338" y="105" width="90" height="60" rx="8" fill="#e0f2fe" stroke="#0284c7" stroke-width="2"/>
+  <text x="383" y="128" text-anchor="middle" font-size="9" font-weight="bold" fill="#0c4a6e">U-Net</text>
+  <text x="383" y="144" text-anchor="middle" font-size="7" fill="#0284c7">ε_θ(z_t, t, c)</text>
+  <text x="383" y="157" text-anchor="middle" font-size="7" fill="#0284c7">predict noise</text>
+
+  <line x1="428" y1="135" x2="453" y2="135" stroke="#ef4444" stroke-width="1.5" marker-end="url(#a)"/>
+
+  <text x="475" y="138" font-size="12" fill="#94a3b8">···</text>
+
+  <line x1="495" y1="135" x2="520" y2="135" stroke="#ef4444" stroke-width="1.5" marker-end="url(#a)"/>
+
+  <rect x="523" y="105" width="90" height="60" rx="8" fill="#e0f2fe" stroke="#0284c7" stroke-width="2"/>
+  <text x="568" y="128" text-anchor="middle" font-size="9" font-weight="bold" fill="#0c4a6e">U-Net</text>
+  <text x="568" y="144" text-anchor="middle" font-size="7" fill="#0284c7">ε_θ(z_1, 1, c)</text>
+
+  <line x1="613" y1="135" x2="638" y2="135" stroke="#ef4444" stroke-width="1.5" marker-end="url(#a)"/>
+
+  <rect x="541" y="110" width="60" height="50" rx="6" fill="#dcfce7" stroke="#16a34a" stroke-width="2"/>
+  <!-- This overlaps; let me adjust -->
+
+  <rect x="641" y="110" width="60" height="50" rx="6" fill="#dcfce7" stroke="#16a34a" stroke-width="2"/>
+  <text x="671" y="132" text-anchor="middle" font-size="8" font-weight="bold" fill="#14532d">z₀</text>
+  <text x="671" y="148" text-anchor="middle" font-size="7" fill="#16a34a">clean latent</text>
+
+  <!-- Time step input -->
+  <rect x="370" y="185" width="70" height="25" rx="4" fill="#fef3c7" stroke="#d97706" stroke-width="1.5"/>
+  <text x="405" y="202" text-anchor="middle" font-size="8" font-weight="bold" fill="#78350f">timestep t</text>
+  <line x1="405" y1="185" x2="395" y2="167" stroke="#d97706" stroke-width="1" marker-end="url(#a)"/>
+
+  <!-- Cross-attention from text -->
+  <line x1="185" y1="247" x2="340" y2="145" stroke="#9333ea" stroke-width="2" stroke-dasharray="6,3" marker-end="url(#ap)"/>
+  <text x="255" y="185" text-anchor="middle" font-size="8" font-weight="bold" fill="#9333ea">cross-attention</text>
+  <text x="255" y="198" text-anchor="middle" font-size="7" fill="#9333ea">(text → Q, K from U-Net)</text>
+
+  <!-- Latent space dimensions -->
+  <rect x="310" y="230" width="240" height="40" rx="6" fill="#f8fafc" stroke="#e2e8f0" stroke-width="1"/>
+  <text x="430" y="248" text-anchor="middle" font-size="9" font-weight="bold" fill="#334155">Latent Space: 64 × 64 × 4</text>
+  <text x="430" y="264" text-anchor="middle" font-size="8" fill="#64748b">vs. Pixel Space: 512 × 512 × 3 (48× reduction)</text>
+
+  <!-- Classifier-Free Guidance -->
+  <rect x="280" y="295" width="340" height="35" rx="6" fill="#fef3c7" stroke="#d97706" stroke-width="1"/>
+  <text x="450" y="312" text-anchor="middle" font-size="8" font-weight="bold" fill="#78350f">Classifier-Free Guidance: ε = ε_uncond + w · (ε_cond − ε_uncond)</text>
+  <text x="450" y="326" text-anchor="middle" font-size="7" fill="#d97706">w = 7.5 typical guidance scale</text>
+
+  <!-- ===== VAE Decoder (Right) ===== -->
+  <rect x="720" y="80" width="220" height="200" rx="10" fill="#f0fdf4" stroke="#16a34a" stroke-width="2"/>
+  <text x="830" y="100" text-anchor="middle" font-size="11" font-weight="bold" fill="#14532d">VAE</text>
+
+  <!-- VAE Encoder (top) -->
+  <rect x="740" y="115" width="180" height="40" rx="6" fill="#dcfce7" stroke="#16a34a" stroke-width="1.5"/>
+  <text x="830" y="133" text-anchor="middle" font-size="9" fill="#14532d">Encoder: image → latent z</text>
+  <text x="830" y="148" text-anchor="middle" font-size="7" fill="#16a34a">(for training / img2img)</text>
+
+  <!-- VAE Decoder (bottom) -->
+  <rect x="740" y="175" width="180" height="40" rx="6" fill="#dcfce7" stroke="#16a34a" stroke-width="2"/>
+  <text x="830" y="193" text-anchor="middle" font-size="9" font-weight="bold" fill="#14532d">Decoder: latent z₀ → image</text>
+  <text x="830" y="208" text-anchor="middle" font-size="7" fill="#16a34a">(for generation)</text>
+
+  <!-- Arrow from z_0 to VAE decoder -->
+  <line x1="700" y1="135" x2="738" y2="195" stroke="#16a34a" stroke-width="2" marker-end="url(#a)"/>
+
+  <!-- Output image -->
+  <rect x="760" y="235" width="140" height="40" rx="8" fill="#dcfce7" stroke="#16a34a" stroke-width="2"/>
+  <text x="830" y="255" text-anchor="middle" font-size="10" font-weight="bold" fill="#14532d">Output Image</text>
+  <text x="830" y="270" text-anchor="middle" font-size="8" fill="#16a34a" font-family="'SF Mono', Consolas, monospace">512 × 512 × 3</text>
+
+  <line x1="830" y1="215" x2="830" y2="233" stroke="#16a34a" stroke-width="1.5" marker-end="url(#a)"/>
+
+  <!-- Component labels -->
+  <rect x="100" y="400" width="760" height="55" rx="8" fill="#f8fafc" stroke="#e2e8f0" stroke-width="1.5"/>
+  <text x="480" y="418" text-anchor="middle" font-size="10" font-weight="bold" fill="#0f172a">Three Components of Stable Diffusion</text>
+  <text x="200" y="440" text-anchor="middle" font-size="9" fill="#9333ea">■ Text Encoder (frozen CLIP)</text>
+  <text x="480" y="440" text-anchor="middle" font-size="9" fill="#0284c7">■ U-Net (trained denoiser)</text>
+  <text x="750" y="440" text-anchor="middle" font-size="9" fill="#16a34a">■ VAE (pre-trained autoencoder)</text>
+</svg>

@@ -1,0 +1,81 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 860 420" font-family="Inter, Helvetica, Arial, sans-serif">
+  <defs>
+    <marker id="a" markerWidth="8" markerHeight="6" refX="8" refY="3" orient="auto"><path d="M0,0 L8,3 L0,6 Z" fill="#475569"/></marker>
+  </defs>
+
+  <text x="430" y="28" text-anchor="middle" font-size="17" font-weight="bold" fill="#0f172a">Actor-Critic Methods</text>
+  <text x="430" y="46" text-anchor="middle" font-size="10" fill="#64748b">Combine policy gradient (actor) with value estimation (critic) to reduce variance</text>
+
+  <!-- Main diagram -->
+  <rect x="30" y="65" width="800" height="250" rx="10" fill="#f8fafc" stroke="#e2e8f0" stroke-width="2"/>
+
+  <!-- Environment -->
+  <rect x="340" y="200" width="180" height="90" rx="8" fill="#fef3c7" stroke="#d97706" stroke-width="2"/>
+  <text x="430" y="228" text-anchor="middle" font-size="11" font-weight="bold" fill="#78350f">Environment</text>
+  <text x="430" y="248" text-anchor="middle" font-size="8" fill="#d97706">s_t, r_t, s_{t+1}</text>
+  <text x="430" y="268" text-anchor="middle" font-size="7" fill="#d97706">Returns state + reward</text>
+
+  <!-- Actor (Policy) -->
+  <rect x="55" y="85" width="200" height="100" rx="8" fill="#dcfce7" stroke="#16a34a" stroke-width="2.5"/>
+  <text x="155" y="112" text-anchor="middle" font-size="11" font-weight="bold" fill="#14532d">Actor π_θ(a|s)</text>
+  <text x="155" y="132" text-anchor="middle" font-size="8" fill="#16a34a">Policy Network</text>
+  <text x="155" y="150" text-anchor="middle" font-size="8" fill="#334155">Outputs: action probabilities</text>
+  <text x="155" y="168" text-anchor="middle" font-size="7" fill="#16a34a" font-family="'SF Mono', Consolas, monospace">∇_θ J ≈ E[∇log π · A(s,a)]</text>
+
+  <!-- Critic (Value) -->
+  <rect x="605" y="85" width="200" height="100" rx="8" fill="#e0f2fe" stroke="#0284c7" stroke-width="2.5"/>
+  <text x="705" y="112" text-anchor="middle" font-size="11" font-weight="bold" fill="#0c4a6e">Critic V_φ(s)</text>
+  <text x="705" y="132" text-anchor="middle" font-size="8" fill="#0284c7">Value Network</text>
+  <text x="705" y="150" text-anchor="middle" font-size="8" fill="#334155">Outputs: state value estimate</text>
+  <text x="705" y="168" text-anchor="middle" font-size="7" fill="#0284c7" font-family="'SF Mono', Consolas, monospace">L = (r + γV(s') - V(s))²</text>
+
+  <!-- Advantage computation -->
+  <rect x="320" y="95" width="220" height="55" rx="6" fill="#fce7f3" stroke="#db2777" stroke-width="2"/>
+  <text x="430" y="115" text-anchor="middle" font-size="9" font-weight="bold" fill="#831843">Advantage A(s,a)</text>
+  <text x="430" y="132" text-anchor="middle" font-size="8" fill="#db2777" font-family="'SF Mono', Consolas, monospace">A = r + γV(s') - V(s)</text>
+  <text x="430" y="145" text-anchor="middle" font-size="7" fill="#db2777">TD error: how much better than expected</text>
+
+  <!-- Arrows -->
+  <!-- Actor → action → Environment -->
+  <line x1="155" y1="185" x2="155" y2="225" stroke="#16a34a" stroke-width="1.5"/>
+  <line x1="155" y1="225" x2="338" y2="225" stroke="#16a34a" stroke-width="1.5" marker-end="url(#a)"/>
+  <text x="230" y="218" font-size="7" fill="#16a34a" font-weight="bold">action a_t</text>
+
+  <!-- Environment → state → both -->
+  <line x1="430" y1="200" x2="430" y2="155" stroke="#d97706" stroke-width="1.5" marker-end="url(#a)"/>
+  <text x="450" y="175" font-size="7" fill="#d97706">s_t</text>
+
+  <line x1="340" y1="240" x2="80" y2="240" stroke="#d97706" stroke-width="1.5"/>
+  <line x1="80" y1="240" x2="80" y2="185" stroke="#d97706" stroke-width="1.5" marker-end="url(#a)"/>
+  <text x="200" y="255" font-size="7" fill="#d97706">s_t, r_t</text>
+
+  <line x1="520" y1="240" x2="780" y2="240" stroke="#d97706" stroke-width="1.5"/>
+  <line x1="780" y1="240" x2="780" y2="185" stroke="#d97706" stroke-width="1.5" marker-end="url(#a)"/>
+  <text x="660" y="255" font-size="7" fill="#d97706">s_t, r_t, s_{t+1}</text>
+
+  <!-- Critic → Advantage → Actor (gradient signal) -->
+  <line x1="605" y1="122" x2="542" y2="122" stroke="#0284c7" stroke-width="1.5" marker-end="url(#a)"/>
+  <text x="575" y="115" font-size="7" fill="#0284c7">V(s)</text>
+
+  <line x1="320" y1="122" x2="257" y2="122" stroke="#db2777" stroke-width="1.5" marker-end="url(#a)"/>
+  <text x="290" y="115" font-size="7" fill="#db2777">A(s,a)</text>
+
+  <!-- Comparison -->
+  <rect x="30" y="335" width="250" height="75" rx="8" fill="#fee2e2" stroke="#ef4444" stroke-width="1.5"/>
+  <text x="155" y="358" text-anchor="middle" font-size="9" font-weight="bold" fill="#ef4444">REINFORCE (Actor Only)</text>
+  <text x="50" y="378" font-size="7" fill="#334155">Uses full return G_t as signal</text>
+  <text x="50" y="393" font-size="7" fill="#ef4444">High variance — slow convergence</text>
+  <text x="50" y="408" font-size="7" fill="#334155" font-family="'SF Mono', Consolas, monospace">∇J ≈ E[∇log π · G_t]</text>
+
+  <rect x="305" y="335" width="250" height="75" rx="8" fill="#dcfce7" stroke="#16a34a" stroke-width="1.5"/>
+  <text x="430" y="358" text-anchor="middle" font-size="9" font-weight="bold" fill="#14532d">Actor-Critic (A2C)</text>
+  <text x="325" y="378" font-size="7" fill="#334155">Uses learned baseline V(s)</text>
+  <text x="325" y="393" font-size="7" fill="#16a34a">Lower variance — faster learning</text>
+  <text x="325" y="408" font-size="7" fill="#334155" font-family="'SF Mono', Consolas, monospace">∇J ≈ E[∇log π · A(s,a)]</text>
+
+  <rect x="580" y="335" width="250" height="75" rx="8" fill="#f3e8ff" stroke="#9333ea" stroke-width="1.5"/>
+  <text x="705" y="358" text-anchor="middle" font-size="9" font-weight="bold" fill="#581c87">PPO (Proximal Policy Opt.)</text>
+  <text x="600" y="378" font-size="7" fill="#334155">Actor-Critic + clipped objective</text>
+  <text x="600" y="393" font-size="7" fill="#9333ea">Stable updates — used in RLHF</text>
+  <text x="600" y="408" font-size="7" fill="#334155" font-family="'SF Mono', Consolas, monospace">clip(r(θ), 1±ε) · A</text>
+</svg>

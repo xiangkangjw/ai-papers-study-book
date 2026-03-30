@@ -1,0 +1,117 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 900 470" font-family="Inter, Helvetica, Arial, sans-serif">
+  <text x="450" y="28" text-anchor="middle" font-size="17" font-weight="bold" fill="#0f172a">Autoencoder vs. VAE Latent Space</text>
+
+  <!-- ===== (a) Standard Autoencoder ===== -->
+  <rect x="20" y="50" width="420" height="400" rx="10" fill="#fafafa" stroke="#cbd5e1" stroke-width="1.5"/>
+  <text x="230" y="75" text-anchor="middle" font-size="13" font-weight="bold" fill="#0f172a">(a) Standard Autoencoder</text>
+
+  <!-- Pipeline -->
+  <rect x="35" y="90" width="70" height="35" rx="6" fill="#f1f5f9" stroke="#475569" stroke-width="1.5"/>
+  <text x="70" y="112" text-anchor="middle" font-size="9" fill="#0f172a">Input x</text>
+  <text x="118" y="112" font-size="10" fill="#475569">→</text>
+  <rect x="130" y="90" width="70" height="35" rx="6" fill="#e0f2fe" stroke="#0284c7" stroke-width="1.5"/>
+  <text x="165" y="112" text-anchor="middle" font-size="9" fill="#0c4a6e">Encoder</text>
+  <text x="213" y="112" font-size="10" fill="#475569">→</text>
+  <rect x="225" y="90" width="50" height="35" rx="6" fill="#f1f5f9" stroke="#475569" stroke-width="2"/>
+  <text x="250" y="112" text-anchor="middle" font-size="9" font-weight="bold" fill="#0f172a">z</text>
+  <text x="288" y="112" font-size="10" fill="#475569">→</text>
+  <rect x="300" y="90" width="70" height="35" rx="6" fill="#fce7f3" stroke="#db2777" stroke-width="1.5"/>
+  <text x="335" y="112" text-anchor="middle" font-size="9" fill="#831843">Decoder</text>
+  <text x="383" y="112" font-size="10" fill="#475569">→</text>
+  <rect x="395" y="90" width="35" height="35" rx="6" fill="#f1f5f9" stroke="#475569" stroke-width="1.5"/>
+  <text x="412" y="112" text-anchor="middle" font-size="9" fill="#0f172a">x̂</text>
+
+  <!-- Latent space visualization: scattered disconnected clusters -->
+  <rect x="50" y="140" width="360" height="230" rx="8" fill="white" stroke="#e2e8f0" stroke-width="1"/>
+  <text x="230" y="158" text-anchor="middle" font-size="10" font-weight="bold" fill="#475569">Latent Space z ∈ ℝ²</text>
+
+  <!-- Scattered clusters with gaps -->
+  <!-- Cluster 1 (top-left) -->
+  <circle cx="100" cy="200" r="4" fill="#3b82f6"/>
+  <circle cx="115" cy="195" r="4" fill="#3b82f6"/>
+  <circle cx="108" cy="210" r="4" fill="#3b82f6"/>
+  <circle cx="95" cy="205" r="3" fill="#3b82f6"/>
+  <circle cx="120" cy="208" r="3" fill="#3b82f6"/>
+
+  <!-- Cluster 2 (far right) -->
+  <circle cx="340" cy="220" r="4" fill="#ef4444"/>
+  <circle cx="355" cy="215" r="4" fill="#ef4444"/>
+  <circle cx="348" cy="230" r="3" fill="#ef4444"/>
+  <circle cx="360" cy="225" r="4" fill="#ef4444"/>
+
+  <!-- Cluster 3 (bottom) -->
+  <circle cx="200" cy="330" r="4" fill="#16a34a"/>
+  <circle cx="215" cy="340" r="3" fill="#16a34a"/>
+  <circle cx="190" cy="345" r="4" fill="#16a34a"/>
+  <circle cx="210" cy="325" r="3" fill="#16a34a"/>
+
+  <!-- GAP indicators -->
+  <text x="220" y="260" text-anchor="middle" font-size="22" fill="#fee2e2">?</text>
+  <text x="170" y="270" text-anchor="middle" font-size="22" fill="#fee2e2">?</text>
+  <text x="280" y="290" text-anchor="middle" font-size="22" fill="#fee2e2">?</text>
+
+  <!-- Interpolation path that goes through void -->
+  <line x1="108" y1="200" x2="348" y2="225" stroke="#ef4444" stroke-width="1.5" stroke-dasharray="5,3"/>
+  <text x="230" y="200" text-anchor="middle" font-size="8" fill="#ef4444">interpolation → garbage</text>
+
+  <text x="230" y="395" text-anchor="middle" font-size="10" font-weight="bold" fill="#ef4444">Discontinuous — gaps produce meaningless outputs</text>
+  <text x="230" y="412" text-anchor="middle" font-size="9" fill="#64748b">No structure imposed on latent space</text>
+
+  <!-- ===== (b) VAE ===== -->
+  <rect x="460" y="50" width="420" height="400" rx="10" fill="#fafafa" stroke="#cbd5e1" stroke-width="1.5"/>
+  <text x="670" y="75" text-anchor="middle" font-size="13" font-weight="bold" fill="#0f172a">(b) Variational Autoencoder</text>
+
+  <!-- Pipeline -->
+  <rect x="475" y="90" width="70" height="35" rx="6" fill="#f1f5f9" stroke="#475569" stroke-width="1.5"/>
+  <text x="510" y="112" text-anchor="middle" font-size="9" fill="#0f172a">Input x</text>
+  <text x="558" y="112" font-size="10" fill="#475569">→</text>
+  <rect x="570" y="90" width="70" height="35" rx="6" fill="#e0f2fe" stroke="#0284c7" stroke-width="1.5"/>
+  <text x="605" y="107" text-anchor="middle" font-size="8" fill="#0c4a6e">Encoder</text>
+  <text x="605" y="119" text-anchor="middle" font-size="7" fill="#0c4a6e">→ μ, σ²</text>
+  <text x="653" y="112" font-size="10" fill="#475569">→</text>
+  <rect x="665" y="90" width="55" height="35" rx="6" fill="#dcfce7" stroke="#16a34a" stroke-width="2"/>
+  <text x="692" y="107" text-anchor="middle" font-size="8" font-weight="bold" fill="#14532d">Sample</text>
+  <text x="692" y="119" text-anchor="middle" font-size="7" fill="#16a34a">z~N(μ,σ²)</text>
+  <text x="733" y="112" font-size="10" fill="#475569">→</text>
+  <rect x="745" y="90" width="60" height="35" rx="6" fill="#fce7f3" stroke="#db2777" stroke-width="1.5"/>
+  <text x="775" y="112" text-anchor="middle" font-size="9" fill="#831843">Decoder</text>
+  <text x="818" y="112" font-size="10" fill="#475569">→</text>
+  <rect x="830" y="90" width="35" height="35" rx="6" fill="#f1f5f9" stroke="#475569" stroke-width="1.5"/>
+  <text x="847" y="112" text-anchor="middle" font-size="9" fill="#0f172a">x̂</text>
+
+  <!-- Latent space: smooth gaussian blobs -->
+  <rect x="490" y="140" width="360" height="230" rx="8" fill="white" stroke="#e2e8f0" stroke-width="1"/>
+  <text x="670" y="158" text-anchor="middle" font-size="10" font-weight="bold" fill="#475569">Latent Space z ∈ ℝ²</text>
+
+  <!-- Smooth overlapping gaussians -->
+  <ellipse cx="580" cy="250" rx="55" ry="45" fill="#3b82f6" fill-opacity="0.15" stroke="#3b82f6" stroke-width="1"/>
+  <ellipse cx="670" cy="270" rx="60" ry="50" fill="#ef4444" fill-opacity="0.12" stroke="#ef4444" stroke-width="1"/>
+  <ellipse cx="750" cy="240" rx="50" ry="55" fill="#16a34a" fill-opacity="0.12" stroke="#16a34a" stroke-width="1"/>
+  <ellipse cx="650" cy="220" rx="45" ry="35" fill="#d97706" fill-opacity="0.12" stroke="#d97706" stroke-width="1"/>
+
+  <!-- Points within gaussians -->
+  <circle cx="570" cy="245" r="3" fill="#3b82f6"/>
+  <circle cx="590" cy="255" r="3" fill="#3b82f6"/>
+  <circle cx="575" cy="260" r="3" fill="#3b82f6"/>
+  <circle cx="600" cy="240" r="3" fill="#3b82f6"/>
+  <circle cx="665" cy="265" r="3" fill="#ef4444"/>
+  <circle cx="680" cy="275" r="3" fill="#ef4444"/>
+  <circle cx="670" cy="255" r="3" fill="#ef4444"/>
+  <circle cx="745" cy="235" r="3" fill="#16a34a"/>
+  <circle cx="755" cy="250" r="3" fill="#16a34a"/>
+  <circle cx="740" cy="245" r="3" fill="#16a34a"/>
+
+  <!-- Interpolation path (smooth, meaningful) -->
+  <line x1="580" y1="250" x2="750" y2="240" stroke="#16a34a" stroke-width="2"/>
+  <!-- Points along interpolation -->
+  <circle cx="623" cy="247" r="5" fill="white" stroke="#16a34a" stroke-width="1.5"/>
+  <circle cx="665" cy="245" r="5" fill="white" stroke="#16a34a" stroke-width="1.5"/>
+  <circle cx="708" cy="242" r="5" fill="white" stroke="#16a34a" stroke-width="1.5"/>
+  <text x="665" y="230" text-anchor="middle" font-size="8" fill="#16a34a">smooth interpolation → meaningful outputs</text>
+
+  <text x="670" y="395" text-anchor="middle" font-size="10" font-weight="bold" fill="#16a34a">Smooth &amp; continuous — interpolation is meaningful</text>
+  <text x="670" y="412" text-anchor="middle" font-size="9" fill="#64748b">KL regularizer forces q(z|x) close to N(0, I)</text>
+
+  <!-- Bottom comparison -->
+  <text x="450" y="455" text-anchor="middle" font-size="10" fill="#64748b">The KL term in the ELBO is what creates the smooth, organized latent space — the key insight of VAEs.</text>
+</svg>

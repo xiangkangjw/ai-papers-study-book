@@ -1,0 +1,66 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 860 380" font-family="Inter, Helvetica, Arial, sans-serif">
+  <defs>
+    <marker id="a" markerWidth="8" markerHeight="6" refX="8" refY="3" orient="auto"><path d="M0,0 L8,3 L0,6 Z" fill="#475569"/></marker>
+    <marker id="ag" markerWidth="8" markerHeight="6" refX="8" refY="3" orient="auto"><path d="M0,0 L8,3 L0,6 Z" fill="#16a34a"/></marker>
+  </defs>
+
+  <text x="430" y="28" text-anchor="middle" font-size="17" font-weight="bold" fill="#0f172a">LoRA: Training vs. Inference (Merge)</text>
+  <text x="430" y="46" text-anchor="middle" font-size="10" fill="#64748b">At inference, merge adapters into base weights — zero added latency</text>
+
+  <!-- ===== Training (Left) ===== -->
+  <rect x="20" y="65" width="370" height="260" rx="10" fill="#f0f9ff" stroke="#0284c7" stroke-width="2"/>
+  <text x="205" y="90" text-anchor="middle" font-size="13" font-weight="bold" fill="#0c4a6e">Training Time</text>
+  <text x="205" y="108" text-anchor="middle" font-size="9" fill="#0284c7">Two paths: frozen base + trainable low-rank</text>
+
+  <!-- Frozen W -->
+  <rect x="50" y="125" width="130" height="70" rx="8" fill="#e0f2fe" stroke="#0284c7" stroke-width="2"/>
+  <text x="115" y="152" text-anchor="middle" font-size="12" font-weight="bold" fill="#0c4a6e">W₀</text>
+  <text x="115" y="172" text-anchor="middle" font-size="8" fill="#0284c7">Frozen (d×d)</text>
+  <text x="115" y="188" text-anchor="middle" font-size="8" fill="#0284c7">No gradients</text>
+
+  <!-- BA adapter -->
+  <rect x="220" y="125" width="140" height="70" rx="8" fill="#dcfce7" stroke="#16a34a" stroke-width="2"/>
+  <text x="290" y="147" text-anchor="middle" font-size="12" font-weight="bold" fill="#14532d">B · A</text>
+  <text x="290" y="165" text-anchor="middle" font-size="8" fill="#16a34a">Trainable (d×r + r×d)</text>
+  <text x="290" y="183" text-anchor="middle" font-size="8" fill="#16a34a">Gradients flow here</text>
+
+  <!-- Plus -->
+  <circle cx="195" cy="240" r="14" fill="#f3e8ff" stroke="#9333ea" stroke-width="2"/>
+  <text x="195" y="245" text-anchor="middle" font-size="14" font-weight="bold" fill="#9333ea">+</text>
+  <line x1="115" y1="195" x2="183" y2="232" stroke="#0284c7" stroke-width="1.5"/>
+  <line x1="290" y1="195" x2="207" y2="232" stroke="#16a34a" stroke-width="1.5"/>
+
+  <!-- Output -->
+  <line x1="195" y1="254" x2="195" y2="280" stroke="#475569" stroke-width="1.5" marker-end="url(#a)"/>
+  <rect x="125" y="285" width="140" height="28" rx="6" fill="#f1f5f9" stroke="#475569" stroke-width="1.5"/>
+  <text x="195" y="304" text-anchor="middle" font-size="9" fill="#0f172a" font-family="'SF Mono', Consolas, monospace">h = W₀x + BAx</text>
+
+  <!-- ===== Arrow: Merge ===== -->
+  <line x1="395" y1="195" x2="465" y2="195" stroke="#d97706" stroke-width="3" marker-end="url(#a)"/>
+  <text x="430" y="180" text-anchor="middle" font-size="10" font-weight="bold" fill="#d97706">MERGE</text>
+  <text x="430" y="215" text-anchor="middle" font-size="8" fill="#d97706" font-family="'SF Mono', Consolas, monospace">W' = W₀ + (α/r)·BA</text>
+
+  <!-- ===== Inference (Right) ===== -->
+  <rect x="470" y="65" width="370" height="260" rx="10" fill="#f0fdf4" stroke="#16a34a" stroke-width="2"/>
+  <text x="655" y="90" text-anchor="middle" font-size="13" font-weight="bold" fill="#14532d">Inference Time</text>
+  <text x="655" y="108" text-anchor="middle" font-size="9" fill="#16a34a">Single merged weight — identical to standard model</text>
+
+  <!-- Merged W' -->
+  <rect x="570" y="130" width="170" height="90" rx="10" fill="#dcfce7" stroke="#16a34a" stroke-width="2.5"/>
+  <text x="655" y="162" text-anchor="middle" font-size="16" font-weight="bold" fill="#14532d">W'</text>
+  <text x="655" y="185" text-anchor="middle" font-size="9" fill="#16a34a">= W₀ + BA</text>
+  <text x="655" y="205" text-anchor="middle" font-size="8" fill="#16a34a">(d×d, single matrix)</text>
+
+  <!-- Output -->
+  <line x1="655" y1="220" x2="655" y2="250" stroke="#475569" stroke-width="1.5" marker-end="url(#a)"/>
+  <rect x="585" y="255" width="140" height="28" rx="6" fill="#f1f5f9" stroke="#475569" stroke-width="1.5"/>
+  <text x="655" y="274" text-anchor="middle" font-size="9" fill="#0f172a" font-family="'SF Mono', Consolas, monospace">h = W'x</text>
+
+  <!-- Zero overhead callout -->
+  <rect x="560" y="295" width="190" height="22" rx="4" fill="#16a34a"/>
+  <text x="655" y="310" text-anchor="middle" font-size="9" font-weight="bold" fill="#fff">Zero additional latency</text>
+
+  <!-- ===== Multi-adapter serving note ===== -->
+  <rect x="100" y="340" width="660" height="30" rx="6" fill="#fef3c7" stroke="#d97706" stroke-width="1.5"/>
+  <text x="430" y="360" text-anchor="middle" font-size="9" fill="#78350f">Multi-task: keep W₀ shared in memory, hot-swap BA adapters per request (~MBs each vs GBs for full model)</text>
+</svg>

@@ -1,0 +1,85 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 820 380" font-family="Inter, Helvetica, Arial, sans-serif">
+  <defs>
+    <marker id="a" markerWidth="8" markerHeight="6" refX="8" refY="3" orient="auto"><path d="M0,0 L8,3 L0,6 Z" fill="#475569"/></marker>
+  </defs>
+
+  <text x="410" y="28" text-anchor="middle" font-size="17" font-weight="bold" fill="#0f172a">Mode Collapse</text>
+  <text x="410" y="46" text-anchor="middle" font-size="10" fill="#64748b">Generator finds one mode that fools D and exploits it — ignoring other modes</text>
+
+  <!-- ===== Left: Data Distribution ===== -->
+  <rect x="20" y="60" width="370" height="260" rx="10" fill="#fafafa" stroke="#cbd5e1" stroke-width="1.5"/>
+  <text x="205" y="85" text-anchor="middle" font-size="13" font-weight="bold" fill="#0f172a">Data Distribution p_data</text>
+
+  <!-- Axes -->
+  <line x1="50" y1="285" x2="370" y2="285" stroke="#e2e8f0" stroke-width="1"/>
+  <line x1="50" y1="285" x2="50" y2="100" stroke="#e2e8f0" stroke-width="1"/>
+
+  <!-- Mode 1 (blue cluster) -->
+  <ellipse cx="120" cy="180" rx="35" ry="30" fill="#3b82f6" fill-opacity="0.2" stroke="#3b82f6" stroke-width="1.5"/>
+  <circle cx="110" cy="175" r="3" fill="#3b82f6"/><circle cx="125" cy="185" r="3" fill="#3b82f6"/>
+  <circle cx="118" cy="170" r="3" fill="#3b82f6"/><circle cx="130" cy="178" r="3" fill="#3b82f6"/>
+  <circle cx="115" cy="190" r="3" fill="#3b82f6"/><circle cx="122" cy="180" r="3" fill="#3b82f6"/>
+  <text x="120" y="220" text-anchor="middle" font-size="8" fill="#3b82f6">Mode 1</text>
+
+  <!-- Mode 2 (red cluster) -->
+  <ellipse cx="230" cy="150" rx="30" ry="35" fill="#ef4444" fill-opacity="0.2" stroke="#ef4444" stroke-width="1.5"/>
+  <circle cx="225" cy="145" r="3" fill="#ef4444"/><circle cx="235" cy="155" r="3" fill="#ef4444"/>
+  <circle cx="228" cy="160" r="3" fill="#ef4444"/><circle cx="240" cy="140" r="3" fill="#ef4444"/>
+  <circle cx="220" cy="150" r="3" fill="#ef4444"/><circle cx="232" cy="148" r="3" fill="#ef4444"/>
+  <text x="230" y="195" text-anchor="middle" font-size="8" fill="#ef4444">Mode 2</text>
+
+  <!-- Mode 3 (green cluster) -->
+  <ellipse cx="320" cy="200" rx="30" ry="25" fill="#16a34a" fill-opacity="0.2" stroke="#16a34a" stroke-width="1.5"/>
+  <circle cx="315" cy="195" r="3" fill="#16a34a"/><circle cx="325" cy="205" r="3" fill="#16a34a"/>
+  <circle cx="320" cy="190" r="3" fill="#16a34a"/><circle cx="310" cy="200" r="3" fill="#16a34a"/>
+  <circle cx="328" cy="198" r="3" fill="#16a34a"/>
+  <text x="320" y="235" text-anchor="middle" font-size="8" fill="#16a34a">Mode 3</text>
+
+  <!-- Mode 4 (amber cluster) -->
+  <ellipse cx="200" cy="260" rx="35" ry="20" fill="#d97706" fill-opacity="0.2" stroke="#d97706" stroke-width="1.5"/>
+  <circle cx="190" cy="258" r="3" fill="#d97706"/><circle cx="205" cy="262" r="3" fill="#d97706"/>
+  <circle cx="210" cy="255" r="3" fill="#d97706"/><circle cx="195" cy="265" r="3" fill="#d97706"/>
+  <text x="200" y="290" text-anchor="middle" font-size="8" fill="#d97706">Mode 4</text>
+
+  <!-- ===== Right: Generator (Mode Collapsed) ===== -->
+  <rect x="430" y="60" width="370" height="260" rx="10" fill="#fef2f2" stroke="#fca5a5" stroke-width="1.5"/>
+  <text x="615" y="85" text-anchor="middle" font-size="13" font-weight="bold" fill="#7f1d1d">Generator p_g (Mode Collapse)</text>
+
+  <!-- Axes -->
+  <line x1="460" y1="285" x2="780" y2="285" stroke="#e2e8f0" stroke-width="1"/>
+  <line x1="460" y1="285" x2="460" y2="100" stroke="#e2e8f0" stroke-width="1"/>
+
+  <!-- Ghost outlines of missing modes -->
+  <ellipse cx="530" cy="180" rx="35" ry="30" fill="none" stroke="#cbd5e1" stroke-width="1.5" stroke-dasharray="5,3"/>
+  <text x="530" y="184" text-anchor="middle" font-size="18" fill="#e2e8f0">∅</text>
+  <text x="530" y="220" text-anchor="middle" font-size="8" fill="#cbd5e1">Missing</text>
+
+  <ellipse cx="730" cy="200" rx="30" ry="25" fill="none" stroke="#cbd5e1" stroke-width="1.5" stroke-dasharray="5,3"/>
+  <text x="730" y="204" text-anchor="middle" font-size="18" fill="#e2e8f0">∅</text>
+  <text x="730" y="235" text-anchor="middle" font-size="8" fill="#cbd5e1">Missing</text>
+
+  <ellipse cx="610" cy="260" rx="35" ry="20" fill="none" stroke="#cbd5e1" stroke-width="1.5" stroke-dasharray="5,3"/>
+  <text x="610" y="264" text-anchor="middle" font-size="18" fill="#e2e8f0">∅</text>
+  <text x="610" y="290" text-anchor="middle" font-size="8" fill="#cbd5e1">Missing</text>
+
+  <!-- Single collapsed mode (all generated samples cluster here) -->
+  <ellipse cx="640" cy="150" rx="40" ry="35" fill="#ef4444" fill-opacity="0.3" stroke="#ef4444" stroke-width="2.5"/>
+  <circle cx="635" cy="145" r="4" fill="#ef4444"/><circle cx="645" cy="155" r="4" fill="#ef4444"/>
+  <circle cx="638" cy="160" r="4" fill="#ef4444"/><circle cx="650" cy="140" r="4" fill="#ef4444"/>
+  <circle cx="630" cy="150" r="4" fill="#ef4444"/><circle cx="642" cy="148" r="4" fill="#ef4444"/>
+  <circle cx="648" cy="152" r="4" fill="#ef4444"/><circle cx="636" cy="138" r="4" fill="#ef4444"/>
+  <circle cx="652" cy="158" r="4" fill="#ef4444"/><circle cx="628" cy="142" r="4" fill="#ef4444"/>
+  <text x="640" y="195" text-anchor="middle" font-size="8" font-weight="bold" fill="#ef4444">ALL outputs here</text>
+
+  <!-- z arrows converging to same point -->
+  <text x="480" y="130" font-size="8" fill="#64748b">z₁ →</text>
+  <text x="480" y="148" font-size="8" fill="#64748b">z₂ →</text>
+  <text x="480" y="166" font-size="8" fill="#64748b">z₃ →</text>
+  <line x1="505" y1="126" x2="600" y2="145" stroke="#94a3b8" stroke-width="1" marker-end="url(#a)"/>
+  <line x1="505" y1="144" x2="600" y2="148" stroke="#94a3b8" stroke-width="1" marker-end="url(#a)"/>
+  <line x1="505" y1="162" x2="600" y2="155" stroke="#94a3b8" stroke-width="1" marker-end="url(#a)"/>
+
+  <!-- Bottom explanation -->
+  <rect x="80" y="335" width="660" height="35" rx="6" fill="#fee2e2" stroke="#ef4444" stroke-width="1"/>
+  <text x="410" y="356" text-anchor="middle" font-size="10" font-weight="bold" fill="#7f1d1d">Multiple diverse z inputs → nearly identical outputs. G exploits one mode; D can't force diversity.</text>
+</svg>

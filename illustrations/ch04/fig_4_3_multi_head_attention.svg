@@ -1,0 +1,100 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 850 620" font-family="Inter, Helvetica, Arial, sans-serif">
+  <defs>
+    <marker id="a" markerWidth="8" markerHeight="6" refX="8" refY="3" orient="auto"><path d="M0,0 L8,3 L0,6 Z" fill="#475569"/></marker>
+    <marker id="ab" markerWidth="8" markerHeight="6" refX="8" refY="3" orient="auto"><path d="M0,0 L8,3 L0,6 Z" fill="#0284c7"/></marker>
+  </defs>
+
+  <text x="425" y="28" text-anchor="middle" font-size="17" font-weight="bold" fill="#0f172a">Multi-Head Attention</text>
+  <text x="425" y="48" text-anchor="middle" font-size="10" fill="#475569" font-family="'SF Mono', Consolas, monospace">MultiHead(Q,K,V) = Concat(head₁,...,head_h) W^O</text>
+
+  <!-- Input -->
+  <rect x="310" y="65" width="230" height="40" rx="6" fill="#f1f5f9" stroke="#475569" stroke-width="2"/>
+  <text x="425" y="83" text-anchor="middle" font-size="11" font-weight="bold" fill="#0f172a">Input X</text>
+  <text x="425" y="98" text-anchor="middle" font-size="9" fill="#475569" font-family="'SF Mono', Consolas, monospace">[B, T, d_model=512]</text>
+
+  <!-- Three linear projections -->
+  <rect x="100" y="135" width="100" height="36" rx="6" fill="#fef3c7" stroke="#d97706" stroke-width="2"/>
+  <text x="150" y="150" text-anchor="middle" font-size="9" font-weight="bold" fill="#78350f">Linear W_Q</text>
+  <text x="150" y="164" text-anchor="middle" font-size="8" fill="#d97706" font-family="'SF Mono', Consolas, monospace">512→512</text>
+
+  <rect x="375" y="135" width="100" height="36" rx="6" fill="#fef3c7" stroke="#d97706" stroke-width="2"/>
+  <text x="425" y="150" text-anchor="middle" font-size="9" font-weight="bold" fill="#78350f">Linear W_K</text>
+  <text x="425" y="164" text-anchor="middle" font-size="8" fill="#d97706" font-family="'SF Mono', Consolas, monospace">512→512</text>
+
+  <rect x="650" y="135" width="100" height="36" rx="6" fill="#fef3c7" stroke="#d97706" stroke-width="2"/>
+  <text x="700" y="150" text-anchor="middle" font-size="9" font-weight="bold" fill="#78350f">Linear W_V</text>
+  <text x="700" y="164" text-anchor="middle" font-size="8" fill="#d97706" font-family="'SF Mono', Consolas, monospace">512→512</text>
+
+  <!-- Arrows from input to projections -->
+  <line x1="350" y1="105" x2="150" y2="133" stroke="#475569" stroke-width="1.5" marker-end="url(#a)"/>
+  <line x1="425" y1="105" x2="425" y2="133" stroke="#475569" stroke-width="1.5" marker-end="url(#a)"/>
+  <line x1="500" y1="105" x2="700" y2="133" stroke="#475569" stroke-width="1.5" marker-end="url(#a)"/>
+
+  <!-- Split annotation -->
+  <text x="425" y="195" text-anchor="middle" font-size="9" fill="#64748b">Split into h = 8 heads (each d_k = 64)</text>
+
+  <!-- Head boxes -->
+  <rect x="45" y="210" width="140" height="100" rx="8" fill="#e0f2fe" stroke="#0284c7" stroke-width="2"/>
+  <text x="115" y="232" text-anchor="middle" font-size="10" font-weight="bold" fill="#0c4a6e">Head 1</text>
+  <text x="115" y="250" text-anchor="middle" font-size="9" fill="#0284c7">Scaled Dot-Product</text>
+  <text x="115" y="265" text-anchor="middle" font-size="9" fill="#0284c7">Attention</text>
+  <text x="115" y="298" text-anchor="middle" font-size="8" fill="#64748b" font-family="'SF Mono', Consolas, monospace">[B, T, 64]</text>
+
+  <rect x="220" y="210" width="140" height="100" rx="8" fill="#e0f2fe" stroke="#0284c7" stroke-width="2"/>
+  <text x="290" y="232" text-anchor="middle" font-size="10" font-weight="bold" fill="#0c4a6e">Head 2</text>
+  <text x="290" y="250" text-anchor="middle" font-size="9" fill="#0284c7">Scaled Dot-Product</text>
+  <text x="290" y="265" text-anchor="middle" font-size="9" fill="#0284c7">Attention</text>
+  <text x="290" y="298" text-anchor="middle" font-size="8" fill="#64748b" font-family="'SF Mono', Consolas, monospace">[B, T, 64]</text>
+
+  <!-- Ellipsis -->
+  <text x="425" y="265" text-anchor="middle" font-size="20" fill="#94a3b8">···</text>
+
+  <rect x="490" y="210" width="140" height="100" rx="8" fill="#e0f2fe" stroke="#0284c7" stroke-width="2"/>
+  <text x="560" y="232" text-anchor="middle" font-size="10" font-weight="bold" fill="#0c4a6e">Head 7</text>
+  <text x="560" y="250" text-anchor="middle" font-size="9" fill="#0284c7">Scaled Dot-Product</text>
+  <text x="560" y="265" text-anchor="middle" font-size="9" fill="#0284c7">Attention</text>
+  <text x="560" y="298" text-anchor="middle" font-size="8" fill="#64748b" font-family="'SF Mono', Consolas, monospace">[B, T, 64]</text>
+
+  <rect x="665" y="210" width="140" height="100" rx="8" fill="#e0f2fe" stroke="#0284c7" stroke-width="2"/>
+  <text x="735" y="232" text-anchor="middle" font-size="10" font-weight="bold" fill="#0c4a6e">Head 8</text>
+  <text x="735" y="250" text-anchor="middle" font-size="9" fill="#0284c7">Scaled Dot-Product</text>
+  <text x="735" y="265" text-anchor="middle" font-size="9" fill="#0284c7">Attention</text>
+  <text x="735" y="298" text-anchor="middle" font-size="8" fill="#64748b" font-family="'SF Mono', Consolas, monospace">[B, T, 64]</text>
+
+  <!-- Arrows from projections to heads -->
+  <line x1="150" y1="171" x2="115" y2="208" stroke="#475569" stroke-width="1.2" marker-end="url(#a)"/>
+  <line x1="150" y1="171" x2="290" y2="208" stroke="#475569" stroke-width="1.2" marker-end="url(#a)"/>
+  <line x1="700" y1="171" x2="560" y2="208" stroke="#475569" stroke-width="1.2" marker-end="url(#a)"/>
+  <line x1="700" y1="171" x2="735" y2="208" stroke="#475569" stroke-width="1.2" marker-end="url(#a)"/>
+
+  <!-- Concat -->
+  <rect x="270" y="350" width="310" height="40" rx="8" fill="#dcfce7" stroke="#16a34a" stroke-width="2"/>
+  <text x="425" y="368" text-anchor="middle" font-size="11" font-weight="bold" fill="#14532d">Concatenate</text>
+  <text x="425" y="384" text-anchor="middle" font-size="9" fill="#16a34a" font-family="'SF Mono', Consolas, monospace">[B, T, 8×64 = 512]</text>
+
+  <!-- Arrows from heads to concat -->
+  <line x1="115" y1="310" x2="300" y2="348" stroke="#475569" stroke-width="1.5" marker-end="url(#a)"/>
+  <line x1="290" y1="310" x2="370" y2="348" stroke="#475569" stroke-width="1.5" marker-end="url(#a)"/>
+  <line x1="560" y1="310" x2="480" y2="348" stroke="#475569" stroke-width="1.5" marker-end="url(#a)"/>
+  <line x1="735" y1="310" x2="550" y2="348" stroke="#475569" stroke-width="1.5" marker-end="url(#a)"/>
+
+  <!-- Output Projection -->
+  <rect x="340" y="420" width="170" height="36" rx="6" fill="#fef3c7" stroke="#d97706" stroke-width="2"/>
+  <text x="425" y="436" text-anchor="middle" font-size="10" font-weight="bold" fill="#78350f">Linear W^O</text>
+  <text x="425" y="450" text-anchor="middle" font-size="8" fill="#d97706" font-family="'SF Mono', Consolas, monospace">512→512</text>
+
+  <line x1="425" y1="390" x2="425" y2="418" stroke="#475569" stroke-width="1.5" marker-end="url(#a)"/>
+
+  <!-- Output -->
+  <rect x="310" y="480" width="230" height="40" rx="6" fill="#f1f5f9" stroke="#475569" stroke-width="2"/>
+  <text x="425" y="498" text-anchor="middle" font-size="11" font-weight="bold" fill="#0f172a">Output</text>
+  <text x="425" y="514" text-anchor="middle" font-size="9" fill="#475569" font-family="'SF Mono', Consolas, monospace">[B, T, d_model=512]</text>
+
+  <line x1="425" y1="456" x2="425" y2="478" stroke="#475569" stroke-width="1.5" marker-end="url(#a)"/>
+
+  <!-- Dimension annotation box -->
+  <rect x="45" y="540" width="760" height="65" rx="6" fill="#f8fafc" stroke="#e2e8f0" stroke-width="1"/>
+  <text x="425" y="560" text-anchor="middle" font-size="10" font-weight="bold" fill="#334155">Parameter Dimensions</text>
+  <text x="425" y="578" text-anchor="middle" font-size="9" fill="#64748b" font-family="'SF Mono', Consolas, monospace">W_i^Q, W_i^K ∈ ℝ^{d_model × d_k} = ℝ^{512×64}    W_i^V ∈ ℝ^{d_model × d_v} = ℝ^{512×64}    W^O ∈ ℝ^{h·d_v × d_model} = ℝ^{512×512}</text>
+  <text x="425" y="596" text-anchor="middle" font-size="9" fill="#64748b">Total cost ≈ same as single-head full-dimension attention (no free lunch — just more expressive)</text>
+</svg>

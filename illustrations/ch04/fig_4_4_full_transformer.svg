@@ -1,0 +1,153 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 920 960" font-family="Inter, Helvetica, Arial, sans-serif">
+  <defs>
+    <marker id="a" markerWidth="8" markerHeight="6" refX="8" refY="3" orient="auto">
+      <path d="M0,0 L8,3 L0,6 Z" fill="#475569"/>
+    </marker>
+    <marker id="ab" markerWidth="8" markerHeight="6" refX="8" refY="3" orient="auto">
+      <path d="M0,0 L8,3 L0,6 Z" fill="#0284c7"/>
+    </marker>
+    <marker id="ap" markerWidth="8" markerHeight="6" refX="8" refY="3" orient="auto">
+      <path d="M0,0 L8,3 L0,6 Z" fill="#db2777"/>
+    </marker>
+  </defs>
+
+  <text x="460" y="30" text-anchor="middle" font-size="18" font-weight="bold" fill="#0f172a">The Transformer Architecture</text>
+  <text x="460" y="48" text-anchor="middle" font-size="11" fill="#64748b">Vaswani et al. (2017) — "Attention Is All You Need"</text>
+
+  <!-- ==================== ENCODER (Left) ==================== -->
+  <text x="230" y="925" text-anchor="middle" font-size="12" font-weight="bold" fill="#0f172a">Inputs (Source Sequence)</text>
+  <text x="230" y="940" text-anchor="middle" font-size="9" fill="#64748b" font-family="'SF Mono', Consolas, monospace">[B, T_src]</text>
+
+  <!-- Input Embedding -->
+  <rect x="155" y="870" width="150" height="32" rx="6" fill="#f1f5f9" stroke="#475569" stroke-width="1.5"/>
+  <text x="230" y="891" text-anchor="middle" font-size="10" fill="#0f172a">Input Embedding</text>
+
+  <!-- Positional Encoding add -->
+  <circle cx="230" cy="840" r="12" fill="#fef3c7" stroke="#d97706" stroke-width="1.5"/>
+  <text x="230" y="844" text-anchor="middle" font-size="12" font-weight="bold" fill="#78350f">+</text>
+  <text x="265" y="844" font-size="8" fill="#d97706">Positional Encoding</text>
+
+  <!-- Arrow from input up -->
+  <line x1="230" y1="870" x2="230" y2="854" stroke="#475569" stroke-width="1.5" marker-end="url(#a)"/>
+
+  <!-- Encoder Block -->
+  <rect x="120" y="580" width="220" height="240" rx="8" fill="none" stroke="#475569" stroke-width="2" stroke-dasharray="6,3"/>
+  <text x="345" y="700" font-size="11" font-weight="bold" fill="#475569" transform="rotate(-90 345 700)">N = 6 ×</text>
+
+  <!-- Multi-Head Self-Attention -->
+  <rect x="140" y="740" width="180" height="36" rx="6" fill="#fce7f3" stroke="#db2777" stroke-width="2"/>
+  <text x="230" y="763" text-anchor="middle" font-size="10" font-weight="bold" fill="#831843">Multi-Head Self-Attention</text>
+
+  <!-- Add & Norm 1 -->
+  <rect x="140" y="690" width="180" height="30" rx="6" fill="#f3e8ff" stroke="#9333ea" stroke-width="1.5"/>
+  <text x="230" y="710" text-anchor="middle" font-size="10" fill="#3b0764">Add &amp; Norm</text>
+
+  <!-- Feed Forward -->
+  <rect x="140" y="644" width="180" height="32" rx="6" fill="#e0f2fe" stroke="#0284c7" stroke-width="2"/>
+  <text x="230" y="665" text-anchor="middle" font-size="10" font-weight="bold" fill="#0c4a6e">Feed Forward</text>
+
+  <!-- Add & Norm 2 -->
+  <rect x="140" y="596" width="180" height="30" rx="6" fill="#f3e8ff" stroke="#9333ea" stroke-width="1.5"/>
+  <text x="230" y="616" text-anchor="middle" font-size="10" fill="#3b0764">Add &amp; Norm</text>
+
+  <!-- Encoder internal arrows -->
+  <line x1="230" y1="828" x2="230" y2="778" stroke="#475569" stroke-width="1.5" marker-end="url(#a)"/>
+  <line x1="230" y1="740" x2="230" y2="722" stroke="#475569" stroke-width="1.5" marker-end="url(#a)"/>
+  <line x1="230" y1="690" x2="230" y2="678" stroke="#475569" stroke-width="1.5" marker-end="url(#a)"/>
+  <line x1="230" y1="644" x2="230" y2="628" stroke="#475569" stroke-width="1.5" marker-end="url(#a)"/>
+
+  <!-- Residual connections (encoder) -->
+  <path d="M 135 770 L 110 770 L 110 705 L 138 705" fill="none" stroke="#94a3b8" stroke-width="1" stroke-dasharray="4,2" marker-end="url(#a)"/>
+  <path d="M 135 670 L 110 670 L 110 611 L 138 611" fill="none" stroke="#94a3b8" stroke-width="1" stroke-dasharray="4,2" marker-end="url(#a)"/>
+
+  <!-- Tensor shape annotation -->
+  <text x="230" y="568" text-anchor="middle" font-size="8" fill="#64748b" font-family="'SF Mono', Consolas, monospace">[B, T_src, 512]</text>
+
+  <!-- ==================== DECODER (Right) ==================== -->
+  <text x="660" y="925" text-anchor="middle" font-size="12" font-weight="bold" fill="#0f172a">Outputs (Shifted Right)</text>
+  <text x="660" y="940" text-anchor="middle" font-size="9" fill="#64748b" font-family="'SF Mono', Consolas, monospace">[B, T_tgt]</text>
+
+  <!-- Output Embedding -->
+  <rect x="585" y="870" width="150" height="32" rx="6" fill="#f1f5f9" stroke="#475569" stroke-width="1.5"/>
+  <text x="660" y="891" text-anchor="middle" font-size="10" fill="#0f172a">Output Embedding</text>
+
+  <!-- Positional Encoding add -->
+  <circle cx="660" cy="840" r="12" fill="#fef3c7" stroke="#d97706" stroke-width="1.5"/>
+  <text x="660" y="844" text-anchor="middle" font-size="12" font-weight="bold" fill="#78350f">+</text>
+  <text x="695" y="844" font-size="8" fill="#d97706">Positional Encoding</text>
+
+  <line x1="660" y1="870" x2="660" y2="854" stroke="#475569" stroke-width="1.5" marker-end="url(#a)"/>
+
+  <!-- Decoder Block -->
+  <rect x="550" y="440" width="220" height="380" rx="8" fill="none" stroke="#475569" stroke-width="2" stroke-dasharray="6,3"/>
+  <text x="775" y="630" font-size="11" font-weight="bold" fill="#475569" transform="rotate(-90 775 630)">N = 6 ×</text>
+
+  <!-- Masked Self-Attention -->
+  <rect x="570" y="760" width="180" height="36" rx="6" fill="#fce7f3" stroke="#db2777" stroke-width="2"/>
+  <text x="660" y="775" text-anchor="middle" font-size="9" font-weight="bold" fill="#831843">Masked Multi-Head</text>
+  <text x="660" y="789" text-anchor="middle" font-size="9" font-weight="bold" fill="#831843">Self-Attention</text>
+
+  <!-- Add & Norm 1 -->
+  <rect x="570" y="710" width="180" height="30" rx="6" fill="#f3e8ff" stroke="#9333ea" stroke-width="1.5"/>
+  <text x="660" y="730" text-anchor="middle" font-size="10" fill="#3b0764">Add &amp; Norm</text>
+
+  <!-- Cross-Attention -->
+  <rect x="570" y="660" width="180" height="36" rx="6" fill="#fce7f3" stroke="#db2777" stroke-width="2"/>
+  <text x="660" y="675" text-anchor="middle" font-size="9" font-weight="bold" fill="#831843">Multi-Head</text>
+  <text x="660" y="689" text-anchor="middle" font-size="9" font-weight="bold" fill="#831843">Cross-Attention</text>
+
+  <!-- Add & Norm 2 -->
+  <rect x="570" y="614" width="180" height="30" rx="6" fill="#f3e8ff" stroke="#9333ea" stroke-width="1.5"/>
+  <text x="660" y="634" text-anchor="middle" font-size="10" fill="#3b0764">Add &amp; Norm</text>
+
+  <!-- Feed Forward -->
+  <rect x="570" y="568" width="180" height="32" rx="6" fill="#e0f2fe" stroke="#0284c7" stroke-width="2"/>
+  <text x="660" y="589" text-anchor="middle" font-size="10" font-weight="bold" fill="#0c4a6e">Feed Forward</text>
+
+  <!-- Add & Norm 3 -->
+  <rect x="570" y="522" width="180" height="30" rx="6" fill="#f3e8ff" stroke="#9333ea" stroke-width="1.5"/>
+  <text x="660" y="542" text-anchor="middle" font-size="10" fill="#3b0764">Add &amp; Norm</text>
+
+  <!-- Decoder internal arrows -->
+  <line x1="660" y1="828" x2="660" y2="798" stroke="#475569" stroke-width="1.5" marker-end="url(#a)"/>
+  <line x1="660" y1="760" x2="660" y2="742" stroke="#475569" stroke-width="1.5" marker-end="url(#a)"/>
+  <line x1="660" y1="710" x2="660" y2="698" stroke="#475569" stroke-width="1.5" marker-end="url(#a)"/>
+  <line x1="660" y1="660" x2="660" y2="646" stroke="#475569" stroke-width="1.5" marker-end="url(#a)"/>
+  <line x1="660" y1="614" x2="660" y2="602" stroke="#475569" stroke-width="1.5" marker-end="url(#a)"/>
+  <line x1="660" y1="568" x2="660" y2="554" stroke="#475569" stroke-width="1.5" marker-end="url(#a)"/>
+
+  <!-- Residual connections (decoder) -->
+  <path d="M 565 785 L 540 785 L 540 725 L 568 725" fill="none" stroke="#94a3b8" stroke-width="1" stroke-dasharray="4,2" marker-end="url(#a)"/>
+  <path d="M 565 685 L 540 685 L 540 629 L 568 629" fill="none" stroke="#94a3b8" stroke-width="1" stroke-dasharray="4,2" marker-end="url(#a)"/>
+  <path d="M 565 590 L 540 590 L 540 537 L 568 537" fill="none" stroke="#94a3b8" stroke-width="1" stroke-dasharray="4,2" marker-end="url(#a)"/>
+
+  <!-- Cross-attention from encoder -->
+  <path d="M 230 580 L 230 500 L 460 500 L 460 678 L 568 678" fill="none" stroke="#db2777" stroke-width="2" marker-end="url(#ap)"/>
+  <text x="390" y="490" text-anchor="middle" font-size="9" font-weight="bold" fill="#db2777">K, V from encoder</text>
+
+  <!-- ==================== OUTPUT HEAD ==================== -->
+  <!-- Linear -->
+  <rect x="585" y="390" width="150" height="32" rx="6" fill="#e0f2fe" stroke="#0284c7" stroke-width="1.5"/>
+  <text x="660" y="411" text-anchor="middle" font-size="10" font-weight="bold" fill="#0c4a6e">Linear</text>
+
+  <!-- Softmax -->
+  <rect x="585" y="340" width="150" height="32" rx="6" fill="#f3e8ff" stroke="#9333ea" stroke-width="1.5"/>
+  <text x="660" y="361" text-anchor="middle" font-size="10" font-weight="bold" fill="#3b0764">Softmax</text>
+
+  <!-- Output Probs -->
+  <rect x="575" y="280" width="170" height="40" rx="8" fill="#dcfce7" stroke="#16a34a" stroke-width="2"/>
+  <text x="660" y="300" text-anchor="middle" font-size="11" font-weight="bold" fill="#14532d">Output Probabilities</text>
+  <text x="660" y="314" text-anchor="middle" font-size="8" fill="#16a34a" font-family="'SF Mono', Consolas, monospace">[B, T_tgt, vocab_size]</text>
+
+  <!-- Arrows to output -->
+  <line x1="660" y1="522" x2="660" y2="424" stroke="#475569" stroke-width="1.5" marker-end="url(#a)"/>
+  <line x1="660" y1="390" x2="660" y2="374" stroke="#475569" stroke-width="1.5" marker-end="url(#a)"/>
+  <line x1="660" y1="340" x2="660" y2="322" stroke="#475569" stroke-width="1.5" marker-end="url(#a)"/>
+
+  <!-- Labels -->
+  <text x="230" y="560" text-anchor="middle" font-size="14" font-weight="bold" fill="#475569">ENCODER</text>
+  <text x="660" y="460" text-anchor="middle" font-size="14" font-weight="bold" fill="#475569">DECODER</text>
+
+  <!-- Dimension annotations -->
+  <text x="460" y="80" text-anchor="middle" font-size="9" fill="#64748b" font-family="'SF Mono', Consolas, monospace">d_model = 512, h = 8, d_k = 64, d_ff = 2048</text>
+</svg>

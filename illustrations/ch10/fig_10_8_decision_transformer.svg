@@ -1,0 +1,94 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 860 420" font-family="Inter, Helvetica, Arial, sans-serif">
+  <defs>
+    <marker id="a" markerWidth="8" markerHeight="6" refX="8" refY="3" orient="auto"><path d="M0,0 L8,3 L0,6 Z" fill="#475569"/></marker>
+  </defs>
+
+  <text x="430" y="28" text-anchor="middle" font-size="17" font-weight="bold" fill="#0f172a">Decision Transformer: RL as Sequence Modeling</text>
+  <text x="430" y="46" text-anchor="middle" font-size="10" fill="#64748b">Chen et al. (2021) — Cast offline RL as autoregressive prediction conditioned on returns-to-go</text>
+
+  <!-- Main architecture -->
+  <rect x="30" y="65" width="800" height="240" rx="10" fill="#f8fafc" stroke="#e2e8f0" stroke-width="2"/>
+  <text x="430" y="90" text-anchor="middle" font-size="12" font-weight="bold" fill="#0f172a">Decision Transformer Architecture</text>
+
+  <!-- Input sequence -->
+  <text x="80" y="118" font-size="9" font-weight="bold" fill="#475569">Input Sequence (interleaved triplets):</text>
+
+  <!-- Timestep 1 -->
+  <rect x="55" y="130" width="55" height="35" rx="4" fill="#dcfce7" stroke="#16a34a" stroke-width="2"/>
+  <text x="82" y="148" text-anchor="middle" font-size="7" font-weight="bold" fill="#14532d">R̂₁</text>
+  <text x="82" y="160" text-anchor="middle" font-size="6" fill="#16a34a">RTG</text>
+
+  <rect x="115" y="130" width="55" height="35" rx="4" fill="#e0f2fe" stroke="#0284c7" stroke-width="2"/>
+  <text x="142" y="148" text-anchor="middle" font-size="7" font-weight="bold" fill="#0c4a6e">s₁</text>
+  <text x="142" y="160" text-anchor="middle" font-size="6" fill="#0284c7">state</text>
+
+  <rect x="175" y="130" width="55" height="35" rx="4" fill="#fef3c7" stroke="#d97706" stroke-width="2"/>
+  <text x="202" y="148" text-anchor="middle" font-size="7" font-weight="bold" fill="#78350f">a₁</text>
+  <text x="202" y="160" text-anchor="middle" font-size="6" fill="#d97706">action</text>
+
+  <!-- Timestep 2 -->
+  <rect x="255" y="130" width="55" height="35" rx="4" fill="#dcfce7" stroke="#16a34a" stroke-width="2"/>
+  <text x="282" y="148" text-anchor="middle" font-size="7" font-weight="bold" fill="#14532d">R̂₂</text>
+  <text x="282" y="160" text-anchor="middle" font-size="6" fill="#16a34a">RTG</text>
+
+  <rect x="315" y="130" width="55" height="35" rx="4" fill="#e0f2fe" stroke="#0284c7" stroke-width="2"/>
+  <text x="342" y="148" text-anchor="middle" font-size="7" font-weight="bold" fill="#0c4a6e">s₂</text>
+  <text x="342" y="160" text-anchor="middle" font-size="6" fill="#0284c7">state</text>
+
+  <rect x="375" y="130" width="55" height="35" rx="4" fill="#fef3c7" stroke="#d97706" stroke-width="2"/>
+  <text x="402" y="148" text-anchor="middle" font-size="7" font-weight="bold" fill="#78350f">a₂</text>
+  <text x="402" y="160" text-anchor="middle" font-size="6" fill="#d97706">action</text>
+
+  <!-- Dots -->
+  <text x="450" y="152" font-size="14" fill="#94a3b8">···</text>
+
+  <!-- Current timestep -->
+  <rect x="480" y="130" width="55" height="35" rx="4" fill="#dcfce7" stroke="#16a34a" stroke-width="2"/>
+  <text x="507" y="148" text-anchor="middle" font-size="7" font-weight="bold" fill="#14532d">R̂_t</text>
+  <text x="507" y="160" text-anchor="middle" font-size="6" fill="#16a34a">RTG</text>
+
+  <rect x="540" y="130" width="55" height="35" rx="4" fill="#e0f2fe" stroke="#0284c7" stroke-width="2"/>
+  <text x="567" y="148" text-anchor="middle" font-size="7" font-weight="bold" fill="#0c4a6e">s_t</text>
+  <text x="567" y="160" text-anchor="middle" font-size="6" fill="#0284c7">state</text>
+
+  <rect x="600" y="130" width="55" height="35" rx="4" fill="#fce7f3" stroke="#db2777" stroke-width="2.5"/>
+  <text x="627" y="148" text-anchor="middle" font-size="7" font-weight="bold" fill="#831843">a_t ?</text>
+  <text x="627" y="160" text-anchor="middle" font-size="6" fill="#db2777">predict</text>
+
+  <!-- Embeddings -->
+  <line x1="400" y1="165" x2="400" y2="188" stroke="#475569" stroke-width="1.5" marker-end="url(#a)"/>
+
+  <rect x="100" y="190" width="600" height="40" rx="6" fill="#fce7f3" stroke="#db2777" stroke-width="2"/>
+  <text x="400" y="210" text-anchor="middle" font-size="9" font-weight="bold" fill="#831843">GPT-2 Transformer (Causal Self-Attention)</text>
+  <text x="400" y="224" text-anchor="middle" font-size="7" fill="#db2777">Each modality has its own embedding layer + timestep positional encoding</text>
+
+  <!-- Output -->
+  <line x1="627" y1="230" x2="627" y2="253" stroke="#db2777" stroke-width="2" marker-end="url(#a)"/>
+
+  <rect x="590" y="255" width="80" height="35" rx="6" fill="#dcfce7" stroke="#16a34a" stroke-width="2"/>
+  <text x="630" y="272" text-anchor="middle" font-size="8" font-weight="bold" fill="#14532d">â_t</text>
+  <text x="630" y="285" text-anchor="middle" font-size="7" fill="#16a34a">predicted</text>
+
+  <!-- RTG explanation -->
+  <rect x="680" y="120" width="130" height="80" rx="6" fill="#dcfce7" stroke="#16a34a" stroke-width="1.5"/>
+  <text x="745" y="140" text-anchor="middle" font-size="8" font-weight="bold" fill="#14532d">Returns-to-Go</text>
+  <text x="745" y="158" text-anchor="middle" font-size="7" fill="#334155" font-family="'SF Mono', Consolas, monospace">R̂_t = Σ_{k=t}^T r_k</text>
+  <text x="745" y="175" text-anchor="middle" font-size="7" fill="#334155">Desired future return</text>
+  <text x="745" y="190" text-anchor="middle" font-size="7" fill="#16a34a">Set high → optimal behavior</text>
+
+  <!-- Key insight -->
+  <rect x="30" y="325" width="390" height="85" rx="8" fill="#fef3c7" stroke="#d97706" stroke-width="1.5"/>
+  <text x="225" y="348" text-anchor="middle" font-size="10" font-weight="bold" fill="#78350f">Key Insight</text>
+  <text x="50" y="368" font-size="8" fill="#334155">RL trajectory = sequence of (R̂, s, a) tokens</text>
+  <text x="50" y="385" font-size="8" fill="#334155">Train: next-token prediction on offline data</text>
+  <text x="50" y="402" font-size="8" fill="#d97706" font-weight="bold">Inference: condition on high R̂ → model outputs</text>
+  <text x="50" y="415" font-size="8" fill="#d97706" font-weight="bold">actions that achieve that return level</text>
+
+  <!-- Comparison -->
+  <rect x="440" y="325" width="390" height="85" rx="8" fill="#f0fdf4" stroke="#16a34a" stroke-width="1.5"/>
+  <text x="635" y="348" text-anchor="middle" font-size="10" font-weight="bold" fill="#14532d">Why This Matters</text>
+  <text x="460" y="368" font-size="8" fill="#334155">• No value functions, no policy gradients, no TD</text>
+  <text x="460" y="385" font-size="8" fill="#334155">• Standard supervised loss on offline trajectories</text>
+  <text x="460" y="402" font-size="8" fill="#334155">• Leverages transformer scaling + context window</text>
+  <text x="460" y="415" font-size="8" fill="#16a34a">• Bridge between LLM methods and RL</text>
+</svg>

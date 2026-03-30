@@ -1,0 +1,107 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 860 450" font-family="Inter, Helvetica, Arial, sans-serif">
+  <defs>
+    <marker id="a" markerWidth="8" markerHeight="6" refX="8" refY="3" orient="auto"><path d="M0,0 L8,3 L0,6 Z" fill="#475569"/></marker>
+  </defs>
+
+  <text x="430" y="28" text-anchor="middle" font-size="17" font-weight="bold" fill="#0f172a">DINO: Self-Distillation with No Labels</text>
+  <text x="430" y="46" text-anchor="middle" font-size="10" fill="#64748b">Caron et al. (2021) — Knowledge distillation from a momentum teacher, no labels needed</text>
+
+  <!-- Main architecture -->
+  <rect x="30" y="65" width="800" height="260" rx="10" fill="#f8fafc" stroke="#e2e8f0" stroke-width="2"/>
+
+  <!-- Input image -->
+  <rect x="55" y="155" width="70" height="70" rx="6" fill="#e2e8f0" stroke="#94a3b8" stroke-width="1.5"/>
+  <text x="90" y="185" text-anchor="middle" font-size="8" fill="#475569">Input</text>
+  <text x="90" y="198" text-anchor="middle" font-size="7" fill="#475569">image x</text>
+
+  <!-- Augmentation arrows -->
+  <line x1="125" y1="175" x2="165" y2="130" stroke="#0284c7" stroke-width="1.5" marker-end="url(#a)"/>
+  <line x1="125" y1="205" x2="165" y2="240" stroke="#16a34a" stroke-width="1.5" marker-end="url(#a)"/>
+
+  <!-- Global crop 1 (student) -->
+  <rect x="168" y="108" width="55" height="48" rx="4" fill="#e0f2fe" stroke="#0284c7" stroke-width="1.5"/>
+  <text x="195" y="128" text-anchor="middle" font-size="6" fill="#0c4a6e">global</text>
+  <text x="195" y="140" text-anchor="middle" font-size="6" fill="#0c4a6e">crop 1</text>
+  <text x="195" y="150" text-anchor="middle" font-size="5" fill="#0284c7">+ local crops</text>
+
+  <!-- Global crop 2 (teacher) -->
+  <rect x="168" y="220" width="55" height="48" rx="4" fill="#dcfce7" stroke="#16a34a" stroke-width="1.5"/>
+  <text x="195" y="240" text-anchor="middle" font-size="6" fill="#14532d">global</text>
+  <text x="195" y="252" text-anchor="middle" font-size="6" fill="#14532d">crop 2</text>
+
+  <!-- Student encoder -->
+  <line x1="223" y1="132" x2="260" y2="132" stroke="#0284c7" stroke-width="1.5" marker-end="url(#a)"/>
+
+  <rect x="263" y="98" width="130" height="70" rx="8" fill="#e0f2fe" stroke="#0284c7" stroke-width="2.5"/>
+  <text x="328" y="122" text-anchor="middle" font-size="9" font-weight="bold" fill="#0c4a6e">Student (ViT)</text>
+  <text x="328" y="138" text-anchor="middle" font-size="7" fill="#334155">f_theta</text>
+  <text x="328" y="155" text-anchor="middle" font-size="7" fill="#0284c7">Updated by gradient</text>
+
+  <!-- Teacher encoder -->
+  <line x1="223" y1="244" x2="260" y2="244" stroke="#16a34a" stroke-width="1.5" marker-end="url(#a)"/>
+
+  <rect x="263" y="210" width="130" height="70" rx="8" fill="#dcfce7" stroke="#16a34a" stroke-width="2.5"/>
+  <text x="328" y="234" text-anchor="middle" font-size="9" font-weight="bold" fill="#14532d">Teacher (ViT)</text>
+  <text x="328" y="250" text-anchor="middle" font-size="7" fill="#334155">f_xi</text>
+  <text x="328" y="267" text-anchor="middle" font-size="7" fill="#16a34a">EMA of student</text>
+
+  <!-- EMA arrow -->
+  <path d="M263,210 Q240,190 263,168" fill="none" stroke="#d97706" stroke-width="1.5" stroke-dasharray="4,3" marker-end="url(#a)"/>
+  <text x="228" y="192" font-size="6" fill="#d97706">EMA</text>
+  <text x="218" y="202" font-size="5" fill="#d97706" font-family="'SF Mono', Consolas, monospace">xi = m*xi + (1-m)*theta</text>
+
+  <!-- Projection heads -->
+  <line x1="393" y1="132" x2="425" y2="132" stroke="#0284c7" stroke-width="1.5" marker-end="url(#a)"/>
+  <rect x="428" y="110" width="80" height="45" rx="6" fill="#f3e8ff" stroke="#9333ea" stroke-width="1.5"/>
+  <text x="468" y="130" text-anchor="middle" font-size="7" font-weight="bold" fill="#581c87">Proj Head</text>
+  <text x="468" y="145" text-anchor="middle" font-size="6" fill="#9333ea">MLP + L2 norm</text>
+
+  <line x1="393" y1="244" x2="425" y2="244" stroke="#16a34a" stroke-width="1.5" marker-end="url(#a)"/>
+  <rect x="428" y="222" width="80" height="45" rx="6" fill="#f3e8ff" stroke="#9333ea" stroke-width="1.5"/>
+  <text x="468" y="242" text-anchor="middle" font-size="7" font-weight="bold" fill="#581c87">Proj Head</text>
+  <text x="468" y="257" text-anchor="middle" font-size="6" fill="#9333ea">MLP + L2 norm</text>
+
+  <!-- Softmax outputs -->
+  <line x1="508" y1="132" x2="540" y2="132" stroke="#475569" stroke-width="1.5" marker-end="url(#a)"/>
+  <rect x="543" y="112" width="70" height="40" rx="4" fill="#e0f2fe" stroke="#0284c7" stroke-width="1.5"/>
+  <text x="578" y="130" text-anchor="middle" font-size="7" fill="#0c4a6e">softmax</text>
+  <text x="578" y="143" text-anchor="middle" font-size="6" fill="#0284c7" font-family="'SF Mono', Consolas, monospace">p_s = P_s/tau_s</text>
+
+  <line x1="508" y1="244" x2="540" y2="244" stroke="#475569" stroke-width="1.5" marker-end="url(#a)"/>
+  <rect x="543" y="224" width="70" height="40" rx="4" fill="#dcfce7" stroke="#16a34a" stroke-width="1.5"/>
+  <text x="578" y="242" text-anchor="middle" font-size="7" fill="#14532d">softmax</text>
+  <text x="578" y="255" text-anchor="middle" font-size="6" fill="#16a34a" font-family="'SF Mono', Consolas, monospace">p_t = P_t/tau_t</text>
+
+  <!-- Centering on teacher -->
+  <text x="578" y="275" text-anchor="middle" font-size="5" fill="#16a34a">+ centering (c)</text>
+
+  <!-- Cross-entropy loss -->
+  <line x1="613" y1="132" x2="680" y2="175" stroke="#0284c7" stroke-width="1.5"/>
+  <line x1="613" y1="244" x2="680" y2="200" stroke="#16a34a" stroke-width="1.5"/>
+
+  <rect x="660" y="165" width="140" height="50" rx="8" fill="#fce7f3" stroke="#db2777" stroke-width="2"/>
+  <text x="730" y="188" text-anchor="middle" font-size="9" font-weight="bold" fill="#831843">Cross-Entropy</text>
+  <text x="730" y="204" text-anchor="middle" font-size="7" fill="#db2777" font-family="'SF Mono', Consolas, monospace">H(p_t, p_s)</text>
+
+  <!-- Gradient back to student only -->
+  <line x1="660" y1="185" x2="510" y2="140" stroke="#db2777" stroke-width="1.5" stroke-dasharray="4,2" marker-end="url(#a)"/>
+  <text x="600" y="155" font-size="6" fill="#db2777">gradient to student only</text>
+
+  <!-- Label -->
+  <text x="430" y="85" text-anchor="middle" font-size="10" font-weight="bold" fill="#0f172a">Self-Distillation: Teacher = EMA of Student (no labels, no contrastive pairs)</text>
+
+  <!-- Bottom: Emergent properties -->
+  <rect x="30" y="340" width="390" height="100" rx="10" fill="#fef3c7" stroke="#d97706" stroke-width="2"/>
+  <text x="225" y="365" text-anchor="middle" font-size="10" font-weight="bold" fill="#78350f">Collapse Prevention</text>
+  <text x="50" y="385" font-size="8" fill="#334155">1. Centering: subtract running mean of teacher output</text>
+  <text x="50" y="402" font-size="8" fill="#334155">2. Sharpening: low teacher temperature (tau_t = 0.04)</text>
+  <text x="50" y="419" font-size="8" fill="#334155">3. Momentum schedule: m = 0.996 → 1.0</text>
+  <text x="50" y="436" font-size="7" fill="#d97706">Without these, both networks collapse to uniform output</text>
+
+  <rect x="440" y="340" width="390" height="100" rx="10" fill="#dcfce7" stroke="#16a34a" stroke-width="2"/>
+  <text x="635" y="365" text-anchor="middle" font-size="10" font-weight="bold" fill="#14532d">Emergent Properties</text>
+  <text x="460" y="385" font-size="8" fill="#334155">Self-attention maps reveal object segmentation</text>
+  <text x="460" y="402" font-size="8" fill="#334155">[CLS] token captures scene layout</text>
+  <text x="460" y="419" font-size="8" fill="#334155">k-NN classifier on frozen features: 74.5% ImageNet</text>
+  <text x="460" y="436" font-size="7" fill="#16a34a">No labels used — properties emerge from self-distillation</text>
+</svg>

@@ -1,0 +1,76 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 860 430" font-family="Inter, Helvetica, Arial, sans-serif">
+  <defs>
+    <marker id="a" markerWidth="8" markerHeight="6" refX="8" refY="3" orient="auto"><path d="M0,0 L8,3 L0,6 Z" fill="#475569"/></marker>
+    <marker id="ag" markerWidth="8" markerHeight="6" refX="8" refY="3" orient="auto"><path d="M0,0 L8,3 L0,6 Z" fill="#16a34a"/></marker>
+    <marker id="ar" markerWidth="8" markerHeight="6" refX="8" refY="3" orient="auto"><path d="M0,0 L8,3 L0,6 Z" fill="#ef4444"/></marker>
+  </defs>
+
+  <text x="430" y="28" text-anchor="middle" font-size="17" font-weight="bold" fill="#0f172a">GAN: Generator vs. Discriminator</text>
+  <text x="430" y="48" text-anchor="middle" font-size="11" fill="#64748b" font-family="'SF Mono', Consolas, monospace">min_G max_D  E[log D(x)] + E[log(1 − D(G(z)))]</text>
+
+  <!-- ===== Noise Input ===== -->
+  <rect x="30" y="130" width="100" height="50" rx="8" fill="#f1f5f9" stroke="#475569" stroke-width="2"/>
+  <text x="80" y="152" text-anchor="middle" font-size="10" font-weight="bold" fill="#0f172a">Noise z</text>
+  <text x="80" y="168" text-anchor="middle" font-size="8" fill="#64748b" font-family="'SF Mono', Consolas, monospace">z ~ N(0, I)</text>
+
+  <!-- ===== Generator ===== -->
+  <rect x="180" y="110" width="150" height="90" rx="10" fill="#dcfce7" stroke="#16a34a" stroke-width="2.5"/>
+  <text x="255" y="140" text-anchor="middle" font-size="13" font-weight="bold" fill="#14532d">Generator G</text>
+  <text x="255" y="158" text-anchor="middle" font-size="9" fill="#16a34a">Neural Network</text>
+  <text x="255" y="175" text-anchor="middle" font-size="8" fill="#16a34a">(learns to create fakes)</text>
+  <text x="255" y="192" text-anchor="middle" font-size="8" fill="#16a34a" font-family="'SF Mono', Consolas, monospace">G(z) → fake image</text>
+
+  <!-- Arrow noise→G -->
+  <line x1="130" y1="155" x2="178" y2="155" stroke="#475569" stroke-width="2" marker-end="url(#a)"/>
+
+  <!-- Fake image -->
+  <rect x="380" y="120" width="90" height="70" rx="8" fill="#fce7f3" stroke="#db2777" stroke-width="2"/>
+  <text x="425" y="150" text-anchor="middle" font-size="9" font-weight="bold" fill="#831843">Fake</text>
+  <text x="425" y="168" text-anchor="middle" font-size="8" fill="#db2777">G(z)</text>
+  <text x="425" y="184" text-anchor="middle" font-size="8" fill="#db2777">image</text>
+
+  <!-- Arrow G→fake -->
+  <line x1="330" y1="155" x2="378" y2="155" stroke="#16a34a" stroke-width="2" marker-end="url(#ag)"/>
+
+  <!-- ===== Real image ===== -->
+  <rect x="380" y="240" width="90" height="70" rx="8" fill="#e0f2fe" stroke="#0284c7" stroke-width="2"/>
+  <text x="425" y="270" text-anchor="middle" font-size="9" font-weight="bold" fill="#0c4a6e">Real</text>
+  <text x="425" y="288" text-anchor="middle" font-size="8" fill="#0284c7">x ~ p_data</text>
+  <text x="425" y="304" text-anchor="middle" font-size="8" fill="#0284c7">image</text>
+
+  <!-- ===== Discriminator ===== -->
+  <rect x="530" y="160" width="150" height="110" rx="10" fill="#fee2e2" stroke="#ef4444" stroke-width="2.5"/>
+  <text x="605" y="190" text-anchor="middle" font-size="13" font-weight="bold" fill="#7f1d1d">Discriminator D</text>
+  <text x="605" y="208" text-anchor="middle" font-size="9" fill="#ef4444">Neural Network</text>
+  <text x="605" y="225" text-anchor="middle" font-size="8" fill="#ef4444">(learns to detect fakes)</text>
+  <text x="605" y="242" text-anchor="middle" font-size="8" fill="#ef4444" font-family="'SF Mono', Consolas, monospace">D(x) → P(real)</text>
+  <text x="605" y="260" text-anchor="middle" font-size="8" fill="#ef4444" font-family="'SF Mono', Consolas, monospace">output ∈ [0, 1]</text>
+
+  <!-- Arrow fake→D -->
+  <line x1="470" y1="155" x2="528" y2="195" stroke="#475569" stroke-width="2" marker-end="url(#a)"/>
+  <!-- Arrow real→D -->
+  <line x1="470" y1="275" x2="528" y2="240" stroke="#475569" stroke-width="2" marker-end="url(#a)"/>
+
+  <!-- Output -->
+  <rect x="730" y="190" width="100" height="50" rx="8" fill="#f1f5f9" stroke="#475569" stroke-width="2"/>
+  <text x="780" y="212" text-anchor="middle" font-size="10" font-weight="bold" fill="#0f172a">P(real)</text>
+  <text x="780" y="230" text-anchor="middle" font-size="8" fill="#64748b" font-family="'SF Mono', Consolas, monospace">∈ [0, 1]</text>
+
+  <line x1="680" y1="215" x2="728" y2="215" stroke="#475569" stroke-width="2" marker-end="url(#a)"/>
+
+  <!-- ===== Adversarial gradient arrows ===== -->
+  <!-- G gradient: wants D to output 1 for fakes (minimize log(1-D(G(z)))) -->
+  <path d="M 605 160 C 605 80, 255 60, 255 108" fill="none" stroke="#16a34a" stroke-width="2.5" marker-end="url(#ag)"/>
+  <text x="430" y="78" text-anchor="middle" font-size="9" font-weight="bold" fill="#16a34a">G updates: "Make fakes more realistic"</text>
+  <text x="430" y="92" text-anchor="middle" font-size="8" fill="#16a34a">minimize log(1 − D(G(z)))</text>
+
+  <!-- D gradient: wants to correctly classify real/fake -->
+  <path d="M 780 240 C 780 340, 605 340, 605 272" fill="none" stroke="#ef4444" stroke-width="2.5" marker-end="url(#ar)"/>
+  <text x="700" y="332" text-anchor="middle" font-size="9" font-weight="bold" fill="#ef4444">D updates: "Get better at detecting"</text>
+  <text x="700" y="346" text-anchor="middle" font-size="8" fill="#ef4444">maximize log D(x) + log(1 − D(G(z)))</text>
+
+  <!-- Equilibrium note -->
+  <rect x="130" y="370" width="600" height="45" rx="8" fill="#f8fafc" stroke="#e2e8f0" stroke-width="1.5"/>
+  <text x="430" y="388" text-anchor="middle" font-size="10" font-weight="bold" fill="#0f172a">Nash Equilibrium: G generates p_g = p_data, D outputs 0.5 everywhere</text>
+  <text x="430" y="405" text-anchor="middle" font-size="9" fill="#64748b">Two players with opposing objectives — G improves by fooling D, D improves by catching G</text>
+</svg>

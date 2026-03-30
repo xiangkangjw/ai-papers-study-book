@@ -1,0 +1,143 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 880 500" font-family="Inter, Helvetica, Arial, sans-serif">
+  <defs>
+    <marker id="a" markerWidth="8" markerHeight="6" refX="8" refY="3" orient="auto"><path d="M0,0 L8,3 L0,6 Z" fill="#475569"/></marker>
+  </defs>
+
+  <text x="440" y="28" text-anchor="middle" font-size="17" font-weight="bold" fill="#0f172a">Swin Transformer: Shifted Windows</text>
+  <text x="440" y="46" text-anchor="middle" font-size="10" fill="#64748b">Liu et al. (2021) — Hierarchical ViT with local windowed attention + shifted window cross-connection</text>
+
+  <!-- Window Attention -->
+  <rect x="30" y="65" width="400" height="200" rx="10" fill="#f0f9ff" stroke="#0284c7" stroke-width="2"/>
+  <text x="230" y="90" text-anchor="middle" font-size="11" font-weight="bold" fill="#0c4a6e">Window-Based Self-Attention</text>
+
+  <!-- Regular window partition -->
+  <text x="120" y="115" text-anchor="middle" font-size="9" font-weight="bold" fill="#0c4a6e">Layer l: Regular Windows</text>
+
+  <!-- 4x4 grid with 2x2 windows -->
+  <rect x="60" y="125" width="120" height="120" rx="2" fill="#fff" stroke="#e2e8f0" stroke-width="1"/>
+
+  <!-- Window 1 (top-left) -->
+  <rect x="60" y="125" width="60" height="60" rx="0" fill="#e0f2fe" stroke="#0284c7" stroke-width="2"/>
+  <!-- Window 2 (top-right) -->
+  <rect x="120" y="125" width="60" height="60" rx="0" fill="#dcfce7" stroke="#16a34a" stroke-width="2"/>
+  <!-- Window 3 (bottom-left) -->
+  <rect x="60" y="185" width="60" height="60" rx="0" fill="#fef3c7" stroke="#d97706" stroke-width="2"/>
+  <!-- Window 4 (bottom-right) -->
+  <rect x="120" y="185" width="60" height="60" rx="0" fill="#fce7f3" stroke="#db2777" stroke-width="2"/>
+
+  <!-- Grid lines inside windows -->
+  <line x1="90" y1="125" x2="90" y2="185" stroke="#0284c7" stroke-width="0.5"/>
+  <line x1="60" y1="155" x2="120" y2="155" stroke="#0284c7" stroke-width="0.5"/>
+  <line x1="150" y1="125" x2="150" y2="185" stroke="#16a34a" stroke-width="0.5"/>
+  <line x1="120" y1="155" x2="180" y2="155" stroke="#16a34a" stroke-width="0.5"/>
+
+  <text x="120" y="258" text-anchor="middle" font-size="7" fill="#64748b">Attention within windows only</text>
+
+  <!-- Shifted window partition -->
+  <text x="320" y="115" text-anchor="middle" font-size="9" font-weight="bold" fill="#0c4a6e">Layer l+1: Shifted Windows</text>
+
+  <rect x="245" y="125" width="150" height="120" rx="2" fill="#fff" stroke="#e2e8f0" stroke-width="1"/>
+
+  <!-- Shifted grid (offset by M/2) -->
+  <rect x="245" y="125" width="150" height="120" fill="none" stroke="#94a3b8" stroke-width="0.5"/>
+
+  <!-- Shifted windows with offset coloring -->
+  <rect x="275" y="155" width="60" height="60" rx="0" fill="#f3e8ff" stroke="#9333ea" stroke-width="2"/>
+  <rect x="335" y="155" width="60" height="60" rx="0" fill="#fee2e2" stroke="#ef4444" stroke-width="2"/>
+  <rect x="275" y="215" width="60" height="60" rx="0" fill="#fef3c7" stroke="#d97706" stroke-width="2"/>
+
+  <!-- Corner/edge patches -->
+  <rect x="245" y="125" width="30" height="30" rx="0" fill="#e2e8f0" stroke="#64748b" stroke-width="1"/>
+  <rect x="275" y="125" width="60" height="30" rx="0" fill="#e2e8f0" stroke="#64748b" stroke-width="1"/>
+  <rect x="335" y="125" width="60" height="30" rx="0" fill="#e2e8f0" stroke="#64748b" stroke-width="1"/>
+  <rect x="245" y="155" width="30" height="60" rx="0" fill="#e2e8f0" stroke="#64748b" stroke-width="1"/>
+  <rect x="245" y="215" width="30" height="30" rx="0" fill="#e2e8f0" stroke="#64748b" stroke-width="1"/>
+
+  <text x="320" y="258" text-anchor="middle" font-size="7" fill="#9333ea">Shifted by (M/2, M/2) pixels</text>
+  <text x="320" y="270" text-anchor="middle" font-size="7" fill="#9333ea">Cross-window connections!</text>
+
+  <!-- Hierarchical Architecture -->
+  <rect x="450" y="65" width="410" height="200" rx="10" fill="#fef3c7" stroke="#d97706" stroke-width="2"/>
+  <text x="655" y="90" text-anchor="middle" font-size="11" font-weight="bold" fill="#78350f">Hierarchical Feature Maps (like CNN)</text>
+
+  <!-- Stage 1 -->
+  <rect x="470" y="110" width="70" height="70" rx="4" fill="#e0f2fe" stroke="#0284c7" stroke-width="1.5"/>
+  <text x="505" y="140" text-anchor="middle" font-size="7" font-weight="bold" fill="#0c4a6e">Stage 1</text>
+  <text x="505" y="155" text-anchor="middle" font-size="6" fill="#0284c7" font-family="'SF Mono', Consolas, monospace">H/4 × W/4</text>
+  <text x="505" y="168" text-anchor="middle" font-size="6" fill="#0284c7" font-family="'SF Mono', Consolas, monospace">C=96</text>
+
+  <line x1="540" y1="145" x2="558" y2="145" stroke="#475569" stroke-width="1.5" marker-end="url(#a)"/>
+  <text x="549" y="140" font-size="6" fill="#475569">merge</text>
+
+  <!-- Stage 2 -->
+  <rect x="560" y="120" width="55" height="55" rx="4" fill="#dcfce7" stroke="#16a34a" stroke-width="1.5"/>
+  <text x="587" y="143" text-anchor="middle" font-size="7" font-weight="bold" fill="#14532d">Stage 2</text>
+  <text x="587" y="158" text-anchor="middle" font-size="6" fill="#16a34a" font-family="'SF Mono', Consolas, monospace">H/8 × W/8</text>
+  <text x="587" y="170" text-anchor="middle" font-size="6" fill="#16a34a" font-family="'SF Mono', Consolas, monospace">C=192</text>
+
+  <line x1="615" y1="147" x2="633" y2="147" stroke="#475569" stroke-width="1.5" marker-end="url(#a)"/>
+
+  <!-- Stage 3 -->
+  <rect x="635" y="128" width="45" height="45" rx="4" fill="#fef3c7" stroke="#d97706" stroke-width="1.5"/>
+  <text x="657" y="147" text-anchor="middle" font-size="7" font-weight="bold" fill="#78350f">Stage 3</text>
+  <text x="657" y="162" text-anchor="middle" font-size="6" fill="#d97706" font-family="'SF Mono', Consolas, monospace">H/16</text>
+  <text x="657" y="172" text-anchor="middle" font-size="6" fill="#d97706" font-family="'SF Mono', Consolas, monospace">C=384</text>
+
+  <line x1="680" y1="150" x2="698" y2="150" stroke="#475569" stroke-width="1.5" marker-end="url(#a)"/>
+
+  <!-- Stage 4 -->
+  <rect x="700" y="135" width="40" height="35" rx="4" fill="#fce7f3" stroke="#db2777" stroke-width="1.5"/>
+  <text x="720" y="152" text-anchor="middle" font-size="7" font-weight="bold" fill="#831843">Stage 4</text>
+  <text x="720" y="164" text-anchor="middle" font-size="6" fill="#db2777" font-family="'SF Mono', Consolas, monospace">H/32</text>
+
+  <!-- Patch merging explanation -->
+  <text x="655" y="205" text-anchor="middle" font-size="8" fill="#334155">Patch Merging: 2×2 patches → concat → linear</text>
+  <text x="655" y="220" text-anchor="middle" font-size="8" fill="#334155">Resolution halves, channels double (like pooling)</text>
+  <text x="655" y="240" text-anchor="middle" font-size="8" fill="#d97706">→ Compatible with FPN, U-Net, detection heads</text>
+
+  <!-- Complexity comparison -->
+  <rect x="30" y="285" width="400" height="100" rx="8" fill="#dcfce7" stroke="#16a34a" stroke-width="1.5"/>
+  <text x="230" y="310" text-anchor="middle" font-size="10" font-weight="bold" fill="#14532d">Computational Complexity</text>
+
+  <text x="100" y="335" text-anchor="middle" font-size="9" font-weight="bold" fill="#ef4444">ViT (global)</text>
+  <text x="100" y="352" text-anchor="middle" font-size="8" fill="#334155" font-family="'SF Mono', Consolas, monospace">O(N²·d)</text>
+  <text x="100" y="368" text-anchor="middle" font-size="7" fill="#64748b">quadratic in #patches</text>
+
+  <text x="280" y="335" text-anchor="middle" font-size="9" font-weight="bold" fill="#16a34a">Swin (windowed)</text>
+  <text x="280" y="352" text-anchor="middle" font-size="8" fill="#334155" font-family="'SF Mono', Consolas, monospace">O(N·M²·d)</text>
+  <text x="280" y="368" text-anchor="middle" font-size="7" fill="#64748b">linear in #patches!</text>
+  <text x="280" y="380" text-anchor="middle" font-size="7" fill="#16a34a">M = window size (fixed, e.g. 7)</text>
+
+  <!-- Swin variants table -->
+  <rect x="450" y="285" width="410" height="100" rx="8" fill="#f1f5f9" stroke="#475569" stroke-width="1.5"/>
+  <text x="655" y="308" text-anchor="middle" font-size="10" font-weight="bold" fill="#0f172a">Swin Variants</text>
+
+  <text x="510" y="330" font-size="8" fill="#475569" font-weight="bold">Model</text>
+  <text x="600" y="330" font-size="8" fill="#475569" font-weight="bold">Params</text>
+  <text x="680" y="330" font-size="8" fill="#475569" font-weight="bold">FLOPs</text>
+  <text x="780" y="330" font-size="8" fill="#475569" font-weight="bold">Top-1</text>
+
+  <line x1="470" y1="336" x2="840" y2="336" stroke="#e2e8f0" stroke-width="1"/>
+
+  <text x="510" y="352" font-size="8" fill="#334155">Swin-T</text>
+  <text x="600" y="352" font-size="8" fill="#334155">29M</text>
+  <text x="680" y="352" font-size="8" fill="#334155">4.5G</text>
+  <text x="780" y="352" font-size="8" fill="#334155">81.3%</text>
+
+  <text x="510" y="368" font-size="8" fill="#334155">Swin-B</text>
+  <text x="600" y="368" font-size="8" fill="#334155">88M</text>
+  <text x="680" y="368" font-size="8" fill="#334155">15.4G</text>
+  <text x="780" y="368" font-size="8" fill="#14532d" font-weight="bold">83.5%</text>
+
+  <text x="510" y="384" font-size="8" fill="#334155">Swin-L</text>
+  <text x="600" y="384" font-size="8" fill="#334155">197M</text>
+  <text x="680" y="384" font-size="8" fill="#334155">34.5G</text>
+  <text x="780" y="384" font-size="8" fill="#14532d" font-weight="bold">87.3%</text>
+
+  <!-- Key innovations summary -->
+  <rect x="30" y="400" width="830" height="85" rx="8" fill="#fef3c7" stroke="#d97706" stroke-width="1.5"/>
+  <text x="440" y="423" text-anchor="middle" font-size="10" font-weight="bold" fill="#78350f">Why Swin Matters</text>
+  <text x="50" y="443" font-size="8" fill="#334155">1. <tspan font-weight="bold">Linear complexity</tspan>: Windowed attention scales to high-res images (detection, segmentation)</text>
+  <text x="50" y="460" font-size="8" fill="#334155">2. <tspan font-weight="bold">Hierarchical features</tspan>: Multi-scale like CNNs — drop-in replacement for ResNet backbone</text>
+  <text x="50" y="477" font-size="8" fill="#334155">3. <tspan font-weight="bold">Shifted windows</tspan>: Cross-window info flow without overlap — elegant and efficient</text>
+</svg>

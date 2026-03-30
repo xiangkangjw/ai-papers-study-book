@@ -1,0 +1,89 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 860 460" font-family="Inter, Helvetica, Arial, sans-serif">
+  <defs>
+    <marker id="a" markerWidth="8" markerHeight="6" refX="8" refY="3" orient="auto"><path d="M0,0 L8,3 L0,6 Z" fill="#475569"/></marker>
+  </defs>
+
+  <text x="430" y="28" text-anchor="middle" font-size="17" font-weight="bold" fill="#0f172a">Byte Pair Encoding (BPE) Tokenization</text>
+  <text x="430" y="46" text-anchor="middle" font-size="10" fill="#64748b">Sennrich et al. (2016) — Iteratively merge most frequent byte pairs into subword tokens</text>
+
+  <!-- Training: Build Vocabulary -->
+  <rect x="30" y="65" width="800" height="185" rx="10" fill="#f0f9ff" stroke="#0284c7" stroke-width="2"/>
+  <text x="430" y="90" text-anchor="middle" font-size="12" font-weight="bold" fill="#0c4a6e">Training: Build Merge Table from Corpus</text>
+
+  <!-- Step 0: Characters -->
+  <text x="50" y="115" font-size="9" font-weight="bold" fill="#0c4a6e">Step 0: Start with characters</text>
+  <rect x="50" y="122" width="700" height="28" rx="4" fill="#e0f2fe" stroke="#0284c7" stroke-width="1"/>
+  <text x="60" y="141" font-size="8" fill="#0c4a6e" font-family="'SF Mono', Consolas, monospace">"l o w e r _" (5) "l o w e s t _" (2) "n e w e r _" (6) "w i d e r _" (3)</text>
+
+  <!-- Step 1 -->
+  <text x="50" y="168" font-size="9" font-weight="bold" fill="#0c4a6e">Step 1: Most frequent pair: (e, r) → merge</text>
+  <rect x="50" y="175" width="700" height="28" rx="4" fill="#e0f2fe" stroke="#0284c7" stroke-width="1"/>
+  <text x="60" y="194" font-size="8" fill="#0c4a6e" font-family="'SF Mono', Consolas, monospace">"l o w <tspan font-weight="bold" fill="#db2777">er</tspan> _" (5) "l o w e s t _" (2) "n e w <tspan font-weight="bold" fill="#db2777">er</tspan> _" (6) "w i d <tspan font-weight="bold" fill="#db2777">er</tspan> _" (3)</text>
+
+  <!-- Step 2 -->
+  <text x="50" y="221" font-size="9" font-weight="bold" fill="#0c4a6e">Step 2: Most frequent pair: (er, _) → merge</text>
+  <rect x="50" y="228" width="700" height="28" rx="4" fill="#dcfce7" stroke="#16a34a" stroke-width="1"/>
+  <text x="60" y="247" font-size="8" fill="#14532d" font-family="'SF Mono', Consolas, monospace">"l o w <tspan font-weight="bold" fill="#16a34a">er_</tspan>" (5) "l o w e s t _" (2) "n e w <tspan font-weight="bold" fill="#16a34a">er_</tspan>" (6) "w i d <tspan font-weight="bold" fill="#16a34a">er_</tspan>" (3)</text>
+
+  <!-- Inference: Tokenize -->
+  <rect x="30" y="270" width="800" height="90" rx="10" fill="#fef3c7" stroke="#d97706" stroke-width="2"/>
+  <text x="430" y="295" text-anchor="middle" font-size="12" font-weight="bold" fill="#78350f">Inference: Apply Merges to New Text</text>
+
+  <text x="50" y="318" font-size="9" fill="#78350f">Input:</text>
+  <text x="100" y="318" font-size="10" fill="#0f172a" font-family="'SF Mono', Consolas, monospace">"lowest"</text>
+
+  <text x="250" y="318" font-size="9" fill="#78350f">→</text>
+
+  <rect x="275" y="303" width="25" height="24" rx="3" fill="#e0f2fe" stroke="#0284c7" stroke-width="1.5"/>
+  <text x="287" y="319" text-anchor="middle" font-size="8" fill="#0c4a6e" font-family="'SF Mono', Consolas, monospace">l</text>
+
+  <rect x="305" y="303" width="25" height="24" rx="3" fill="#e0f2fe" stroke="#0284c7" stroke-width="1.5"/>
+  <text x="317" y="319" text-anchor="middle" font-size="8" fill="#0c4a6e" font-family="'SF Mono', Consolas, monospace">o</text>
+
+  <rect x="335" y="303" width="25" height="24" rx="3" fill="#e0f2fe" stroke="#0284c7" stroke-width="1.5"/>
+  <text x="347" y="319" text-anchor="middle" font-size="8" fill="#0c4a6e" font-family="'SF Mono', Consolas, monospace">w</text>
+
+  <rect x="365" y="303" width="35" height="24" rx="3" fill="#fce7f3" stroke="#db2777" stroke-width="1.5"/>
+  <text x="382" y="319" text-anchor="middle" font-size="8" fill="#831843" font-family="'SF Mono', Consolas, monospace">es</text>
+
+  <rect x="405" y="303" width="25" height="24" rx="3" fill="#e0f2fe" stroke="#0284c7" stroke-width="1.5"/>
+  <text x="417" y="319" text-anchor="middle" font-size="8" fill="#0c4a6e" font-family="'SF Mono', Consolas, monospace">t</text>
+
+  <rect x="435" y="303" width="25" height="24" rx="3" fill="#e0f2fe" stroke="#0284c7" stroke-width="1.5"/>
+  <text x="447" y="319" text-anchor="middle" font-size="8" fill="#0c4a6e" font-family="'SF Mono', Consolas, monospace">_</text>
+
+  <text x="490" y="318" font-size="8" fill="#64748b">= 6 tokens (no "er" merge applies here)</text>
+
+  <text x="50" y="348" font-size="9" fill="#78350f">Input:</text>
+  <text x="100" y="348" font-size="10" fill="#0f172a" font-family="'SF Mono', Consolas, monospace">"newer"</text>
+
+  <text x="250" y="348" font-size="9" fill="#78350f">→</text>
+
+  <rect x="275" y="333" width="25" height="24" rx="3" fill="#e0f2fe" stroke="#0284c7" stroke-width="1.5"/>
+  <text x="287" y="349" text-anchor="middle" font-size="8" fill="#0c4a6e" font-family="'SF Mono', Consolas, monospace">n</text>
+
+  <rect x="305" y="333" width="25" height="24" rx="3" fill="#e0f2fe" stroke="#0284c7" stroke-width="1.5"/>
+  <text x="317" y="349" text-anchor="middle" font-size="8" fill="#0c4a6e" font-family="'SF Mono', Consolas, monospace">e</text>
+
+  <rect x="335" y="333" width="25" height="24" rx="3" fill="#e0f2fe" stroke="#0284c7" stroke-width="1.5"/>
+  <text x="347" y="349" text-anchor="middle" font-size="8" fill="#0c4a6e" font-family="'SF Mono', Consolas, monospace">w</text>
+
+  <rect x="365" y="333" width="40" height="24" rx="3" fill="#dcfce7" stroke="#16a34a" stroke-width="2"/>
+  <text x="385" y="349" text-anchor="middle" font-size="8" font-weight="bold" fill="#14532d" font-family="'SF Mono', Consolas, monospace">er_</text>
+
+  <text x="420" y="348" font-size="8" fill="#64748b">= 4 tokens (merged "er_")</text>
+
+  <!-- Properties panel -->
+  <rect x="30" y="375" width="390" height="75" rx="8" fill="#dcfce7" stroke="#16a34a" stroke-width="1.5"/>
+  <text x="225" y="398" text-anchor="middle" font-size="10" font-weight="bold" fill="#14532d">BPE Properties</text>
+  <text x="50" y="416" font-size="8" fill="#334155">• No OOV — falls back to bytes/characters</text>
+  <text x="50" y="432" font-size="8" fill="#334155">• Common words → single token; rare → subwords</text>
+  <text x="50" y="448" font-size="8" fill="#334155">• Vocab sizes: GPT-2: 50K, LLaMA: 32K, GPT-4: 100K</text>
+
+  <!-- Variants panel -->
+  <rect x="440" y="375" width="390" height="75" rx="8" fill="#f1f5f9" stroke="#475569" stroke-width="1.5"/>
+  <text x="635" y="398" text-anchor="middle" font-size="10" font-weight="bold" fill="#0f172a">Variants</text>
+  <text x="460" y="416" font-size="8" fill="#334155">• WordPiece (BERT): likelihood-based merges</text>
+  <text x="460" y="432" font-size="8" fill="#334155">• Unigram (SentencePiece): probabilistic tokenization</text>
+  <text x="460" y="448" font-size="8" fill="#334155">• Byte-level BPE (GPT-2+): starts from UTF-8 bytes</text>
+</svg>

@@ -1,0 +1,106 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 880 500" font-family="Inter, Helvetica, Arial, sans-serif">
+  <defs>
+    <marker id="a" markerWidth="8" markerHeight="6" refX="8" refY="3" orient="auto"><path d="M0,0 L8,3 L0,6 Z" fill="#475569"/></marker>
+  </defs>
+
+  <text x="440" y="28" text-anchor="middle" font-size="17" font-weight="bold" fill="#0f172a">FlashAttention: IO-Aware Exact Attention</text>
+  <text x="440" y="46" text-anchor="middle" font-size="10" fill="#64748b">Dao et al. (2022) — Tiling + online softmax to avoid materializing N×N attention matrix</text>
+
+  <!-- Standard Attention (Left) -->
+  <rect x="20" y="65" width="400" height="310" rx="10" fill="#fef2f2" stroke="#ef4444" stroke-width="2"/>
+  <text x="220" y="90" text-anchor="middle" font-size="12" font-weight="bold" fill="#7f1d1d">Standard Attention (Naive)</text>
+
+  <!-- HBM box -->
+  <rect x="40" y="105" width="360" height="120" rx="6" fill="#fee2e2" stroke="#ef4444" stroke-width="1.5"/>
+  <text x="220" y="125" text-anchor="middle" font-size="9" font-weight="bold" fill="#ef4444">HBM (GPU Main Memory — slow, large)</text>
+
+  <rect x="55" y="135" width="55" height="35" rx="3" fill="#e0f2fe" stroke="#0284c7" stroke-width="1"/>
+  <text x="82" y="150" text-anchor="middle" font-size="7" fill="#0c4a6e">Q</text>
+  <text x="82" y="163" text-anchor="middle" font-size="6" fill="#0c4a6e" font-family="'SF Mono', Consolas, monospace">N×d</text>
+
+  <rect x="120" y="135" width="55" height="35" rx="3" fill="#e0f2fe" stroke="#0284c7" stroke-width="1"/>
+  <text x="147" y="150" text-anchor="middle" font-size="7" fill="#0c4a6e">K</text>
+  <text x="147" y="163" text-anchor="middle" font-size="6" fill="#0c4a6e" font-family="'SF Mono', Consolas, monospace">N×d</text>
+
+  <rect x="185" y="135" width="55" height="35" rx="3" fill="#e0f2fe" stroke="#0284c7" stroke-width="1"/>
+  <text x="212" y="150" text-anchor="middle" font-size="7" fill="#0c4a6e">V</text>
+  <text x="212" y="163" text-anchor="middle" font-size="6" fill="#0c4a6e" font-family="'SF Mono', Consolas, monospace">N×d</text>
+
+  <rect x="255" y="130" width="70" height="45" rx="3" fill="#fee2e2" stroke="#ef4444" stroke-width="2"/>
+  <text x="290" y="148" text-anchor="middle" font-size="7" font-weight="bold" fill="#ef4444">S=QKᵀ</text>
+  <text x="290" y="163" text-anchor="middle" font-size="6" fill="#ef4444" font-family="'SF Mono', Consolas, monospace">N×N !</text>
+
+  <rect x="335" y="130" width="55" height="45" rx="3" fill="#fee2e2" stroke="#ef4444" stroke-width="2"/>
+  <text x="362" y="148" text-anchor="middle" font-size="7" font-weight="bold" fill="#ef4444">P</text>
+  <text x="362" y="163" text-anchor="middle" font-size="6" fill="#ef4444" font-family="'SF Mono', Consolas, monospace">N×N !</text>
+
+  <!-- Problem annotations -->
+  <text x="220" y="250" text-anchor="middle" font-size="9" font-weight="bold" fill="#ef4444">Problems:</text>
+  <text x="220" y="268" text-anchor="middle" font-size="8" fill="#334155">1. Materializes full N×N matrix in HBM</text>
+  <text x="220" y="284" text-anchor="middle" font-size="8" fill="#334155">2. O(N²) memory — 16GB for N=32K, d=128</text>
+  <text x="220" y="300" text-anchor="middle" font-size="8" fill="#334155">3. Multiple HBM round-trips (read Q,K → write S → read S → ...)</text>
+
+  <!-- Memory hierarchy -->
+  <rect x="60" y="310" width="120" height="45" rx="4" fill="#fef3c7" stroke="#d97706" stroke-width="1"/>
+  <text x="120" y="330" text-anchor="middle" font-size="8" font-weight="bold" fill="#78350f">SRAM (on-chip)</text>
+  <text x="120" y="345" text-anchor="middle" font-size="7" fill="#d97706">~20MB, 19 TB/s</text>
+
+  <rect x="220" y="310" width="120" height="45" rx="4" fill="#fee2e2" stroke="#ef4444" stroke-width="1"/>
+  <text x="280" y="330" text-anchor="middle" font-size="8" font-weight="bold" fill="#ef4444">HBM (off-chip)</text>
+  <text x="280" y="345" text-anchor="middle" font-size="7" fill="#ef4444">~40GB, 1.5 TB/s</text>
+
+  <text x="195" y="340" font-size="12" fill="#d97706">≫</text>
+
+  <!-- FlashAttention (Right) -->
+  <rect x="460" y="65" width="400" height="310" rx="10" fill="#f0fdf4" stroke="#16a34a" stroke-width="2"/>
+  <text x="660" y="90" text-anchor="middle" font-size="12" font-weight="bold" fill="#14532d">FlashAttention (Tiled)</text>
+
+  <!-- SRAM processing -->
+  <rect x="480" y="105" width="360" height="140" rx="6" fill="#dcfce7" stroke="#16a34a" stroke-width="1.5"/>
+  <text x="660" y="125" text-anchor="middle" font-size="9" font-weight="bold" fill="#14532d">SRAM (Fast On-Chip Memory)</text>
+
+  <!-- Tiled blocks -->
+  <rect x="495" y="140" width="45" height="30" rx="3" fill="#e0f2fe" stroke="#0284c7" stroke-width="1.5"/>
+  <text x="517" y="158" text-anchor="middle" font-size="7" fill="#0c4a6e">Q_i</text>
+
+  <rect x="550" y="140" width="45" height="30" rx="3" fill="#e0f2fe" stroke="#0284c7" stroke-width="1.5"/>
+  <text x="572" y="158" text-anchor="middle" font-size="7" fill="#0c4a6e">K_j</text>
+
+  <rect x="605" y="140" width="45" height="30" rx="3" fill="#e0f2fe" stroke="#0284c7" stroke-width="1.5"/>
+  <text x="627" y="158" text-anchor="middle" font-size="7" fill="#0c4a6e">V_j</text>
+
+  <!-- Small tile computation -->
+  <rect x="670" y="135" width="70" height="40" rx="3" fill="#dcfce7" stroke="#16a34a" stroke-width="2"/>
+  <text x="705" y="153" text-anchor="middle" font-size="7" font-weight="bold" fill="#14532d">S_ij</text>
+  <text x="705" y="168" text-anchor="middle" font-size="6" fill="#16a34a" font-family="'SF Mono', Consolas, monospace">B×B</text>
+
+  <text x="660" y="195" text-anchor="middle" font-size="8" fill="#14532d">Block size B ≪ N (fits in SRAM)</text>
+
+  <!-- Online softmax -->
+  <rect x="495" y="210" width="150" height="25" rx="3" fill="#fef3c7" stroke="#d97706" stroke-width="1.5"/>
+  <text x="570" y="227" text-anchor="middle" font-size="7" font-weight="bold" fill="#78350f">Online Softmax (running max, sum)</text>
+
+  <rect x="660" y="210" width="80" height="25" rx="3" fill="#dcfce7" stroke="#16a34a" stroke-width="1.5"/>
+  <text x="700" y="227" text-anchor="middle" font-size="7" font-weight="bold" fill="#14532d">O_i (accum)</text>
+
+  <!-- Algorithm steps -->
+  <text x="660" y="268" text-anchor="middle" font-size="9" font-weight="bold" fill="#14532d">Algorithm:</text>
+  <text x="490" y="286" font-size="8" fill="#334155">1. Load Q_i, K_j, V_j blocks from HBM → SRAM</text>
+  <text x="490" y="302" font-size="8" fill="#334155">2. Compute S_ij = Q_i · K_jᵀ in SRAM</text>
+  <text x="490" y="318" font-size="8" fill="#334155">3. Online softmax: update running max + sum</text>
+  <text x="490" y="334" font-size="8" fill="#334155">4. Accumulate O_i += softmax(S_ij) · V_j</text>
+  <text x="490" y="350" font-size="8" fill="#334155">5. Write final O_i to HBM (one round-trip)</text>
+
+  <!-- Complexity comparison -->
+  <rect x="60" y="395" width="360" height="90" rx="8" fill="#fee2e2" stroke="#ef4444" stroke-width="1.5"/>
+  <text x="240" y="418" text-anchor="middle" font-size="10" font-weight="bold" fill="#ef4444">Standard Attention</text>
+  <text x="240" y="438" text-anchor="middle" font-size="8" fill="#334155" font-family="'SF Mono', Consolas, monospace">Memory: O(N²)    HBM reads: O(N²d)</text>
+  <text x="240" y="458" text-anchor="middle" font-size="8" fill="#334155">Seq len 32K → 16GB for attention matrix alone</text>
+  <text x="240" y="475" text-anchor="middle" font-size="8" fill="#ef4444">Memory-bound: HBM bandwidth is bottleneck</text>
+
+  <rect x="460" y="395" width="400" height="90" rx="8" fill="#dcfce7" stroke="#16a34a" stroke-width="1.5"/>
+  <text x="660" y="418" text-anchor="middle" font-size="10" font-weight="bold" fill="#14532d">FlashAttention</text>
+  <text x="660" y="438" text-anchor="middle" font-size="8" fill="#334155" font-family="'SF Mono', Consolas, monospace">Memory: O(N)     HBM reads: O(N²d²/M)</text>
+  <text x="660" y="458" text-anchor="middle" font-size="8" fill="#334155">2-4× wall-clock speedup, exact same result</text>
+  <text x="660" y="475" text-anchor="middle" font-size="8" fill="#16a34a">IO-aware: minimizes data movement to/from HBM</text>
+</svg>

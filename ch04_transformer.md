@@ -109,6 +109,56 @@ with projection matrices:
 
 Vaswani et al. use $h = 8$ heads with $d_k = d_v = d_{\text{model}} / h = 64$ (for $d_{\text{model}} = 512$).
 
+```mermaid
+graph TD
+    classDef input fill:#f1f5f9,stroke:#475569,stroke-width:2px,color:#0f172a,font-weight:bold
+    classDef weight fill:#fef3c7,stroke:#d97706,stroke-width:2px,color:#78350f,font-family:monospace
+    classDef head fill:#e0f2fe,stroke:#0284c7,stroke-width:2px,color:#0c4a6e
+    classDef op fill:#cbd5e1,stroke:#334155,stroke-width:2px,color:#0f172a,font-weight:bold
+    classDef textNode fill:none,stroke:none
+
+    subgraph Inputs ["Inputs (Sequence Length T × d_model)"]
+        direction LR
+        V_in["V"]:::input
+        K_in["K"]:::input
+        Q_in["Q"]:::input
+    end
+
+    subgraph Projections ["Learned Linear Projections"]
+        direction LR
+        W_V["W_V (d_model × d_v)"]:::weight
+        W_K["W_K (d_model × d_k)"]:::weight
+        W_Q["W_Q (d_model × d_k)"]:::weight
+    end
+
+    subgraph Heads ["h Parallel Attention Heads"]
+        direction LR
+        H1["Head 1<br/>Output: T × d_v"]:::head
+        H2["Head 2<br/>Output: T × d_v"]:::head
+        H_dots["..."]:::textNode
+        Hh["Head h<br/>Output: T × d_v"]:::head
+    end
+
+    Concat(("Concat")):::op
+    W_O["W_O Projection<br/>(h·d_v × d_model)"]:::weight
+    Output["Multi-Head Output<br/>(T × d_model)"]:::input
+
+    V_in --> W_V
+    K_in --> W_K
+    Q_in --> W_Q
+
+    W_V --> H1 & H2 & Hh
+    W_K --> H1 & H2 & Hh
+    W_Q --> H1 & H2 & Hh
+
+    H1 --> Concat
+    H2 --> Concat
+    Hh --> Concat
+
+    Concat ==>|"Dimension: T × (h·d_v)"| W_O
+    W_O ==> Output
+```
+
 ### 4.3.1 Parameter Count Analysis
 
 Each head has three projection matrices of size $d_{\text{model}} \times d_k$, contributing $3 \times d_{\text{model}} \times d_k$ parameters. With $h$ heads, the total for projections is $3 \times h \times d_{\text{model}} \times d_k = 3 \times d_{\text{model}}^2$ (since $h \times d_k = d_{\text{model}}$). The output projection $\mathbf{W}^O$ adds another $d_{\text{model}}^2$.
@@ -257,6 +307,31 @@ FFN parameter count per layer: $2 \times d_{\text{model}} \times d_{\text{ff}} =
 The decoder also has $N = 6$ identical layers, but each layer has three sublayers:
 
 1. **Masked multi-head self-attention.** Tokens can only attend to previous positions (and themselves). This is enforced by setting the upper-triangular portion of the attention score matrix to $-\infty$ before softmax, producing zero weights for future positions. This preserves the autoregressive property: the prediction for position $t$ depends only on positions $1, \ldots, t$.
+
+```mermaid
+graph TD
+    classDef score fill:#f1f5f9,stroke:#475569,stroke-width:2px,color:#0f172a,font-family:monospace
+    classDef mask fill:#fee2e2,stroke:#ef4444,stroke-width:2px,color:#7f1d1d,font-family:monospace
+    classDef result fill:#dcfce7,stroke:#22c55e,stroke-width:2px,color:#14532d,font-family:monospace
+
+    subgraph Step1 ["1. Raw Attention Scores (Q × Kᵀ / √d_k)"]
+        direction TB
+        S1["[ s_11, s_12, s_13 ]<br/>[ s_21, s_22, s_23 ]<br/>[ s_31, s_32, s_33 ]"]:::score
+    end
+
+    subgraph Step2 ["2. Apply Causal Mask (Add -∞ to Upper Triangle)"]
+        direction TB
+        M["[ s_11, -∞, -∞ ]<br/>[ s_21, s_22, -∞ ]<br/>[ s_31, s_32, s_33 ]"]:::mask
+    end
+
+    subgraph Step3 ["3. Softmax (Probabilities sum to 1 per row)"]
+        direction TB
+        R["[ 1.0,   0,   0 ]<br/>[ w_21, w_22,  0 ]<br/>[ w_31, w_32, w_33 ]"]:::result
+    end
+
+    S1 ==>|"Apply Mask"| M
+    M ==>|"Compute Softmax"| R
+```
 
 2. **Multi-head cross-attention.** Queries come from the decoder's previous sublayer; keys and values come from the encoder output. This is where the decoder "reads" the source sentence.
 
